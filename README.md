@@ -3,11 +3,11 @@
 ## Introducción
 
 Se trata de un proyecto para el taller de calificación profesional de la materia
-*programación avanzada* de la **Universidad de la Matanza**. [Zork](1) es un
+*programación avanzada* de la **Universidad de la Matanza**. [Zork][1] es un
 juego de ficción interactiva. En este proyecto se busca crear una versión del
 mismo en Java.  
 
-Se pueden encontrar las consignas [aquí](2)
+Se pueden encontrar las consignas [aquí][2]
 
 [1]: https://es.wikipedia.org/wiki/Zork
 [2]: https://github.com/programacion-avanzada/2020a/tree/master/consigna
@@ -15,3 +15,5 @@ Se pueden encontrar las consignas [aquí](2)
 ## Actual diagrama de clases
 
 ![Diagrama de clases](ddc-mermaid.png)
+
+
