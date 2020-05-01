@@ -1,0 +1,101 @@
+classDiagram
+class Juego {
+  +main(): void
+  +mostrarMenu(): void
+  -leerNombre(): String
+  -cargarHistoria(): void
+}
+class CargadorDeHistoria {
+  -fr: FileReader
+  -br: BufferedeReader
+  +cargarHistoria(Mapa mapa): void
+}
+class IO {
+  -nombre: String
+  +leerComando(): String
+  +imprimir(String mensaje): void
+}
+class Narrador {
+  +ejecutar(String comando): String
+  -parsear(String comando): Comando
+}
+class Comando {
+  -cmd: String
+  +ejecutar(): String
+}
+<<interface>>  Comando
+class Utility
+<<interface>> Utility
+class CharCommand
+<<interface>> CharCommand
+class Action
+<<interface>> Action
+class Character {
+  -inventario: Inventario
+  -nombre: String
+  -salud: float
+  -genero: char
+  +addItem(Item nuevoItem): boolean
+  +removeItem(Item sacar): void
+  +sumarSalud(float healthup): void
+  +restarSalud(float healthdown): void
+  +isDead(): boolean
+  +getGender(): char
+}
+<<interface>> Character
+class Jugador {
+  -score: int
+  -movimientos: int
+  +nuevoMov(): void
+  +getCantMovimientos(): int
+  +getScore(): int
+
+}
+class NPC {
+  -charla: String
+  -enemy: boolean
+  +hablar(): String
+  +isEnemy(): boolean
+  +setEnemy(): boolean
+}
+class Inventario {
+  -pesoMax: float
+  -pesoActual: float
+  +addItem(Item nuevoItem): boolean
+  +removeItem(Item sacar): void
+}
+class Item {
+  -nombre: String
+  -peso: float
+  +getPeso(): float
+}
+class Mapa {
+  -actual: Habitacion
+  +getHabitacionActual(): Habitacion
+  +moverPlayer(String direccion): boolean
+}
+class Room {
+  -nombre: String
+  -genero: char
+  -descripcion: String
+  -salidas: Room[6]
+  +getGender(): char
+  +getNombre(): String
+  +getDescription(): String
+  +getSalida(String direccion): Habitacion
+}
+CargadorDeHistoria --* Juego
+IO --* Juego
+Narrador --* Juego
+Mapa --* Juego
+Comando --o Narrador
+Comando <|-- Utility : implements
+Comando <|-- Action : implements
+Comando <|-- CharCommand : implements
+Character <|-- Jugador : implements
+Character <|-- NPC : implements
+Item --o Inventario
+Inventario --o Character
+Room --* Mapa
+Character --o Room
+Item --o Room
