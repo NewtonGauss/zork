@@ -1,0 +1,3 @@
+Implemente el Test de Inventario
+
+Arraque la clase de sitio

@@ -3,8 +3,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class Test {
 
 	@org.junit.jupiter.api.Test
-	void test() {
-		fail("Not yet implemented");
+	void test1() {
+		Invetario inventario = new Inventario()
 	}
 
 }
