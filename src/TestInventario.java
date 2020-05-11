@@ -4,7 +4,7 @@ class Test {
 
 	@org.junit.jupiter.api.Test
 	void test1() {
-		Invetario inventario = new Inventario()
+		Inventario inventario = new Inventario();
 	}
 
 }

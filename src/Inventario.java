@@ -2,8 +2,8 @@ import java.util.Hashtable;
 
 public class Inventario {
 	
-	Double pesoMax=200.0;
-	Double pesoActual=0.0;
+	private Double pesoMax=200.0;
+	private Double pesoActual=0.0;
 	Hashtable<String, Item> inventario = new Hashtable<>();
 	
 	

@@ -1,8 +1,8 @@
 
 public class Sitio {
 	
-	String nombre;
-	char gender;
-	char number;
-	Item[] items;
+	private String nombre;
+	private char gender;
+	private char number;
+	private Item[] items;
 }

@@ -1,11 +1,11 @@
 
 public abstract class Character {
 	
-	Inventario inventario;
-	String nombre;
-	float salud;
+	private Inventario inventario;
+	private String nombre;
+	private float salud;
 //	float saludMaxima
-	char genero;
+	private char genero;
 	
 	public abstract boolean addItem(Item nuevoItem);
 	
