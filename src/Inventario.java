@@ -24,6 +24,10 @@ public class Inventario {
 		return sacar;
 	}
 	
+	public Item getItem(String nombre) {
+		return inventario.get(nombre);
+	}
+	
 	
 	/* ES DE  PRUEBA, SE PODRIA IMPLEMENTAR PARA QUE DEVUELVA LA HASHTABLE */
 	public void getItems() {
