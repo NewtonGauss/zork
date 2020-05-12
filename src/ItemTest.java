@@ -6,23 +6,38 @@ import com.google.gson.JsonParser;
 
 class ItemTest
 {
+	private String json = " {\n" + 
+			"      \"name\": \"barreta\",\n" + 
+			"      \"gender\": \"female\",\n" + 
+			"      \"number\": \"singular\",\n" + 
+			"      \"actions\": [\n" + 
+			"        \"usar\"\n" + 
+			"      ],\n" + 
+			"      \"effects_over\": [\n" + 
+			"        \"npcs\",\n" + 
+			"        \"self\",\n" + 
+			"        \"item\"\n" + 
+			"      ]\n" + 
+			"    }";
 
 	@Test
-	void test() {
-		String json = " {\n" + 
-				"      \"name\": \"barreta\",\n" + 
-				"      \"gender\": \"female\",\n" + 
-				"      \"number\": \"singular\",\n" + 
-				"      \"actions\": [\n" + 
-				"        \"usar\"\n" + 
-				"      ],\n" + 
-				"      \"effects_over\": [\n" + 
-				"        \"npcs\",\n" + 
-				"        \"self\",\n" + 
-				"        \"item\"\n" + 
-				"      ]\n" + 
-				"    }";
+	void test01() {
 		Item i = new Item(JsonParser.parseString(json));
+		assertEquals("la barreta", i.toString());
+	}
+	
+	@Test
+	void test02() {
+		Item i = new Item(JsonParser.parseString(json));
+		assertEquals(true, i.esObjetivoValido("npcs"));
+		assertEquals(false, i.esObjetivoValido("room"));
+	}
+
+	@Test
+	void test03() {
+		Item i = new Item(JsonParser.parseString(json));
+		assertEquals(true, i.esUsoValido("usar"));
+		assertEquals(false, i.esUsoValido("atacar"));
 	}
 
 }
