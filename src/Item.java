@@ -1,24 +1,54 @@
-import java.util.Hashtable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Item {
-	
-	String nombre;
-	Double peso;
-	char gender; //Necesario?
-	char number; //Necesario? Podriamos simplificar poniendo un solo item y luego si funciona mejorarlo para que sirva para varios.
-	String[] acciones; 
-	String[] afecta;
-	Hashtable<String, Double> info = new Hashtable<String, Double>(){{put("Espada Larga", 25.3); put("Manzana", 2.0); put("Huevo Kinder", 66.6);}};
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
-	public Item(String nombre) {
-		this.nombre = nombre;
-		this.peso = info.get(nombre);
+public class Item
+{
+
+	private String nombre;
+	private Double peso;
+	private char gender;
+	private char number;
+	private List<String> accionesValidas = new ArrayList<String>();
+	private List<String> afecta = new ArrayList<String>();
+
+	/*
+	 * Crea el objeto desde un elemento JSON.
+	 */
+	public Item(JsonElement json) {
+		JsonObject jobject = json.getAsJsonObject();
+		nombre = jobject.get("name").getAsString();
+		peso = 10d; // TODO poner el peso en el .zork
+		gender = jobject.get("gender").getAsString().equals("male") ? 'm' : 'f';
+		number = jobject.get("number").getAsString().equals("singular") ? 's' : 'p';
+		for (JsonElement accion : jobject.getAsJsonArray("actions"))
+			accionesValidas.add(accion.getAsString());
+		for (JsonElement effectOn : jobject.getAsJsonArray("effects_over"))
+			afecta.add(effectOn.getAsString());
 	}
-	public Double getPeso() {
-		return this.peso;
+
+	public Double getPeso() { return this.peso; }
+
+	public String getNombre() { return this.nombre; }
+
+	@Override
+	public String toString() {
+		String fraseItem = "";
+		if (number == 's')
+			fraseItem += gender == 'm' ? "el " : "la ";
+		else
+			fraseItem += gender == 'm' ? "los " : "las ";
+		return fraseItem + nombre;
 	}
-	
-	public String getNombre() {
-		return this.nombre;
+
+	public boolean esUsoValido(String uso) {
+
+		return accionesValidas.contains(uso);
+	}
+
+	public boolean esObjetivoValido(String objetivo) {
+		return afecta.contains(objetivo);
 	}
 }
