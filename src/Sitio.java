@@ -5,4 +5,6 @@ public class Sitio {
 	char gender;
 	char number;
 	Item[] items;
+	
+	
 }
