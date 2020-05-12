@@ -44,18 +44,11 @@ public class Item
 	}
 
 	public boolean esUsoValido(String uso) {
-		for (String accionValida : accionesValidas) {
-			if (uso.equals(accionValida))
-				return true;
-		}
-		return false;
+
+		return accionesValidas.contains(uso);
 	}
 
 	public boolean esObjetivoValido(String objetivo) {
-		for (String objetivoValido : afecta) {
-			if (objetivo.equals(objetivoValido))
-				return true;
-		}
-		return false;
+		return afecta.contains(objetivo);
 	}
 }
