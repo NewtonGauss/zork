@@ -20,23 +20,27 @@ class ItemTest
 			"      ]\n" + 
 			"    }";
 
+	
 	@Test
 	void test01() {
-		Item i = new Item(JsonParser.parseString(json));
+		JsonParser parser = new JsonParser();
+		Item i = new Item(parser.parse(json));
 		assertEquals("la barreta", i.toString());
 	}
 	
+	
 	@Test
 	void test02() {
-		Item i = new Item(JsonParser.parseString(json));
-		assertEquals(true, i.esObjetivoValido("npcs"));
+		JsonParser parser = new JsonParser();
+		Item i = new Item(parser.parse(json));
 		assertEquals(false, i.esObjetivoValido("room"));
 	}
 
+	
 	@Test
 	void test03() {
-		Item i = new Item(JsonParser.parseString(json));
-		assertEquals(true, i.esUsoValido("usar"));
+		JsonParser parser = new JsonParser();
+		Item i = new Item(parser.parse(json));
 		assertEquals(false, i.esUsoValido("atacar"));
 	}
 
