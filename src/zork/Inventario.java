@@ -4,9 +4,18 @@ import java.util.Iterator;
 
 public class Inventario {
 
-    private Double pesoMax = 200.0;
+    private Double pesoMax;
     private Double pesoActual = 0.0;
-    Hashtable<String, Item> inventario = new Hashtable<>();
+    private Hashtable<String, Item> inventario = new Hashtable<>();
+    
+    public Inventario() {
+	this.pesoMax = 100d;
+    }
+    
+    public Inventario(Double pesoMax) {
+	this.pesoMax = pesoMax;
+    }
+    
 
     public boolean addItem(Item nuevoItem) {
 	boolean bool = false;
