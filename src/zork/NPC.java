@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 public class NPC extends Character {
     private String charla;
     private String descripcion;
-    private String nombre;
     private boolean enemy;
     private char gender;
     private char number;
@@ -31,7 +30,14 @@ public class NPC extends Character {
     public String getDescripcion() {
 	return descripcion;
     }
+    
 
+    //PARA PROBAR EN LOS TEST
+    public void defeatEnemy() {
+    	this.salud = 0;
+    }
+    
+   
     public boolean isEnemy() {
 	return enemy;
     }
@@ -40,6 +46,10 @@ public class NPC extends Character {
 	this.enemy = enemy;
     }
 
+    public String getName() {
+    	return this.nombre;
+    }
+    
     @Override
     public String toString() {
 	String fraseItem = "";

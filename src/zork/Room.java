@@ -13,6 +13,7 @@ public class Room {
 	private String description;
 	private Hashtable<String, Sitio> sitios;
 	private Hashtable<String, Salida> salidas;
+	private Hashtable<String, NPC> npcs;
 
 	public Room(JsonElement json) {
 		JsonObject jobj = json.getAsJsonObject();
@@ -22,14 +23,23 @@ public class Room {
 		description = jobj.get("description").getAsString();
 		sitios = new Hashtable<String, Sitio>();
 		salidas = new Hashtable<String, Salida>();
+		npcs = new Hashtable<String, NPC>();
 	}
 	
-	public void addSitio(Sitio otro) {
-		this.sitios.put(otro.getNombre(), otro);
+	public void addSitio(Sitio newSitio) {
+		this.sitios.put(newSitio.getNombre(), newSitio);
+	}
+	
+	public void addSalida(Salida newSalida, String direccion) {
+		this.salidas.put(direccion, newSalida);
 	}
 	
 	public void addSalida(Salida newSalida) {
 		this.salidas.put(newSalida.getNombre(), newSalida);
+	}
+	
+	public void addNPC(NPC newNPC) {
+		this.npcs.put(newNPC.getName(), newNPC);
 	}
 	
 	public String getNombre() {
@@ -40,12 +50,17 @@ public class Room {
 		return this.description;
 	}
 	
+	
 	public Salida getSalida(String nombreSalida) {
 	    return salidas.get(nombreSalida);
 	}
 	
 	public Sitio getSitio(String nombreSitio) {
 	    return sitios.get(nombreSitio);
+	}
+	
+	public Hashtable<String, Salida> getSalidasTable() {
+		return this.salidas;
 	}
 	
 	public Iterator<Salida> getSalidas() {
