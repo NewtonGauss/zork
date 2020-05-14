@@ -20,8 +20,8 @@ Se pueden encontrar las consignas [aquí][2]
 
 Tenemos las siguientes clases a implementar. En orden de implementación:
 
-1. Items.
-2. Inventario.
+1. ~Items~.
+2. ~Inventario~.
 3. Personaje.
 4. Sitio.
 5. Room.
