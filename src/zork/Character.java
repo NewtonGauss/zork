@@ -4,8 +4,8 @@ import java.util.Iterator;
 
 public abstract class Character {
 
-    private Inventario inventario;
-    private float salud;
+    protected Inventario inventario;
+    protected float salud;
 
     public boolean addItem(Item nuevoItem) {
 	return inventario.addItem(nuevoItem);
