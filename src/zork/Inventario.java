@@ -1,3 +1,4 @@
+package zork;
 import java.util.Hashtable;
 import java.util.Iterator;
 

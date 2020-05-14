@@ -1,3 +1,4 @@
+package zork;
 
 public abstract class Character {
 	

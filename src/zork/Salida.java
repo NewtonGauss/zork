@@ -1,3 +1,4 @@
+package zork;
 
 public class Salida {
 	
