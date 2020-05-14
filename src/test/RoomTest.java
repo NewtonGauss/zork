@@ -44,19 +44,17 @@ class RoomTest {
 			
 	@Test // Pruebo la creacion de la habitacion
 	void test1() {
-		JsonParser jparser = new JsonParser();
-		Room room = new Room(jparser.parse(jsonRoom));
-		assertEquals("El muelle", room.toString());
+		Room room = new Room(JsonParser.parseString(jsonRoom));
+		assertEquals("el muelle", room.toString());
 	}
 	
 	@Test //Pruebo agregando Salida...
 	void test2() {
-		JsonParser jparser = new JsonParser();
-		Room room = new Room(jparser.parse(jsonRoom));
-		Room room2 = new Room(jparser.parse(jsonRoom2));
+		Room room = new Room(JsonParser.parseString(jsonRoom));
+		Room room2 = new Room(JsonParser.parseString(jsonRoom2));
 		Salida salida = new Salida(room2);
 		room.addSalida(salida);
-		assertEquals(salida.getClass(), room.getSalidas().get("barrio").getClass());
+		assertEquals(salida.getClass(), room.getSalida("barrio").getClass());
 	}
 
 }

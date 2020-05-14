@@ -1,18 +1,18 @@
 package zork;
-import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class Room {
 
-	String nombre;
-	char gender;
-	char number;
-	String description;
-	Hashtable<String, Sitio> sitios;
-	Hashtable<String, Salida> salidas;
+	private String nombre;
+	private char gender;
+	private char number;
+	private String description;
+	private Hashtable<String, Sitio> sitios;
+	private Hashtable<String, Salida> salidas;
 
 	public Room(JsonElement json) {
 		JsonObject jobj = json.getAsJsonObject();
@@ -20,8 +20,8 @@ public class Room {
 		gender = jobj.get("gender").getAsString().equals("male") ? 'm' : 'f';
 		number = jobj.get("number").getAsString().equals("singular") ? 's' : 'p';
 		description = jobj.get("description").getAsString();
-		Hashtable<String, Sitio> sitios = new Hashtable<String, Sitio>();
-		Hashtable<String, Salida> salidas = new Hashtable<String, Salida>();
+		sitios = new Hashtable<String, Sitio>();
+		salidas = new Hashtable<String, Salida>();
 	}
 	
 	public void addSitio(Sitio otro) {
@@ -32,14 +32,6 @@ public class Room {
 		this.salidas.put(newSalida.getNombre(), newSalida);
 	}
 	
-	public char getGender() {
-		return this.gender;
-	}
-	
-	public char getNumber() {
-		return this.number;
-	}
-	
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -48,22 +40,30 @@ public class Room {
 		return this.description;
 	}
 	
-	public Hashtable<String, Salida> getSalidas() {
-		return this.salidas;
+	public Salida getSalida(String nombreSalida) {
+	    return salidas.get(nombreSalida);
 	}
 	
-	public Hashtable<String, Sitio> getSitios() {
-		return this.sitios;
+	public Sitio getSitio(String nombreSitio) {
+	    return sitios.get(nombreSitio);
+	}
+	
+	public Iterator<Salida> getSalidas() {
+		return this.salidas.values().iterator();
+	}
+	
+	public Iterator<Sitio> getSitios() {
+		return this.sitios.values().iterator();
 	}
 	
 	@Override
 	public String toString() {
 		String retorno;
 		if(number == 's') 
-			retorno = gender=='m'? "El " + this.nombre : "La " + this.nombre;
+			retorno = gender=='m'? "el " + this.nombre : "la " + this.nombre;
 		
 		else
-			retorno = gender=='m'? "Los " + this.nombre : "Las " + this.nombre;
+			retorno = gender=='m'? "los " + this.nombre : "las " + this.nombre;
 		
 		return retorno;
 
