@@ -4,7 +4,7 @@ import java.util.Hashtable;
 
 public class Mapa {
 
-	Room actual;
+	//Room actual;
 	Hashtable<String, Room> habitaciones = new Hashtable<String, Room>();
 	
 	public Room getHabitacionActual() {

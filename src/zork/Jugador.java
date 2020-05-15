@@ -7,6 +7,7 @@ public class Jugador extends Character {
 	
 	private int movimientos;
 	private int score;
+	private Room habitacionActual;
 	
 	public Jugador(JsonElement json) {
 		JsonObject jobj = json.getAsJsonObject();
@@ -15,6 +16,7 @@ public class Jugador extends Character {
 		movimientos = 0;
 		score = 0;
 		salud = 100;
+		
 		
 	}
 	
@@ -33,4 +35,30 @@ public class Jugador extends Character {
 	public int getScore() {
 		return this.score;
 	}
+	
+	public void setHabitacionActual(Room room)
+	{
+		this.habitacionActual=room;
+	}
+	
+	public Room getHabitacionActual()
+	{
+		return this.habitacionActual;
+	}
+	//vamos a cambiar la forma de mostrar la habitacion actula pasandole esa responsabilidad al jugador
+	public boolean mover(String direction)
+	{	
+		try {
+			Room raux=habitacionActual.getSalidasTable().get(direction).getRoom();
+			if(habitacionActual.getSalidasTable().get(direction).isEnemyDefeated())
+				{habitacionActual=raux;
+					return true;
+				}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	//tambien le pasamos la responsabilidad de moverse al jugador y se la quitamos a mapa, mapa es una clase que esta quedando sin responsabilidad, deberiamos quitarla
 }
