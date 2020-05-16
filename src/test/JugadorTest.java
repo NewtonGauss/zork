@@ -79,6 +79,7 @@ class JugadorTest {
 		jugador.setHabitacionActual(r);
 		assertEquals(r, jugador.getHabitacionActual());
 	}
+	
 	@Test
 	void testMober() {
 		Room room1 = new Room(JsonParser.parseString(jsonRoom));
