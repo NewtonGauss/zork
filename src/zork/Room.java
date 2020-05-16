@@ -5,14 +5,14 @@ import java.util.Iterator;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class Room {
+public class Room {//locations
 
 	private String nombre;
 	private char gender;
 	private char number;
 	private String description;
-	private Hashtable<String, Sitio> sitios;
-	private Hashtable<String, Salida> salidas;
+	private Hashtable<String, Sitio> sitios;//place
+	private Hashtable<String, Salida> salidas;//connections
 	private Hashtable<String, NPC> npcs;
 
 	public Room(JsonElement json) {
