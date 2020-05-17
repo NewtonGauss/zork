@@ -55,7 +55,8 @@ public class Jugador extends Character {
 		try {
 			Room raux=habitacionActual.getSalidasTable().get(direction).getRoom();
 			if(habitacionActual.getSalidasTable().get(direction).isEnemyDefeated())
-				{habitacionActual=raux;
+				{
+					habitacionActual=raux;
 					return true;
 				}
 		} catch (Exception e) {
