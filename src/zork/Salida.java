@@ -10,13 +10,21 @@ public class Salida {
 	// PARA PROBAR TEST
 	public Salida(Room room) {
 		this.salida = room;
-		this.defeated = true;
-		
+		this.defeated = true;	
 	}
 	
 	public void addNPC(NPC newObstacle) {
 		this.obstacle = newObstacle;
 		this.defeated = false;
+	}
+	
+	public boolean removeNPC(String nombre) {
+	    boolean rta = false;
+	    if (obstacle.getName().equals(nombre)) {
+		defeated = rta = true;
+		obstacle = null;
+	    }
+	    return rta;
 	}
 	
 	public boolean isEnemyDefeated() {

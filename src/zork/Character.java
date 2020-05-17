@@ -7,6 +7,7 @@ public abstract class Character {
 	protected Inventario inventario;
 	protected float salud;
 	protected String nombre;
+	protected Room habitacionActual;
 
 	public boolean addItem(Item nuevoItem) {
 		return inventario.addItem(nuevoItem);
@@ -42,6 +43,10 @@ public abstract class Character {
 
 	public boolean isDead() {
 		return this.salud == 0 ? true : false;
+	}
+
+	public Room getHabitacionActual() {
+		return this.habitacionActual;
 	};
 	
 	

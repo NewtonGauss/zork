@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.Character;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
@@ -62,7 +63,7 @@ class JugadorTest {
 
 	@Test // Le agrego un item al jugador y  lo devuelvo.
 	void test3() {
-		Jugador player = new Jugador(JsonParser.parseString(jsonPlayer));
+		Character player = new Jugador(JsonParser.parseString(jsonPlayer));
 		Item item = new Item(JsonParser.parseString(jsonItem));
 		assertEquals(true, player.addItem(item));
 		Iterator<Item> i = player.getItems();
@@ -90,7 +91,7 @@ class JugadorTest {
 		salida.addNPC(npc);
 		room1.addSalida(salida,"north");
 		assertEquals(false, salida.isEnemyDefeated());
-		npc.defeatEnemy();
+		npc.killNPC();
 		assertEquals(true, salida.isEnemyDefeated());
 		Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 		jugador.setHabitacionActual(room1);

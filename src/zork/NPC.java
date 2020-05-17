@@ -31,12 +31,9 @@ public class NPC extends Character {
 	return descripcion;
     }
     
-
-    //PARA PROBAR EN LOS TEST
-    public void defeatEnemy() {
+    public void killNPC() {
     	this.salud = 0;
     }
-    
    
     public boolean isEnemy() {
 	return enemy;

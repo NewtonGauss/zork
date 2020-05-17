@@ -41,7 +41,7 @@ class SalidaTest {
 		salida.addNPC(npc);
 		room1.addSalida(salida);
 		assertEquals(false, salida.isEnemyDefeated());
-		npc.defeatEnemy();
+		npc.killNPC();
 		assertEquals(true, salida.isEnemyDefeated());
 	}
 	
@@ -56,7 +56,7 @@ class SalidaTest {
 		room1.addSalida(salida);
 		assertEquals(room2.getNombre(), room1.getSalida("barrio").getNombre());
 		assertEquals(false, room1.getSalida("barrio").isEnemyDefeated());
-		npc.defeatEnemy();
+		npc.killNPC();
 		assertEquals(true , room1.getSalida("barrio").isEnemyDefeated());
 
 	}
