@@ -14,6 +14,7 @@ public class Item
 	private char number;
 	private List<String> accionesValidas = new ArrayList<String>();
 	private List<String> afecta = new ArrayList<String>();
+	private String tipo;
 
 	/*
 	 * Crea el objeto desde un elemento JSON.
@@ -21,7 +22,9 @@ public class Item
 	public Item(JsonElement json) {
 		JsonObject jobject = json.getAsJsonObject();
 		nombre = jobject.get("name").getAsString();
-		peso = 10d; // TODO poner el peso en el .zork
+		//peso = 10d; // TODO poner el peso en el .zork
+		peso = jobject.get("weight").getAsDouble();
+		tipo = jobject.get("type").getAsString();
 		gender = jobject.get("gender").getAsString().equals("male") ? 'm' : 'f';
 		number = jobject.get("number").getAsString().equals("singular") ? 's' : 'p';
 		for (JsonElement accion : jobject.getAsJsonArray("actions"))
@@ -33,6 +36,8 @@ public class Item
 	public Double getPeso() { return this.peso; }
 
 	public String getNombre() { return this.nombre; }
+	
+	public String getTipo() { return this.tipo; }
 
 	@Override
 	public String toString() {
