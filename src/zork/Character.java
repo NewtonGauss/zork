@@ -43,5 +43,7 @@ public abstract class Character {
 	public boolean isDead() {
 		return this.salud == 0 ? true : false;
 	};
+	
+	
 
 }

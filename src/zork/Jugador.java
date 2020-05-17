@@ -28,6 +28,10 @@ public class Jugador extends Character {
 		return this.nombre;
 	}
 	
+	public float getSalud() {
+		return this.salud;
+	}
+	
 	public int getCantMovimientos() {
 		return this.movimientos;
 	}
