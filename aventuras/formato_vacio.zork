@@ -1,0 +1,88 @@
+{
+  "settings": {
+    "welcome": { String -> mensaje que aparece al inicio del juego }
+    "character": { String -> nombre del jugador // a punto de ser borrado }
+		"info": { String -> mensaje que se le dara al jugador cuando pida info de la aventura }
+  },
+  "locations": [ { Array -> todas las habitaciones del juego }
+    {
+      "name": { String -> nombre de la habitacion }
+      "gender": { String -> male o female // para nada inclusive }
+      "number": { String -> plural o singular }
+      "description": { String -> mensaje que aparece cada vez que el jugador entre a la habitacion o haga look }
+      "places": [ { Array -> todos los sitios de la habitacion }
+        {
+          "name": { String -> nombre del sitio }
+					"gender":
+          "number": 
+          "items": [ { Array -> tan solo el nombre de un item existente }
+            { String -> nombre del item }
+          ]
+        }
+      ],
+      "npcs": [ { Array -> tan solo el nombre del npc }
+				{ String -> nombre del npc }
+			],
+      "connections": [ { Array -> salidas de la habitacion }
+        {
+          "direction": { String -> south, north, east, west, up, down }
+          "location": { String -> location existente }
+          "obstacles": { String -> "none" o el nombre de un npc }
+        }
+      ]
+    }
+  ],
+  "npcs": [ { Array -> todos los npcs del juego }
+    {
+      "name": { String }
+      "gender": 
+      "number":
+      "description": { String -> lo que se dira cuando se use look sobre el npc }
+      "talk": { String }
+			"points": { Entero -> puntaje por hablar o matar al npc }
+			"enemy": { Boolean -> indica si se trata de un enemigo o no }
+			"health": { Entero -> Salud inicial del npc }
+			"inventory": [ { Array }
+				{ String -> el nombre del objeto }
+			],
+      "triggers": [ { Array -> lo que hace que el npc haga algo especial }
+        {
+          "type": { String -> item, atack o talk }
+          "thing": { String -> si se elige item o attack hay que indicar de cual se trata o poner all }
+          "on_trigger": { String -> mensaje despues de iniciar el trigger }
+          "after_trigger": { String -> que hacer con el npc una vez finalizado. nothing, remove, kill, defeat }
+        }
+      ]
+    }
+  ],
+  "items": [ { Array }
+    {
+      "name": { String }
+      "gender": 
+      "number":
+			"points": { Entero -> puntaje por agarrarlo }
+			"weight": { Float -> peso del item }
+			"type": { String -> weapon, potion, poison, vanilla }
+      "actions": [ { Array de acciones validas que el jugador puede efectuar }
+        { String -> usar, tomar, dar, poner, soltar, atacar }
+      ],
+      "effects_over": [ { Array donde se especifica a que afecta }
+        "npcs",
+        "self",
+        "item"
+				{ String -> item, npcs, self (refiriendose al jugador) }
+      ]
+    }
+  ],
+  "inventory": [ { Array -> objetos con los que arranca el jugador }
+		{ String con el nombre del item }
+	],
+  "endgames": [ { Array -> finales del juego }
+    {
+      "condition": { String -> location, action }
+      "action": { String -> Si se trata de una accion, se debe describir de cual se trata }
+      "thing": { String -> Se indica el objeto sobre el cual se debe realizar la accion o none. O se indica la habitacion final }
+      "description": { String -> final del juego }
+    }
+  ]
+}
