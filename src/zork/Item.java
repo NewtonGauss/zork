@@ -12,6 +12,7 @@ public class Item
 	private Double peso;
 	private char gender;
 	private char number;
+	private int points;
 	private List<String> accionesValidas = new ArrayList<String>();
 	private List<String> afecta = new ArrayList<String>();
 
@@ -21,7 +22,8 @@ public class Item
 	public Item(JsonElement json) {
 		JsonObject jobject = json.getAsJsonObject();
 		nombre = jobject.get("name").getAsString();
-		peso = 10d; // TODO poner el peso en el .zork
+		peso = jobject.get("weight").getAsDouble();
+		points = jobject.get("points").getAsInt();
 		gender = jobject.get("gender").getAsString().equals("male") ? 'm' : 'f';
 		number = jobject.get("number").getAsString().equals("singular") ? 's' : 'p';
 		for (JsonElement accion : jobject.getAsJsonArray("actions"))
@@ -51,5 +53,9 @@ public class Item
 
 	public boolean esObjetivoValido(String objetivo) {
 		return afecta.contains(objetivo);
+	}
+
+	public int getPoints() {
+	    return points;
 	}
 }
