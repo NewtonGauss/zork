@@ -1,5 +1,7 @@
 package test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
@@ -61,12 +63,12 @@ class AtacarComandoTest {
 			Room room = new Room(JsonParser.parseString(jsonRoom));
 			NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 			Item item = new Item(JsonParser.parseString(jsonItem));
-			j1.addItem(item);
 			AtacarConComando acc = new AtacarConComando();
+			j1.addItem(item);
 			room.addNPC(npc);
 			j1.setHabitacionActual(room);
 			
-			System.out.println(acc.ejecutar(j1, item.getNombre()+":"+npc.getName()));
+			assertEquals("Maxi Hiena: Uhhh me rompiste la gorra", acc.ejecutar(j1, item.getNombre()+":"+npc.getName()));
 			
 			
 			
