@@ -1,26 +1,64 @@
 package zork;
 
+import java.util.Hashtable;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class NPC extends Character {
+    public static final String TALK = "talk";
+    public static final String ATTACK = "attack";
+    public static final String ITEM = "item";
     private String charla;
     private String descripcion;
     private boolean enemy;
     private char gender;
     private char number;
-    // TODO agregar triggers
+    private Hashtable<String, Trigger> triggers = new Hashtable<String, Trigger>();
 
     public NPC(JsonElement json) {
 	JsonObject jobject = json.getAsJsonObject();
 	nombre = jobject.get("name").getAsString();
 	descripcion = jobject.get("description").getAsString();
-	charla = jobject.get("talk").getAsString();
+	charla = jobject.get(TALK).getAsString();
 	gender = jobject.get("gender").getAsString().equals("male") ? 'm' : 'f';
 	number = jobject.get("number").getAsString().equals("singular") ? 's' : 'p';
-	// TODO agregar triggers
 	inventario = new Inventario();
-	salud = 100; // TODO agregar al formato
+	salud = jobject.get("health").getAsFloat();
+	for (JsonElement trigger : jobject.getAsJsonArray("triggers")) {
+	    addTrigger(trigger);
+	}
+    }
+
+    private void addTrigger(JsonElement trigger) {
+	JsonObject triggerObj = trigger.getAsJsonObject();
+	switch (triggerObj.get("type").getAsString()) {
+	case ITEM:
+	    triggers.put(ITEM,new UsarItemTrigger(trigger));
+	    break;
+	case ATTACK:
+	    triggers.put(ATTACK,new UsarItemTrigger(trigger));
+	    break;
+	case TALK:
+	    triggers.put(TALK,new Trigger(trigger));
+	    break;
+	}
+    }
+    
+    public String ejecutarTrigger(String tipoTrigger, String objetoActivador) {
+	String mensaje = null;
+	switch (tipoTrigger) {
+	case ITEM:
+	    mensaje = triggers.get(ITEM).ejecutar(this, objetoActivador);
+	    break;
+	case ATTACK:
+	    mensaje = triggers.get(ATTACK).ejecutar(this, objetoActivador);
+	    break;
+	case TALK:
+	    mensaje = triggers.get(TALK).ejecutar(this, objetoActivador);
+	    break;
+	}
+	return mensaje;
     }
 
     public String hablar() {
@@ -30,11 +68,11 @@ public class NPC extends Character {
     public String getDescripcion() {
 	return descripcion;
     }
-    
+
     public void killNPC() {
-    	this.salud = 0;
+	this.salud = 0;
     }
-   
+
     public boolean isEnemy() {
 	return enemy;
     }
@@ -44,9 +82,9 @@ public class NPC extends Character {
     }
 
     public String getName() {
-    	return this.nombre;
+	return this.nombre;
     }
-    
+
     @Override
     public String toString() {
 	String fraseItem = "";
