@@ -26,6 +26,12 @@ public class Sitio {
 	items.put(newItem.getNombre(), newItem);
     }
 
+    /* 
+     * getItem remueve el item de la tabla. Para ver los 
+     * items conviene usar getItem*s* que devuelve la coleccion
+     * entera. Solo se va a querer tomar un solo item del sitio 
+     * para sacarlo.
+     */
     public Item getItem(String nombreItem) {
 	return items.remove(nombreItem);
     }

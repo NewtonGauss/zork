@@ -19,11 +19,22 @@ class JugadorTest {
 
 	String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
 
-	String jsonItem = " {\n" + "      \"name\": \"barreta\",\n" + "      \"gender\": \"female\",\n"
-		    + "      \"number\": \"singular\",\n" + "\t\t\t\"weight\": \"10\",\n" + "\t\t\t\"type\": \"weapon\",\n" 
-	    	+"      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n"
-		    + "      \"effects_over\": [\n" + "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n"
-		    + "      ]\n" + "    }";
+	String jsonItem = " {\n" + 
+		"      \"name\": \"barreta\",\n" + 
+		"      \"gender\": \"female\",\n" + 
+		"      \"number\": \"singular\",\n" + 
+		"			\"points\": \"100\",\n" + 
+		"			\"weight\": \"10\",\n" + 
+		"			\"type\": \"weapon\",\n" + 
+		"      \"actions\": [\n" + 
+		"        \"usar\"\n" + 
+		"      ],\n" + 
+		"      \"effects_over\": [\n" + 
+		"        \"npcs\",\n" + 
+		"        \"self\",\n" + 
+		"        \"item\"\n" + 
+		"      ]\n" + 
+		"    }";
 	String jsonRoom =  "{\n"
 			+ " \"name\": \"muelle\" ,\n"
 		    + " \"gender\": \"male\" ,\n"
@@ -35,12 +46,25 @@ class JugadorTest {
 		    + " \"number\": \"singular\" ,\n"
 		    + " \"description\": \"Estas en un barrio\" }" ;
 	
-	 String jsonNPC =  "{\n"
-		      + "\"name\": \"pirata fantasma\" , \n"
-		      + "\"gender\": \"male\" , \n"
-		      + "\"number\": \"singular\" , \n"
-		      + "\"description\": \"Aqui no puedes pasar! El pirata fantasma no te dejara pasar\" , \n"
-		      + "\"talk\": \"No hay nada que me digas que me haga cambiar de opinion!\"}";
+	 String jsonNPC =  "{\n" + 
+	 	"      \"name\": \"pirata fantasma\",\n" + 
+	 	"      \"gender\": \"male\",\n" + 
+	 	"      \"number\": \"singular\",\n" + 
+	 	"      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n" + 
+	 	"      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n" + 
+	 	"			\"points\": \"100\",\n" + 
+	 	"			\"enemy\": \"false\",\n" + 
+	 	"			\"health\": \"100\",\n" + 
+	 	"			\"inventory\": [],\n" + 
+	 	"      \"triggers\": [\n" + 
+	 	"        {\n" + 
+	 	"          \"type\": \"item\",\n" + 
+	 	"          \"thing\": \"rociador con cerveza de raiz\",\n" + 
+	 	"          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n" + 
+	 	"          \"after_trigger\": \"remove\"\n" + 
+	 	"        }\n" + 
+	 	"      ]\n" + 
+	 	"    }";
 
 	@Test // Testeo el constructor de Jugador
 	void test() {

@@ -30,18 +30,21 @@ class RoomTest {
 		    + " \"number\": \"singular\" }" ;
 			
 	 String jsonItem = " {\n" + 
-			"      \"name\": \"barreta\",\n" + 
-			"      \"gender\": \"female\",\n" + 
-			"      \"number\": \"singular\",\n" + 
-			"      \"actions\": [\n" + 
-			"        \"usar\"\n" + 
-			"      ],\n" + 
-			"      \"effects_over\": [\n" + 
-			"        \"npcs\",\n" + 
-			"        \"self\",\n" + 
-			"        \"item\"\n" + 
-			"      ]\n" + 
-			"    }";
+	 	"      \"name\": \"barreta\",\n" + 
+	 	"      \"gender\": \"female\",\n" + 
+	 	"      \"number\": \"singular\",\n" + 
+	 	"			\"points\": \"100\",\n" + 
+	 	"			\"weight\": \"10\",\n" + 
+	 	"			\"type\": \"weapon\",\n" + 
+	 	"      \"actions\": [\n" + 
+	 	"        \"usar\"\n" + 
+	 	"      ],\n" + 
+	 	"      \"effects_over\": [\n" + 
+	 	"        \"npcs\",\n" + 
+	 	"        \"self\",\n" + 
+	 	"        \"item\"\n" + 
+	 	"      ]\n" + 
+	 	"    }";
 	
 	@Test // Pruebo la creacion de la habitacion
 	void test1() {
@@ -74,7 +77,7 @@ class RoomTest {
 		Item item = new Item(JsonParser.parseString(jsonItem));
 		sitio.addItem(item);
 		room.addSitio(sitio);
-		assertEquals(sitio.getItem(item.getNombre()), room.getSitio("suelo").getItem("barreta"));
+		assertEquals(item, room.getSitio("suelo").getItem("barreta"));
 	}
 	
 
