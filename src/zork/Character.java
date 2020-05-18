@@ -1,5 +1,6 @@
 package zork;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 public abstract class Character {
@@ -23,7 +24,7 @@ public abstract class Character {
 		return bool;
 	}
 
-	public Iterator<Item> getItems() {
+	public Collection<Item> getItems() {
 		return inventario.getItems();
 	}
 

@@ -62,7 +62,7 @@ class InventarioTest {
 	i.addItem(item2);
 	assertEquals("barreta", i.getItem("barreta").getNombre());
 	assertEquals("barreta2", i.getItem("barreta2").getNombre());
-	Iterator<Item> iterator = i.getItems();
+	Iterator<Item> iterator = i.getItems().iterator();
 	Item itemActual = iterator.next();
 	assertEquals("barreta", itemActual.getNombre());
 	itemActual = iterator.next();

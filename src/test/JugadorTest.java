@@ -67,7 +67,7 @@ class JugadorTest {
 		Character player = new Jugador(JsonParser.parseString(jsonPlayer));
 		Item item = new Item(JsonParser.parseString(jsonItem));
 		assertEquals(true, player.addItem(item));
-		Iterator<Item> i = player.getItems();
+		Iterator<Item> i = player.getItems().iterator();
 		while(i.hasNext()) {
 			Item aux = i.next();
 			assertEquals("barreta", aux.getNombre());

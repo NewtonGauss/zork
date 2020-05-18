@@ -1,5 +1,6 @@
 package zork;
 
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
 
@@ -37,8 +38,8 @@ public class Inventario {
 		return inventario.get(nombre);
 	}
 
-	public Iterator<Item> getItems() {
-		return inventario.values().iterator();
+	public Collection<Item> getItems() {
+		return inventario.values();
 	}
 
 	public Double getPesoActual() {
