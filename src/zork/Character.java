@@ -48,6 +48,10 @@ public abstract class Character {
 
 	public Room getHabitacionActual() {
 		return this.habitacionActual;
+	}
+
+	public void setHabitacionActual(Room habitacionActual) {
+	    this.habitacionActual = habitacionActual;
 	};
 	
 	

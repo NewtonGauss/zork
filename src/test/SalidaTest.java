@@ -71,8 +71,41 @@ class SalidaTest {
 		assertEquals(false, room1.getSalida("barrio").isEnemyDefeated());
 		npc.killNPC();
 		assertEquals(true , room1.getSalida("barrio").isEnemyDefeated());
-
+	}
+	
+	/*
+	 * Debido a que existe un trigger que remueve a un npc de una habitacion,
+	 * pruebo si al hacer esto efectivamente me indica que el enemigo ha sido 
+	 * derrotado
+	 */
+	@Test
+	void testRemove() {
+	    	Room room1 = new Room(JsonParser.parseString(jsonRoom));
+		Room room2 = new Room(JsonParser.parseString(jsonRoom2));
+		NPC npc = new NPC(JsonParser.parseString(jsonNPC));
+		Salida salida = new Salida(room2);
+		npc.setEnemy(true);
+		salida.addNPC(npc);
+		assertEquals(false, salida.isEnemyDefeated());
+		salida.removeNPC(npc.getName());
+		assertEquals(true, salida.isEnemyDefeated());
 	}
 
+	/*
+	 * Pruebo una ejecucion comun
+	 */
+	@Test
+	void testComun() {
+		Room room1 = new Room(JsonParser.parseString(jsonRoom));
+		Room room2 = new Room(JsonParser.parseString(jsonRoom2));
+		NPC npc = new NPC(JsonParser.parseString(jsonNPC));
+		Salida salida = new Salida(room2);
+		room1.addSalida(salida, "north");
+		salida.addNPC(npc);
+		assertEquals(false, room1.getSalida("north").isEnemyDefeated());
+		npc.ejecutarTrigger("item", "rociador con cerveza de raiz");
+		assertTrue(room1.getSalida("north").isEnemyDefeated());
+		assertEquals(room2, room1.getSalida("north").getRoom());
+	}
 
 }

@@ -3,6 +3,7 @@ package zork;
 public class Salida {
 	
 	private Room salida;
+	private Room vieneDe;
 	private NPC obstacle;
 	private boolean defeated;
 	
@@ -14,6 +15,7 @@ public class Salida {
 	}
 	
 	public void addNPC(NPC newObstacle) {
+	    	newObstacle.setHabitacionActual(vieneDe);
 		this.obstacle = newObstacle;
 		this.defeated = false;
 	}
@@ -28,7 +30,7 @@ public class Salida {
 	}
 	
 	public boolean isEnemyDefeated() {
-		if(obstacle.isDead())
+		if(!defeated && obstacle.isDead())
 			defeated = true;
 		return defeated;
 	}
@@ -39,5 +41,9 @@ public class Salida {
 	
 	public String getNombre() {
 		return this.salida.getNombre();
+	}
+
+	public void setVieneDe(Room vieneDe) {
+	    this.vieneDe = vieneDe;
 	}
 }

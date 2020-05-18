@@ -31,6 +31,7 @@ public class Room {// locations
     }
 
     public void addSalida(Salida newSalida, String direccion) {
+	newSalida.setVieneDe(this);
 	this.salidas.put(direccion, newSalida);
     }
 
@@ -46,10 +47,8 @@ public class Room {// locations
 	boolean rta = false;
 	for (Iterator<Salida> it = salidas.values().iterator(); it.hasNext();) {
 	    Salida salida = (Salida) it.next();
-	    if (salida.getNombre().equals(nombre)) {
-		rta = salida.removeNPC(nombre);
+	    if (salida.removeNPC(nombre))
 		break;
-	    }
 	}
 	return npcs.remove(nombre) != null || rta;
     }
@@ -83,6 +82,10 @@ public class Room {// locations
     }
 
     public Hashtable<String, NPC> getNPC(){
+	// hay que hacer que tambien de los de la salida,
+	// porque aunque esten en salida, son de esta habitacion
+	// ya que lo unico que hacen es obstaculizar el paso
+	// hacia la siguiente habitacion
     	return this.npcs;
     }
     
