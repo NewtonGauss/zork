@@ -2,17 +2,17 @@ package zork;
 
 public class Diagnostico implements Comando{
 	@Override
-	public String ejecutar(Jugador jugador) {
+	public String ejecutar(Jugador jugador, String restoDelComando) {
 		float salud=jugador.getSalud();
 		String diagnostico;
 		if(salud==100) {
-			diagnostico="Tu estado de salud es perfecto ("+salud+"), solo te podría matar una seria herida";
+			diagnostico="Tu estado de salud es perfecto ("+salud+"), solo te podrï¿½a matar una seria herida";
 		}else if(salud<100 && salud>70) {
 			diagnostico="Tu estado de salud es bueno ("+salud+")";
 		}else if(salud<70 && salud>30) {
-			diagnostico="Tu estado de salud no es muy bueno ("+salud+"), será mejor que encuentres algo para curarte";
+			diagnostico="Tu estado de salud no es muy bueno ("+salud+"), serï¿½ mejor que encuentres algo para curarte";
 		}else {
-			diagnostico="Tu estado de salud es bajo ("+salud+"), ¡hasta un rasguño podría ser peligroso!";
+			diagnostico="Tu estado de salud es bajo ("+salud+"), ï¿½hasta un rasguï¿½o podrï¿½a ser peligroso!";
 		}
 		return diagnostico;
 	}
