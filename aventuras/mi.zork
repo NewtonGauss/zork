@@ -90,7 +90,6 @@
 			"points": "100",
 			"weight": "10",
 			"type": "vanilla",
-			"actions": [
       "actions": [
         "usar"
       ],
