@@ -67,7 +67,7 @@ class InventarioTest {
 	assertEquals("barreta", itemActual.getNombre());
 	itemActual = iterator.next();
 	assertEquals("barreta2", itemActual.getNombre());
-	assertEquals(20d, i.getPesoActual());
+	assertEquals((Double) 20.0, i.getPesoActual());
     }
 
 }

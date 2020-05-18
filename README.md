@@ -37,8 +37,8 @@ Tenemos las siguientes clases a implementar. En orden de implementación:
     6. ~Movimientos~
     7. ~Inventario~
     8. ~Diagnostico~
-    9. Mirar
-    10. AtacarCon
+    9.	 ~Mirar~
+    10. ~AtacarCon~
     11. Dar
     12. Tomar(agarrar)
     13. Poner

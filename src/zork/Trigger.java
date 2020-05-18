@@ -14,7 +14,7 @@ public class Trigger {
        mensaje = jobject.get("on_trigger").getAsString();
        afterTrigger = jobject.get("after_trigger").getAsString();
    }
-    
+   
     public String ejecutar(NPC npc, String activador) {
 	switch (afterTrigger) {
 	case "kill":

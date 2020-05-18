@@ -2,8 +2,6 @@ package zork;
 
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.function.BiConsumer;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -84,6 +82,10 @@ public class Room {// locations
 	return this.sitios.values().iterator();
     }
 
+    public Hashtable<String, NPC> getNPC(){
+    	return this.npcs;
+    }
+    
     @Override
     public String toString() {
 	String retorno;

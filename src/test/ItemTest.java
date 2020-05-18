@@ -114,7 +114,7 @@ class ItemTest {
     void testGetters() {
 	Item i = new Item(JsonParser.parseString(json));
 	assertEquals("barreta", i.getNombre());
-	assertEquals(10d, i.getPeso());
+	assertEquals((Double) 10.0, i.getPeso());
 	assertEquals("weapon", i.getTipo());
 	assertEquals(100, i.getPoints());
     }

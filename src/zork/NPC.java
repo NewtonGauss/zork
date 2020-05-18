@@ -1,7 +1,6 @@
 package zork;
 
 import java.util.Hashtable;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -25,6 +24,7 @@ public class NPC extends Character {
 	number = jobject.get("number").getAsString().equals("singular") ? 's' : 'p';
 	inventario = new Inventario();
 	salud = jobject.get("health").getAsFloat();
+	enemy = jobject.get("enemy").getAsBoolean();
 	for (JsonElement trigger : jobject.getAsJsonArray("triggers")) {
 	    addTrigger(trigger);
 	}
@@ -85,6 +85,7 @@ public class NPC extends Character {
 	return this.nombre;
     }
 
+    
     @Override
     public String toString() {
 	String fraseItem = "";
