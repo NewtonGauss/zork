@@ -104,6 +104,8 @@ class SalidaTest {
 		room1.addSalida(salida, "north");
 		room1.addObstacle(npc, "north");
 		assertEquals(false, room1.getSalida("north").isEnemyDefeated());
+		npc.ejecutarTrigger(Trigger.ITEM, "barreta");
+		assertFalse(room1.getSalida("north").isEnemyDefeated());
 		npc.ejecutarTrigger(Trigger.ITEM, "rociador con cerveza de raiz");
 		assertTrue(room1.getSalida("north").isEnemyDefeated());
 		assertEquals(room2, room1.getSalida("north").getRoom());

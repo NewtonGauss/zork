@@ -6,8 +6,10 @@ public class ComandoInventario implements Comando{
 
 	@Override
 	public String ejecutar(Jugador jugador, String restoDelComando) {
-		String listaInventario = "";
+		String listaInventario = "No tienes objetos en tu inventario\n";
 		Iterator<Item> iterator = jugador.getItems().iterator();
+		if (iterator.hasNext())
+		    listaInventario = "";
 		while(iterator.hasNext()) {
 			listaInventario += iterator.next().getNombre() + '\n';
 		}
