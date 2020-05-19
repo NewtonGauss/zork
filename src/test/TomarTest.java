@@ -70,7 +70,7 @@ class TomarTest {
 		s3.addItem(canicas);
 		j.setHabitacionActual(r);
 		Tomar c = new Tomar();
-		assertEquals("espejo tomado", c.ejecutar(j, "espejo"));
+		assertEquals("Tomaste el espejo", c.ejecutar(j, "espejo"));
 	}
 	@Test
 	void testNoHayItem() {
@@ -92,7 +92,7 @@ class TomarTest {
 		s3.addItem(canicas);
 		j.setHabitacionActual(r);
 		Tomar c = new Tomar();
-		assertEquals("no hay ningun neumatico por aqui", c.ejecutar(j, "neumatico"));
+		assertEquals("No hay ningun neumatico por aqui", c.ejecutar(j, "neumatico"));
 	}
 	@Test
 	void testNoHayEspacio() {
@@ -115,7 +115,7 @@ class TomarTest {
 		j.setHabitacionActual(r);
 		Tomar c = new Tomar();
 		j.addItem(masa);
-		assertEquals("no tienes mas espacio en tu inventario!", c.ejecutar(j, "rociador con cerveza de raiz"));
+		assertEquals("No tienes mas espacio en tu inventario!", c.ejecutar(j, "rociador con cerveza de raiz"));
 	}
 	
 	@Test
@@ -138,7 +138,7 @@ class TomarTest {
 		s3.addItem(canicas);
 		j.setHabitacionActual(r);
 		Tomar c = new Tomar();
-		assertEquals("canicas tomadas", c.ejecutar(j, "canicas"));
+		assertEquals("Tomaste las canicas", c.ejecutar(j, "canicas"));
 	}
 
 }

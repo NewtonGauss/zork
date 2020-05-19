@@ -15,6 +15,7 @@ public class Salida {
 	
 	public void addNPC(NPC newObstacle) {
 		this.obstacle = newObstacle;
+		obstacle.setEnemy(true);
 		this.defeated = false;
 	}
 	
@@ -28,7 +29,7 @@ public class Salida {
 	}
 	
 	public boolean isEnemyDefeated() {
-		if(!defeated && obstacle.isDead())
+		if(!defeated && (obstacle.isDead() || !obstacle.isEnemy()))
 			defeated = true;
 		return defeated;
 	}

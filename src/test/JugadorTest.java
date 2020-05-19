@@ -53,7 +53,7 @@ class JugadorTest {
 	 	"      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n" + 
 	 	"      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n" + 
 	 	"			\"points\": \"100\",\n" + 
-	 	"			\"enemy\": \"false\",\n" + 
+	 	"			\"enemy\": \"true\",\n" + 
 	 	"			\"health\": \"100\",\n" + 
 	 	"			\"inventory\": [],\n" + 
 	 	"      \"triggers\": [\n" + 

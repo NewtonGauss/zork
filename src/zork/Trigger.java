@@ -7,6 +7,9 @@ public class Trigger {
     protected String objetoActivador;
     protected String mensaje;
     protected String afterTrigger;
+    public static final String ITEM = "item";
+    public static final String ATTACK = "attack";
+    public static final String TALK = "talk";
     
    public Trigger(JsonElement json) {
        JsonObject jobject = json.getAsJsonObject();

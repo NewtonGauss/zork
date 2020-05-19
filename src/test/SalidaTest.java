@@ -9,6 +9,7 @@ import com.google.gson.JsonParser;
 import zork.NPC;
 import zork.Room;
 import zork.Salida;
+import zork.Trigger;
 
 class SalidaTest {
 	
@@ -31,7 +32,7 @@ class SalidaTest {
 	 	"      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n" + 
 	 	"      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n" + 
 	 	"			\"points\": \"100\",\n" + 
-	 	"			\"enemy\": \"false\",\n" + 
+	 	"			\"enemy\": \"true\",\n" + 
 	 	"			\"health\": \"100\",\n" + 
 	 	"			\"inventory\": [],\n" + 
 	 	"      \"triggers\": [\n" + 
@@ -103,7 +104,43 @@ class SalidaTest {
 		room1.addSalida(salida, "north");
 		room1.addObstacle(npc, "north");
 		assertEquals(false, room1.getSalida("north").isEnemyDefeated());
-		npc.ejecutarTrigger("item", "rociador con cerveza de raiz");
+		npc.ejecutarTrigger(Trigger.ITEM, "rociador con cerveza de raiz");
+		assertTrue(room1.getSalida("north").isEnemyDefeated());
+		assertEquals(room2, room1.getSalida("north").getRoom());
+	}
+	
+	/*
+	 * Pruebo una ejecucion comun con defeat en vez de remove
+	 */
+	@Test
+	void testComunDefeat() {
+	    String npcDefeat =  "{\n" + 
+		 	"      \"name\": \"pirata fantasma\",\n" + 
+		 	"      \"gender\": \"male\",\n" + 
+		 	"      \"number\": \"singular\",\n" + 
+		 	"      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n" + 
+		 	"      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n" + 
+		 	"			\"points\": \"100\",\n" + 
+		 	"			\"enemy\": \"false\",\n" + 
+		 	"			\"health\": \"100\",\n" + 
+		 	"			\"inventory\": [],\n" + 
+		 	"      \"triggers\": [\n" + 
+		 	"        {\n" + 
+		 	"          \"type\": \"talk\",\n" + 
+		 	"          \"thing\": \"\",\n" + 
+		 	"          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n" + 
+		 	"          \"after_trigger\": \"defeat\"\n" + 
+		 	"        }\n" + 
+		 	"      ]\n" + 
+		 	"    }";
+		Room room1 = new Room(JsonParser.parseString(jsonRoom));
+		Room room2 = new Room(JsonParser.parseString(jsonRoom2));
+		NPC npc = new NPC(JsonParser.parseString(npcDefeat));
+		Salida salida = new Salida(room2);
+		room1.addSalida(salida, "north");
+		room1.addObstacle(npc, "north");
+		assertEquals(false, room1.getSalida("north").isEnemyDefeated());
+		npc.ejecutarTrigger(Trigger.TALK, "");
 		assertTrue(room1.getSalida("north").isEnemyDefeated());
 		assertEquals(room2, room1.getSalida("north").getRoom());
 	}
