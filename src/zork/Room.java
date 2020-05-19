@@ -98,4 +98,8 @@ public class Room {// locations
 
     }
 
+    public Collection<NPC> getNpcs() {
+	return npcs.values();
+    }
+
 }

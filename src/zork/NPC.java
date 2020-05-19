@@ -80,4 +80,14 @@ public class NPC extends Character {
 	    fraseItem += gender == 'm' ? "los " : "las ";
 	return fraseItem + nombre;
     }
+    
+    public String articuloIndefinido() {
+	String fraseNPC = "";
+	if (number == 's')
+	    fraseNPC += gender == 'm' ? "un " : "una ";
+	else
+	    fraseNPC += gender == 'm' ? "unos " : "unas ";
+	return fraseNPC + nombre;
+    }
+
 }

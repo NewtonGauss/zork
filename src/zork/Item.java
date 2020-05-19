@@ -66,6 +66,15 @@ public class Item {
 	    fraseItem += getGender() == 'm' ? "los " : "las ";
 	return fraseItem + nombre;
     }
+    
+    public String articuloIndefinido() {
+	String fraseItem = "";
+	if (number == 's')
+	    fraseItem += getGender() == 'm' ? "un " : "una ";
+	else
+	    fraseItem += getGender() == 'm' ? "unos " : "unas ";
+	return fraseItem + nombre;
+    }
 
     public char getGender() {
 	return gender;

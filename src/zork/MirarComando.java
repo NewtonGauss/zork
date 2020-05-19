@@ -12,12 +12,27 @@ public class MirarComando implements Comando {
 
 	if (objetivo.equals("") || objetivo.equals("alrededor")
 		|| objetivo.equals(habitacionActual.getNombre())) {
-	    mensajeSalida = habitacionActual.getDescription() + ". "
-		    + enumerarSitios(habitacionActual);
+	    mensajeSalida = habitacionActual.getDescription() + "."
+		    + enumerarSitios(habitacionActual) + enumerarNPCs(habitacionActual);
 	} else if ((objetivoDescribir = habitacionActual.getNPC(objetivo)) != null)
 	    mensajeSalida = objetivoDescribir.getDescripcion();
 	else
 	    mensajeSalida = objetivo + " no existe";
+	return mensajeSalida;
+    }
+
+    private String enumerarNPCs(Room habitacionActual) {
+	String mensajeSalida = "";
+	int cantNPCs = 0;
+	Iterator<NPC> npcs = habitacionActual.getNpcs().iterator();
+	if (npcs.hasNext()) {
+	    mensajeSalida = " Hay";
+	    for (; npcs.hasNext(); cantNPCs++) {
+		NPC npc = npcs.next();
+		mensajeSalida += ' ' + npc.articuloIndefinido() + ',';
+	    }
+	    mensajeSalida = normalizarFinalOracion(mensajeSalida, cantNPCs);
+	}
 	return mensajeSalida;
     }
 
@@ -35,26 +50,21 @@ public class MirarComando implements Comando {
 	String mensajeSalida = "";
 	Iterator<Item> items = sitioActual.getItems().iterator();
 	if (items.hasNext()) {
-	    mensajeSalida = "En " + sitioActual.toString() + " hay";
+	    mensajeSalida = " En " + sitioActual.toString() + " hay";
 	    int cantItems;
 	    for (cantItems = 0; items.hasNext(); cantItems++) {
 		Item itemActual = items.next();
-		mensajeSalida += escribirItem(itemActual);
+		mensajeSalida += ' ' + itemActual.articuloIndefinido() + ',';
 	    }
-	    mensajeSalida = replaceLast(mensajeSalida, ",", ".");
-	    if (cantItems > 1)
-		mensajeSalida = replaceLast(mensajeSalida, ",", " y");
+	    mensajeSalida = normalizarFinalOracion(mensajeSalida, cantItems);
 	}
 	return mensajeSalida;
     }
 
-    private String escribirItem(Item itemActual) {
-	String mensajeSalida = "";
-	if (itemActual.getGender() == 'm')
-	    mensajeSalida += " un ";
-	else
-	    mensajeSalida += " una ";
-	mensajeSalida += itemActual.getNombre() + ",";
+    private String normalizarFinalOracion(String mensajeSalida, int cantObjetivos) {
+	mensajeSalida = replaceLast(mensajeSalida, ",", ".");
+	if (cantObjetivos > 1)
+	    mensajeSalida = replaceLast(mensajeSalida, ",", " y");
 	return mensajeSalida;
     }
 
