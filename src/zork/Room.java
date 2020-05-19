@@ -77,9 +77,6 @@ public class Room {// locations
 	return npcs.get(nombre);
     }
 
-    public Collection<NPC> getNPCs(){
-    	return npcs.values();
-    }
     
     public void addObstacle(NPC obstacle, String direction) {
 	obstacle.setHabitacionActual(this);
