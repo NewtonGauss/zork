@@ -27,7 +27,7 @@ Tenemos las siguientes clases a implementar. En orden de implementación:
     2. ~Jugador~
 4. ~Sitio.~
 5. ~Room.~
-7. IO.
+7. ~IO.~
 8. Comandos.
     1. Info
     2. Ayuda
@@ -40,7 +40,7 @@ Tenemos las siguientes clases a implementar. En orden de implementación:
     9.	 ~Mirar~
     10. ~AtacarCon~
     11. Dar
-    12. Tomar(agarrar)
+    12. ~Tomar(agarrar)~
     13. Poner
     14. Soltar
     15. Caminar/Ir
