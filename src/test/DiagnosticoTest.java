@@ -27,6 +27,13 @@ class DiagnosticoTest {
 	player.restarSalud(50);
 	assertEquals("Tu estado de salud es bajo (10),"
 		+ " hasta un rasguno podria ser peligroso!", com.ejecutar(player, ""));
+	player.sumarSalud(10);
+	assertEquals("Tu estado de salud es bajo (20),"
+		+ " hasta un rasguno podria ser peligroso!", com.ejecutar(player, ""));
+	player.restarSalud(50);
+	assertEquals("Estas muerto", com.ejecutar(player, ""));
+	player.sumarSalud(10);
+	assertEquals("Estas muerto", com.ejecutar(player, ""));
     }
 
 }

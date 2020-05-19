@@ -11,8 +11,10 @@ public class Diagnostico implements Comando{
 			diagnostico="Tu estado de salud es bueno ("+(int)salud+")";
 		}else if(salud<70 && salud>30) {
 			diagnostico="Tu estado de salud no es muy bueno ("+(int)salud+"), sera mejor que encuentres algo para curarte";
-		}else {
+		}else if (salud < 30 && salud > 0){
 			diagnostico="Tu estado de salud es bajo ("+(int)salud+"), hasta un rasguno podria ser peligroso!";
+		} else {
+		    diagnostico = "Estas muerto";
 		}
 		return diagnostico;
 	}
