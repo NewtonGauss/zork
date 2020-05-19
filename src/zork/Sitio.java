@@ -13,6 +13,7 @@ public class Sitio {
     private char gender;
     private char number;
     private Hashtable<String, Item> items;
+    
 
     public Sitio(JsonElement json) {
 	JsonObject jobj = json.getAsJsonObject();
