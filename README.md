@@ -43,7 +43,7 @@ Tenemos las siguientes clases a implementar. En orden de implementación:
     12. ~Tomar(agarrar)~
     13. Poner
     14. Soltar
-    15. Caminar/Ir
+    15. ~Caminar/Ir~
     16. etc.
 9. Narrador.
 10. CargadorDeHistoria.
