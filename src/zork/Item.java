@@ -17,9 +17,7 @@ public class Item {
     private List<String> afecta = new ArrayList<String>();
     private String tipo;
 
-    /*
-     * Crea el objeto desde un elemento JSON.
-     */
+
     public Item(JsonElement json) {
 	JsonObject jobject = json.getAsJsonObject();
 	nombre = jobject.get("name").getAsString();
@@ -62,19 +60,12 @@ public class Item {
     @Override
     public String toString() {
 	String fraseItem = "";
-	if (getNumber() == 's')
-	    fraseItem += getGender() == 'm' ? "el " : "la ";
+	if (number == 's')
+	    fraseItem += gender == 'm' ? "el " : "la ";
 	else
-	    fraseItem += getGender() == 'm' ? "los " : "las ";
+	    fraseItem += gender == 'm' ? "los " : "las ";
 	return fraseItem + nombre;
     }
 
-	public char getGender() {
-		return gender;
-	}
-
-	public char getNumber() {
-		return number;
-	}
 
 }
