@@ -61,10 +61,14 @@ public class Item {
     public String toString() {
 	String fraseItem = "";
 	if (number == 's')
-	    fraseItem += gender == 'm' ? "el " : "la ";
+	    fraseItem += getGender() == 'm' ? "el " : "la ";
 	else
-	    fraseItem += gender == 'm' ? "los " : "las ";
+	    fraseItem += getGender() == 'm' ? "los " : "las ";
 	return fraseItem + nombre;
+    }
+
+    public char getGender() {
+	return gender;
     }
 
 
