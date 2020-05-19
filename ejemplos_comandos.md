@@ -66,6 +66,9 @@ $ mirar alrededor
 
 $ mirar habitación
 
+$ mirar al pirata fantasma
+& '¡No puedes pasar!' El pirata fantasma no te dejará pasar.
+
 Se le muestra al jugador la descripción de la habitación.
 
 ### Attack with
