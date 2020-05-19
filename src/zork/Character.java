@@ -23,6 +23,10 @@ public abstract class Character {
 		}
 		return bool;
 	}
+	
+	public Item getItem(String item) {
+	    return inventario.getItem(item);
+	}
 
 	public Collection<Item> getItems() {
 		return inventario.getItems();

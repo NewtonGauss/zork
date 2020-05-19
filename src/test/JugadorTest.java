@@ -91,11 +91,7 @@ class JugadorTest {
 		Character player = new Jugador(JsonParser.parseString(jsonPlayer));
 		Item item = new Item(JsonParser.parseString(jsonItem));
 		assertEquals(true, player.addItem(item));
-		Iterator<Item> i = player.getItems().iterator();
-		while(i.hasNext()) {
-			Item aux = i.next();
-			assertEquals("barreta", aux.getNombre());
-		}
+		assertEquals(item, player.getItem(item.getNombre()));
 	}
 	
 	@Test
@@ -107,7 +103,7 @@ class JugadorTest {
 	}
 	
 	@Test
-	void testMober() {
+	void testMover() {
 		Room room1 = new Room(JsonParser.parseString(jsonRoom));
 		Room room2 = new Room(JsonParser.parseString(jsonRoom2));
 		NPC npc = new NPC(JsonParser.parseString(jsonNPC));
@@ -120,7 +116,7 @@ class JugadorTest {
 		assertEquals(true, salida.isEnemyDefeated());
 		Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 		jugador.setHabitacionActual(room1);
-		jugador.mover("north");
+		assertTrue(jugador.mover("north"));
 		assertEquals(room2, jugador.getHabitacionActual());
 	}
 
