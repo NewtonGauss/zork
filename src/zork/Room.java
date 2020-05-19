@@ -101,5 +101,15 @@ public class Room {// locations
     public Collection<NPC> getNpcs() {
 	return npcs.values();
     }
+    
+    public String articuloIndefinido() {
+	String fraseItem = "";
+	if (number == 's')
+	    fraseItem += gender == 'm' ? "un " : "una ";
+	else
+	    fraseItem += gender == 'm' ? "unos " : "unas ";
+	return fraseItem + nombre;
+    }
+
 
 }

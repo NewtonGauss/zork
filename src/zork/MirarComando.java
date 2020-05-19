@@ -13,11 +13,28 @@ public class MirarComando implements Comando {
 	if (objetivo.equals("") || objetivo.equals("alrededor")
 		|| objetivo.equals(habitacionActual.getNombre())) {
 	    mensajeSalida = habitacionActual.getDescription() + "."
-		    + enumerarSitios(habitacionActual) + enumerarNPCs(habitacionActual);
+		    + enumerarSitios(habitacionActual) + enumerarNPCs(habitacionActual) + enumerarSalidas(habitacionActual);
 	} else if ((objetivoDescribir = habitacionActual.getNPC(objetivo)) != null)
 	    mensajeSalida = objetivoDescribir.getDescripcion();
 	else
 	    mensajeSalida = objetivo + " no existe";
+	return mensajeSalida;
+    }
+
+    private String enumerarSalidas(Room habitacionActual) {
+	String mensajeSalida = "";
+	String[] direcciones =  new String[] {
+	    "norte", "sur", "este", "oeste"
+	};
+	Salida salida;
+	for (String direccion : direcciones) {
+	    if ( (salida = habitacionActual.getSalida(direccion)) != null )
+		mensajeSalida += " Al " + direccion + " hay " + salida.getRoom().articuloIndefinido() + ".";
+	}
+	if ( (salida = habitacionActual.getSalida("arriba")) != null )
+		mensajeSalida += " Arriba hay " + salida.getRoom().articuloIndefinido() + ".";
+	if ( (salida = habitacionActual.getSalida("abajo")) != null )
+		mensajeSalida += " Abajo hay " + salida.getRoom().articuloIndefinido() + ".";
 	return mensajeSalida;
     }
 
