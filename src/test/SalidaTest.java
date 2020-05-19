@@ -101,7 +101,7 @@ class SalidaTest {
 		NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 		Salida salida = new Salida(room2);
 		room1.addSalida(salida, "north");
-		salida.addNPC(npc);
+		room1.addObstacle(npc, "north");
 		assertEquals(false, room1.getSalida("north").isEnemyDefeated());
 		npc.ejecutarTrigger("item", "rociador con cerveza de raiz");
 		assertTrue(room1.getSalida("north").isEnemyDefeated());

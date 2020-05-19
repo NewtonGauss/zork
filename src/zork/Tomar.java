@@ -7,7 +7,7 @@ public class Tomar implements Comando {
 	public String ejecutar(Jugador jugador, String restoDelComando) {
 		String retorno = "no hay ningun "+restoDelComando+" por aqui";
 		Item itemTomado;
-		Iterator<Sitio> iterator = jugador.getHabitacionActual().getSitios();
+		Iterator<Sitio> iterator = jugador.getHabitacionActual().getSitios().iterator();
 		while (iterator.hasNext()) {
 			if ((itemTomado = iterator.next().getItem(restoDelComando)) != null) {
 				if (jugador.addItem(itemTomado)) {

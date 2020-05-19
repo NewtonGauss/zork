@@ -43,15 +43,12 @@ public class Jugador extends Character {
     }
 
     public boolean mover(String direction) {
-	try {
-	    Room raux = habitacionActual.getSalidasTable().get(direction).getRoom();
-	    if (habitacionActual.getSalidasTable().get(direction).isEnemyDefeated()) {
-		setHabitacionActual(raux);
-		return true;
-	    }
-	} catch (Exception e) {
-	    e.printStackTrace();
+	Salida salida = habitacionActual.getSalida(direction);
+	boolean seMovio = false;
+	if (salida != null && salida.isEnemyDefeated()) {
+	    setHabitacionActual(salida.getRoom());
+	    seMovio = true;
 	}
-	return false;
+	return seMovio;
     }
 }

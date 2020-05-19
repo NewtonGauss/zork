@@ -1,5 +1,6 @@
 package zork;
 
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
 import com.google.gson.JsonElement;
@@ -31,7 +32,6 @@ public class Room {// locations
     }
 
     public void addSalida(Salida newSalida, String direccion) {
-	newSalida.setVieneDe(this);
 	this.salidas.put(direccion, newSalida);
     }
 
@@ -69,24 +69,23 @@ public class Room {// locations
 	return sitios.get(nombreSitio);
     }
 
-    public Hashtable<String, Salida> getSalidasTable() {
-	return this.salidas;
+    public Collection<Sitio> getSitios() {
+	return this.sitios.values();
+    }
+    
+    public NPC getNPC(String nombre) {
+	return npcs.get(nombre);
     }
 
-    public Iterator<Salida> getSalidas() {
-	return this.salidas.values().iterator();
+    public Collection<NPC> getNPCs(){
+    	return npcs.values();
     }
-
-    public Iterator<Sitio> getSitios() {
-	return this.sitios.values().iterator();
-    }
-
-    public Hashtable<String, NPC> getNPC(){
-	// hay que hacer que tambien de los de la salida,
-	// porque aunque esten en salida, son de esta habitacion
-	// ya que lo unico que hacen es obstaculizar el paso
-	// hacia la siguiente habitacion
-    	return this.npcs;
+    
+    public void addObstacle(NPC obstacle, String direction) {
+	obstacle.setHabitacionActual(this);
+	Salida salida = salidas.get(direction);
+	if (salida != null)
+	    salida.addNPC(obstacle);
     }
     
     @Override
