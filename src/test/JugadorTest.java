@@ -2,8 +2,6 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Iterator;
-
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
@@ -92,6 +90,8 @@ class JugadorTest {
 		Item item = new Item(JsonParser.parseString(jsonItem));
 		assertEquals(true, player.addItem(item));
 		assertEquals(item, player.getItem(item.getNombre()));
+		assertTrue(player.removeItem(item.getNombre()));
+		assertFalse(player.removeItem(item.getNombre()));
 	}
 	
 	@Test
@@ -118,6 +118,21 @@ class JugadorTest {
 		jugador.setHabitacionActual(room1);
 		assertTrue(jugador.mover("north"));
 		assertEquals(room2, jugador.getHabitacionActual());
+	}
+	
+	@Test
+	void testSalud() {
+	    Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	    assertEquals(100, jugador.getSalud());
+	    jugador.restarSalud(10);
+	    assertEquals(90, jugador.getSalud());
+	    jugador.sumarSalud(5);
+	    assertEquals(95, jugador.getSalud());
+	    jugador.restarSalud(100);
+	    assertEquals(0, jugador.getSalud());
+	    jugador.sumarSalud(100);
+	    assertEquals(0, jugador.getSalud());
+	    
 	}
 
 }
