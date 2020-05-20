@@ -6,6 +6,8 @@ import java.util.Iterator;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import utilitarias.Cadena;
+
 public class Room {// locations
 
     private String nombre;
@@ -85,31 +87,17 @@ public class Room {// locations
 	    salida.addNPC(obstacle);
     }
     
-    @Override
-    public String toString() {
-	String retorno;
-	if (number == 's')
-	    retorno = gender == 'm' ? "el " + this.nombre : "la " + this.nombre;
-
-	else
-	    retorno = gender == 'm' ? "los " + this.nombre : "las " + this.nombre;
-
-	return retorno;
-
-    }
-
     public Collection<NPC> getNpcs() {
 	return npcs.values();
     }
     
-    public String articuloIndefinido() {
-	String fraseItem = "";
-	if (number == 's')
-	    fraseItem += gender == 'm' ? "un " : "una ";
-	else
-	    fraseItem += gender == 'm' ? "unos " : "unas ";
-	return fraseItem + nombre;
+    @Override
+    public String toString() {
+	return Cadena.articuloDefinido(nombre, gender, number);
     }
-
+    
+    public String articuloIndefinido() {
+	return Cadena.articuloIndefinido(nombre, gender, number);
+    }
 
 }

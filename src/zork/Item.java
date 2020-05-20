@@ -6,6 +6,8 @@ import java.util.List;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import utilitarias.Cadena;
+
 public class Item {
 
     private String nombre;
@@ -59,26 +61,11 @@ public class Item {
 
     @Override
     public String toString() {
-	String fraseItem = "";
-	if (number == 's')
-	    fraseItem += getGender() == 'm' ? "el " : "la ";
-	else
-	    fraseItem += getGender() == 'm' ? "los " : "las ";
-	return fraseItem + nombre;
+	return Cadena.articuloDefinido(nombre, gender, number);
     }
     
     public String articuloIndefinido() {
-	String fraseItem = "";
-	if (number == 's')
-	    fraseItem += getGender() == 'm' ? "un " : "una ";
-	else
-	    fraseItem += getGender() == 'm' ? "unos " : "unas ";
-	return fraseItem + nombre;
+	return Cadena.articuloIndefinido(nombre, gender, number);
     }
-
-    public char getGender() {
-	return gender;
-    }
-
 
 }

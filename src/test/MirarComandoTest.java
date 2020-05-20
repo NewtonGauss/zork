@@ -63,6 +63,19 @@ class MirarComandoTest {
 		    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
 		    + "          \"after_trigger\": \"remove\"\n" + "        }\n"
 		    + "      ]\n" + "    }",
+	    jsonMamuts = "{\n" + "      \"name\": \"mamuts\",\n"
+		    + "      \"gender\": \"male\",\n" + "      \"number\": \"plural\",\n"
+		    + "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
+		    + "      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n"
+		    + "			\"points\": \"100\",\n"
+		    + "			\"enemy\": \"true\",\n"
+		    + "			\"health\": \"100\",\n"
+		    + "			\"inventory\": [],\n" + "      \"triggers\": [\n"
+		    + "        {\n" + "          \"type\": \"item\",\n"
+		    + "          \"thing\": \"rociador con cerveza de raiz\",\n"
+		    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
+		    + "          \"after_trigger\": \"remove\"\n" + "        }\n"
+		    + "      ]\n" + "    }",
 	    jsonSuelo = "{\n" + "          \"name\": \"suelo\",\n"
 		    + "          \"gender\": \"male\",\n"
 		    + "          \"number\": \"singular\",\n" + "          \"items\": [\n"
@@ -258,8 +271,10 @@ class MirarComandoTest {
 	/* NPCs */
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
+	NPC mamuts = new NPC(JsonParser.parseString(jsonMamuts));
 	muelle.addNPC(pirata);
 	muelle.addNPC(abeja);
+	muelle.addNPC(mamuts);
 
 	/* Salidas */
 	Room barrio = new Room(JsonParser.parseString(jsonBarrio));
@@ -274,7 +289,7 @@ class MirarComandoTest {
 
 	assertEquals("Estas en un muelle. En el suelo hay una barreta,"
 		+ " un rociador con cerveza de raiz y un espejo."
-		+ " Hay una abeja fantasma y un pirata fantasma."
+		+ " Hay una abeja fantasma, unos mamuts y un pirata fantasma."
 		+ " Al sur hay una taberna. Arriba hay un barrio."
 		+ " Abajo hay unas bahias.", c1.ejecutar(j1, ""));
     }

@@ -2,6 +2,8 @@ package zork;
 
 import java.util.Iterator;
 
+import utilitarias.Cadena;
+
 public class MirarComando implements Comando {
 
     /**
@@ -88,14 +90,12 @@ public class MirarComando implements Comando {
     }
 
     private String normalizarFinalOracion(String mensajeSalida, int cantObjetivos) {
-	mensajeSalida = replaceLast(mensajeSalida, ",", ".");
+	mensajeSalida = Cadena.replaceLast(mensajeSalida, ",", ".");
 	if (cantObjetivos > 1)
-	    mensajeSalida = replaceLast(mensajeSalida, ",", " y");
+	    mensajeSalida = Cadena.replaceLast(mensajeSalida, ",", " y");
 	return mensajeSalida;
     }
 
-    private static String replaceLast(String text, String regex, String replacement) {
-	return text.replaceFirst("(?s)" + regex + "(?!.*?" + regex + ")", replacement);
-    }
+    
 
 }

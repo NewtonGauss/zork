@@ -4,6 +4,8 @@ import java.util.Hashtable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import utilitarias.Cadena;
+
 public class NPC extends Character {
     private String charla;
     private String descripcion;
@@ -70,24 +72,13 @@ public class NPC extends Character {
 	return this.nombre;
     }
 
-    
     @Override
     public String toString() {
-	String fraseItem = "";
-	if (number == 's')
-	    fraseItem += gender == 'm' ? "el " : "la ";
-	else
-	    fraseItem += gender == 'm' ? "los " : "las ";
-	return fraseItem + nombre;
+	return Cadena.articuloDefinido(nombre, gender, number);
     }
     
     public String articuloIndefinido() {
-	String fraseNPC = "";
-	if (number == 's')
-	    fraseNPC += gender == 'm' ? "un " : "una ";
-	else
-	    fraseNPC += gender == 'm' ? "unos " : "unas ";
-	return fraseNPC + nombre;
+	return Cadena.articuloIndefinido(nombre, gender, number);
     }
 
 }
