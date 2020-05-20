@@ -2,6 +2,12 @@ package zork;
 
 public class HablarComando implements Comando{
 
+    /*
+     * Para el funcionamiento de este comando el contenido de restoDelComando
+     * debe ser unicamente el nombre del npc.
+     * Ejemplo:
+     * HablarComando.ejecutar(jugador,"pirata fantasma");
+     */
     @Override
     public String ejecutar(Jugador jugador, String restoDelComando) {
 	String retorno = "";
