@@ -27,6 +27,7 @@ public class Room {// locations
 	sitios = new Hashtable<String, Sitio>();
 	salidas = new Hashtable<String, Salida>();
 	npcs = new Hashtable<String, NPC>();
+	sitios.put("suelo", new Sitio());
     }
 
     public void addSitio(Sitio newSitio) {

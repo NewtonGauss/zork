@@ -16,6 +16,15 @@ public class Sitio {
     private char number;
     private Hashtable<String, Item> items;
     
+    /*
+     * Sitio por defecto de cada habitacion: suelo
+     */
+    public Sitio() {
+	nombre = "suelo";
+	gender = 'm';
+	number = 's';
+	items = new Hashtable<String, Item>();
+    }
 
     public Sitio(JsonElement json) {
 	JsonObject jobj = json.getAsJsonObject();
