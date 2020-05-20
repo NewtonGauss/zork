@@ -4,6 +4,15 @@ import java.util.Iterator;
 
 public class MirarComando implements Comando {
 
+    /**
+     * Ejecuta el comando de mirar.
+     * Devuelve el mensaje que debera aparecer en pantalla
+     * 
+     * @param objetivo si es una cadena vacia, dice el nombre de la habitacion
+     * o dice 'alrededor' se muestra una detallada descripcion del lugar. Si el
+     * objetivo es el nombre de un npc, se mostrara su descripcion.
+     * @return mensaje de salida por pantalla.
+     */
     @Override
     public String ejecutar(Jugador jugador, String objetivo) {
 	String mensajeSalida = "";
@@ -13,7 +22,8 @@ public class MirarComando implements Comando {
 	if (objetivo.equals("") || objetivo.equals("alrededor")
 		|| objetivo.equals(habitacionActual.getNombre())) {
 	    mensajeSalida = habitacionActual.getDescription() + "."
-		    + enumerarSitios(habitacionActual) + enumerarNPCs(habitacionActual) + enumerarSalidas(habitacionActual);
+		    + enumerarSitios(habitacionActual) + enumerarNPCs(habitacionActual)
+		    + enumerarSalidas(habitacionActual);
 	} else if ((objetivoDescribir = habitacionActual.getNPC(objetivo)) != null)
 	    mensajeSalida = objetivoDescribir.getDescripcion();
 	else
@@ -23,18 +33,17 @@ public class MirarComando implements Comando {
 
     private String enumerarSalidas(Room habitacionActual) {
 	String mensajeSalida = "";
-	String[] direcciones =  new String[] {
-	    "norte", "sur", "este", "oeste"
-	};
+	String[] direcciones = new String[] { "norte", "sur", "este", "oeste" };
 	Salida salida;
 	for (String direccion : direcciones) {
-	    if ( (salida = habitacionActual.getSalida(direccion)) != null )
-		mensajeSalida += " Al " + direccion + " hay " + salida.getRoom().articuloIndefinido() + ".";
+	    if ((salida = habitacionActual.getSalida(direccion)) != null)
+		mensajeSalida += " Al " + direccion + " hay "
+			+ salida.getRoom().articuloIndefinido() + ".";
 	}
-	if ( (salida = habitacionActual.getSalida("arriba")) != null )
-		mensajeSalida += " Arriba hay " + salida.getRoom().articuloIndefinido() + ".";
-	if ( (salida = habitacionActual.getSalida("abajo")) != null )
-		mensajeSalida += " Abajo hay " + salida.getRoom().articuloIndefinido() + ".";
+	if ((salida = habitacionActual.getSalida("arriba")) != null)
+	    mensajeSalida += " Arriba hay " + salida.getRoom().articuloIndefinido() + ".";
+	if ((salida = habitacionActual.getSalida("abajo")) != null)
+	    mensajeSalida += " Abajo hay " + salida.getRoom().articuloIndefinido() + ".";
 	return mensajeSalida;
     }
 
