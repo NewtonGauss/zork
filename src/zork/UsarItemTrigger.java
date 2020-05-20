@@ -14,5 +14,4 @@ public class UsarItemTrigger extends Trigger {
 	    return null;
 	return super.ejecutar(npc, activador);
     }
-
 }
