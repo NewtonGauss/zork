@@ -29,7 +29,7 @@ public class UsarItemComando implements Comando {
 	    retorno = "No se puede utilizar el item sobre un NPC";
 	}
 	if(parseado.length == 1 && item != null) {
-	    if(item.esObjetivoValido("self") && jugador.isItemAplicable(item.getNombre())) {
+	    if(item.esObjetivoValido("self") && isItemAplicable(item.getTipo())) {
 		jugador.aplicarItem(item.getNombre());
 		jugador.removeItem(item.getNombre());
 		retorno = "Se utilizo el item: " + item.getNombre() + " sobre ti." ;
@@ -37,6 +37,10 @@ public class UsarItemComando implements Comando {
 	}
 
 	return retorno;
+    }
+
+    private boolean isItemAplicable(String tipo) {
+	return tipo.equals("potion") || tipo.equals("poison");
     }
 
 }

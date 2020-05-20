@@ -97,7 +97,7 @@ class JugadorTest {
 	@Test
 	void testSet() {
 		Room r = new Room(JsonParser.parseString(jsonRoom));
-		Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+		Character jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 		jugador.setHabitacionActual(r);
 		assertEquals(r, jugador.getHabitacionActual());
 	}
