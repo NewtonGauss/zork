@@ -44,7 +44,7 @@ Tenemos las siguientes clases a implementar. En orden de implementación:
     13. ~Poner~
     14. ~Soltar~
     15. ~Caminar/Ir~
-    16. Hablar
+    16. ~Hablar~
     17. Usar item
 9. Narrador.
 10. CargadorDeHistoria.
