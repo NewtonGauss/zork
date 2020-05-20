@@ -1,17 +1,19 @@
 package zork;
 
-public class InfoComando implements Comando{
-	
-	/*
-	 * PARA QUE FUNCIONE EN EL PARAMETRO RESTODELCOMANDO SE TIENE QUE RECIBIR 
-	 * "info del Json"
-	 * 
-	 * */
+public class InfoComando implements Comando {
 
-	@Override
-	public String ejecutar(Jugador jugador, String restoDelComando) {
-		
-		return restoDelComando;
-	}
+    /**
+     * Otorga informacion de la aventura.
+     * Devuelve la cadena enviada.
+     * El metodo está implementado para mantener el mismo 
+     * criterio que con los otros comandos.
+     * 
+     * @param info la info de los settings del json.
+     * @return mensaje de salida por pantalla.
+     */
+    @Override
+    public String ejecutar(Jugador jugador, String info) {
+	return info;
+    }
 
 }

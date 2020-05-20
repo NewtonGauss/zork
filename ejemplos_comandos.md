@@ -86,7 +86,9 @@ La sintaxis seria: atacar {enemigo} con {item}. No se podrá atacar sin un item.
 
 $ dar al pirata fantasma el rociador con cerveza de raiz
 
-Se le puede dar cualquier item a los npcs. 
+Se le puede dar cualquier item a los npcs. Esto no hace que salte el 
+trigger. Para que salte el trigger se debe seguir especificamente una 
+accion (ataque, charla o usar)
 
 $ dar al rociador con cerveza de raiz el pirata fantasma
 & no tiene el objeto pirata fantasma
@@ -124,5 +126,19 @@ Se moverá el jugador hacia la siguiente habitación.
 $ hablar con pirata fantasma
 & ¡No hay nada que me digas que me haga cambiar de opinión!
 
-Mostrará el dialogo del npc. La sintaxis es: hablar con {npc}
+Mostrará el dialogo del npc. La sintaxis es: hablar con {npc}. Hay que tener 
+en cuenta que esto puede soltar un trigger del npc.
+
+### Usar
+
+$ usar pocion curativa
+& se uso pocion curativa.
+
+$ usar pocion curativa en pirata fantasma
+& eso no ha servido de nada
+
+Utilizar un objeto sobre uno mismo o sobre un npc. Si se usa sobre un npc, se debera
+tener en cuenta los triggers del npc. Si se usa sobre uno mismo, hay que ver de que 
+tipo de item se trata para ver si cura, daña o no hace nada. Al final del efecto se 
+elimina el item (tan solo si hizo efecto, si no sirvio, se conserva).
 
