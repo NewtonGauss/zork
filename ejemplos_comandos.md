@@ -119,3 +119,10 @@ $ ir al norte
 
 Se moverá el jugador hacia la siguiente habitación.
 
+### Hablar
+
+$ hablar con pirata fantasma
+& ¡No hay nada que me digas que me haga cambiar de opinión!
+
+Mostrará el dialogo del npc. La sintaxis es: hablar con {npc}
+

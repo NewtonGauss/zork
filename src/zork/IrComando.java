@@ -19,7 +19,7 @@ public class IrComando implements Comando {
 	    retorno = jugador.getHabitacionActual().getDescription();
 	} else {
 	    Salida salida = jugador.habitacionActual.getSalida(direccion);
-	    if (salida != null && !salida.isEnemyDefeated()) {
+	    if (salida != null) {
 		retorno = salida.getObstacle().getDescripcion();
 	    } else {
 		retorno = "Hacia "
