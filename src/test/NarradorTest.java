@@ -434,5 +434,22 @@ class NarradorTest {
 	assertEquals("pirata fantasma no se encuentra en el muelle.",
 		narrador.ejecutar("hablar a pirata fantasma"));
     }
+    
+    @Test
+    void testComandoNoReconocido() {
+	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Item rociador = new Item(JsonParser.parseString(itemjson));
+	Narrador narrador = new Narrador(jugador);
+	jugador.setHabitacionActual(muelle);
+	jugador.addItem(rociador);
+	
+	assertEquals("No puedo reconocer esa orden.",
+		narrador.ejecutar("desensamblar la enciclopedia"));
+	assertEquals("No puedo reconocer esa orden.",
+		narrador.ejecutar("cortar en dos al pirata fantasma"));
+	assertEquals("No puedo reconocer esa orden.",
+		narrador.ejecutar("aniquilar a la abeja fantasma"));
+    }
 
 }
