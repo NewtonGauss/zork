@@ -1,0 +1,31 @@
+Comandos utiles:
+
+El comando 'INFO' otorga informacion acerca de la aventura y sus objetivos. //no implementado aun
+El comando 'SALIR' muestra tu puntuacion y te pregunta si queres salir. //no implementado aun
+El comando 'GUARDAR' guarda el estado actual del juego y para que continues luego. //no implementado aun
+El comando 'CARGAR' carga una partida guardada.  //no implementado aun
+El comando 'INVENTARIO' lista los objetos que posees.
+El comando 'MIRAR', 'MIRAR ALREDEDOR' y 'MIRAR <NOMBRE DE HABITACION ACTUAL>' muestra una descripción detallada del lugar.
+El comando 'MIRAR <NOMBRE DE NPC>' muestra informacion acerca del NPC en cuestion.
+El comando 'PUNTUACION' muestra tu puntuacion actual.
+El comando 'DIAGNOSTICO' muestra información acerca de tu estado de salud.
+El comando 'MOVIMIENTO' informa la cantidad de pasos entre habitaciones que diste desde que comenzo el juego.
+ 
+Pelea:
+
+Algunos verbos que podes usar es son 'ATACAR <villano> CON <arma>'.
+
+Analizador de comandos:
+Un comando es una línea de texto terminada por un enter. El analizador es un poco tonto, y solo comprende las siguientes cosas--
+
+Acciones: 
+Dar <item> <npc>, Hablar <npc> , Ir <direccion>, Soltar <item> , Usar <item> [<npc>], Tomar <item>, Poner <item> <sitio>. Otras formas de decir estas palabras pueden ser utilizadas tambien, como Agarrar, Caminar, Tirar. Direcciones: Norte, Sur, Este, Oeste, Arriba, Abajo. 
+
+Objetos:
+Los objetos tienen nombres y pueden ser referenciados a traves de ellos.
+
+Preposiciones:
+Las preposiciones no son necesarias. Entonces, 'DAR BARRETA PIRATA' va a funcionar, al igual que 'DAR LA BARRETA AL PIRATA'. 'DAR PIRATA BARRETA' en cambio, no funcionará debido a que los datos están puestos en otro orden.	
+
+
+
