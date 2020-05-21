@@ -4,10 +4,24 @@ public class UsarItemComando implements Comando {
 
     private static final String NO_HA_SERVIDO = "Eso no ha servido de nada.";
 
-    /*
-     * Manera de usar: ejecutar(jugador,nombreItem + ":" + nombreNPC) el nombre del
-     * npc puede ser opcional. si no se psa por parametro el nombre del npc, el item
-     * se va a aplicar al jugador.
+    /**
+     * Ejecuta un comando de usar item. Todo objeto que no tenga
+     * la opcion de "usar" no hara nada con este comando.
+     * 
+     * Si el objetivo del comando es un npc, se ejecutara el comando
+     * siempre y cuando sea un objeto aplicable sobre npcs
+     * ,y se trate de un trigger del npc o se trate de 
+     * un objeto aplicable, a saber, poison o potion.
+     * 
+     * Si el objetivo del comando es el jugador, se ejecutara siempre y
+     * cuando el item pueda ser aplicado sobre "self" y sea de tipo poison o
+     * potion.
+     * 
+     * En el caso de no cumplir, se indicara que no ha hecho efecto.
+     * 
+     * @param restoDelComando es una cadena con la sintaxis nombreItem:nombreNPC
+     * siendo nombreNPC opcional. Siempre que no se incluya, se tratara como self
+     * @return mensaje de salida por pantalla.
      */
     @Override
     public String ejecutar(Jugador jugador, String restoDelComando) {
