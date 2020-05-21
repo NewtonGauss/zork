@@ -138,7 +138,14 @@ class NarradorTest {
 	    + "          \"after_trigger\": \"remove\"\n" + "        }\n" + "      ]\n"
 	    + "    }";
 
-    String itemjson="{\n"+"      \"name\": \"espada\",\n"+"      \"gender\": \"female\",\n"+"      \"number\": \"singular\",\n"+"			\"points\": \"100\",\n"+"			\"weight\": \"10\",\n"+"			\"type\": \"weapon\",\n"+"      \"actions\": [\n"+"        \"usar\"\n"+"      ],\n"+"      \"effects_over\": [\n"+"        \"npcs\",\n"+"        \"self\",\n"+"        \"item\"\n"+"      ]\n"+"    }";
+    String itemjson = "{\n" + "      \"name\": \"espada\",\n"
+	    + "      \"gender\": \"female\",\n" + "      \"number\": \"singular\",\n"
+	    + "			\"points\": \"100\",\n"
+	    + "			\"weight\": \"10\",\n"
+	    + "			\"type\": \"weapon\",\n" + "      \"actions\": [\n"
+	    + "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n"
+	    + "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n"
+	    + "      ]\n" + "    }";
 
     @Test
     void testUsar() {
@@ -221,9 +228,11 @@ class NarradorTest {
 	assertEquals("0", narrador.ejecutar("movimientos"));
 
 	narrador.ejecutar("caminar a la unlam");
-	
-	/* El comando de movimientos tambien suma movimientos
-	 * ya que consideramos movimientos a los comandos */
+
+	/*
+	 * El comando de movimientos tambien suma movimientos ya que consideramos
+	 * movimientos a los comandos
+	 */
 
 	assertEquals("2", narrador.ejecutar("movimientos"));
 
@@ -276,19 +285,23 @@ class NarradorTest {
 	Room room1 = new Room(JsonParser.parseString(jsonMuelle));
 	Room room2 = new Room(JsonParser.parseString(jsonRoom));
 	Room room3 = new Room(JsonParser.parseString(jsonRoom2));
+	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	Salida salida2 = new Salida(room2);
 	Salida salida3 = new Salida(room3);
 	Narrador narrador = new Narrador(jugador);
+	room1.addNPC(pirata);
 	room1.addSalida(salida2);
 	room2.addSalida(salida3);
 
 	jugador.setHabitacionActual(room1);
 
-	assertEquals("Estas en un muelle.", narrador.ejecutar("mirar"));
+	assertEquals("Estas en un muelle. Hay un pirata fantasma.", narrador.ejecutar("mirar"));
+	assertEquals("- '¡No puedes pasar!' El pirata fantasma no te dejará pasar",
+		narrador.ejecutar("mirar al pirata fantasma"));
 
 	narrador.ejecutar("ir a la unlam");
 
-	assertEquals("Estas en una universidad.", narrador.ejecutar("mirar"));
+	assertEquals("Estas en una universidad.", narrador.ejecutar("mirar alrededor"));
 
 	narrador.ejecutar("ir al barrio");
 
@@ -325,14 +338,14 @@ class NarradorTest {
 	muelle.addNPC(pirata);
 	jugador.setHabitacionActual(muelle);
 	jugador.addItem(rociador);
-	
-	assertEquals("yoshi no se encuentra en el muelle.", narrador.ejecutar("dar espada a yoshi"));
-	
-	assertEquals("Le diste la espada al pirata fantasma."
-		, narrador.ejecutar("dar espada al pirata fantasma"));
+
+	assertEquals("yoshi no se encuentra en el muelle.",
+		narrador.ejecutar("dar espada a yoshi"));
+
+	assertEquals("Le diste la espada al pirata fantasma.",
+		narrador.ejecutar("dar espada al pirata fantasma"));
     }
-    
-    
+
     @Test
     void testAgarrar() {
 
@@ -344,17 +357,17 @@ class NarradorTest {
 	suelo.addItem(espada);
 	muelle.addSitio(suelo);
 	jugador.setHabitacionActual(muelle);
-	
+
 	assertEquals("Tomaste la espada", narrador.ejecutar("agarrar la espada"));
-	
+
 	narrador.ejecutar("soltar espada");
-	
+
 	assertEquals("Tomaste la espada", narrador.ejecutar("tomar la espada"));
-	
-	assertEquals("Debe elegir un item para el comando tomar.", narrador.ejecutar("tomar"));
+
+	assertEquals("Debe elegir un item para el comando tomar.",
+		narrador.ejecutar("tomar"));
     }
-    
-    
+
     @Test
     void testPoner() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
@@ -365,14 +378,15 @@ class NarradorTest {
 	suelo.addItem(espada);
 	muelle.addSitio(suelo);
 	jugador.setHabitacionActual(muelle);
-	
+
 	assertEquals("Tomaste la espada", narrador.ejecutar("agarrar la espada"));
-	
-	assertEquals("la espada ahora se encuentra en el suelo", narrador.ejecutar("poner espada en el suelo"));
-	
+
+	assertEquals("la espada ahora se encuentra en el suelo",
+		narrador.ejecutar("poner espada en el suelo"));
+
 	assertEquals("Tomaste la espada", narrador.ejecutar("agarrar la espada"));
     }
-    
+
     @Test
     void testSoltar() {
 
@@ -384,13 +398,13 @@ class NarradorTest {
 	jugador.addItem(espada);
 	muelle.addSitio(suelo);
 	jugador.setHabitacionActual(muelle);
-	
-	
-	assertEquals("Se solto la espada en el suelo.", narrador.ejecutar("soltar espada"));
-	
+
+	assertEquals("Se solto la espada en el suelo.",
+		narrador.ejecutar("soltar espada"));
+
 	assertEquals("Tomaste la espada", narrador.ejecutar("tomar la espada"));
     }
-    
+
     @Test
     void testHablarConNPC() {
 
@@ -403,9 +417,10 @@ class NarradorTest {
 	jugador.setHabitacionActual(muelle);
 	jugador.addItem(rociador);
 
-	assertEquals("¡No hay nada que me digas que me haga cambiar de opinión!", narrador.ejecutar("hablar a pirata fantasma"));
+	assertEquals("¡No hay nada que me digas que me haga cambiar de opinión!",
+		narrador.ejecutar("hablar a pirata fantasma"));
     }
-    
+
     @Test
     void testHablarSinNPC() {
 
@@ -416,10 +431,8 @@ class NarradorTest {
 	jugador.setHabitacionActual(muelle);
 	jugador.addItem(rociador);
 
-	assertEquals("pirata fantasma no se encuentra en el muelle."
-		, narrador.ejecutar("hablar a pirata fantasma"));
+	assertEquals("pirata fantasma no se encuentra en el muelle.",
+		narrador.ejecutar("hablar a pirata fantasma"));
     }
-    
-    
 
 }
