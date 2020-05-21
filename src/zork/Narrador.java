@@ -19,17 +19,20 @@ public class Narrador {
     }
 
     public String ejecutar(String comando) {
+	String retorno;
 	if (comando.contains("hablar") || comando.contains("atacar"))
 	    comando = comando.replaceFirst(" con ", " % ");
 	String[] cadenaPartida = comando.split(" ");
 	Comando accion = parsearComando(cadenaPartida[0]);
 	ArrayList<String> objetos = eliminarPreposicionesYArticulos(cadenaPartida);
 	if (objetos.size() > 1)
-	    return accion.ejecutar(jugador, objetos.get(0) + ':' + objetos.get(1));
+	    retorno = accion.ejecutar(jugador, objetos.get(0) + ':' + objetos.get(1));
 	else if (objetos.size() == 1)
-	    return accion.ejecutar(jugador, objetos.get(0));
+	    retorno = accion.ejecutar(jugador, objetos.get(0));
 	else
-	    return accion.ejecutar(jugador, "");
+	    retorno = accion.ejecutar(jugador, "");
+	jugador.sumarMovimiento();
+	return retorno;
     }
 
     private Comando parsearComando(String orden) {

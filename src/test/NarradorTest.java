@@ -221,12 +221,15 @@ class NarradorTest {
 	assertEquals("0", narrador.ejecutar("movimientos"));
 
 	narrador.ejecutar("caminar a la unlam");
-
-	assertEquals("1", narrador.ejecutar("movimientos"));
-
-	narrador.ejecutar("ir al barrio");
+	
+	/* El comando de movimientos tambien suma movimientos
+	 * ya que consideramos movimientos a los comandos */
 
 	assertEquals("2", narrador.ejecutar("movimientos"));
+
+	narrador.ejecutar("dar espejo al loco");
+
+	assertEquals("4", narrador.ejecutar("movimientos"));
     }
 
     @Test
