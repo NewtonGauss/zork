@@ -17,10 +17,10 @@ public class IrComando implements Comando{
 		
 		if(jugador.mover(restoDelComando) == true) {
 			retorno = jugador.getHabitacionActual().getDescription();
-		}else if (jugador.habitacionActual.getSalida(restoDelComando).isEnemyDefeated() == true) {
+		}else if (jugador.habitacionActual.getSalida(restoDelComando) != null) {
 			retorno = "Hay un NPC bloqueando la salida";
 		}else {
-			retorno = "Hacia el " + restoDelComando + "no hay salida";			
+			retorno = "Hacia el " + restoDelComando + " no hay salida";			
 		}
 		
 		return retorno;
