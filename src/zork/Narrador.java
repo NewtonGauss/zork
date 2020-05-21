@@ -20,7 +20,7 @@ public class Narrador {
 
     public String ejecutar(String comando) {
 	if (comando.contains("hablar") || comando.contains("atacar"))
-	    comando.replaceFirst("con", "");
+	    comando.replaceFirst(" con ", " ");
 	String[] cadenaPartida = comando.split(" ");
 	Comando accion = parsearComando(cadenaPartida[0]);
 	ArrayList<String> objetos = eliminarPreposicionesYArticulos(cadenaPartida);
