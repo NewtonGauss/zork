@@ -56,6 +56,22 @@ public abstract class Character {
 
 	public void setHabitacionActual(Room habitacionActual) {
 	    this.habitacionActual = habitacionActual;
+	}
+
+	public void aplicarItem(String item) {
+	    switch (item) {
+	    case "potion":
+	        sumarSalud(20);
+	        break;
+	
+	    case "poison":
+	        restarSalud(15);
+	        break;
+	    }
+	}
+
+	public float getSalud() {
+	    return this.salud;
 	};
 	
 	

@@ -29,7 +29,7 @@ Tenemos las siguientes clases a implementar. En orden de implementación:
 5. ~Room.~
 7. ~IO.~
 8. Comandos.
-    1. Info
+    1. ~Info~
     2. Ayuda
     3. Salir
     4. Guardar
@@ -37,14 +37,15 @@ Tenemos las siguientes clases a implementar. En orden de implementación:
     6. ~Movimientos~
     7. ~Inventario~
     8. ~Diagnostico~
-    9.	 ~Mirar~
+    9.	~Mirar~
     10. ~AtacarCon~
-    11. Dar
+    11. ~Dar~
     12. ~Tomar(agarrar)~
-    13. Poner
-    14. Soltar
+    13. ~Poner~
+    14. ~Soltar~
     15. ~Caminar/Ir~
-    16. etc.
+    16. ~Hablar~
+    17. ~Usar item~
 9. Narrador.
 10. CargadorDeHistoria.
 11. Juego.

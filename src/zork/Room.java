@@ -6,6 +6,8 @@ import java.util.Iterator;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import utilitarias.Cadena;
+
 public class Room {// locations
 
     private String nombre;
@@ -25,6 +27,7 @@ public class Room {// locations
 	sitios = new Hashtable<String, Sitio>();
 	salidas = new Hashtable<String, Salida>();
 	npcs = new Hashtable<String, NPC>();
+	sitios.put("suelo", new Sitio());
     }
 
     public void addSitio(Sitio newSitio) {
@@ -40,6 +43,7 @@ public class Room {// locations
     }
 
     public void addNPC(NPC newNPC) {
+	newNPC.setHabitacionActual(this);
 	this.npcs.put(newNPC.getName(), newNPC);
     }
 
@@ -85,17 +89,17 @@ public class Room {// locations
 	    salida.addNPC(obstacle);
     }
     
+    public Collection<NPC> getNpcs() {
+	return npcs.values();
+    }
+    
     @Override
     public String toString() {
-	String retorno;
-	if (number == 's')
-	    retorno = gender == 'm' ? "el " + this.nombre : "la " + this.nombre;
-
-	else
-	    retorno = gender == 'm' ? "los " + this.nombre : "las " + this.nombre;
-
-	return retorno;
-
+	return Cadena.articuloDefinido(nombre, gender, number);
+    }
+    
+    public String articuloIndefinido() {
+	return Cadena.articuloIndefinido(nombre, gender, number);
     }
 
 }

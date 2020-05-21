@@ -4,6 +4,8 @@ import java.util.Hashtable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import utilitarias.Cadena;
+
 public class NPC extends Character {
     private String charla;
     private String descripcion;
@@ -43,7 +45,11 @@ public class NPC extends Character {
     }
     
     public String ejecutarTrigger(String tipoTrigger, String objetoActivador) {
-	return triggers.get(tipoTrigger).ejecutar(this, objetoActivador);    
+	Trigger trigger = triggers.get(tipoTrigger);
+	if (trigger != null)
+	    return trigger.ejecutar(this, objetoActivador);
+	else
+	    return null;
     }
 
     public String hablar() {
@@ -70,14 +76,13 @@ public class NPC extends Character {
 	return this.nombre;
     }
 
-    
     @Override
     public String toString() {
-	String fraseItem = "";
-	if (number == 's')
-	    fraseItem += gender == 'm' ? "el " : "la ";
-	else
-	    fraseItem += gender == 'm' ? "los " : "las ";
-	return fraseItem + nombre;
+	return Cadena.articuloDefinido(nombre, gender, number);
     }
+    
+    public String articuloIndefinido() {
+	return Cadena.articuloIndefinido(nombre, gender, number);
+    }
+
 }

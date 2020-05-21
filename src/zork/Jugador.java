@@ -1,5 +1,7 @@
 package zork;
 
+import java.util.LinkedList;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -15,7 +17,6 @@ public class Jugador extends Character {
 	movimientos = 0;
 	score = 0;
 	salud = 100;
-
     }
 
     public void sumarMovimiento() {
@@ -24,10 +25,6 @@ public class Jugador extends Character {
 
     public String getName() {
 	return this.nombre;
-    }
-
-    public float getSalud() {
-	return this.salud;
     }
 
     public int getCantMovimientos() {
@@ -41,6 +38,7 @@ public class Jugador extends Character {
     public void setHabitacionActual(Room room) {
 	this.habitacionActual = room;
     }
+
 
     public boolean mover(String direction) {
 	Salida salida = habitacionActual.getSalida(direction);

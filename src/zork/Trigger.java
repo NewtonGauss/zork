@@ -28,8 +28,7 @@ public class Trigger {
 	    break;
 	case "remove":
 	    npc.getHabitacionActual().removeNPC(npc.getName());
-	    break;
-	}
+	    break;}
 	return mensaje;
     }
 }

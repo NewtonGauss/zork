@@ -7,6 +7,8 @@ import java.util.Iterator;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import utilitarias.Cadena;
+
 public class Sitio {
 
     private String nombre;
@@ -14,6 +16,15 @@ public class Sitio {
     private char number;
     private Hashtable<String, Item> items;
     
+    /*
+     * Sitio por defecto de cada habitacion: suelo
+     */
+    public Sitio() {
+	nombre = "suelo";
+	gender = 'm';
+	number = 's';
+	items = new Hashtable<String, Item>();
+    }
 
     public Sitio(JsonElement json) {
 	JsonObject jobj = json.getAsJsonObject();
@@ -47,12 +58,7 @@ public class Sitio {
     
     @Override
     public String toString() {
-	String fraseSitio = "";
-	if (number == 's')
-	    fraseSitio += gender == 'm' ? "el " : "la ";
-	else
-	    fraseSitio += gender == 'm' ? "los " : "las ";
-	return fraseSitio + getNombre();
+	return Cadena.articuloDefinido(nombre, gender, number);
     }
 
     public String getNombre() {

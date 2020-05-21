@@ -2,43 +2,43 @@ package zork;
 
 import java.util.Iterator;
 
-public class PonerComando implements Comando{
+public class PonerComando implements Comando {
 
-	/*
-	 * PARA QUE FUNCIONE EN EL PARAMETRO RESTODELCOMANDO SE TIENE QUE RECIBIR 
-	 * "nombreItem:nombreSitio"
-	 * 
-	 * */
+    /**
+     * Ejecuta un comando de Poner un {@link Item} en un {@link Sitio}.
+     * Devuelve el mensaje que debera aparecer en pantalla.
+     * 
+     * @param restoDelComando es una cadena con la sintaxis nombreItem:nombreSitio
+     * @return mensaje de salida por pantalla.
+     */
+    @Override
+    public String ejecutar(Jugador jugador, String restoDelComando) {
+
+	String retorno = "";
+	String[] cadenaCortada = restoDelComando.split(":");
+	Item item;
+	String objeto = cadenaCortada[0], sitioObjetivo = cadenaCortada[1];
 	
-	@Override
-	public String ejecutar(Jugador jugador, String restoDelComando) {
-		
-		String retorno = "";
-		String[] aux = restoDelComando.split(":");
-		
-		if(jugador.getItem(aux[0]) != null) {
-			if(jugador.getHabitacionActual().getSitio(aux[1]) != null) {
-				retorno = "El item " + aux[0] + " ahora se encuentra en" ;
-				if(jugador.getHabitacionActual().getSitio(aux[1]).getGender() == 'm') {
-					retorno += " el " + aux[1] ;
-				}else {
-					retorno += " la " + aux[1] ;
-				}
-				Item item = jugador.getItem(aux[0]);
-				jugador.getHabitacionActual().getSitio(aux[1]).addItem(item);
-				jugador.removeItem(aux[0]);
-			}else {
-				retorno = aux[1] + " no es un sitio disponible. \n Los sitios disponibles son: " ;
-				for(Iterator<Sitio> s = jugador.getHabitacionActual().getSitios().iterator(); s.hasNext();) {
-					Sitio sitio = s.next();
-					retorno += sitio.getNombre() + "\t" ;
-				}
-			}
-		}else {
-			retorno = "El item " + aux[0] + " no se encontro en el inventario" ;
+	if ((item = jugador.getItem(objeto)) != null) {
+	    Room habitacionActual = jugador.getHabitacionActual();
+	    Sitio sitio = habitacionActual.getSitio(sitioObjetivo);
+	    
+	    if (sitio != null) {
+		retorno = item.toString() + " ahora se encuentra en " + sitio.toString();
+		sitio.addItem(item);
+		jugador.removeItem(objeto);
+	    } else {
+		retorno = sitioObjetivo + " no es un sitio disponible.\nLos sitios disponibles son:\n";
+		for (Iterator<Sitio> s = habitacionActual.getSitios().iterator(); s.hasNext();) {
+		    Sitio sitioExistente = s.next();
+		    retorno += sitioExistente.getNombre() + "\n";
 		}
-		
-		return retorno;
+	    }
+	} else {
+	    retorno = "No se encuentra " + objeto + " en el inventario";
 	}
+
+	return retorno;
+    }
 
 }

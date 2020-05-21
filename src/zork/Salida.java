@@ -15,13 +15,13 @@ public class Salida {
 	
 	public void addNPC(NPC newObstacle) {
 		this.obstacle = newObstacle;
-		obstacle.setEnemy(true);
+		getObstacle().setEnemy(true);
 		this.defeated = false;
 	}
 	
 	public boolean removeNPC(String nombre) {
 	    boolean rta = false;
-	    if (obstacle.getName().equals(nombre)) {
+	    if (getObstacle().getName().equals(nombre)) {
 		defeated = rta = true;
 		obstacle = null;
 	    }
@@ -29,7 +29,7 @@ public class Salida {
 	}
 	
 	public boolean isEnemyDefeated() {
-		if(!defeated && (obstacle.isDead() || !obstacle.isEnemy()))
+		if(!defeated && (getObstacle().isDead() || !getObstacle().isEnemy()))
 			defeated = true;
 		return defeated;
 	}
@@ -40,6 +40,10 @@ public class Salida {
 	
 	public String getNombre() {
 		return this.salida.getNombre();
+	}
+
+	public NPC getObstacle() {
+	    return obstacle;
 	}
 
 }
