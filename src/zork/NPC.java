@@ -45,7 +45,11 @@ public class NPC extends Character {
     }
     
     public String ejecutarTrigger(String tipoTrigger, String objetoActivador) {
-	return triggers.get(tipoTrigger).ejecutar(this, objetoActivador);    
+	Trigger trigger = triggers.get(tipoTrigger);
+	if (trigger != null)
+	    return trigger.ejecutar(this, objetoActivador);
+	else
+	    return null;
     }
 
     public String hablar() {

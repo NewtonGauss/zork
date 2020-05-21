@@ -41,20 +41,20 @@ class HablarComandoTest {
 	 	"        }\n" + 
 	 	"      ]\n" + 
 	 	"    }";
-    @Test
-    void test() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room = new Room(JsonParser.parseString(jsonRoom));
-	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
-	HablarComando hc = new HablarComando();
-	room.addNPC(npc);
-	jugador.setHabitacionActual(room);
-	assertEquals(npc.hablar(), hc.ejecutar(jugador, "pirata fantasma"));
-	
-	System.out.println(hc.ejecutar(jugador, "pirata fantasma"));
-	
-	assertEquals(npc.hablar(), hc.ejecutar(jugador, "pirata"));
-	System.out.println("\n" + hc.ejecutar(jugador, "pirata"));
-    }
+//    @Test
+//    void test() {
+//	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+//	Room room = new Room(JsonParser.parseString(jsonRoom));
+//	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
+//	HablarComando hc = new HablarComando();
+//	room.addNPC(npc);
+//	jugador.setHabitacionActual(room);
+//	assertEquals(npc.hablar(), hc.ejecutar(jugador, "pirata fantasma"));
+//	
+//	System.out.println(hc.ejecutar(jugador, "pirata fantasma"));
+//	
+//	assertEquals(npc.hablar(), hc.ejecutar(jugador, "pirata"));
+//	System.out.println("\n" + hc.ejecutar(jugador, "pirata"));
+//    }
 
 }

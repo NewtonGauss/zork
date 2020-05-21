@@ -43,6 +43,7 @@ public class Room {// locations
     }
 
     public void addNPC(NPC newNPC) {
+	newNPC.setHabitacionActual(this);
 	this.npcs.put(newNPC.getName(), newNPC);
     }
 

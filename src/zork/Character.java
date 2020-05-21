@@ -60,14 +60,18 @@ public abstract class Character {
 
 	public void aplicarItem(String item) {
 	    switch (item) {
-	    case "pocion":
+	    case "potion":
 	        sumarSalud(20);
 	        break;
 	
-	    case "veneno":
+	    case "poison":
 	        restarSalud(15);
 	        break;
 	    }
+	}
+
+	public float getSalud() {
+	    return this.salud;
 	};
 	
 	

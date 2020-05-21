@@ -122,7 +122,7 @@ class JugadorTest {
 	
 	@Test
 	void testSalud() {
-	    Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	    Character jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	    assertEquals(100, jugador.getSalud());
 	    jugador.restarSalud(10);
 	    assertEquals(90, jugador.getSalud());
