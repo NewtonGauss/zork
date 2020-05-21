@@ -44,7 +44,22 @@ class AtacarComandoTest {
 	j1.addItem(item);
 	room.addNPC(npc);
 	j1.setHabitacionActual(room);
-	assertEquals("Maxi Hiena: Uhhh me rompiste la gorra", acc.ejecutar(j1, npc.getName() + ":" + item.getNombre()));
+	assertEquals("Maxi Hiena: Uhhh me rompiste la gorra.", acc.ejecutar(j1, npc.getName() + ":" + item.getNombre()));
+    }
+    
+    @Test
+    void testNpcInvalido() {
+	
+	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room room = new Room(JsonParser.parseString(jsonRoom));
+	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
+	Item item = new Item(JsonParser.parseString(jsonItem));
+	AtacarConComando acc = new AtacarConComando();
+	
+	j1.addItem(item);
+	room.addNPC(npc);
+	j1.setHabitacionActual(room);
+	assertEquals("pirata no se encuentra en el muelle.", acc.ejecutar(j1,"pirata:" + item.getNombre()));
     }
 
     @Test

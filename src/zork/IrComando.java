@@ -2,22 +2,6 @@ package zork;
 
 public class IrComando implements Comando {
 
-<<<<<<< HEAD
-	@Override
-	public String ejecutar(Jugador jugador, String restoDelComando) {
-		
-		String retorno = "";
-		
-		if(jugador.mover(restoDelComando) == true) {
-			retorno = jugador.getHabitacionActual().getDescription();
-		}else if (jugador.habitacionActual.getSalida(restoDelComando) != null) {
-			retorno = "Hay un NPC bloqueando la salida";
-		}else {
-			retorno = "Hacia el " + restoDelComando + " no hay salida";			
-		}
-		
-		return retorno;
-=======
     /**
      * Mueve al jugador (o no).
      * Devuelve el mensaje que debera aparecer en pantalla
@@ -43,7 +27,7 @@ public class IrComando implements Comando {
 				: "el ")
 			+ direccion + " no hay salida";
 	    }
->>>>>>> 0c362b4dc500972c0730fd105f10de355fcc2f6b
+
 	}
 	return retorno;
     }

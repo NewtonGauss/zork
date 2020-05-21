@@ -27,7 +27,8 @@ public class DarComando implements Comando {
 		retorno = "No tienes " + objeto + " en tu inventario.";
 	    }
 	} else {
-	    retorno = sujeto + " no se encuentra en la habitacion actual.";
+	    retorno = sujeto + " no se encuentra en "
+		    + jugador.getHabitacionActual().toString() + '.';
 	}
 	return retorno;
     }

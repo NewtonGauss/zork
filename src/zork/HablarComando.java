@@ -1,25 +1,25 @@
 package zork;
 
-public class HablarComando implements Comando{
+public class HablarComando implements Comando {
 
-    /*
-     * Para el funcionamiento de este comando el contenido de restoDelComando
-     * debe ser unicamente el nombre del npc.
-     * Ejemplo:
-     * HablarComando.ejecutar(jugador,"pirata fantasma");
+    /**
+     * Ejecuta el metodo hablar de {@link NPC}
+     * 
+     * @param objetivo el nombre del npc
+     * @return mensaje de salida por pantalla
      */
     @Override
-    public String ejecutar(Jugador jugador, String restoDelComando) {
+    public String ejecutar(Jugador jugador, String objetivo) {
 	String retorno = "";
-	NPC npc = jugador.getHabitacionActual().getNPC(restoDelComando);
-	if(npc != null) {
+	Room habitacionActual = jugador.getHabitacionActual();
+	NPC npc = habitacionActual.getNPC(objetivo);
+	if (npc != null) {
 	    retorno = npc.hablar();
-	}
-	else {
-	    retorno = "El NPC al que desea hablarle no se encuentra en la habitacion actual.";
+	} else {
+	    retorno = objetivo + " no se encuentra en " + habitacionActual.toString()
+		    + '.';
 	}
 	return retorno;
     }
-    
 
 }

@@ -19,11 +19,12 @@ public class AtacarConComando implements Comando {
 	String[] cadenaPartida = restoDelComando.split(":");
 	String objetivo = cadenaPartida[0], objeto = cadenaPartida[1];
 
-	NPC npc = jugador.getHabitacionActual().getNPC(objetivo);
+	Room habitacionActual = jugador.getHabitacionActual();
+	NPC npc = habitacionActual.getNPC(objetivo);
 	Item item = jugador.getItem(objeto);
-	if (item != null && item.getTipo().equals("weapon"))
-	    retorno = objetivo + ": " + npc.ejecutarTrigger("attack", objeto);
-	else {
+	if (item != null && npc != null && item.getTipo().equals("weapon"))
+	    retorno = objetivo + ": " + npc.ejecutarTrigger("attack", objeto) + '.';
+	else if (npc != null) {
 	    retorno = "Utilice uno de los siguientes items para atacar: \n";
 	    for (Iterator<Item> i = jugador.getItems().iterator(); i.hasNext();) {
 		item = i.next();
@@ -32,7 +33,9 @@ public class AtacarConComando implements Comando {
 	    }
 	    if (retorno.equals("Utilice uno de los siguientes items para atacar: \n"))
 		retorno = "No tiene armas para atacar. ¡Busque una!";
-	}
+	} else
+	    retorno = objetivo + " no se encuentra en "
+		    + habitacionActual.toString() + '.';
 	return retorno;
     }
 

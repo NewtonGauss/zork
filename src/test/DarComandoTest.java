@@ -87,7 +87,7 @@ class DarComandoTest {
 
 	j1.addItem(item);
 	j1.setHabitacionActual(room);
-	assertEquals("Maxi Hiena no se encuentra en la habitacion actual.",
+	assertEquals("Maxi Hiena no se encuentra en el muelle.",
 		dcc.ejecutar(j1, item.getNombre() + ":" + npc.getName()));
     }
 
@@ -99,7 +99,7 @@ class DarComandoTest {
 	DarComando dcc = new DarComando();
 	j1.addItem(item);
 	j1.setHabitacionActual(room);
-	assertEquals("Topo Malvado no se encuentra en la habitacion actual.",
+	assertEquals("Topo Malvado no se encuentra en el muelle.",
 		dcc.ejecutar(j1, item.getNombre() + ":Topo Malvado"));
     }
 }
