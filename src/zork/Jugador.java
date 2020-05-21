@@ -43,8 +43,20 @@ public class Jugador extends Character {
 	boolean seMovio = false;
 	if (salida != null && salida.isEnemyDefeated()) {
 	    setHabitacionActual(salida.getRoom());
+	    this.movimientos++;
 	    seMovio = true;
 	}
 	return seMovio;
+    }
+    
+    
+    @Override
+    public boolean addItem(Item nuevoItem) {
+        boolean retorno = false;
+        if(super.addItem(nuevoItem)) {
+            this.score += nuevoItem.getPoints();
+            retorno = true;
+        }
+        return retorno;
     }
 }

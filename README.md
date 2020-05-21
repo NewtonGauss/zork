@@ -51,3 +51,5 @@ Tenemos las siguientes clases a implementar. En orden de implementación:
 11. Juego.
 
 
+
+Hay que tener cuidado con los tests, por ejemplo con el comando atacar con, el nombre del npc y de la espada tiene que ser escrito estrictamente como se guarda la key en la tabla. Por ejemplo, si yo escribo en el input del juego atacar a yoshi con espada. y en la tabla de npcs esta con la key Yoshi. va a tirar error. No es necesario hacerlo ahora pero con normalizar las cadenas con un tolower o toupper iria bien.

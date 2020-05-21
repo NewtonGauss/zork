@@ -10,7 +10,7 @@ public class Salida {
 	// PARA PROBAR TEST
 	public Salida(Room room) {
 		this.salida = room;
-		this.defeated = true;	
+		this.defeated = true;
 	}
 	
 	public void addNPC(NPC newObstacle) {
