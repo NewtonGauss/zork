@@ -18,52 +18,25 @@ public class Narrador {
 	cargarPreposiciones();
     }
 
-    
     public String ejecutar(String comando) {
-  	String newComando = comando;
-  	if (comando.contains("hablar") || comando.contains("atacar"))  	
-  	    newComando = removeWord(comando, "con");
-  	String[] cadenaPartida = newComando.split(" ");
-  	Comando accion = parsearComando(cadenaPartida[0]);
-  	ArrayList<String> objetos = eliminarPreposicionesYArticulos(cadenaPartida);
-  	if (accion.getClass() == AtacarConComando.class) {
-	    String[] objetosString = objetos.get(0).split(" ");
-	    if (objetosString.length > 1) {
-		String aux = accion.ejecutar(jugador, objetosString[0] + ':' + objetosString[1]);
-		return aux;
-	}
-	    else if (objetosString.length == 1)
-		return accion.ejecutar(jugador, objetosString[0]);
-	    else
-		return accion.ejecutar(jugador, "");
-	} else {
-	    if (objetos.size() > 1)
-		return accion.ejecutar(jugador, objetos.get(0) + ':' + objetos.get(1));
-	    else if (objetos.size() == 1)
-		return accion.ejecutar(jugador, objetos.get(0));
-	    else
-		return accion.ejecutar(jugador, "");
-	}
+	if (comando.contains("hablar") || comando.contains("atacar"))
+	    comando = comando.replaceFirst(" con ", " % ");
+	String[] cadenaPartida = comando.split(" ");
+	Comando accion = parsearComando(cadenaPartida[0]);
+	ArrayList<String> objetos = eliminarPreposicionesYArticulos(cadenaPartida);
+	if (objetos.size() > 1)
+	    return accion.ejecutar(jugador, objetos.get(0) + ':' + objetos.get(1));
+	else if (objetos.size() == 1)
+	    return accion.ejecutar(jugador, objetos.get(0));
+	else
+	    return accion.ejecutar(jugador, "");
     }
-//    public String ejecutar(String comando) {
-//	if (comando.contains("hablar") || comando.contains("atacar"))
-//	    comando.replaceFirst(" con ", " ");
-//	String[] cadenaPartida = comando.split(" ");
-//	Comando accion = parsearComando(cadenaPartida[0]);
-//	ArrayList<String> objetos = eliminarPreposicionesYArticulos(cadenaPartida);
-//	if (objetos.size() > 1)
-//	    return accion.ejecutar(jugador, objetos.get(0) + ':' + objetos.get(1));
-//	else if (objetos.size() == 1)
-//	    return accion.ejecutar(jugador, objetos.get(0));
-//	else
-//	    return accion.ejecutar(jugador, "");
-//    }
-    
+
     private Comando parsearComando(String orden) {
 	Comando com = comandos.get(orden);
 	return com == null ? comandos.get("default") : com;
     }
-    
+
     private ArrayList<String> eliminarPreposicionesYArticulos(String[] comando) {
 	ArrayList<String> cadenaFiltrada = new ArrayList<String>();
 	String objeto = "";
@@ -100,7 +73,7 @@ public class Narrador {
 	comandos.put("dar", new DarComando());
 	comandos.put("default", new DefaultComando());
     }
-    
+
     private void cargarPreposiciones() {
 	preposicionesArticulos.add("a");
 	preposicionesArticulos.add("al");
@@ -110,16 +83,8 @@ public class Narrador {
 	preposicionesArticulos.add("las");
 	preposicionesArticulos.add("en");
 	preposicionesArticulos.add("hacia");
+	/* token */
+	preposicionesArticulos.add("%");
     }
-    
-    private static String removeWord(String string, String word) {	
-	if (string.contains(word)) {
-	    String tempWord = word + " ";
-	    string = string.replaceAll(tempWord, "");
-	    tempWord = " " + word;
-	    string = string.replaceAll(tempWord, "");
-	}
-	return string;
-    }
-}
 
+}
