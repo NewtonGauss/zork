@@ -43,7 +43,7 @@ class DarConComandoTest {
 	    + "      ]\n" + "    }";
 
     @Test
-    void test() {
+    void testExito() {
 
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room room = new Room(JsonParser.parseString(jsonRoom));
@@ -55,22 +55,41 @@ class DarConComandoTest {
 	room.addNPC(npc);
 	j1.setHabitacionActual(room);
 	assertEquals("se lo diste, capo", dcc.ejecutar(j1, item.getNombre() + ":" + npc.getName()));
-	String listaInventario = "No tienes objetos en tu inventario\n";
-	Iterator<Item> iterator = npc.getItems().iterator();
-	if (iterator.hasNext())
-	    listaInventario = "npc: ";
-	while(iterator.hasNext()) {
-		listaInventario += iterator.next().getNombre() + '\n';
-	}
-	System.out.println(listaInventario);
-//	String listaInventarioj = "No tienes objetos en tu inventario\n";
-//	Iterator<Item> iterator1 = npc.getItems().iterator();
-//	if (iterator1.hasNext())
-//	    listaInventarioj = "jugador: ";
-//	while(iterator1.hasNext()) {
-//		listaInventarioj += iterator1.next().getNombre() + '\n';
-//	}
-//	System.out.println(listaInventarioj);
+    }
+    
+    @Test
+    void testNoTenesItem(){
+	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room room = new Room(JsonParser.parseString(jsonRoom));
+	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
+	Item item = new Item(JsonParser.parseString(jsonItem));
+	DarConComando dcc = new DarConComando();
+	room.addNPC(npc);
+	j1.setHabitacionActual(room);
+	assertEquals("no tenes ese item, capo", dcc.ejecutar(j1, item.getNombre() + ":" + npc.getName()));
     }
 
+    @Test
+    void testNoEstaNpcEnRoom(){
+	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room room = new Room(JsonParser.parseString(jsonRoom));
+	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
+	Item item = new Item(JsonParser.parseString(jsonItem));
+	DarConComando dcc = new DarConComando();
+	
+	j1.addItem(item);
+	j1.setHabitacionActual(room);
+	assertEquals("Maxi Hiena no se encuentra en la habitacion actual", dcc.ejecutar(j1, item.getNombre() + ":" + npc.getName()));
+    }
+    
+    @Test
+    void testNoExisteNpc(){
+	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room room = new Room(JsonParser.parseString(jsonRoom));
+	Item item = new Item(JsonParser.parseString(jsonItem));
+	DarConComando dcc = new DarConComando();
+	j1.addItem(item);
+	j1.setHabitacionActual(room);
+	assertEquals("Topo Malvado no se encuentra en la habitacion actual", dcc.ejecutar(j1, item.getNombre() + ":Topo Malvado"));
+    }
 }
