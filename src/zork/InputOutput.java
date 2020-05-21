@@ -17,11 +17,4 @@ public class InputOutput {
 	public void imprimir(String mensaje) {
 		System.out.println(mensaje);
 	}
-	
-//	public static void main(String[] args) {
-//		InputOutput io=new InputOutput();
-//			String comando;
-//			comando=io.leerComando();
-//			io.imprimir(comando);
-//	}
 }

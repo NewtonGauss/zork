@@ -110,13 +110,13 @@ class JugadorTest {
 		Salida salida = new Salida(room2);
 		npc.setEnemy(true);
 		salida.addNPC(npc);
-		room1.addSalida(salida,"north");
+		room1.addSalida(salida,"norte");
 		assertEquals(false, salida.isEnemyDefeated());
 		npc.killNPC();
 		assertEquals(true, salida.isEnemyDefeated());
 		Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 		jugador.setHabitacionActual(room1);
-		assertTrue(jugador.mover("north"));
+		assertTrue(jugador.mover("norte"));
 		assertEquals(room2, jugador.getHabitacionActual());
 	}
 	
