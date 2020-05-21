@@ -347,8 +347,76 @@ class NarradorTest {
 	narrador.ejecutar("soltar espada");
 	
 	assertEquals("Tomaste la espada", narrador.ejecutar("tomar la espada"));
+	
+	assertEquals("Debe elegir un item para el comando tomar.", narrador.ejecutar("tomar"));
     }
     
+    
+    @Test
+    void testPoner() {
+	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Item espada = new Item(JsonParser.parseString(itemjson));
+	Narrador narrador = new Narrador(jugador);
+	Sitio suelo = new Sitio();
+	suelo.addItem(espada);
+	muelle.addSitio(suelo);
+	jugador.setHabitacionActual(muelle);
+	
+	assertEquals("Tomaste la espada", narrador.ejecutar("agarrar la espada"));
+	
+	assertEquals("la espada ahora se encuentra en el suelo", narrador.ejecutar("poner espada en el suelo"));
+	
+	assertEquals("Tomaste la espada", narrador.ejecutar("agarrar la espada"));
+    }
+    
+    @Test
+    void testSoltar() {
+
+	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Item espada = new Item(JsonParser.parseString(itemjson));
+	Narrador narrador = new Narrador(jugador);
+	Sitio suelo = new Sitio();
+	jugador.addItem(espada);
+	muelle.addSitio(suelo);
+	jugador.setHabitacionActual(muelle);
+	
+	
+	assertEquals("Se solto la espada en el suelo.", narrador.ejecutar("soltar espada"));
+	
+	assertEquals("Tomaste la espada", narrador.ejecutar("tomar la espada"));
+    }
+    
+    @Test
+    void testHablarConNPC() {
+
+	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	NPC pirata = new NPC(JsonParser.parseString(piratajson));
+	Item rociador = new Item(JsonParser.parseString(itemjson));
+	Narrador narrador = new Narrador(jugador);
+	muelle.addNPC(pirata);
+	jugador.setHabitacionActual(muelle);
+	jugador.addItem(rociador);
+
+	assertEquals("¡No hay nada que me digas que me haga cambiar de opinión!", narrador.ejecutar("hablar a pirata fantasma"));
+    }
+    
+    @Test
+    void testHablarSinNPC() {
+
+	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	NPC pirata = new NPC(JsonParser.parseString(piratajson));
+	Item rociador = new Item(JsonParser.parseString(itemjson));
+	Narrador narrador = new Narrador(jugador);
+	jugador.setHabitacionActual(muelle);
+	jugador.addItem(rociador);
+
+	assertEquals("pirata fantasma no se encuentra en el muelle."
+		, narrador.ejecutar("hablar a pirata fantasma"));
+    }
     
 
 }
