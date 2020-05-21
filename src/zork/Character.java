@@ -1,7 +1,6 @@
 package zork;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 public abstract class Character {
 
