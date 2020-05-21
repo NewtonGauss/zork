@@ -25,9 +25,9 @@ public class Narrador {
 	Comando accion = parsearComando(cadenaPartida[0]);
 	ArrayList<String> objetos = eliminarPreposicionesYArticulos(cadenaPartida);
 	if (objetos.size() > 1)
-	    return accion.ejecutar(jugador, objetos.get(1) + ':' + objetos.get(2));
+	    return accion.ejecutar(jugador, objetos.get(0) + ':' + objetos.get(1));
 	else if (objetos.size() == 1)
-	    return accion.ejecutar(jugador, objetos.get(1));
+	    return accion.ejecutar(jugador, objetos.get(0));
 	else
 	    return accion.ejecutar(jugador, "");
     }
@@ -40,9 +40,9 @@ public class Narrador {
     private ArrayList<String> eliminarPreposicionesYArticulos(String[] comando) {
 	ArrayList<String> cadenaFiltrada = new ArrayList<String>();
 	String objeto = "";
-	for (String palabra : comando) {
-	    if (!preposicionesArticulos.contains(palabra))
-		objeto += palabra + " ";
+	for (int i = 1; i < comando.length; i++) {
+	    if (!preposicionesArticulos.contains(comando[i]))
+		objeto += comando[i] + " ";
 	    else if (!objeto.equals("")) {
 		cadenaFiltrada.add(Cadena.replaceLast(objeto, " ", ""));
 		objeto = "";

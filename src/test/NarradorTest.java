@@ -112,7 +112,7 @@ class NarradorTest {
 			+ " y las piernas inmediatamente echaron a correr.",
 		narrador.ejecutar(
 			"usar el rociador con cerveza de raiz en el pirata fantasma"));
-
+	assertEquals("Se utilizo el rociador con cerveza de raiz sobre ti.", narrador.ejecutar("usar rociador con cerveza de raiz"));
     }
 
 }
