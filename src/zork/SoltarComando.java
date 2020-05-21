@@ -2,6 +2,12 @@ package zork;
 
 public class SoltarComando implements Comando {
 
+    /**
+     * Suelta el item en el suelo (sitio por defecto de las habitaciones)
+     * 
+     * @param nombreItem cadena con el nombre exacto del item.
+     * @return mensaje de salida por pantalla.
+     */
     @Override
     public String ejecutar(Jugador jugador, String nombreItem) {
 	String retorno = "No tienes " + nombreItem + " en tu inventario.";
