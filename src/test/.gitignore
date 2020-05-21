@@ -10,10 +10,13 @@
 /DiagnosticoTest.class
 /PonerComandoTest.class
 /ComandoInventarioTest.class
+<<<<<<< HEAD
+/IrComandoTest.class
+=======
 /DarConComandoTest.class
 /HablarConComandoTest.class
 /IrComandoTest.class
 /SoltarComandoTest.class
 /HablarComando.class
 /HablarComandoTest.class
-/UsarItemComandoTest.class
+>>>>>>> 0c362b4dc500972c0730fd105f10de355fcc2f6b

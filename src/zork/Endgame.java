@@ -1,8 +1,12 @@
 package zork;
 
-public interface Endgame {
+public abstract class Endgame {
+    
+	protected String descripcion;
 	
-	public boolean esFinal(String comando );
-	
-	public String getDescripcion();
+	public abstract boolean esFinal(String comando);
+
+	public String getDescripcion() {
+		return this.descripcion;
+	}
 }

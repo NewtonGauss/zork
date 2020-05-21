@@ -27,6 +27,7 @@ public class IrComando implements Comando {
 				: "el ")
 			+ direccion + " no hay salida";
 	    }
+
 	}
 	return retorno;
     }

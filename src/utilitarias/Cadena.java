@@ -33,4 +33,13 @@ public abstract class Cadena {
     public static String replaceLast(String text, String regex, String replacement) {
 	return text.replaceFirst("(?s)" + regex + "(?!.*?" + regex + ")", replacement);
     }
+    
+    /**
+     * Cambia "a el" por "al". 
+     * @param mensaje
+     * @return mensaje sin a el.
+     */
+    public static String replaceAEl(String mensaje) {
+	return mensaje.replaceFirst("a el", "al");
+    }
 }

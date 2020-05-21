@@ -3,12 +3,9 @@ package zork;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class ActionEndGame implements Endgame{
-	
-	private String descripcion;
+public class ActionEndGame extends Endgame{
 	private String objetivo;
 	private String accion;
-
 	
 	public ActionEndGame(JsonElement json) {
 		JsonObject jobj = json.getAsJsonObject();
@@ -21,14 +18,8 @@ public class ActionEndGame implements Endgame{
 	@Override
 	public boolean esFinal(String comando) {
 		boolean rta = false;
-		if(accion == comando)
+		if(comando.contains(accion) && comando.contains(objetivo))
 			rta = true;
 		return rta;
 	}
-
-	@Override
-	public String getDescripcion() {
-		return this.descripcion;
-	}
-
 }
