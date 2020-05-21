@@ -17,11 +17,8 @@ import zork.SoltarComando;
 class SoltarComandoTest {
 
     private String jsonSitio = "{\n" + "          \"name\": \"suelo\",\n"
-	    + "          \"gender\": \"male\",\n"
-	    + "          \"number\": \"singular\",\n" + "          \"items\": [\n"
-	    + "            \"barreta\",\n"
-	    + "            \"rociador con cerveza de raiz\",\n"
-	    + "            \"espejo\"\n" + "          ]\n" + "        }",
+	    + "          \"gender\": \"male\",\n" + "          \"number\": \"singular\"\n"
+	    + "        }",
 	    barretaJson = "{\n" + "      \"name\": \"barreta\",\n"
 		    + "      \"gender\": \"female\",\n"
 		    + "      \"number\": \"singular\",\n"
@@ -59,40 +56,109 @@ class SoltarComandoTest {
 	    jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
 
     @Test
-    void test() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room = new Room(JsonParser.parseString(jsonRoom));
-	Sitio sitio = new Sitio(JsonParser.parseString(jsonSitio));
-	Item item1 = new Item(JsonParser.parseString(barretaJson));
-	Item item2 = new Item(JsonParser.parseString(espejoJson));
-	Item item3 = new Item(JsonParser.parseString(rociadorJson));
+    void testExito() {
+	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room muelle = new Room(JsonParser.parseString(jsonRoom));
+	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
+	Item barreta = new Item(JsonParser.parseString(barretaJson));
+	Item espejo = new Item(JsonParser.parseString(espejoJson));
+	Item rociador = new Item(JsonParser.parseString(rociadorJson));
+	SoltarComando sc = new SoltarComando();
+
+	jugador.addItem(barreta);
+	jugador.addItem(espejo);
+	jugador.addItem(rociador);
+	muelle.addSitio(suelo);
+	jugador.setHabitacionActual(muelle);
+
+	assertEquals(barreta, jugador.getItem(barreta.getNombre()));
+	assertEquals(espejo, jugador.getItem(espejo.getNombre()));
+	assertEquals(rociador, jugador.getItem(rociador.getNombre()));
+
+	/* Me aseguro que suelo no tenga nada */
+	assertTrue(suelo.getItems().isEmpty());
+
+	assertEquals("Se solto la barreta en el suelo.", sc.ejecutar(jugador, "barreta"));
+	assertEquals("Se solto el espejo en el suelo.", sc.ejecutar(jugador, "espejo"));
+
+	/* Una vez soltados no los debe tener */
+	assertEquals(null, jugador.getItem(barreta.getNombre()));
+	assertEquals(null, jugador.getItem(espejo.getNombre()));
+	assertEquals(rociador, jugador.getItem(rociador.getNombre()));
+
+	/* Deben estar en el suelo */
+	assertEquals(barreta, suelo.getItem(barreta.getNombre()));
+	assertEquals(espejo, suelo.getItem(espejo.getNombre()));
+    }
+    
+    @Test
+    void testSinObjeto() {
+	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room muelle = new Room(JsonParser.parseString(jsonRoom));
+	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
+	Item barreta = new Item(JsonParser.parseString(barretaJson));
+	Item espejo = new Item(JsonParser.parseString(espejoJson));
+	Item rociador = new Item(JsonParser.parseString(rociadorJson));
 	SoltarComando sc = new SoltarComando();
 	
-	j1.addItem(item1);
-	j1.addItem(item2);
-	j1.addItem(item3);
-	room.addSitio(sitio);
-	j1.setHabitacionActual(room);
+	jugador.addItem(barreta);
+	jugador.addItem(espejo);
+	jugador.addItem(rociador);
+	muelle.addSitio(suelo);
+	jugador.setHabitacionActual(muelle);
 	
-	assertEquals("Se solto el item " + item1.getNombre() +" en el suelo", sc.ejecutar(j1, "barreta"));
+	assertEquals(barreta, jugador.getItem(barreta.getNombre()));
+	assertEquals(espejo, jugador.getItem(espejo.getNombre()));
+	assertEquals(rociador, jugador.getItem(rociador.getNombre()));
+	
+	/* Me aseguro que suelo no tenga nada */
+	assertTrue(suelo.getItems().isEmpty());
+	
+	assertEquals("No tienes canicas en tu inventario.", sc.ejecutar(jugador, "canicas"));
+	
+	/* Me aseguro de que no solto nada */
+	assertEquals(barreta, jugador.getItem(barreta.getNombre()));
+	assertEquals(espejo, jugador.getItem(espejo.getNombre()));
+	assertEquals(rociador, jugador.getItem(rociador.getNombre()));
+	
+	/* Suelo debe seguir sin nada */
+	assertTrue(suelo.getItems().isEmpty());
+    }
+    
 
-	Iterator<Item> i = j1.getHabitacionActual().getSitio(sitio.getNombre()).getItems().iterator();
-	while(i.hasNext()) {
-	    System.out.println(i.next().toString());
-	    
-	    
-	}
-	
-	System.out.println("\nDPS DE SOLTAR EL SEGUNDO ITEM\n");
-	
-	assertEquals("Se solto el item " + item2.getNombre() +" en el suelo", sc.ejecutar(j1, "espejo"));
+    @Test
+    void testSitioPorDefecto() {
+	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room muelle = new Room(JsonParser.parseString(jsonRoom));
+	Item barreta = new Item(JsonParser.parseString(barretaJson));
+	Item espejo = new Item(JsonParser.parseString(espejoJson));
+	Item rociador = new Item(JsonParser.parseString(rociadorJson));
+	SoltarComando sc = new SoltarComando();
 
-	Iterator<Item> i2 = j1.getHabitacionActual().getSitio(sitio.getNombre()).getItems().iterator();
-	while(i2.hasNext()) {
-	    System.out.println(i2.next().toString());
-	    
-	    
-	}
+	jugador.addItem(barreta);
+	jugador.addItem(espejo);
+	jugador.addItem(rociador);
+	jugador.setHabitacionActual(muelle);
+
+	assertEquals(barreta, jugador.getItem(barreta.getNombre()));
+	assertEquals(espejo, jugador.getItem(espejo.getNombre()));
+	assertEquals(rociador, jugador.getItem(rociador.getNombre()));
+
+	/* Me aseguro que suelo no tenga nada */
+	Sitio suelo = muelle.getSitio("suelo"); // sitio por defecto
+	assertTrue(suelo.getItems().isEmpty());
+
+	assertEquals("Se solto la barreta en el suelo.", sc.ejecutar(jugador, "barreta"));
+	assertEquals("Se solto el espejo en el suelo.", sc.ejecutar(jugador, "espejo"));
+
+	/* Una vez soltados no los debe tener */
+	assertEquals(null, jugador.getItem(barreta.getNombre()));
+	assertEquals(null, jugador.getItem(espejo.getNombre()));
+	assertEquals(rociador, jugador.getItem(rociador.getNombre()));
+
+	/* Deben estar en el suelo */
+	assertEquals(barreta, suelo.getItem(barreta.getNombre()));
+	assertEquals(espejo, suelo.getItem(espejo.getNombre()));
     }
 
 }

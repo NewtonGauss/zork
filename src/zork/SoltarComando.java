@@ -3,16 +3,14 @@ package zork;
 public class SoltarComando implements Comando {
 
     @Override
-    public String ejecutar(Jugador jugador, String restoDelComando) {
-	String retorno = "";
-	Item item = jugador.getItem(restoDelComando);
-	if(item != null) {
-	    jugador.habitacionActual.getSitio("suelo").addItem(item);
-	    jugador.removeItem(item.getNombre());
-	    retorno = "Se solto el item " + item.getNombre() + " en el suelo";
+    public String ejecutar(Jugador jugador, String nombreItem) {
+	String retorno = "No tienes " + nombreItem + " en tu inventario.";
+	Item itemSoltado = jugador.getItem(nombreItem);
+	if (itemSoltado != null) {
+	    jugador.getHabitacionActual().getSitio("suelo").addItem(itemSoltado);
+	    jugador.removeItem(nombreItem);
+	    retorno = "Se solto " + itemSoltado.toString() + " en el suelo.";
 	}
-	else
-	    retorno = "Usted no posee ese item en el inventario.";
 	return retorno;
     }
 

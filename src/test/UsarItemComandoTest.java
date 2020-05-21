@@ -177,6 +177,24 @@ class UsarItemComandoTest {
     }
 
     /*
+     * No se puede usar por ser objeto vanilla, que no causa ningun trigger
+     * sobre el npc
+     */
+    @Test
+    void testVanillaSinTrigger() {
+	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
+	Item burbuja = new Item(JsonParser.parseString(burbujaJson));
+	UsarItemComando usar = new UsarItemComando();
+	
+	muelle.addNPC(abeja);
+	jugador.setHabitacionActual(muelle);
+	jugador.addItem(burbuja);
+	assertEquals("Eso no ha servido de nada.", usar.ejecutar(jugador, "burbuja:abeja fantasma"));
+    }
+    
+    /*
      * No se puede usar por ser objeto vanilla
      */
     @Test
