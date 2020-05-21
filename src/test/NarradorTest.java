@@ -408,7 +408,6 @@ class NarradorTest {
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
-	NPC pirata = new NPC(JsonParser.parseString(piratajson));
 	Item rociador = new Item(JsonParser.parseString(itemjson));
 	Narrador narrador = new Narrador(jugador);
 	jugador.setHabitacionActual(muelle);
@@ -417,6 +416,7 @@ class NarradorTest {
 	assertEquals("pirata fantasma no se encuentra en el muelle."
 		, narrador.ejecutar("hablar a pirata fantasma"));
     }
+    
     
 
 }
