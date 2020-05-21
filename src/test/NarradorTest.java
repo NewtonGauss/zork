@@ -14,6 +14,7 @@ import zork.NPC;
 import zork.Narrador;
 import zork.Room;
 import zork.Salida;
+import zork.Sitio;
 import zork.UsarItemComando;
 
 class NarradorTest {
@@ -219,7 +220,7 @@ class NarradorTest {
 
 	assertEquals("0", narrador.ejecutar("movimientos"));
 
-	narrador.ejecutar("ir a la unlam");
+	narrador.ejecutar("caminar a la unlam");
 
 	assertEquals("1", narrador.ejecutar("movimientos"));
 
@@ -327,6 +328,27 @@ class NarradorTest {
 	assertEquals("Le diste la espada al pirata fantasma."
 		, narrador.ejecutar("dar espada al pirata fantasma"));
     }
+    
+    
+    @Test
+    void testAgarrar() {
+
+	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Item espada = new Item(JsonParser.parseString(itemjson));
+	Narrador narrador = new Narrador(jugador);
+	Sitio suelo = new Sitio();
+	suelo.addItem(espada);
+	muelle.addSitio(suelo);
+	jugador.setHabitacionActual(muelle);
+	
+	assertEquals("Tomaste la espada", narrador.ejecutar("agarrar la espada"));
+	
+	narrador.ejecutar("soltar espada");
+	
+	assertEquals("Tomaste la espada", narrador.ejecutar("tomar la espada"));
+    }
+    
     
 
 }

@@ -83,12 +83,15 @@ public class Narrador {
     private void cargarHashtable() {
 	comandos.put("usar", new UsarItemComando());
 	comandos.put("tomar", new Tomar());
+	comandos.put("agarrar", new Tomar());
 	comandos.put("soltar", new SoltarComando());
+	comandos.put("tirar", new SoltarComando());
 	comandos.put("puntuacion", new Puntuacion());
 	comandos.put("poner", new PonerComando());
 	comandos.put("movimientos", new Movimiento());
 	comandos.put("mirar", new MirarComando());
 	comandos.put("ir", new IrComando());
+	comandos.put("caminar", new IrComando());
 	comandos.put("info", new InfoComando());
 	comandos.put("hablar", new HablarComando());
 	comandos.put("diagnostico", new Diagnostico());
