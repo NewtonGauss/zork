@@ -30,7 +30,7 @@ Tenemos las siguientes clases a implementar. En orden de implementación:
 7. ~IO.~
 8. Comandos.
     1. ~Info~
-    2. Ayuda
+    2. ~Ayuda~
     3. Salir
     4. Guardar
     5. ~Puntuacion~
