@@ -42,4 +42,11 @@ public abstract class Cadena {
     public static String replaceAEl(String mensaje) {
 	return mensaje.replaceFirst("a el", "al");
     }
+
+    public static String normalizarFinalOracion(String mensajeSalida, int cantObjetivos) {
+        mensajeSalida = replaceLast(mensajeSalida, ",", ".");
+        if (cantObjetivos > 1)
+            mensajeSalida = replaceLast(mensajeSalida, ",", " y");
+        return mensajeSalida;
+    }
 }

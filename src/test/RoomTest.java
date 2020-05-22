@@ -58,8 +58,8 @@ class RoomTest {
 		Room room = new Room(JsonParser.parseString(jsonRoom));
 		Room room2 = new Room(JsonParser.parseString(jsonRoom2));
 		Salida salida = new Salida(room2);
-		room.addSalida(salida);
-		assertEquals(salida.getNombre(), room.getSalida("barrio").getNombre());
+		room.addSalida(salida, "sur");
+		assertEquals(salida.getNombre(), room.getSalida("sur").getNombre());
 	}
 	
 	@Test //Pruebo agregando Sitio...

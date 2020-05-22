@@ -85,12 +85,12 @@ class IrComandoTest {
 
 	Comando ir = new IrComando();
 
-	assertEquals("Hacia el norte no hay salida", ir.ejecutar(jugador, "norte"));
-	assertEquals("Hacia el este no hay salida", ir.ejecutar(jugador, "este"));
-	assertEquals("Hacia el oeste no hay salida", ir.ejecutar(jugador, "oeste"));
-	assertEquals("Hacia el sur no hay salida", ir.ejecutar(jugador, "sur"));
-	assertEquals("Hacia arriba no hay salida", ir.ejecutar(jugador, "arriba"));
-	assertEquals("Hacia abajo no hay salida", ir.ejecutar(jugador, "abajo"));
+	assertEquals("Hacia el norte no hay salida.", ir.ejecutar(jugador, "norte"));
+	assertEquals("Hacia el este no hay salida.", ir.ejecutar(jugador, "este"));
+	assertEquals("Hacia el oeste no hay salida.", ir.ejecutar(jugador, "oeste"));
+	assertEquals("Hacia el sur no hay salida.", ir.ejecutar(jugador, "sur"));
+	assertEquals("Hacia arriba no hay salida.", ir.ejecutar(jugador, "arriba"));
+	assertEquals("Hacia abajo no hay salida.", ir.ejecutar(jugador, "abajo"));
     }
 
 }

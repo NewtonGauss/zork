@@ -36,7 +36,7 @@ class ComandoInventarioTest {
 	jugador.addItem(barreta);
 
 	Comando com = new ComandoInventario();
-	assertEquals("barreta\nespejo\n", com.ejecutar(jugador, ""));
+	assertEquals("Tienes una barreta y un espejo.", com.ejecutar(jugador, ""));
     }
 
     @Test
@@ -44,7 +44,7 @@ class ComandoInventarioTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 
 	Comando com = new ComandoInventario();
-	assertEquals("No tienes objetos en tu inventario\n", com.ejecutar(jugador, ""));
+	assertEquals("No tienes objetos en tu inventario.", com.ejecutar(jugador, ""));
     }
 
 }

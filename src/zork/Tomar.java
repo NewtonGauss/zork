@@ -6,16 +6,16 @@ import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.ToStrin
 
 public class Tomar implements Comando {
     @Override
-    public String ejecutar(Jugador jugador, String restoDelComando) {
-	String retorno = "No hay ningun " + restoDelComando + " por aqui";
-	if(restoDelComando == "")
-	    retorno = "Debe elegir un item para el comando tomar.";
+    public String ejecutar(Jugador jugador, String nombreItem) {
+	String retorno = "No hay ningun " + nombreItem + " por aqui";
+	if(nombreItem.equals(""))
+	    retorno = "Debe elegir un objeto a tomar.";
 	Item itemTomado;
 	Iterator<Sitio> iterator = jugador.getHabitacionActual().getSitios().iterator();
 	while (iterator.hasNext()) {
-	    if ((itemTomado = iterator.next().getItem(restoDelComando)) != null) {
+	    if ((itemTomado = iterator.next().getItem(nombreItem)) != null) {
 		if (jugador.addItem(itemTomado))
-		    retorno = "Tomaste " + itemTomado.toString();
+		    retorno = "Tomaste " + itemTomado.toString() + '.';
 		else
 		    retorno = "No tienes mas espacio en tu inventario!";
 	    }

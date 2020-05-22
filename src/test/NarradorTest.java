@@ -79,7 +79,7 @@ class NarradorTest {
 		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
 		    + "    }",
 	    calculadoraJson = "{\n" + "      \"name\": \"calculadora\",\n"
-		    + "      \"gender\": \"male\",\n"
+		    + "      \"gender\": \"female\",\n"
 		    + "      \"number\": \"singular\",\n"
 		    + "			\"points\": \"100\",\n"
 		    + "			\"weight\": \"10\",\n"
@@ -97,15 +97,15 @@ class NarradorTest {
 		    + "      \"effects_over\": [\n" + "        \"self\",\n"
 		    + "        \"item\"\n" + "      ]\n" + "    }";
 
-    String jsonRoom = "{\n" + " \"name\": \"unlam\" ,\n" + " \"gender\": \"female\" ,\n"
+    String jsonUnlam = "{\n" + " \"name\": \"unlam\" ,\n" + " \"gender\": \"female\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en una universidad\" }";
 
-    String jsonRoom2 = "{\n" + " \"name\": \"barrio\" ,\n" + " \"gender\": \"male\" ,\n"
+    String jsonBarrio = "{\n" + " \"name\": \"barrio\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un barrio\" }";
 
-    String jsonNPC = "{\n" + "\"name\": \"Yoshi\" , \n" + "\"gender\": \"male\" , \n"
+    String jsonYoshi = "{\n" + "\"name\": \"Yoshi\" , \n" + "\"gender\": \"male\" , \n"
 	    + "\"number\": \"singular\" , \n"
 	    + "\"description\": \"Aqui no puedes pasar! Yoshi no te dejara pasar\" , \n"
 	    + "\"points\": \"100\" , \n" + "\"enemy\": \"true\" , \n"
@@ -115,7 +115,7 @@ class NarradorTest {
 	    + " \"thing\": \"espada\" ,\n" + " \"on_trigger\": \"Uhhh\" ,\n"
 	    + " \"after_trigger\": \"kill\" } ] }";
 
-    String jsonItem = "{\n" + "      \"name\": \"espada\",\n"
+    String jsonEspada = "{\n" + "      \"name\": \"espada\",\n"
 	    + "      \"gender\": \"female\",\n" + "      \"number\": \"singular\",\n"
 	    + "			\"points\": \"100\",\n"
 	    + "			\"weight\": \"10\",\n"
@@ -138,15 +138,6 @@ class NarradorTest {
 	    + "          \"after_trigger\": \"remove\"\n" + "        }\n" + "      ]\n"
 	    + "    }";
 
-    String itemjson = "{\n" + "      \"name\": \"espada\",\n"
-	    + "      \"gender\": \"female\",\n" + "      \"number\": \"singular\",\n"
-	    + "			\"points\": \"100\",\n"
-	    + "			\"weight\": \"10\",\n"
-	    + "			\"type\": \"weapon\",\n" + "      \"actions\": [\n"
-	    + "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n"
-	    + "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n"
-	    + "      ]\n" + "    }";
-
     @Test
     void testUsar() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
@@ -168,29 +159,35 @@ class NarradorTest {
 			"usar el rociador con cerveza de raiz en el pirata fantasma"));
 	assertEquals("Se utilizo el rociador con cerveza de raiz sobre ti.",
 		narrador.ejecutar("usar rociador con cerveza de raiz"));
+	assertEquals("No cuenta con burbujas en el inventario.",
+		narrador.ejecutar("usar burbujas"));
     }
 
     @Test
     void testIr() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room1 = new Room(JsonParser.parseString(jsonMuelle));
-	Room room2 = new Room(JsonParser.parseString(jsonRoom));
-	Room room3 = new Room(JsonParser.parseString(jsonRoom2));
-	Salida salida2 = new Salida(room2);
-	Salida salida3 = new Salida(room3);
+	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Room unlam = new Room(JsonParser.parseString(jsonUnlam));
+	Room barrio = new Room(JsonParser.parseString(jsonBarrio));
+	Salida salidaUnlam = new Salida(unlam);
+	Salida salidaBarrio = new Salida(barrio);
+	Salida salidaMuelle = new Salida(muelle);
 	Narrador narrador = new Narrador(jugador);
-	room1.addSalida(salida2);
-	room2.addSalida(salida3);
 
-	jugador.setHabitacionActual(room1);
+	muelle.addSalida(salidaUnlam, "norte");
 
-	assertEquals("Estas en una universidad", narrador.ejecutar("ir a la unlam"));
+	unlam.addSalida(salidaBarrio, "norte");
+	unlam.addSalida(salidaMuelle, "sur");
 
-	assertEquals("Estas en un barrio", narrador.ejecutar("ir barrio"));
+	barrio.addSalida(salidaUnlam, "sur");
 
-	assertEquals("Estas en una universidad", narrador.ejecutar("ir unlam"));
+	jugador.setHabitacionActual(muelle);
 
-	assertEquals("Estas en un muelle", narrador.ejecutar("ir al el los muelle"));
+	assertEquals("Estas en una universidad", narrador.ejecutar("ir al norte"));
+	assertEquals("Estas en un barrio", narrador.ejecutar("ir al norte"));
+	assertEquals("Estas en una universidad", narrador.ejecutar("ir hacia el sur"));
+	assertEquals("Estas en un muelle", narrador.ejecutar("ir al sur"));
+	assertEquals("Hacia el sur no hay salida.", narrador.ejecutar("ir al sur"));
     }
 
     @Test
@@ -214,20 +211,17 @@ class NarradorTest {
     @Test
     void testMovimientos() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room1 = new Room(JsonParser.parseString(jsonMuelle));
-	Room room2 = new Room(JsonParser.parseString(jsonRoom));
-	Room room3 = new Room(JsonParser.parseString(jsonRoom2));
-	Salida salida2 = new Salida(room2);
-	Salida salida3 = new Salida(room3);
+	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Room unlam = new Room(JsonParser.parseString(jsonUnlam));
+	Salida surUnlam = new Salida(unlam);
 	Narrador narrador = new Narrador(jugador);
-	room1.addSalida(salida2);
-	room2.addSalida(salida3);
+	muelle.addSalida(surUnlam, "sur");
 
-	jugador.setHabitacionActual(room1);
+	jugador.setHabitacionActual(muelle);
 
 	assertEquals("0", narrador.ejecutar("movimientos"));
 
-	narrador.ejecutar("caminar a la unlam");
+	narrador.ejecutar("caminar al sur");
 
 	/*
 	 * El comando de movimientos tambien suma movimientos ya que consideramos
@@ -237,41 +231,42 @@ class NarradorTest {
 	assertEquals("2", narrador.ejecutar("movimientos"));
 
 	narrador.ejecutar("dar espejo al loco");
+	narrador.ejecutar("dar espejo al loco");
 
-	assertEquals("4", narrador.ejecutar("movimientos"));
+	assertEquals("5", narrador.ejecutar("movimientos"));
     }
 
     @Test
     void testInventario() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Narrador narrador = new Narrador(jugador);
-	Item item = new Item(JsonParser.parseString(calculadoraJson));
-	Item item2 = new Item(JsonParser.parseString(venenoJson));
+	Item calculadora = new Item(JsonParser.parseString(calculadoraJson));
+	Item veneno = new Item(JsonParser.parseString(venenoJson));
 
-	assertEquals("No tienes objetos en tu inventario\n",
+	assertEquals("No tienes objetos en tu inventario.",
 		narrador.ejecutar("inventario"));
 
-	jugador.addItem(item);
+	jugador.addItem(calculadora);
 
-	assertEquals("calculadora\n", narrador.ejecutar("inventario"));
+	assertEquals("Tienes una calculadora.", narrador.ejecutar("inventario"));
 
-	jugador.addItem(item2);
+	jugador.addItem(veneno);
 
-	assertEquals("calculadora\n" + "veneno\n", narrador.ejecutar("inventario"));
+	assertEquals("Tienes una calculadora y un veneno.",
+		narrador.ejecutar("inventario"));
     }
 
     @Test
     void testDiagnostico() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Narrador narrador = new Narrador(jugador);
-	Item item = new Item(JsonParser.parseString(calculadoraJson));
-	Item item2 = new Item(JsonParser.parseString(venenoJson));
+	Item veneno = new Item(JsonParser.parseString(venenoJson));
 
 	assertEquals(
 		"Tu estado de salud es perfecto (100), solo te podria matar una seria herida",
 		narrador.ejecutar("diagnostico"));
 
-	jugador.addItem(item2);
+	jugador.addItem(veneno);
 
 	narrador.ejecutar("usar veneno");
 
@@ -282,28 +277,30 @@ class NarradorTest {
     @Test
     void testMirar() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room1 = new Room(JsonParser.parseString(jsonMuelle));
-	Room room2 = new Room(JsonParser.parseString(jsonRoom));
-	Room room3 = new Room(JsonParser.parseString(jsonRoom2));
+	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Room unlam = new Room(JsonParser.parseString(jsonUnlam));
+	Room barrio = new Room(JsonParser.parseString(jsonBarrio));
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
-	Salida salida2 = new Salida(room2);
-	Salida salida3 = new Salida(room3);
+	Salida salidaUnlam = new Salida(unlam);
+	Salida salidaBarrio = new Salida(barrio);
 	Narrador narrador = new Narrador(jugador);
-	room1.addNPC(pirata);
-	room1.addSalida(salida2);
-	room2.addSalida(salida3);
+	muelle.addNPC(pirata);
+	muelle.addSalida(salidaUnlam, "sur");
+	unlam.addSalida(salidaBarrio, "sur");
 
-	jugador.setHabitacionActual(room1);
+	jugador.setHabitacionActual(muelle);
 
-	assertEquals("Estas en un muelle. Hay un pirata fantasma.", narrador.ejecutar("mirar"));
+	assertEquals("Estas en un muelle. Hay un pirata fantasma. Al sur hay una unlam.",
+		narrador.ejecutar("mirar"));
 	assertEquals("- '¡No puedes pasar!' El pirata fantasma no te dejará pasar",
 		narrador.ejecutar("mirar al pirata fantasma"));
 
-	narrador.ejecutar("ir a la unlam");
+	narrador.ejecutar("ir al sur");
 
-	assertEquals("Estas en una universidad.", narrador.ejecutar("mirar alrededor"));
+	assertEquals("Estas en una universidad. Al sur hay un barrio.",
+		narrador.ejecutar("mirar alrededor"));
 
-	narrador.ejecutar("ir al barrio");
+	narrador.ejecutar("ir al sur");
 
 	assertEquals("Estas en un barrio.", narrador.ejecutar("mirar"));
     }
@@ -312,18 +309,18 @@ class NarradorTest {
     void testAtacarCon() {
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room = new Room(JsonParser.parseString(jsonRoom));
-	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
-	Item item = new Item(JsonParser.parseString(jsonItem));
+	Room unlam = new Room(JsonParser.parseString(jsonUnlam));
+	NPC yoshi = new NPC(JsonParser.parseString(jsonYoshi));
+	Item espada = new Item(JsonParser.parseString(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
-	jugador.addItem(item);
+	jugador.addItem(espada);
 
-	jugador.setHabitacionActual(room);
+	jugador.setHabitacionActual(unlam);
 	assertEquals("Yoshi no se encuentra en la unlam.",
-		narrador.ejecutar("atacar a Yoshi con espada"));
+		narrador.ejecutar("atacar a Yoshi con la espada"));
 
-	room.addNPC(npc);
-	assertEquals("Yoshi: Uhhh.", narrador.ejecutar("atacar a Yoshi con espada"));
+	unlam.addNPC(yoshi);
+	assertEquals("Yoshi: Uhhh.", narrador.ejecutar("atacar a Yoshi con la espada"));
     }
 
     @Test
@@ -332,12 +329,12 @@ class NarradorTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
 	NPC pirata = new NPC(JsonParser.parseString(piratajson));
-	Item rociador = new Item(JsonParser.parseString(itemjson));
+	Item espada = new Item(JsonParser.parseString(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 
 	muelle.addNPC(pirata);
 	jugador.setHabitacionActual(muelle);
-	jugador.addItem(rociador);
+	jugador.addItem(espada);
 
 	assertEquals("yoshi no se encuentra en el muelle.",
 		narrador.ejecutar("dar espada a yoshi"));
@@ -351,40 +348,40 @@ class NarradorTest {
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
-	Item espada = new Item(JsonParser.parseString(itemjson));
+	Item espada = new Item(JsonParser.parseString(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 	Sitio suelo = new Sitio();
 	suelo.addItem(espada);
 	muelle.addSitio(suelo);
 	jugador.setHabitacionActual(muelle);
 
-	assertEquals("Tomaste la espada", narrador.ejecutar("agarrar la espada"));
+	assertEquals("Tomaste la espada.", narrador.ejecutar("agarrar la espada"));
 
 	narrador.ejecutar("soltar espada");
 
-	assertEquals("Tomaste la espada", narrador.ejecutar("tomar la espada"));
+	assertEquals("Tomaste la espada.", narrador.ejecutar("tomar la espada"));
 
-	assertEquals("Debe elegir un item para el comando tomar.",
-		narrador.ejecutar("tomar"));
+	assertEquals("Debe elegir un objeto a tomar.", narrador.ejecutar("tomar"));
     }
 
     @Test
     void testPoner() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
-	Item espada = new Item(JsonParser.parseString(itemjson));
+	Item espada = new Item(JsonParser.parseString(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 	Sitio suelo = new Sitio();
 	suelo.addItem(espada);
 	muelle.addSitio(suelo);
 	jugador.setHabitacionActual(muelle);
 
-	assertEquals("Tomaste la espada", narrador.ejecutar("agarrar la espada"));
-
+	assertEquals("Tomaste la espada.", narrador.ejecutar("agarrar la espada"));
 	assertEquals("la espada ahora se encuentra en el suelo",
-		narrador.ejecutar("poner espada en el suelo"));
+		narrador.ejecutar("poner la espada en el suelo"));
+	assertEquals("Tomaste la espada.", narrador.ejecutar("agarrar la espada"));
+	assertEquals("No hay un cofre en el muelle. Puede dejar la espada en el suelo.",
+		narrador.ejecutar("poner la espada en el cofre"));
 
-	assertEquals("Tomaste la espada", narrador.ejecutar("agarrar la espada"));
     }
 
     @Test
@@ -392,7 +389,7 @@ class NarradorTest {
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
-	Item espada = new Item(JsonParser.parseString(itemjson));
+	Item espada = new Item(JsonParser.parseString(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 	Sitio suelo = new Sitio();
 	jugador.addItem(espada);
@@ -402,7 +399,7 @@ class NarradorTest {
 	assertEquals("Se solto la espada en el suelo.",
 		narrador.ejecutar("soltar espada"));
 
-	assertEquals("Tomaste la espada", narrador.ejecutar("tomar la espada"));
+	assertEquals("Tomaste la espada.", narrador.ejecutar("tomar la espada"));
     }
 
     @Test
@@ -411,7 +408,7 @@ class NarradorTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
 	NPC pirata = new NPC(JsonParser.parseString(piratajson));
-	Item rociador = new Item(JsonParser.parseString(itemjson));
+	Item rociador = new Item(JsonParser.parseString(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 	muelle.addNPC(pirata);
 	jugador.setHabitacionActual(muelle);
@@ -419,6 +416,8 @@ class NarradorTest {
 
 	assertEquals("¡No hay nada que me digas que me haga cambiar de opinión!",
 		narrador.ejecutar("hablar a pirata fantasma"));
+	assertEquals("¡No hay nada que me digas que me haga cambiar de opinión!",
+		narrador.ejecutar("hablar con pirata fantasma"));
     }
 
     @Test
@@ -426,24 +425,26 @@ class NarradorTest {
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
-	Item rociador = new Item(JsonParser.parseString(itemjson));
+	Item rociador = new Item(JsonParser.parseString(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 	jugador.setHabitacionActual(muelle);
 	jugador.addItem(rociador);
 
 	assertEquals("pirata fantasma no se encuentra en el muelle.",
 		narrador.ejecutar("hablar a pirata fantasma"));
+	assertEquals("pirata fantasma no se encuentra en el muelle.",
+		narrador.ejecutar("hablar con pirata fantasma"));
     }
-    
+
     @Test
     void testComandoNoReconocido() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
-	Item rociador = new Item(JsonParser.parseString(itemjson));
+	Item rociador = new Item(JsonParser.parseString(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 	jugador.setHabitacionActual(muelle);
 	jugador.addItem(rociador);
-	
+
 	assertEquals("No puedo reconocer esa orden.",
 		narrador.ejecutar("desensamblar la enciclopedia"));
 	assertEquals("No puedo reconocer esa orden.",

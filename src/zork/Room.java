@@ -29,26 +29,13 @@ public class Room {// locations
 	npcs = new Hashtable<String, NPC>();
 	sitios.put("suelo", new Sitio());
     }
-
+    
     public void addSitio(Sitio newSitio) {
 	this.sitios.put(newSitio.getNombre(), newSitio);
     }
 
     public void addSalida(Salida newSalida, String direccion) {
 	this.salidas.put(direccion, newSalida);
-	
-    }
-
-    public void addSalida(Salida newSalida) {
-	this.salidas.put(newSalida.getNombre(), newSalida);
-	
-	/*
-	 * Es para los tests esto que agregamos. Las caminos de ida y vuelta se agregan
-	 * automaticamente desde el json.
-	 * */
-	
-	Salida vuelta = new Salida(this);
-	newSalida.getRoom().addSalida(vuelta, vuelta.getNombre());
 	
     }
 

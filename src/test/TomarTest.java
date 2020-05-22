@@ -70,7 +70,7 @@ class TomarTest {
 		s3.addItem(canicas);
 		j.setHabitacionActual(r);
 		Tomar c = new Tomar();
-		assertEquals("Tomaste el espejo", c.ejecutar(j, "espejo"));
+		assertEquals("Tomaste el espejo.", c.ejecutar(j, "espejo"));
 	}
 	@Test
 	void testNoHayItem() {
@@ -138,7 +138,7 @@ class TomarTest {
 		s3.addItem(canicas);
 		j.setHabitacionActual(r);
 		Tomar c = new Tomar();
-		assertEquals("Tomaste las canicas", c.ejecutar(j, "canicas"));
+		assertEquals("Tomaste las canicas.", c.ejecutar(j, "canicas"));
 	}
 
 }

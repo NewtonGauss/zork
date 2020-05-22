@@ -29,6 +29,16 @@ public class PonerComandoTest {
 	    + "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n"
 	    + "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n"
 	    + "      ]\n" + "    }";
+    String jsonVentana = "{\n" + 
+	    	"          \"name\": \"ventana\",\n" + 
+	    	"          \"gender\": \"female\",\n" + 
+	    	"          \"number\": \"singular\",\n" + 
+	    	"          \"items\": [\n" + 
+	    	"            \"barreta\",\n" + 
+	    	"            \"rociador con cerveza de raiz\",\n" + 
+	    	"            \"espejo\"\n" + 
+	    	"          ]\n" + 
+	    	"        }";
 
     @Test
     void testExitoso() { // esta el item en el inventario y el sitio existe
@@ -54,15 +64,16 @@ public class PonerComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room room = new Room(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
+	Sitio ventana = new Sitio(JsonParser.parseString(jsonVentana));
 	Item espada = new Item(JsonParser.parseString(jsonEspada));
 	PonerComando poner = new PonerComando();
 
 	jugador.addItem(espada);
 	jugador.setHabitacionActual(room);
 	room.addSitio(suelo);
+	room.addSitio(ventana);
 
-	assertEquals(
-		"cofre no es un sitio disponible.\nLos sitios disponibles son:\nsuelo\n",
+	assertEquals("No hay un cofre en el muelle. Puede dejar la espada en la ventana o en el suelo.",
 		poner.ejecutar(jugador, "espada:cofre"));
     }
 
@@ -78,7 +89,8 @@ public class PonerComandoTest {
 	jugador.addItem(espada);
 	room.addSitio(sitio);
 
-	assertEquals("No se encuentra barreta en el inventario", poner.ejecutar(jugador,"barreta:suelo"));
+	assertEquals("No se encuentra barreta en el inventario",
+		poner.ejecutar(jugador, "barreta:suelo"));
     }
 
 }

@@ -25,7 +25,7 @@ public class IrComando implements Comando {
 		retorno = "Hacia "
 			+ ((direccion.equals("arriba") || direccion.equals("abajo")) ? ""
 				: "el ")
-			+ direccion + " no hay salida";
+			+ direccion + " no hay salida.";
 	    }
 
 	}

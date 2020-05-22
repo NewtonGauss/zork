@@ -59,7 +59,7 @@ public class MirarComando implements Comando {
 		NPC npc = npcs.next();
 		mensajeSalida += ' ' + npc.articuloIndefinido() + ',';
 	    }
-	    mensajeSalida = normalizarFinalOracion(mensajeSalida, cantNPCs);
+	    mensajeSalida = Cadena.normalizarFinalOracion(mensajeSalida, cantNPCs);
 	}
 	return mensajeSalida;
     }
@@ -84,15 +84,8 @@ public class MirarComando implements Comando {
 		Item itemActual = items.next();
 		mensajeSalida += ' ' + itemActual.articuloIndefinido() + ',';
 	    }
-	    mensajeSalida = normalizarFinalOracion(mensajeSalida, cantItems);
+	    mensajeSalida = Cadena.normalizarFinalOracion(mensajeSalida, cantItems);
 	}
-	return mensajeSalida;
-    }
-
-    private String normalizarFinalOracion(String mensajeSalida, int cantObjetivos) {
-	mensajeSalida = Cadena.replaceLast(mensajeSalida, ",", ".");
-	if (cantObjetivos > 1)
-	    mensajeSalida = Cadena.replaceLast(mensajeSalida, ",", " y");
 	return mensajeSalida;
     }
 
