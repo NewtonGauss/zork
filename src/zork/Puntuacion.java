@@ -6,4 +6,10 @@ public class Puntuacion implements Comando {
 	return "Tu puntuacion es: " + jugador.getScore();
 
     }
+
+    @Override
+    public boolean validar(Jugador jugador, String restoDelComando) {
+	// TODO Auto-generated method stub
+	return false;
+    }
 }

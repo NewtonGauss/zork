@@ -89,6 +89,12 @@ public class MirarComando implements Comando {
 	return mensajeSalida;
     }
 
+    @Override
+    public boolean validar(Jugador jugador, String restoDelComando) {
+	// TODO Auto-generated method stub
+	return false;
+    }
+
     
 
 }

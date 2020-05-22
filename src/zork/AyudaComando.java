@@ -4,7 +4,7 @@ import java.io.*;
 
 
 
-public class Ayuda implements Comando {
+public class AyudaComando implements Comando {
 
     @Override
     public String ejecutar(Jugador jugador, String restoDelComando) {
@@ -24,6 +24,12 @@ public class Ayuda implements Comando {
 	}
 	
 	return retorno;
+    }
+
+    @Override
+    public boolean validar(Jugador jugador, String restoDelComando) {
+	// TODO Auto-generated method stub
+	return false;
     }
     
 }

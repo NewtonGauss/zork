@@ -85,4 +85,10 @@ public class UsarItemComando implements Comando {
 	return tipo.equals("potion") || tipo.equals("poison");
     }
 
+    @Override
+    public boolean validar(Jugador jugador, String restoDelComando) {
+	// TODO Auto-generated method stub
+	return false;
+    }
+
 }

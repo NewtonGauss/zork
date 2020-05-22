@@ -2,7 +2,7 @@ package zork;
 
 import java.util.Iterator;
 
-public class Tomar implements Comando {
+public class TomarComando implements Comando {
     @Override
     public String ejecutar(Jugador jugador, String nombreItem) {
 	String retorno = "No hay ningun " + nombreItem + " por aqui";
@@ -19,5 +19,11 @@ public class Tomar implements Comando {
 	    }
 	}
 	return retorno;
+    }
+
+    @Override
+    public boolean validar(Jugador jugador, String restoDelComando) {
+	// TODO Auto-generated method stub
+	return false;
     }
 }

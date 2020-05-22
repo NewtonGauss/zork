@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import com.google.gson.JsonParser;
 
 import zork.Comando;
-import zork.Diagnostico;
+import zork.DiagnosticoComando;
 import zork.Jugador;
 
 class DiagnosticoTest {
@@ -16,7 +16,7 @@ class DiagnosticoTest {
     @Test
     void test() {
 	Jugador player = new Jugador(JsonParser.parseString(jsonPlayer));
-	Comando com = new Diagnostico();
+	Comando com = new DiagnosticoComando();
 	assertEquals("Tu estado de salud es perfecto (100), "
 		+ "solo te podria matar una seria herida", com.ejecutar(player, ""));
 	player.restarSalud(20);

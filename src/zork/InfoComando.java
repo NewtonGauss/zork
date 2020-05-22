@@ -16,4 +16,10 @@ public class InfoComando implements Comando {
 	return info;
     }
 
+    @Override
+    public boolean validar(Jugador jugador, String restoDelComando) {
+	// TODO Auto-generated method stub
+	return false;
+    }
+
 }

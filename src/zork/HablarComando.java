@@ -22,4 +22,9 @@ public class HablarComando implements Comando {
 	return retorno;
     }
 
+    @Override
+    public boolean validar(Jugador jugador, String restoDelComando) {
+	return jugador.getHabitacionActual().getNPC(restoDelComando) != null;
+    }
+
 }

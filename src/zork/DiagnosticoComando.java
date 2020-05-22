@@ -1,6 +1,6 @@
 package zork;
 
-public class Diagnostico implements Comando{
+public class DiagnosticoComando implements Comando{
 	@Override
 	public String ejecutar(Jugador jugador, String restoDelComando) {
 		float salud=jugador.getSalud();
@@ -17,5 +17,11 @@ public class Diagnostico implements Comando{
 		    diagnostico = "Estas muerto";
 		}
 		return diagnostico;
+	}
+
+	@Override
+	public boolean validar(Jugador jugador, String restoDelComando) {
+	    // TODO Auto-generated method stub
+	    return false;
 	}
 }

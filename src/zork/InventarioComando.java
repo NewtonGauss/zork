@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import utilitarias.Cadena;
 
-public class ComandoInventario implements Comando {
+public class InventarioComando implements Comando {
 
     @Override
     public String ejecutar(Jugador jugador, String restoDelComando) {
@@ -21,6 +21,12 @@ public class ComandoInventario implements Comando {
 	}
 
 	return listaInventario;
+    }
+
+    @Override
+    public boolean validar(Jugador jugador, String restoDelComando) {
+	// TODO Auto-generated method stub
+	return false;
     }
 
 }

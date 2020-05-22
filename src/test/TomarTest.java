@@ -10,7 +10,7 @@ import zork.Item;
 import zork.Jugador;
 import zork.Room;
 import zork.Sitio;
-import zork.Tomar;
+import zork.TomarComando;
 
 class TomarTest {
 	String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
@@ -69,7 +69,7 @@ class TomarTest {
 		s3.addItem(espejo);
 		s3.addItem(canicas);
 		j.setHabitacionActual(r);
-		Tomar c = new Tomar();
+		TomarComando c = new TomarComando();
 		assertEquals("Tomaste el espejo.", c.ejecutar(j, "espejo"));
 	}
 	@Test
@@ -91,7 +91,7 @@ class TomarTest {
 		s3.addItem(espejo);
 		s3.addItem(canicas);
 		j.setHabitacionActual(r);
-		Tomar c = new Tomar();
+		TomarComando c = new TomarComando();
 		assertEquals("No hay ningun neumatico por aqui", c.ejecutar(j, "neumatico"));
 	}
 	@Test
@@ -113,7 +113,7 @@ class TomarTest {
 		s3.addItem(espejo);
 		s3.addItem(canicas);
 		j.setHabitacionActual(r);
-		Tomar c = new Tomar();
+		TomarComando c = new TomarComando();
 		j.addItem(masa);
 		assertEquals("No tienes mas espacio en tu inventario!", c.ejecutar(j, "rociador con cerveza de raiz"));
 	}
@@ -137,7 +137,7 @@ class TomarTest {
 		s3.addItem(espejo);
 		s3.addItem(canicas);
 		j.setHabitacionActual(r);
-		Tomar c = new Tomar();
+		TomarComando c = new TomarComando();
 		assertEquals("Tomaste las canicas.", c.ejecutar(j, "canicas"));
 	}
 

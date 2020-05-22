@@ -6,8 +6,6 @@ public class Salida {
 	private NPC obstacle;
 	private boolean defeated;
 	
-	
-	// PARA PROBAR TEST
 	public Salida(Room room) {
 		this.salida = room;
 		this.defeated = true;

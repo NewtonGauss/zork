@@ -32,4 +32,10 @@ public class IrComando implements Comando {
 	return retorno;
     }
 
+    @Override
+    public boolean validar(Jugador jugador, String restoDelComando) {
+	Salida salida = jugador.getHabitacionActual().getSalida(restoDelComando);
+	return  salida != null && salida.isEnemyDefeated() ;
+    }
+
 }

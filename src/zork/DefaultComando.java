@@ -7,4 +7,10 @@ public class DefaultComando implements Comando {
 	return "No puedo reconocer esa orden.";
     }
 
+    @Override
+    public boolean validar(Jugador jugador, String restoDelComando) {
+	// TODO Auto-generated method stub
+	return false;
+    }
+
 }

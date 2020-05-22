@@ -134,6 +134,8 @@ class NarradorTest {
 	    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
 	    + "          \"after_trigger\": \"remove\"\n" + "        }\n" + "      ]\n"
 	    + "    }";
+    
+  
 
     @Test
     void testUsar() {
@@ -449,5 +451,6 @@ class NarradorTest {
 	assertEquals("No puedo reconocer esa orden.",
 		narrador.ejecutar("aniquilar a la abeja fantasma"));
     }
+    
 
 }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import com.google.gson.JsonParser;
 
 import zork.Comando;
-import zork.ComandoInventario;
+import zork.InventarioComando;
 import zork.Item;
 import zork.Jugador;
 
@@ -34,7 +34,7 @@ class ComandoInventarioTest {
 	jugador.addItem(espejo);
 	jugador.addItem(barreta);
 
-	Comando com = new ComandoInventario();
+	Comando com = new InventarioComando();
 	assertEquals("Tienes una barreta y un espejo.", com.ejecutar(jugador, ""));
     }
 
@@ -42,7 +42,7 @@ class ComandoInventarioTest {
     void testInventarioVacio() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 
-	Comando com = new ComandoInventario();
+	Comando com = new InventarioComando();
 	assertEquals("No tienes objetos en tu inventario.", com.ejecutar(jugador, ""));
     }
 

@@ -38,4 +38,10 @@ public class AtacarConComando implements Comando {
 	return retorno;
     }
 
+    @Override
+    public boolean validar(Jugador jugador, String restoDelComando) {
+	// TODO Auto-generated method stub
+	return false;
+    }
+
 }

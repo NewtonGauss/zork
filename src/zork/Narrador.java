@@ -11,6 +11,7 @@ public class Narrador {
     private Jugador jugador;
     private Hashtable<String, Comando> comandos = new Hashtable<String, Comando>();
     private Collection<String> preposicionesArticulos = new LinkedList<String>();
+    private ArrayList<Endgame> finales = new ArrayList<Endgame>();
 
     public Narrador(Jugador jugador) {
 	this.jugador = jugador;
@@ -19,18 +20,26 @@ public class Narrador {
     }
 
     public String ejecutar(String comando) {
-	String retorno;
+	String retorno = null;
 	if (comando.contains("hablar") || comando.contains("atacar"))
 	    comando = comando.replaceFirst(" con ", " % ");
 	String[] cadenaPartida = comando.split(" ");
 	Comando accion = parsearComando(cadenaPartida[0]);
 	ArrayList<String> objetos = eliminarPreposicionesYArticulos(cadenaPartida);
-	if (objetos.size() > 1)
-	    retorno = accion.ejecutar(jugador, objetos.get(0) + ':' + objetos.get(1));
-	else if (objetos.size() == 1)
-	    retorno = accion.ejecutar(jugador, objetos.get(0));
-	else
-	    retorno = accion.ejecutar(jugador, "");
+	String restoComando = "";
+	for(int i = 0; i < 2 && i < objetos.size(); i++) {
+	    if(i == 1) {
+		restoComando += ":";
+	    }
+	    restoComando += objetos.get(i);
+	}
+	for (Endgame endgame : finales) {
+	    if(endgame.esFinal(accion, comando)) {
+		retorno = endgame.ejecutar(jugador, accion, restoComando);
+	    }
+	}
+	if(retorno == null)
+	    retorno = accion.ejecutar(jugador, restoComando);
 	jugador.sumarMovimiento();
 	return retorno;
     }
@@ -58,20 +67,20 @@ public class Narrador {
 
     private void cargarHashtable() {
 	comandos.put("usar", new UsarItemComando());
-	comandos.put("tomar", new Tomar());
-	comandos.put("agarrar", new Tomar());
+	comandos.put("tomar", new TomarComando());
+	comandos.put("agarrar", new TomarComando());
 	comandos.put("soltar", new SoltarComando());
 	comandos.put("tirar", new SoltarComando());
 	comandos.put("puntuacion", new Puntuacion());
 	comandos.put("poner", new PonerComando());
-	comandos.put("movimientos", new Movimiento());
+	comandos.put("movimientos", new MovimientosComando());
 	comandos.put("mirar", new MirarComando());
 	comandos.put("ir", new IrComando());
 	comandos.put("caminar", new IrComando());
 	comandos.put("info", new InfoComando());
 	comandos.put("hablar", new HablarComando());
-	comandos.put("diagnostico", new Diagnostico());
-	comandos.put("inventario", new ComandoInventario());
+	comandos.put("diagnostico", new DiagnosticoComando());
+	comandos.put("inventario", new InventarioComando());
 	comandos.put("atacar", new AtacarConComando());
 	comandos.put("dar", new DarComando());
 	comandos.put("default", new DefaultComando());
@@ -88,6 +97,10 @@ public class Narrador {
 	preposicionesArticulos.add("hacia");
 	/* token */
 	preposicionesArticulos.add("%");
+    }
+    
+    public void addEndgame(Endgame endgame) {
+	this.finales.add(endgame);
     }
 
 }

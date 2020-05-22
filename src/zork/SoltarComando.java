@@ -1,3 +1,4 @@
+
 package zork;
 
 public class SoltarComando implements Comando {
@@ -18,6 +19,12 @@ public class SoltarComando implements Comando {
 	    retorno = "Se solto " + itemSoltado.toString() + " en el suelo.";
 	}
 	return retorno;
+    }
+
+    @Override
+    public boolean validar(Jugador jugador, String restoDelComando) {
+	// TODO Auto-generated method stub
+	return false;
     }
 
 }

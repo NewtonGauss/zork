@@ -29,14 +29,14 @@ public class Room {// locations
 	npcs = new Hashtable<String, NPC>();
 	sitios.put("suelo", new Sitio());
     }
-    
+
     public void addSitio(Sitio newSitio) {
 	this.sitios.put(newSitio.getNombre(), newSitio);
     }
 
     public void addSalida(Salida newSalida, String direccion) {
 	this.salidas.put(direccion, newSalida);
-	
+
     }
 
     public void addNPC(NPC newNPC) {
@@ -62,8 +62,8 @@ public class Room {// locations
 	return this.description;
     }
 
-    public Salida getSalida(String nombreSalida) {
-	return salidas.get(nombreSalida);
+    public Salida getSalida(String direccion) {
+	return salidas.get(direccion);
     }
 
     public Sitio getSitio(String nombreSitio) {
@@ -73,28 +73,27 @@ public class Room {// locations
     public Collection<Sitio> getSitios() {
 	return this.sitios.values();
     }
-    
+
     public NPC getNPC(String nombre) {
 	return npcs.get(nombre);
     }
 
-    
     public void addObstacle(NPC obstacle, String direction) {
 	obstacle.setHabitacionActual(this);
 	Salida salida = salidas.get(direction);
 	if (salida != null)
 	    salida.addNPC(obstacle);
     }
-    
+
     public Collection<NPC> getNpcs() {
 	return npcs.values();
     }
-    
+
     @Override
     public String toString() {
 	return Cadena.articuloDefinido(nombre, gender, number);
     }
-    
+
     public String articuloIndefinido() {
 	return Cadena.articuloIndefinido(nombre, gender, number);
     }
