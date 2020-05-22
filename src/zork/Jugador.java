@@ -33,10 +33,6 @@ public class Jugador extends Character {
 	return this.score;
     }
 
-    public void setHabitacionActual(Room room) {
-	this.habitacionActual = room;
-    }
-
 
     public boolean mover(String direction) {
 	Salida salida = habitacionActual.getSalida(direction);

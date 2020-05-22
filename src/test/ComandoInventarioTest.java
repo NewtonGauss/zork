@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.Character;
 import zork.Comando;
 import zork.ComandoInventario;
 import zork.Item;

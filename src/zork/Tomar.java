@@ -2,8 +2,6 @@ package zork;
 
 import java.util.Iterator;
 
-import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.ToStringConversion;
-
 public class Tomar implements Comando {
     @Override
     public String ejecutar(Jugador jugador, String nombreItem) {

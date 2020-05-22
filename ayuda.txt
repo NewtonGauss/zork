@@ -19,13 +19,14 @@ Analizador de comandos:
 Un comando es una linea de texto terminada por un enter. El analizador es un poco tonto, y solo comprende las siguientes cosas--
 
 Acciones: 
-Dar <item> <npc>, Hablar <npc> , Ir <direccion>, Soltar <item> , Usar <item> [<npc>], Tomar <item>, Poner <item> <sitio>. Otras formas de decir estas palabras pueden ser utilizadas tambien, como Agarrar, Caminar, Tirar. Direcciones: Norte, Sur, Este, Oeste, Arriba, Abajo. 
+Dar <item> a <npc>, Hablar a/con <npc> , Ir al/hacia <direccion>, Soltar <item> , Usar <item> [<npc>], Tomar <item>, Poner <item> en <sitio>. Otras formas de decir estas palabras pueden ser utilizadas tambien, como Agarrar, Caminar, Tirar. Direcciones: Norte, Sur, Este, Oeste, Arriba, Abajo. 
 
 Objetos:
 Los objetos tienen nombres y pueden ser referenciados a traves de ellos.
 
 Preposiciones:
-Las preposiciones no son necesarias. Entonces, 'DAR BARRETA PIRATA' va a funcionar, al igual que 'DAR LA BARRETA AL PIRATA'. 'DAR PIRATA BARRETA' en cambio, no funcionará debido a que los datos están puestos en otro orden.	
+El motor es tan inteligente como para entender lo que escribis aunque lo hayas escrito mal
+'DAR BARRETA PIRATA' va a funcionar, al igual que 'DAR LA BARRETA AL PIRATA' o 'DAR EL BARRETA A LOS PIRATA'. 'DAR PIRATA BARRETA' en cambio, no funcionará debido a que los datos están puestos en otro orden.	
 
 
 

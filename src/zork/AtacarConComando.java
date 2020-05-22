@@ -1,6 +1,5 @@
 package zork;
 
-import java.util.Hashtable;
 import java.util.Iterator;
 
 public class AtacarConComando implements Comando {

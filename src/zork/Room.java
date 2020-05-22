@@ -47,7 +47,7 @@ public class Room {// locations
     public boolean removeNPC(String nombre) {
 	boolean rta = false;
 	for (Iterator<Salida> it = salidas.values().iterator(); it.hasNext();) {
-	    Salida salida = (Salida) it.next();
+	    Salida salida = it.next();
 	    if (salida.removeNPC(nombre))
 		break;
 	}

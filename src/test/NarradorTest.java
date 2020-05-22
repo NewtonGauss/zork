@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.AtacarConComando;
-import zork.DarComando;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
@@ -15,7 +13,6 @@ import zork.Narrador;
 import zork.Room;
 import zork.Salida;
 import zork.Sitio;
-import zork.UsarItemComando;
 
 class NarradorTest {
 
