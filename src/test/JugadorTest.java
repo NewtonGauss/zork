@@ -65,13 +65,13 @@ class JugadorTest {
 	 	"    }";
 
 	@Test // Testeo el constructor de Jugador
-	void test() {
+	void testNombreNPC() {
 		Jugador player = new Jugador(JsonParser.parseString(jsonPlayer));
 		assertEquals("Guybrush Threepwood", player.getName());
 	}
 
 	@Test // Testeo sumar la cantidad de movimientos del jugador
-	void test1() {
+	void testMovimientosPlayer() {
 		Jugador player = new Jugador(JsonParser.parseString(jsonPlayer));
 		assertEquals(0, player.getCantMovimientos());
 		player.sumarMovimiento();
@@ -79,13 +79,13 @@ class JugadorTest {
 	}
 
 	@Test // Testeo obtener el score del jugador
-	void test2() {
+	void testGetScore() {
 		Jugador player = new Jugador(JsonParser.parseString(jsonPlayer));
 		assertEquals(0, player.getScore());
 	}
 
 	@Test // Le agrego un item al jugador y  lo devuelvo.
-	void test3() {
+	void testAgarrarYSoltarItems() {
 		Character player = new Jugador(JsonParser.parseString(jsonPlayer));
 		Item item = new Item(JsonParser.parseString(jsonItem));
 		assertEquals(true, player.addItem(item));

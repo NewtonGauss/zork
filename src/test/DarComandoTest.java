@@ -46,7 +46,7 @@ class DarComandoTest {
     String jsonItem="{\n"+"      \"name\": \"espada\",\n"+"      \"gender\": \"female\",\n"+"      \"number\": \"singular\",\n"+"			\"points\": \"100\",\n"+"			\"weight\": \"10\",\n"+"			\"type\": \"weapon\",\n"+"      \"actions\": [\n"+"        \"usar\"\n"+"      ],\n"+"      \"effects_over\": [\n"+"        \"npcs\",\n"+"        \"self\",\n"+"        \"item\"\n"+"      ]\n"+"    }";
 
     @Test
-    void testExito() {
+    void testExitoDarItem() {
 
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room room = new Room(JsonParser.parseString(jsonRoom));

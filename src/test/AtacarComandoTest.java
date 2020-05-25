@@ -33,7 +33,7 @@ class AtacarComandoTest {
 	    + "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n" + "      ]\n" + "    }";
 
     @Test
-    void test() {
+    void testAtacarConComando() {
 
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room room = new Room(JsonParser.parseString(jsonRoom));
@@ -63,7 +63,7 @@ class AtacarComandoTest {
     }
 
     @Test
-    void testSinItems() {
+    void testAtacarSinItems() {
 
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Room room = new Room(JsonParser.parseString(jsonRoom));
@@ -76,7 +76,7 @@ class AtacarComandoTest {
     }
 
     @Test
-    void testSinArmasConItems() {
+    void testAtacarSinArmasConItems() {
 	String espejoJson = "{\n" + "      \"name\": \"espejo\",\n" + "      \"gender\": \"male\",\n"
 		+ "      \"number\": \"singular\",\n" + "			\"points\": \"100\",\n"
 		+ "			\"weight\": \"10\",\n" + "			\"type\": \"vanilla\",\n"

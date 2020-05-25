@@ -14,7 +14,7 @@ class DiagnosticoTest {
     String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
 
     @Test
-    void test() {
+    void testDiagosticoEnPelea() {
 	Jugador player = new Jugador(JsonParser.parseString(jsonPlayer));
 	Comando com = new DiagnosticoComando();
 	assertEquals("Tu estado de salud es perfecto (100), "

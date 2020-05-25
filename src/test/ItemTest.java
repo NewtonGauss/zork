@@ -27,19 +27,19 @@ class ItemTest {
     	"    }";
 
     @Test
-    void test01() {
+    void testItems() {
 	Item i = new Item(JsonParser.parseString(json));
 	assertEquals("la barreta", i.toString());
     }
 
     @Test
-    void test02() {
+    void testObjetosValidos() {
 	Item i = new Item(JsonParser.parseString(json));
 	assertEquals(false, i.esObjetivoValido("room"));
     }
 
     @Test
-    void test03() {
+    void testUsosValidos() {
 	Item i = new Item(JsonParser.parseString(json));
 	assertEquals(false, i.esUsoValido("atacar"));
     }

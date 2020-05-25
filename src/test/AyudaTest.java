@@ -14,7 +14,7 @@ class AyudaTest {
     String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
     
     @Test
-    void test() {
+    void testDeAyuda() {
 	Jugador j = new Jugador(JsonParser.parseString(jsonPlayer));
 	AyudaComando a=new AyudaComando();
 	//System.out.print(a.ejecutar(j,""));
