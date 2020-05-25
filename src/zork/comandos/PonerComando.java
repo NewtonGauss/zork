@@ -1,8 +1,12 @@
-package zork;
+package zork.comandos;
 
 import java.util.Iterator;
 
 import utilitarias.Cadena;
+import zork.Item;
+import zork.Jugador;
+import zork.Room;
+import zork.Sitio;
 
 public class PonerComando implements Comando {
 

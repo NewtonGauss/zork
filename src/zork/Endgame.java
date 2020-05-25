@@ -1,5 +1,7 @@
 package zork;
 
+import zork.comandos.Comando;
+
 public abstract class Endgame {
     
 	protected String descripcion;

@@ -1,15 +1,15 @@
-package test;
+package test.comandos;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.HablarComando;
 import zork.Jugador;
 import zork.NPC;
 import zork.Room;
+import zork.comandos.HablarComando;
 
 class HablarComandoTest {
 

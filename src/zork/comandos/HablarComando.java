@@ -1,4 +1,8 @@
-package zork;
+package zork.comandos;
+
+import zork.Jugador;
+import zork.NPC;
+import zork.Room;
 
 public class HablarComando implements Comando {
 

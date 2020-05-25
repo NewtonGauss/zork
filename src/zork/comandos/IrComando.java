@@ -1,4 +1,7 @@
-package zork;
+package zork.comandos;
+
+import zork.Jugador;
+import zork.Salida;
 
 public class IrComando implements Comando {
 
@@ -18,7 +21,7 @@ public class IrComando implements Comando {
 	if (jugador.mover(direccion)) {
 	    retorno = jugador.getHabitacionActual().getDescription();
 	} else {
-	    Salida salida = jugador.habitacionActual.getSalida(direccion);
+	    Salida salida = jugador.getHabitacionActual().getSalida(direccion);
 	    if (salida != null) {
 		retorno = salida.getObstacle().getDescripcion();
 	    } else {

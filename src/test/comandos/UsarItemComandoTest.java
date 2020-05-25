@@ -1,6 +1,6 @@
-package test;
+package test.comandos;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ import zork.Item;
 import zork.Jugador;
 import zork.NPC;
 import zork.Room;
-import zork.UsarItemComando;
+import zork.comandos.UsarItemComando;
 
 class UsarItemComandoTest {
     String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";

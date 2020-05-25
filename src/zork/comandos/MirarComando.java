@@ -1,8 +1,14 @@
-package zork;
+package zork.comandos;
 
 import java.util.Iterator;
 
 import utilitarias.Cadena;
+import zork.Item;
+import zork.Jugador;
+import zork.NPC;
+import zork.Room;
+import zork.Salida;
+import zork.Sitio;
 
 public class MirarComando implements Comando {
 

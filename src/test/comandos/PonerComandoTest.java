@@ -1,6 +1,6 @@
-package test;
+package test.comandos;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,9 +8,9 @@ import com.google.gson.JsonParser;
 
 import zork.Item;
 import zork.Jugador;
-import zork.PonerComando;
 import zork.Room;
 import zork.Sitio;
+import zork.comandos.PonerComando;
 
 public class PonerComandoTest {
 

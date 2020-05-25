@@ -1,12 +1,11 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.ActionEndGame;
 import zork.Endgame;
 import zork.Jugador;
 import zork.LocationEndGame;

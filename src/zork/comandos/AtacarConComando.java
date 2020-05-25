@@ -1,6 +1,11 @@
-package zork;
+package zork.comandos;
 
 import java.util.Iterator;
+
+import zork.Item;
+import zork.Jugador;
+import zork.NPC;
+import zork.Room;
 
 public class AtacarConComando implements Comando {
 

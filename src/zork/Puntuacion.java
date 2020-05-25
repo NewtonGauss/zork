@@ -1,5 +1,7 @@
 package zork;
 
+import zork.comandos.Comando;
+
 public class Puntuacion implements Comando {
     @Override
     public String ejecutar(Jugador jugador, String restoDelComando) {

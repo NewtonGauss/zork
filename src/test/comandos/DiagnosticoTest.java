@@ -1,14 +1,14 @@
-package test;
+package test.comandos;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.Comando;
-import zork.DiagnosticoComando;
 import zork.Jugador;
+import zork.comandos.Comando;
+import zork.comandos.DiagnosticoComando;
 
 class DiagnosticoTest {
     String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";

@@ -1,6 +1,9 @@
-package zork;
+package zork.comandos;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+
+import zork.Jugador;
 
 
 

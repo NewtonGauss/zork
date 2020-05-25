@@ -1,6 +1,10 @@
-package zork;
+package zork.comandos;
 
 import java.util.Iterator;
+
+import zork.Item;
+import zork.Jugador;
+import zork.Sitio;
 
 public class TomarComando implements Comando {
     @Override

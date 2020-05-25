@@ -1,13 +1,13 @@
-package test;
+package test.comandos;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.AyudaComando;
 import zork.Jugador;
+import zork.comandos.AyudaComando;
 
 class AyudaTest {
 

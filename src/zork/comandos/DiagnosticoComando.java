@@ -1,4 +1,6 @@
-package zork;
+package zork.comandos;
+
+import zork.Jugador;
 
 public class DiagnosticoComando implements Comando{
 	@Override

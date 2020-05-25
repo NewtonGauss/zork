@@ -3,6 +3,8 @@ package zork;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import zork.comandos.Comando;
+
 public class LocationEndGame extends Endgame{
 
     public LocationEndGame(JsonElement json) {

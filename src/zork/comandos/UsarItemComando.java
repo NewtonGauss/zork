@@ -1,4 +1,10 @@
-package zork;
+package zork.comandos;
+
+import zork.Item;
+import zork.Jugador;
+import zork.NPC;
+import zork.Room;
+import zork.Trigger;
 
 public class UsarItemComando implements Comando {
 
@@ -49,12 +55,13 @@ public class UsarItemComando implements Comando {
 
     private String usarSobreNPC(Jugador jugador, String npcNombre, Item item) {
 	String retorno;
-	NPC npc = jugador.habitacionActual.getNPC(npcNombre);
+	Room habitacionActual = jugador.getHabitacionActual();
+	NPC npc = habitacionActual.getNPC(npcNombre);
 	if (npc != null)
 	    retorno = aplicarSobreNpc(jugador, item, npc);
 	else
 	    retorno = npcNombre + " no se encuentra en "
-		    + jugador.habitacionActual.toString() + ".";
+		    + habitacionActual.toString() + ".";
 	return retorno;
     }
 

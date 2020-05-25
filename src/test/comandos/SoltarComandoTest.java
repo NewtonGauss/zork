@@ -1,6 +1,7 @@
-package test;
+package test.comandos;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,7 @@ import zork.Item;
 import zork.Jugador;
 import zork.Room;
 import zork.Sitio;
-import zork.SoltarComando;
+import zork.comandos.SoltarComando;
 
 class SoltarComandoTest {
 

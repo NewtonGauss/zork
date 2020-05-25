@@ -1,6 +1,6 @@
-package test;
+package test.comandos;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,11 +8,11 @@ import com.google.gson.JsonParser;
 
 import zork.Item;
 import zork.Jugador;
-import zork.MirarComando;
 import zork.NPC;
 import zork.Room;
 import zork.Salida;
 import zork.Sitio;
+import zork.comandos.MirarComando;
 
 class MirarComandoTest {
 

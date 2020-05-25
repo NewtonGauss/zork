@@ -1,18 +1,18 @@
-package test;
+package test.comandos;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.Comando;
-import zork.IrComando;
 import zork.Jugador;
 import zork.NPC;
 import zork.Room;
 import zork.Salida;
 import zork.Trigger;
+import zork.comandos.Comando;
+import zork.comandos.IrComando;
 
 class IrComandoTest {
 

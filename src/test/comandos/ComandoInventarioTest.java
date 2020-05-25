@@ -1,15 +1,15 @@
-package test;
+package test.comandos;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.Comando;
-import zork.InventarioComando;
 import zork.Item;
 import zork.Jugador;
+import zork.comandos.Comando;
+import zork.comandos.InventarioComando;
 
 class ComandoInventarioTest {
 
