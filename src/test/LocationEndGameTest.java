@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.Endgame;
+import zork.Habitacion;
 import zork.Jugador;
-import zork.LocationEndGame;
 import zork.NPC;
 import zork.Narrador;
-import zork.Room;
 import zork.Salida;
+import zork.endgame.FinalJuego;
+import zork.endgame.HabitacionFinal;
 
 class LocationEndGameTest {
     
@@ -147,16 +147,16 @@ class LocationEndGameTest {
     void testLocationEndGame() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	NPC npc = new NPC(JsonParser.parseString(piratajson));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
-	Room barrio = new Room(JsonParser.parseString(jsonBarrio));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
+	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
 	Salida salida = new Salida(barrio);
 	Narrador narrador = new Narrador(jugador);
-	Endgame end = new LocationEndGame(JsonParser.parseString(jsonActionEndGame));
+	FinalJuego end = new HabitacionFinal(JsonParser.parseString(jsonActionEndGame));
 	muelle.addSalida(salida, "sur");
-	muelle.addObstacle(npc, "sur");
+	muelle.ponerObstaculo(npc, "sur");
 	jugador.setHabitacionActual(muelle);
 	narrador.addEndgame(end);
-	npc.killNPC();
+	npc.matar();
 	assertEquals("Has terminado el juego.", narrador.ejecutar("ir al sur"));
     }
 }

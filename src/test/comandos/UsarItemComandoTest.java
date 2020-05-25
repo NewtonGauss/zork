@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
-import zork.Room;
 import zork.comandos.UsarItemComando;
 
 class UsarItemComandoTest {
@@ -48,7 +48,7 @@ class UsarItemComandoTest {
 		    + "			\"points\": \"100\",\n"
 		    + "			\"weight\": \"10\",\n"
 		    + "			\"type\": \"weapon\",\n"
-		    + "      \"actions\": [\n" + "        \"dar\"\n" + "      ],\n"
+		    + "      \"actions\": [\n" + "        \"drop\"\n" + "      ],\n"
 		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
 		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
 		    + "    }",
@@ -58,7 +58,7 @@ class UsarItemComandoTest {
 		    + "			\"points\": \"100\",\n"
 		    + "			\"weight\": \"10\",\n"
 		    + "			\"type\": \"potion\",\n"
-		    + "      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n"
+		    + "      \"actions\": [\n" + "        \"use\"\n" + "      ],\n"
 		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
 		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
 		    + "    }",
@@ -68,7 +68,7 @@ class UsarItemComandoTest {
 		    + "			\"points\": \"100\",\n"
 		    + "			\"weight\": \"10\",\n"
 		    + "			\"type\": \"vanilla\",\n"
-		    + "      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n"
+		    + "      \"actions\": [\n" + "        \"use\"\n" + "      ],\n"
 		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
 		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
 		    + "    }",
@@ -78,7 +78,7 @@ class UsarItemComandoTest {
 		    + "			\"points\": \"100\",\n"
 		    + "			\"weight\": \"10\",\n"
 		    + "			\"type\": \"potion\",\n"
-		    + "      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n"
+		    + "      \"actions\": [\n" + "        \"use\"\n" + "      ],\n"
 		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
 		    + "        \"item\"\n" + "      ]\n" + "    }",
 	    venenoJson = "{\n" + "      \"name\": \"veneno\",\n"
@@ -87,21 +87,21 @@ class UsarItemComandoTest {
 		    + "			\"points\": \"100\",\n"
 		    + "			\"weight\": \"10\",\n"
 		    + "			\"type\": \"poison\",\n"
-		    + "      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n"
+		    + "      \"actions\": [\n" + "        \"use\"\n" + "      ],\n"
 		    + "      \"effects_over\": [\n" + "        \"self\",\n"
 		    + "        \"item\"\n" + "      ]\n" + "    }";
 
     @Test
     void testNpcConTrigger() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	Item rociador = new Item(JsonParser.parseString(rociadorJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(pirata);
 	jugador.setHabitacionActual(muelle);
-	jugador.addItem(rociador);
+	jugador.ponerItem(rociador);
 	assertEquals(
 		"Se utilizo el rociador con cerveza de raiz sobre el pirata fantasma.\n"
 			+ "- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía"
@@ -115,14 +115,14 @@ class UsarItemComandoTest {
     @Test
     void testObjetoInvalido() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	Item barreta = new Item(JsonParser.parseString(barretaJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
 	jugador.setHabitacionActual(muelle);
-	jugador.addItem(barreta);
+	jugador.ponerItem(barreta);
 	assertEquals("Eso no ha servido de nada.",
 		usar.ejecutar(jugador, "barreta:abeja fantasma"));
 
@@ -131,14 +131,14 @@ class UsarItemComandoTest {
     @Test
     void testNpcSinTrigger() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	Item rociador = new Item(JsonParser.parseString(rociadorJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
 	jugador.setHabitacionActual(muelle);
-	jugador.addItem(rociador);
+	jugador.ponerItem(rociador);
 	assertEquals(
 		"Se utilizo el rociador con cerveza de raiz sobre la abeja fantasma.\n",
 		usar.ejecutar(jugador, "rociador con cerveza de raiz:abeja fantasma"));
@@ -149,14 +149,14 @@ class UsarItemComandoTest {
     @Test
     void testNpcNoSeEncuentra() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	Item rociador = new Item(JsonParser.parseString(rociadorJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
 	jugador.setHabitacionActual(muelle);
-	jugador.addItem(rociador);
+	jugador.ponerItem(rociador);
 	assertEquals("abeja no se encuentra en el muelle.",
 		usar.ejecutar(jugador, "rociador con cerveza de raiz:abeja"));
     }
@@ -164,14 +164,14 @@ class UsarItemComandoTest {
     @Test
     void testObjetoNoAplicableEnNpc() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	Item veneno = new Item(JsonParser.parseString(venenoJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
 	jugador.setHabitacionActual(muelle);
-	jugador.addItem(veneno);
+	jugador.ponerItem(veneno);
 	assertEquals("Eso no ha servido de nada.",
 		usar.ejecutar(jugador, "veneno:abeja fantasma"));
     }
@@ -183,14 +183,14 @@ class UsarItemComandoTest {
     @Test
     void testVanillaSinTrigger() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	Item burbuja = new Item(JsonParser.parseString(burbujaJson));
 	UsarItemComando usar = new UsarItemComando();
 	
 	muelle.addNPC(abeja);
 	jugador.setHabitacionActual(muelle);
-	jugador.addItem(burbuja);
+	jugador.ponerItem(burbuja);
 	assertEquals("Eso no ha servido de nada.", usar.ejecutar(jugador, "burbuja:abeja fantasma"));
     }
     
@@ -200,14 +200,14 @@ class UsarItemComandoTest {
     @Test
     void testObjetoNoAplicableSobreJugador() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	Item burbuja = new Item(JsonParser.parseString(burbujaJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
 	jugador.setHabitacionActual(muelle);
-	jugador.addItem(burbuja);
+	jugador.ponerItem(burbuja);
 	assertEquals("Eso no ha servido de nada.", usar.ejecutar(jugador, "burbuja"));
     }
 
@@ -217,28 +217,28 @@ class UsarItemComandoTest {
     @Test
     void testObjetoNoAplicableSobreJugador2() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	Item calculadora = new Item(JsonParser.parseString(calculadoraJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
 	jugador.setHabitacionActual(muelle);
-	jugador.addItem(calculadora);
+	jugador.ponerItem(calculadora);
 	assertEquals("Eso no ha servido de nada.", usar.ejecutar(jugador, "calculadora"));
     }
 
     @Test
     void testPocionSobreJugador() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	Item rociador = new Item(JsonParser.parseString(rociadorJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
 	jugador.setHabitacionActual(muelle);
-	jugador.addItem(rociador);
+	jugador.ponerItem(rociador);
 	assertEquals("Se utilizo el rociador con cerveza de raiz sobre ti.",
 		usar.ejecutar(jugador, "rociador con cerveza de raiz"));
     }
@@ -246,14 +246,14 @@ class UsarItemComandoTest {
     @Test
     void testVenenoSobreJugador() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	Item veneno = new Item(JsonParser.parseString(venenoJson));
 	UsarItemComando usar = new UsarItemComando();
 	
 	muelle.addNPC(abeja);
 	jugador.setHabitacionActual(muelle);
-	jugador.addItem(veneno);
+	jugador.ponerItem(veneno);
 	assertEquals("Se utilizo el veneno sobre ti.",
 		usar.ejecutar(jugador, "veneno"));
 	/* Valor hardcodeado en character */
@@ -263,14 +263,14 @@ class UsarItemComandoTest {
     @Test
     void testObjetoNoInventario() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	Item veneno = new Item(JsonParser.parseString(venenoJson));
 	UsarItemComando usar = new UsarItemComando();
 	
 	muelle.addNPC(abeja);
 	jugador.setHabitacionActual(muelle);
-	jugador.addItem(veneno);
+	jugador.ponerItem(veneno);
 	assertEquals("No cuenta con invento en el inventario.",
 		usar.ejecutar(jugador, "invento"));
     }

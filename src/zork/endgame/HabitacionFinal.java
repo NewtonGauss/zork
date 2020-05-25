@@ -1,13 +1,15 @@
-package zork;
+package zork.endgame;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import zork.Jugador;
+import zork.Salida;
 import zork.comandos.Comando;
 
-public class LocationEndGame extends Endgame{
+public class HabitacionFinal extends FinalJuego{
 
-    public LocationEndGame(JsonElement json) {
+    public HabitacionFinal(JsonElement json) {
 	JsonObject jobj = json.getAsJsonObject();
 	descripcion = jobj.get("description").getAsString();
 	objetivo = jobj.get("thing").getAsString();

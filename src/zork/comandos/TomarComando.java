@@ -16,8 +16,10 @@ public class TomarComando implements Comando {
 	Iterator<Sitio> iterator = jugador.getHabitacionActual().getSitios().iterator();
 	while (iterator.hasNext()) {
 	    if ((itemTomado = iterator.next().getItem(nombreItem)) != null) {
-		if (jugador.addItem(itemTomado))
+		if (itemTomado.esUsoValido("take") && jugador.ponerItem(itemTomado))
 		    retorno = "Tomaste " + itemTomado.toString() + '.';
+		else if(!itemTomado.esUsoValido("take"))
+		    retorno = "No puedes tomar " + itemTomado.toString() + '.';
 		else
 		    retorno = "No tienes mas espacio en tu inventario!";
 	    }

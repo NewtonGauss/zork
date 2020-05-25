@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import com.google.gson.JsonParser;
 
 import zork.Item;
+import zork.TipoItem;
 
 class ItemTest {
     private String json = "{\n" + 
@@ -115,7 +116,7 @@ class ItemTest {
 	Item i = new Item(JsonParser.parseString(json));
 	assertEquals("barreta", i.getNombre());
 	assertEquals((Double) 10.0, i.getPeso());
-	assertEquals("weapon", i.getTipo());
+	assertEquals(TipoItem.ARMA, i.getTipo());
 	assertEquals(100, i.getPoints());
     }
 

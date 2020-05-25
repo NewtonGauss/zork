@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
-import zork.Room;
 import zork.Sitio;
 import zork.comandos.SoltarComando;
 
@@ -24,7 +24,7 @@ class SoltarComandoTest {
 		    + "			\"points\": \"100\",\n"
 		    + "			\"weight\": \"10\",\n"
 		    + "			\"type\": \"weapon\",\n"
-		    + "      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n"
+		    + "      \"actions\": [\n" + "        \"drop\"\n" + "      ],\n"
 		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
 		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
 		    + "    }",
@@ -34,7 +34,7 @@ class SoltarComandoTest {
 		    + "			\"points\": \"100\",\n"
 		    + "			\"weight\": \"10\",\n"
 		    + "			\"type\": \"vanilla\",\n"
-		    + "      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n"
+		    + "      \"actions\": [\n" + "        \"drop\"\n" + "      ],\n"
 		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
 		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
 		    + "    }",
@@ -44,7 +44,7 @@ class SoltarComandoTest {
 		    + "			\"points\": \"100\",\n"
 		    + "			\"weight\": \"10\",\n"
 		    + "			\"type\": \"vanilla\",\n"
-		    + "      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n"
+		    + "      \"actions\": [\n" + "        \"drop\"\n" + "      ],\n"
 		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
 		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
 		    + "    }",
@@ -57,16 +57,16 @@ class SoltarComandoTest {
     @Test
     void testExito() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonRoom));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
 	Item barreta = new Item(JsonParser.parseString(barretaJson));
 	Item espejo = new Item(JsonParser.parseString(espejoJson));
 	Item rociador = new Item(JsonParser.parseString(rociadorJson));
 	SoltarComando sc = new SoltarComando();
 
-	jugador.addItem(barreta);
-	jugador.addItem(espejo);
-	jugador.addItem(rociador);
+	jugador.ponerItem(barreta);
+	jugador.ponerItem(espejo);
+	jugador.ponerItem(rociador);
 	muelle.addSitio(suelo);
 	jugador.setHabitacionActual(muelle);
 
@@ -93,16 +93,16 @@ class SoltarComandoTest {
     @Test
     void testSinObjeto() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonRoom));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
 	Item barreta = new Item(JsonParser.parseString(barretaJson));
 	Item espejo = new Item(JsonParser.parseString(espejoJson));
 	Item rociador = new Item(JsonParser.parseString(rociadorJson));
 	SoltarComando sc = new SoltarComando();
 	
-	jugador.addItem(barreta);
-	jugador.addItem(espejo);
-	jugador.addItem(rociador);
+	jugador.ponerItem(barreta);
+	jugador.ponerItem(espejo);
+	jugador.ponerItem(rociador);
 	muelle.addSitio(suelo);
 	jugador.setHabitacionActual(muelle);
 	
@@ -128,15 +128,15 @@ class SoltarComandoTest {
     @Test
     void testSitioPorDefecto() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonRoom));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
 	Item barreta = new Item(JsonParser.parseString(barretaJson));
 	Item espejo = new Item(JsonParser.parseString(espejoJson));
 	Item rociador = new Item(JsonParser.parseString(rociadorJson));
 	SoltarComando sc = new SoltarComando();
 
-	jugador.addItem(barreta);
-	jugador.addItem(espejo);
-	jugador.addItem(rociador);
+	jugador.ponerItem(barreta);
+	jugador.ponerItem(espejo);
+	jugador.ponerItem(rociador);
 	jugador.setHabitacionActual(muelle);
 
 	assertEquals(barreta, jugador.getItem(barreta.getNombre()));

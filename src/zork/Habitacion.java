@@ -9,47 +9,47 @@ import com.google.gson.JsonObject;
 
 import utilitarias.Cadena;
 
-public class Room {// locations
+public class Habitacion {
 
     private String nombre;
     private char gender;
     private char number;
-    private String description;
-    private Hashtable<String, Sitio> sitios;// place
-    private Hashtable<String, Salida> salidas;// connections
+    private String descripcion;
+    private Hashtable<String, Sitio> sitios;
+    private Hashtable<String, Salida> salidas;
     private Hashtable<String, NPC> npcs;
 
-    public Room(JsonElement json) {
+    public Habitacion(JsonElement json) {
 	JsonObject jobj = json.getAsJsonObject();
 	nombre = jobj.get("name").getAsString();
 	gender = jobj.get("gender").getAsString().equals("male") ? 'm' : 'f';
 	number = jobj.get("number").getAsString().equals("singular") ? 's' : 'p';
-	description = jobj.get("description").getAsString();
+	descripcion = jobj.get("description").getAsString();
 	sitios = new Hashtable<String, Sitio>();
 	salidas = new Hashtable<String, Salida>();
 	npcs = new Hashtable<String, NPC>();
 	sitios.put("suelo", new Sitio());
     }
 
-    public void addSitio(Sitio newSitio) {
-	this.sitios.put(newSitio.getNombre(), newSitio);
+    public void addSitio(Sitio nuevoSitio) {
+	this.sitios.put(nuevoSitio.getNombre(), nuevoSitio);
     }
 
-    public void addSalida(Salida newSalida, String direccion) {
-	this.salidas.put(direccion, newSalida);
+    public void addSalida(Salida nuevaSalida, String direccion) {
+	this.salidas.put(direccion, nuevaSalida);
 
     }
 
-    public void addNPC(NPC newNPC) {
-	newNPC.setHabitacionActual(this);
-	this.npcs.put(newNPC.getName(), newNPC);
+    public void addNPC(NPC nuevoNpc) {
+	nuevoNpc.setHabitacionActual(this);
+	this.npcs.put(nuevoNpc.getNombre(), nuevoNpc);
     }
 
-    public boolean removeNPC(String nombre) {
+    public boolean sacarNPC(String nombre) {
 	boolean rta = false;
 	for (Iterator<Salida> it = salidas.values().iterator(); it.hasNext();) {
 	    Salida salida = it.next();
-	    if (salida.removeNPC(nombre))
+	    if (salida.sacarNPC(nombre))
 		break;
 	}
 	return npcs.remove(nombre) != null || rta;
@@ -59,8 +59,8 @@ public class Room {// locations
 	return this.nombre;
     }
 
-    public String getDescription() {
-	return this.description;
+    public String getDescripcion() {
+	return this.descripcion;
     }
 
     public Salida getSalida(String direccion) {
@@ -79,11 +79,11 @@ public class Room {// locations
 	return npcs.get(nombre);
     }
 
-    public void addObstacle(NPC obstacle, String direction) {
-	obstacle.setHabitacionActual(this);
+    public void ponerObstaculo(NPC obstaculo, String direction) {
+	obstaculo.setHabitacionActual(this);
 	Salida salida = salidas.get(direction);
 	if (salida != null)
-	    salida.addNPC(obstacle);
+	    salida.addNPC(obstaculo);
     }
 
     public Collection<NPC> getNpcs() {

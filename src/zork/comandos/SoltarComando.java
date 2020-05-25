@@ -16,11 +16,12 @@ public class SoltarComando implements Comando {
     public String ejecutar(Jugador jugador, String nombreItem) {
 	String retorno = "No tienes " + nombreItem + " en tu inventario.";
 	Item itemSoltado = jugador.getItem(nombreItem);
-	if (itemSoltado != null) {
+	if (itemSoltado != null && itemSoltado.esUsoValido("drop")) {
 	    jugador.getHabitacionActual().getSitio("suelo").addItem(itemSoltado);
-	    jugador.removeItem(nombreItem);
+	    jugador.sacarItem(nombreItem);
 	    retorno = "Se solto " + itemSoltado.toString() + " en el suelo.";
-	}
+	} else if (itemSoltado != null)
+	    retorno = "No puedes soltar " + itemSoltado.toString() + '.';
 	return retorno;
     }
 

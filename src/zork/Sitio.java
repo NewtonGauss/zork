@@ -32,13 +32,9 @@ public class Sitio {
 	number = jobj.get("number").getAsString().equals("singular") ? 's' : 'p';
 	items = new Hashtable<String, Item>();
     }
-    
-    public char getGender() {
-    	return this.gender;
-    }
 
-    public void addItem(Item newItem) {
-	items.put(newItem.getNombre(), newItem);
+    public void addItem(Item nuevoItem) {
+	items.put(nuevoItem.getNombre(), nuevoItem);
     }
 
     /* 

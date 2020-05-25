@@ -14,24 +14,47 @@ public class Item {
     private Double peso;
     private char gender;
     private char number;
-    private int points;
+    private int puntos;
     private List<String> accionesValidas = new ArrayList<String>();
     private List<String> afecta = new ArrayList<String>();
-    private String tipo;
+    private TipoItem tipo;
+    private float saludSumar;
 
 
     public Item(JsonElement json) {
 	JsonObject jobject = json.getAsJsonObject();
 	nombre = jobject.get("name").getAsString();
 	peso = jobject.get("weight").getAsDouble();
-	points = jobject.get("points").getAsInt();
-	tipo = jobject.get("type").getAsString();
+	puntos = jobject.get("points").getAsInt();
+	setTipo(jobject.get("type").getAsString());
 	gender = jobject.get("gender").getAsString().equals("male") ? 'm' : 'f';
 	number = jobject.get("number").getAsString().equals("singular") ? 's' : 'p';
 	for (JsonElement accion : jobject.getAsJsonArray("actions"))
 	    accionesValidas.add(accion.getAsString());
 	for (JsonElement effectOn : jobject.getAsJsonArray("effects_over"))
 	    afecta.add(effectOn.getAsString());
+    }
+
+    private void setTipo(String tipo) {
+	switch (tipo) {
+	case "potion":
+	    this.tipo = TipoItem.POCION;
+	    /* hardcodeado, hay que ponerlo en el formato */
+	    saludSumar = 20f; 
+	    break;
+	case "poison":
+	    this.tipo = TipoItem.VENENO;
+	    saludSumar = 15f;
+	    break;
+	case "weapon":
+	    this.tipo = TipoItem.ARMA;
+	    saludSumar = 15f;
+	    break;
+	case "vanilla":
+	default:
+	    this.tipo = TipoItem.VANILLA;
+	    break;
+	}
     }
 
     public Double getPeso() {
@@ -42,12 +65,12 @@ public class Item {
 	return this.nombre;
     }
 
-    public String getTipo() {
+    public TipoItem getTipo() {
 	return this.tipo;
     }
 
     public int getPoints() {
-	return points;
+	return puntos;
     }
 
     public boolean esUsoValido(String uso) {
@@ -66,6 +89,10 @@ public class Item {
     
     public String articuloIndefinido() {
 	return Cadena.articuloIndefinido(nombre, gender, number);
+    }
+
+    public float getSaludSumar() {
+	return saludSumar;
     }
 
 }

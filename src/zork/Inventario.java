@@ -17,7 +17,7 @@ public class Inventario {
 		this.pesoMax = pesoMax;
 	}
 
-	public boolean addItem(Item nuevoItem) {
+	public boolean ponerItem(Item nuevoItem) {
 		boolean bool = false;
 		if (nuevoItem.getPeso() + this.pesoActual <= this.pesoMax) {
 			this.pesoActual += nuevoItem.getPeso();
@@ -27,7 +27,7 @@ public class Inventario {
 		return bool;
 	}
 
-	public Item removeItem(Item sacar) {
+	public Item sacarItem(Item sacar) {
 		inventario.remove(sacar.getNombre());
 		pesoActual -= sacar.getPeso();
 		return sacar;

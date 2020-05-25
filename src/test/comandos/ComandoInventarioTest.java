@@ -31,8 +31,8 @@ class ComandoInventarioTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Item barreta = new Item(JsonParser.parseString(jsonBarreta));
 	Item espejo = new Item(JsonParser.parseString(jsonEspejo));
-	jugador.addItem(espejo);
-	jugador.addItem(barreta);
+	jugador.ponerItem(espejo);
+	jugador.ponerItem(barreta);
 
 	Comando com = new InventarioComando();
 	assertEquals("Tienes una barreta y un espejo.", com.ejecutar(jugador, ""));

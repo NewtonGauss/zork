@@ -1,8 +1,9 @@
-package zork;
+package zork.endgame;
 
+import zork.Jugador;
 import zork.comandos.Comando;
 
-public abstract class Endgame {
+public abstract class FinalJuego {
     
 	protected String descripcion;
 	protected String objetivo;

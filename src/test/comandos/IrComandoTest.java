@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.Habitacion;
 import zork.Jugador;
 import zork.NPC;
-import zork.Room;
 import zork.Salida;
 import zork.Trigger;
 import zork.comandos.Comando;
@@ -40,9 +40,9 @@ class IrComandoTest {
 
     @Test
     void testSinObstaculo() {
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 
-	Room barrio = new Room(JsonParser.parseString(jsonBarrio));
+	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
 	Salida salidaBarrio = new Salida(barrio);
 	muelle.addSalida(salidaBarrio, "norte");
 
@@ -56,14 +56,14 @@ class IrComandoTest {
 
     @Test
     void testConObstaculo() {
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 
-	Room barrio = new Room(JsonParser.parseString(jsonBarrio));
+	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
 	Salida salidaBarrio = new Salida(barrio);
 	muelle.addSalida(salidaBarrio, "norte");
 
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
-	muelle.addObstacle(pirata, "norte");
+	muelle.ponerObstaculo(pirata, "norte");
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	jugador.setHabitacionActual(muelle);
@@ -79,7 +79,7 @@ class IrComandoTest {
 
     @Test
     void testSinSalida() {
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	jugador.setHabitacionActual(muelle);
 

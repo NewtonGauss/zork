@@ -3,9 +3,9 @@ package zork.comandos;
 import java.util.Iterator;
 
 import utilitarias.Cadena;
+import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
-import zork.Room;
 import zork.Sitio;
 
 public class PonerComando implements Comando {
@@ -25,14 +25,14 @@ public class PonerComando implements Comando {
 	Item item;
 	String objeto = cadenaCortada[0], sitioObjetivo = cadenaCortada[1];
 
-	if ((item = jugador.getItem(objeto)) != null) {
-	    Room habitacionActual = jugador.getHabitacionActual();
+	if ((item = jugador.getItem(objeto)) != null && item.esUsoValido("drop")) {
+	    Habitacion habitacionActual = jugador.getHabitacionActual();
 	    Sitio sitio = habitacionActual.getSitio(sitioObjetivo);
 
 	    if (sitio != null) {
 		retorno = item.toString() + " ahora se encuentra en " + sitio.toString();
 		sitio.addItem(item);
-		jugador.removeItem(objeto);
+		jugador.sacarItem(objeto);
 	    } else {
 		retorno = "No hay un " + sitioObjetivo + " en "
 			+ habitacionActual.toString() + ". Puede dejar " + item.toString();
@@ -45,9 +45,11 @@ public class PonerComando implements Comando {
 		retorno = Cadena.normalizarFinalOracion(retorno, cantSitios);
 		retorno = Cadena.replaceLast(retorno, " y ", " o ");
 	    }
-	} else {
-	    retorno = "No se encuentra " + objeto + " en el inventario";
 	}
+	else if (item != null)
+	    retorno = "No puedes soltar " + item.toString() + '.';
+	else 
+	    retorno = "No se encuentra " + objeto + " en el inventario";
 
 	return retorno;
     }

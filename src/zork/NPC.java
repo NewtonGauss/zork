@@ -7,10 +7,10 @@ import com.google.gson.JsonObject;
 
 import utilitarias.Cadena;
 
-public class NPC extends Character {
+public class NPC extends Personaje {
     private String charla;
     private String descripcion;
-    private boolean enemy;
+    private boolean enemigo;
     private char gender;
     private char number;
     private Hashtable<String, Trigger> triggers = new Hashtable<String, Trigger>();
@@ -24,7 +24,7 @@ public class NPC extends Character {
 	number = jobject.get("number").getAsString().equals("singular") ? 's' : 'p';
 	inventario = new Inventario();
 	salud = jobject.get("health").getAsFloat();
-	enemy = jobject.get("enemy").getAsBoolean();
+	enemigo = jobject.get("enemy").getAsBoolean();
 	for (JsonElement trigger : jobject.getAsJsonArray("triggers")) {
 	    addTrigger(trigger);
 	}
@@ -61,19 +61,15 @@ public class NPC extends Character {
 	return descripcion;
     }
 
-    public void killNPC() {
-	this.salud = 0;
+    public boolean isEnemigo() {
+	return enemigo;
     }
 
-    public boolean isEnemy() {
-	return enemy;
+    public void setEnemigo(boolean enemy) {
+	this.enemigo = enemy;
     }
 
-    public void setEnemy(boolean enemy) {
-	this.enemy = enemy;
-    }
-
-    public String getName() {
+    public String getNombre() {
 	return this.nombre;
     }
 

@@ -1,9 +1,10 @@
 package zork.comandos;
 
+import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
-import zork.Room;
+import zork.TipoItem;
 import zork.Trigger;
 
 public class UsarItemComando implements Comando {
@@ -35,7 +36,7 @@ public class UsarItemComando implements Comando {
 	String retorno = "";
 	Item item = jugador.getItem(itemNombre);
 
-	if (item != null && item.esUsoValido("usar")) {
+	if (item != null && item.esUsoValido("use")) {
 
 	    if (parseado.length == 2 && item.esObjetivoValido("npcs"))
 		retorno = usarSobreNPC(jugador, parseado[1], item);
@@ -55,7 +56,7 @@ public class UsarItemComando implements Comando {
 
     private String usarSobreNPC(Jugador jugador, String npcNombre, Item item) {
 	String retorno;
-	Room habitacionActual = jugador.getHabitacionActual();
+	Habitacion habitacionActual = jugador.getHabitacionActual();
 	NPC npc = habitacionActual.getNPC(npcNombre);
 	if (npc != null)
 	    retorno = aplicarSobreNpc(jugador, item, npc);
@@ -73,8 +74,8 @@ public class UsarItemComando implements Comando {
 	if (trigger != null)
 	    retorno += trigger;
 	else if (isItemAplicable(item.getTipo())) {
-	    npc.aplicarItem(item.getTipo());
-	    jugador.removeItem(item.getNombre());
+	    npc.aplicarItem(item);
+	    jugador.sacarItem(item.getNombre());
 	} else
 	    retorno = NO_HA_SERVIDO;
 	return retorno;
@@ -82,14 +83,14 @@ public class UsarItemComando implements Comando {
 
     private String usarSobreJugador(Jugador jugador, Item item) {
 	String retorno;
-	jugador.aplicarItem(item.getTipo());
-	jugador.removeItem(item.getNombre());
+	jugador.aplicarItem(item);
+	jugador.sacarItem(item.getNombre());
 	retorno = "Se utilizo " + item.toString() + " sobre ti.";
 	return retorno;
     }
 
-    private boolean isItemAplicable(String tipo) {
-	return tipo.equals("potion") || tipo.equals("poison");
+    private boolean isItemAplicable(TipoItem tipo) {
+	return tipo.equals(TipoItem.VENENO) || tipo.equals(TipoItem.POCION);
     }
 
     @Override

@@ -2,37 +2,37 @@ package zork;
 
 public class Salida {
 	
-	private Room salida;
-	private NPC obstacle;
-	private boolean defeated;
+	private Habitacion salida;
+	private NPC obstaculo;
+	private boolean derrotado;
 	
-	public Salida(Room room) {
+	public Salida(Habitacion room) {
 		this.salida = room;
-		this.defeated = true;
+		this.derrotado = true;
 	}
 	
-	public void addNPC(NPC newObstacle) {
-		this.obstacle = newObstacle;
-		getObstacle().setEnemy(true);
-		this.defeated = false;
+	public void addNPC(NPC nuevoObstaculo) {
+		this.obstaculo = nuevoObstaculo;
+		getObstaculo().setEnemigo(true);
+		this.derrotado = false;
 	}
 	
-	public boolean removeNPC(String nombre) {
+	public boolean sacarNPC(String nombre) {
 	    boolean rta = false;
-	    if (getObstacle().getName().equals(nombre)) {
-		defeated = rta = true;
-		obstacle = null;
+	    if (getObstaculo().getNombre().equals(nombre)) {
+		derrotado = rta = true;
+		obstaculo = null;
 	    }
 	    return rta;
 	}
 	
-	public boolean isEnemyDefeated() {
-		if(!defeated && (getObstacle().isDead() || !getObstacle().isEnemy()))
-			defeated = true;
-		return defeated;
+	public boolean isEnemigoDerrotado() {
+		if(!derrotado && (getObstaculo().estaMuerto() || !getObstaculo().isEnemigo()))
+			derrotado = true;
+		return derrotado;
 	}
 	
-	public Room getRoom() {
+	public Habitacion getHabitacion() {
 		return this.salida;
 	}
 	
@@ -40,8 +40,8 @@ public class Salida {
 		return this.salida.getNombre();
 	}
 
-	public NPC getObstacle() {
-	    return obstacle;
+	public NPC getObstaculo() {
+	    return obstaculo;
 	}
 
 }

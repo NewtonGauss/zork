@@ -4,6 +4,7 @@ import utilitarias.Cadena;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
+import zork.Personaje;
 
 public class DarComando implements Comando {
 
@@ -18,17 +19,19 @@ public class DarComando implements Comando {
 	String retorno = "";
 	String[] cadenaPartida = restoDelComando.split(":");
 	String objeto = cadenaPartida[0], sujeto = cadenaPartida[1];
-	NPC npc = jugador.getHabitacionActual().getNPC(sujeto);
+	Personaje npc = jugador.getHabitacionActual().getNPC(sujeto);
 	Item item = jugador.getItem(objeto);
 	if (npc != null) {
-	    if (item != null) {
-		npc.addItem(item);
-		jugador.removeItem(item.getNombre());
+	    if (item != null && item.esUsoValido("drop")) {
+		npc.ponerItem(item);
+		jugador.sacarItem(item.getNombre());
 		retorno = "Le diste " + item.toString() + " a " + npc.toString() + '.';
 		retorno = Cadena.replaceAEl(retorno);
-	    } else {
-		retorno = "No tienes " + objeto + " en tu inventario.";
 	    }
+	    else if ( item != null)
+		retorno = "No puedes soltar " + item.toString() + '.';
+	    else 
+		retorno = "No tienes " + objeto + " en tu inventario.";
 	} else {
 	    retorno = sujeto + " no se encuentra en "
 		    + jugador.getHabitacionActual().toString() + '.';

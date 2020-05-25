@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.Character;
+import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
-import zork.Room;
+import zork.Personaje;
 import zork.Salida;
 
 class JugadorTest {
@@ -69,7 +69,7 @@ class JugadorTest {
 	@Test // Testeo el constructor de Jugador
 	void testNombreNPC() {
 		Jugador player = new Jugador(JsonParser.parseString(jsonPlayer));
-		assertEquals("Guybrush Threepwood", player.getName());
+		assertEquals("Guybrush Threepwood", player.getNombre());
 	}
 
 	@Test // Testeo sumar la cantidad de movimientos del jugador
@@ -83,39 +83,39 @@ class JugadorTest {
 	@Test // Testeo obtener el score del jugador
 	void testGetScore() {
 		Jugador player = new Jugador(JsonParser.parseString(jsonPlayer));
-		assertEquals(0, player.getScore());
+		assertEquals(0, player.getPuntuacion());
 	}
 
 	@Test // Le agrego un item al jugador y  lo devuelvo.
 	void testAgarrarYSoltarItems() {
-		Character player = new Jugador(JsonParser.parseString(jsonPlayer));
+		Personaje player = new Jugador(JsonParser.parseString(jsonPlayer));
 		Item item = new Item(JsonParser.parseString(jsonItem));
-		assertEquals(true, player.addItem(item));
+		assertEquals(true, player.ponerItem(item));
 		assertEquals(item, player.getItem(item.getNombre()));
-		assertTrue(player.removeItem(item.getNombre()));
-		assertFalse(player.removeItem(item.getNombre()));
+		assertTrue(player.sacarItem(item.getNombre()));
+		assertFalse(player.sacarItem(item.getNombre()));
 	}
 	
 	@Test
 	void testSet() {
-		Room r = new Room(JsonParser.parseString(jsonRoom));
-		Character jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+		Habitacion r = new Habitacion(JsonParser.parseString(jsonRoom));
+		Personaje jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 		jugador.setHabitacionActual(r);
 		assertEquals(r, jugador.getHabitacionActual());
 	}
 	
 	@Test
 	void testMover() {
-		Room room1 = new Room(JsonParser.parseString(jsonRoom));
-		Room room2 = new Room(JsonParser.parseString(jsonRoom2));
+		Habitacion room1 = new Habitacion(JsonParser.parseString(jsonRoom));
+		Habitacion room2 = new Habitacion(JsonParser.parseString(jsonRoom2));
 		NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 		Salida salida = new Salida(room2);
-		npc.setEnemy(true);
+		npc.setEnemigo(true);
 		salida.addNPC(npc);
 		room1.addSalida(salida,"norte");
-		assertEquals(false, salida.isEnemyDefeated());
-		npc.killNPC();
-		assertEquals(true, salida.isEnemyDefeated());
+		assertEquals(false, salida.isEnemigoDerrotado());
+		npc.matar();
+		assertEquals(true, salida.isEnemigoDerrotado());
 		Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 		jugador.setHabitacionActual(room1);
 		assertTrue(jugador.mover("norte"));
@@ -124,7 +124,7 @@ class JugadorTest {
 	
 	@Test
 	void testSalud() {
-	    Character jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	    Personaje jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	    assertEquals(100, jugador.getSalud());
 	    jugador.restarSalud(10);
 	    assertEquals(90, jugador.getSalud());

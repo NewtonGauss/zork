@@ -3,17 +3,17 @@ package zork;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class Jugador extends Character {
+public class Jugador extends Personaje {
 
     private int movimientos;
-    private int score;
+    private int puntuacion;
 
     public Jugador(JsonElement json) {
 	JsonObject jobj = json.getAsJsonObject();
 	this.nombre = jobj.get("character").getAsString();
 	inventario = new Inventario();
 	movimientos = 0;
-	score = 0;
+	puntuacion = 0;
 	salud = 100;
     }
 
@@ -21,7 +21,7 @@ public class Jugador extends Character {
 	this.movimientos++;
     }
 
-    public String getName() {
+    public String getNombre() {
 	return this.nombre;
     }
 
@@ -29,16 +29,16 @@ public class Jugador extends Character {
 	return this.movimientos;
     }
 
-    public int getScore() {
-	return this.score;
+    public int getPuntuacion() {
+	return this.puntuacion;
     }
 
 
-    public boolean mover(String direction) {
-	Salida salida = habitacionActual.getSalida(direction);
+    public boolean mover(String direccion) {
+	Salida salida = habitacionActual.getSalida(direccion);
 	boolean seMovio = false;
-	if (salida != null && salida.isEnemyDefeated()) {
-	    setHabitacionActual(salida.getRoom());
+	if (salida != null && salida.isEnemigoDerrotado()) {
+	    setHabitacionActual(salida.getHabitacion());
 	    seMovio = true;
 	}
 	return seMovio;
@@ -46,10 +46,10 @@ public class Jugador extends Character {
     
     
     @Override
-    public boolean addItem(Item nuevoItem) {
+    public boolean ponerItem(Item nuevoItem) {
         boolean retorno = false;
-        if(super.addItem(nuevoItem)) {
-            this.score += nuevoItem.getPoints();
+        if(super.ponerItem(nuevoItem)) {
+            this.puntuacion += nuevoItem.getPoints();
             retorno = true;
         }
         return retorno;

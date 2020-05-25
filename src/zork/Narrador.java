@@ -18,19 +18,21 @@ import zork.comandos.IrComando;
 import zork.comandos.MirarComando;
 import zork.comandos.MovimientosComando;
 import zork.comandos.PonerComando;
+import zork.comandos.Puntuacion;
 import zork.comandos.SoltarComando;
 import zork.comandos.TomarComando;
 import zork.comandos.UsarItemComando;
+import zork.endgame.FinalJuego;
 
 public class Narrador {
     private Jugador jugador;
     private Hashtable<String, Comando> comandos = new Hashtable<String, Comando>();
     private Collection<String> preposicionesArticulos = new LinkedList<String>();
-    private ArrayList<Endgame> finales = new ArrayList<Endgame>();
+    private ArrayList<FinalJuego> finales = new ArrayList<FinalJuego>();
 
     public Narrador(Jugador jugador) {
 	this.jugador = jugador;
-	cargarHashtable();
+	cargarComandos();
 	cargarPreposiciones();
     }
 
@@ -48,7 +50,7 @@ public class Narrador {
 	    }
 	    restoComando += objetos.get(i);
 	}
-	for (Endgame endgame : finales) {
+	for (FinalJuego endgame : finales) {
 	    if(endgame.esFinal(accion, comando)) {
 		retorno = endgame.ejecutar(jugador, accion, restoComando);
 	    }
@@ -80,7 +82,7 @@ public class Narrador {
 	return cadenaFiltrada;
     }
 
-    private void cargarHashtable() {
+    private void cargarComandos() {
 	comandos.put("usar", new UsarItemComando());
 	comandos.put("tomar", new TomarComando());
 	comandos.put("agarrar", new TomarComando());
@@ -114,7 +116,7 @@ public class Narrador {
 	preposicionesArticulos.add("%");
     }
     
-    public void addEndgame(Endgame endgame) {
+    public void addEndgame(FinalJuego endgame) {
 	this.finales.add(endgame);
     }
 

@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
-import zork.Room;
 import zork.Sitio;
 import zork.comandos.PonerComando;
 
@@ -26,7 +26,7 @@ public class PonerComandoTest {
 	    + "			\"points\": \"100\",\n"
 	    + "			\"weight\": \"10\",\n"
 	    + "			\"type\": \"weapon\",\n" + "      \"actions\": [\n"
-	    + "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n"
+	    + "        \"use\",\n" + "\"drop\"\n" + "      ],\n" + "      \"effects_over\": [\n"
 	    + "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n"
 	    + "      ]\n" + "    }";
     String jsonVentana = "{\n" + 
@@ -44,13 +44,13 @@ public class PonerComandoTest {
     void testExitoso() { // esta el item en el inventario y el sitio existe
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room = new Room(JsonParser.parseString(jsonRoom));
+	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
 	Item espada = new Item(JsonParser.parseString(jsonEspada));
 
 	PonerComando poner = new PonerComando();
 
-	jugador.addItem(espada);
+	jugador.ponerItem(espada);
 	jugador.setHabitacionActual(room);
 	room.addSitio(suelo);
 
@@ -62,13 +62,13 @@ public class PonerComandoTest {
     void testSitioInexistente() { // el item esta en el invetario pero el sitio no existe
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room = new Room(JsonParser.parseString(jsonRoom));
+	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
 	Sitio ventana = new Sitio(JsonParser.parseString(jsonVentana));
 	Item espada = new Item(JsonParser.parseString(jsonEspada));
 	PonerComando poner = new PonerComando();
 
-	jugador.addItem(espada);
+	jugador.ponerItem(espada);
 	jugador.setHabitacionActual(room);
 	room.addSitio(suelo);
 	room.addSitio(ventana);
@@ -81,12 +81,12 @@ public class PonerComandoTest {
     void testObjetoInexistente() { // el item no esta en el invetario
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room = new Room(JsonParser.parseString(jsonRoom));
+	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio sitio = new Sitio(JsonParser.parseString(jsonSitio));
 	Item espada = new Item(JsonParser.parseString(jsonEspada));
 	PonerComando poner = new PonerComando();
 	jugador.setHabitacionActual(room);
-	jugador.addItem(espada);
+	jugador.ponerItem(espada);
 	room.addSitio(sitio);
 
 	assertEquals("No se encuentra barreta en el inventario",

@@ -21,13 +21,13 @@ public class Trigger {
     public String ejecutar(NPC npc, String activador) {
 	switch (afterTrigger) {
 	case "kill":
-	    npc.killNPC();
+	    npc.matar();
 	    break;
 	case "defeat":
-	    npc.setEnemy(false);
+	    npc.setEnemigo(false);
 	    break;
 	case "remove":
-	    npc.getHabitacionActual().removeNPC(npc.getName());
+	    npc.getHabitacionActual().sacarNPC(npc.getNombre());
 	    break;}
 	return mensaje;
     }

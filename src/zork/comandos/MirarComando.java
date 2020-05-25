@@ -3,10 +3,10 @@ package zork.comandos;
 import java.util.Iterator;
 
 import utilitarias.Cadena;
+import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
-import zork.Room;
 import zork.Salida;
 import zork.Sitio;
 
@@ -24,12 +24,12 @@ public class MirarComando implements Comando {
     @Override
     public String ejecutar(Jugador jugador, String objetivo) {
 	String mensajeSalida = "";
-	Room habitacionActual = jugador.getHabitacionActual();
+	Habitacion habitacionActual = jugador.getHabitacionActual();
 	NPC objetivoDescribir;
 
 	if (objetivo.equals("") || objetivo.equals("alrededor")
 		|| objetivo.equals(habitacionActual.getNombre())) {
-	    mensajeSalida = habitacionActual.getDescription() + "."
+	    mensajeSalida = habitacionActual.getDescripcion() + "."
 		    + enumerarSitios(habitacionActual) + enumerarNPCs(habitacionActual)
 		    + enumerarSalidas(habitacionActual);
 	} else if ((objetivoDescribir = habitacionActual.getNPC(objetivo)) != null)
@@ -39,23 +39,23 @@ public class MirarComando implements Comando {
 	return mensajeSalida;
     }
 
-    private String enumerarSalidas(Room habitacionActual) {
+    private String enumerarSalidas(Habitacion habitacionActual) {
 	String mensajeSalida = "";
 	String[] direcciones = new String[] { "norte", "sur", "este", "oeste" };
 	Salida salida;
 	for (String direccion : direcciones) {
 	    if ((salida = habitacionActual.getSalida(direccion)) != null)
 		mensajeSalida += " Al " + direccion + " hay "
-			+ salida.getRoom().articuloIndefinido() + ".";
+			+ salida.getHabitacion().articuloIndefinido() + ".";
 	}
 	if ((salida = habitacionActual.getSalida("arriba")) != null)
-	    mensajeSalida += " Arriba hay " + salida.getRoom().articuloIndefinido() + ".";
+	    mensajeSalida += " Arriba hay " + salida.getHabitacion().articuloIndefinido() + ".";
 	if ((salida = habitacionActual.getSalida("abajo")) != null)
-	    mensajeSalida += " Abajo hay " + salida.getRoom().articuloIndefinido() + ".";
+	    mensajeSalida += " Abajo hay " + salida.getHabitacion().articuloIndefinido() + ".";
 	return mensajeSalida;
     }
 
-    private String enumerarNPCs(Room habitacionActual) {
+    private String enumerarNPCs(Habitacion habitacionActual) {
 	String mensajeSalida = "";
 	int cantNPCs = 0;
 	Iterator<NPC> npcs = habitacionActual.getNpcs().iterator();
@@ -70,7 +70,7 @@ public class MirarComando implements Comando {
 	return mensajeSalida;
     }
 
-    private String enumerarSitios(Room habitacionActual) {
+    private String enumerarSitios(Habitacion habitacionActual) {
 	String mensajeSalida = "";
 	for (Iterator<Sitio> sitios = habitacionActual.getSitios().iterator(); sitios
 		.hasNext();) {

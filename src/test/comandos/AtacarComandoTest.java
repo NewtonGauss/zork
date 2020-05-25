@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
-import zork.Room;
 import zork.comandos.AtacarConComando;
 
 class AtacarComandoTest {
@@ -36,27 +36,27 @@ class AtacarComandoTest {
     void testAtacarConComando() {
 
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room = new Room(JsonParser.parseString(jsonRoom));
+	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 	Item item = new Item(JsonParser.parseString(jsonItem));
 	AtacarConComando acc = new AtacarConComando();
 
-	j1.addItem(item);
+	j1.ponerItem(item);
 	room.addNPC(npc);
 	j1.setHabitacionActual(room);
-	assertEquals("Maxi Hiena: Uhhh me rompiste la gorra.", acc.ejecutar(j1, npc.getName() + ":" + item.getNombre()));
+	assertEquals("Maxi Hiena: Uhhh me rompiste la gorra.", acc.ejecutar(j1, npc.getNombre() + ":" + item.getNombre()));
     }
     
     @Test
     void testNpcInvalido() {
 	
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room = new Room(JsonParser.parseString(jsonRoom));
+	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 	Item item = new Item(JsonParser.parseString(jsonItem));
 	AtacarConComando acc = new AtacarConComando();
 	
-	j1.addItem(item);
+	j1.ponerItem(item);
 	room.addNPC(npc);
 	j1.setHabitacionActual(room);
 	assertEquals("pirata no se encuentra en el muelle.", acc.ejecutar(j1,"pirata:" + item.getNombre()));
@@ -66,13 +66,13 @@ class AtacarComandoTest {
     void testAtacarSinItems() {
 
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room = new Room(JsonParser.parseString(jsonRoom));
+	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 	AtacarConComando acc = new AtacarConComando();
 
 	room.addNPC(npc);
 	j1.setHabitacionActual(room);
-	assertEquals("No tiene armas para atacar. ¡Busque una!", acc.ejecutar(j1, npc.getName() + ":manos"));
+	assertEquals("No tiene armas para atacar. ¡Busque una!", acc.ejecutar(j1, npc.getNombre() + ":manos"));
     }
 
     @Test
@@ -89,17 +89,17 @@ class AtacarComandoTest {
 			+ "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n" + "        \"npcs\",\n"
 			+ "        \"self\",\n" + "        \"item\"\n" + "      ]\n" + "    }";
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room = new Room(JsonParser.parseString(jsonRoom));
+	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 	Item espejo = new Item(JsonParser.parseString(espejoJson));
 	Item canicas = new Item(JsonParser.parseString(canicasJson));
 	AtacarConComando acc = new AtacarConComando();
 
-	j1.addItem(espejo);
-	j1.addItem(canicas);
+	j1.ponerItem(espejo);
+	j1.ponerItem(canicas);
 	room.addNPC(npc);
 	j1.setHabitacionActual(room);
-	assertEquals("No tiene armas para atacar. ¡Busque una!", acc.ejecutar(j1, npc.getName() + ":" + espejo.getNombre()));
+	assertEquals("No tiene armas para atacar. ¡Busque una!", acc.ejecutar(j1, npc.getNombre() + ":" + espejo.getNombre()));
     }
     
     @Test
@@ -116,19 +116,19 @@ class AtacarComandoTest {
 			+ "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n" + "        \"npcs\",\n"
 			+ "        \"self\",\n" + "        \"item\"\n" + "      ]\n" + "    }";
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room room = new Room(JsonParser.parseString(jsonRoom));
+	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 	Item espejo = new Item(JsonParser.parseString(espejoJson));
 	Item canicas = new Item(JsonParser.parseString(canicasJson));
 	Item espada = new Item(JsonParser.parseString(jsonItem));
 	AtacarConComando acc = new AtacarConComando();
 
-	j1.addItem(espejo);
-	j1.addItem(canicas);
-	j1.addItem(espada);
+	j1.ponerItem(espejo);
+	j1.ponerItem(canicas);
+	j1.ponerItem(espada);
 	room.addNPC(npc);
 	j1.setHabitacionActual(room);
-	assertEquals("Utilice uno de los siguientes items para atacar: \nespada\n", acc.ejecutar(j1, npc.getName() + ":" + espejo.getNombre()));
+	assertEquals("Utilice uno de los siguientes items para atacar: \nespada\n", acc.ejecutar(j1, npc.getNombre() + ":" + espejo.getNombre()));
     }
 
 }

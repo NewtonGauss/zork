@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.ActionEndGame;
-import zork.Endgame;
+import zork.Habitacion;
 import zork.Jugador;
 import zork.NPC;
 import zork.Narrador;
-import zork.Room;
+import zork.endgame.AccionFinal;
+import zork.endgame.FinalJuego;
 
 class ActiondEndGameTest {
 
@@ -146,9 +146,9 @@ class ActiondEndGameTest {
     void testActionEndGame() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	NPC npc = new NPC(JsonParser.parseString(piratajson));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Narrador narrador = new Narrador(jugador);
-	Endgame end = new ActionEndGame(JsonParser.parseString(jsonActionEndGame));
+	FinalJuego end = new AccionFinal(JsonParser.parseString(jsonActionEndGame));
 	muelle.addNPC(npc);
 	jugador.setHabitacionActual(muelle);
 	narrador.addEndgame(end);

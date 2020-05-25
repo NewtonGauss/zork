@@ -47,7 +47,7 @@
 			],
       "triggers": [ { Array -> lo que hace que el npc haga algo especial }
         {
-          "type": { String -> item, atack o talk }
+          "type": { String -> item, attack o talk }
           "thing": { String -> si se elige item o attack hay que indicar de cual se trata o poner all }
           "on_trigger": { String -> mensaje despues de iniciar el trigger }
           "after_trigger": { String -> que hacer con el npc una vez finalizado. nothing, remove, kill, defeat }
@@ -64,7 +64,7 @@
 			"weight": { Float -> peso del item }
 			"type": { String -> weapon, potion, poison, vanilla }
       "actions": [ { Array de acciones validas que el jugador puede efectuar }
-        { String -> usar, tomar, dar, poner, soltar, atacar }
+        { String -> use, take, drop, attack }
       ],
       "effects_over": [ { Array donde se especifica a que afecta }
         "npcs",

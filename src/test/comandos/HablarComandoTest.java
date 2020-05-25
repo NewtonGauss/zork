@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.Habitacion;
 import zork.Jugador;
 import zork.NPC;
-import zork.Room;
 import zork.comandos.HablarComando;
 
 class HablarComandoTest {
@@ -36,7 +36,7 @@ class HablarComandoTest {
     @Test
     void testNpcPresente() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	HablarComando hc = new HablarComando();
 	
@@ -49,7 +49,7 @@ class HablarComandoTest {
     @Test
     void testNpcAusente() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	HablarComando hc = new HablarComando();
 	

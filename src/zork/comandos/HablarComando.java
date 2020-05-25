@@ -1,8 +1,8 @@
 package zork.comandos;
 
+import zork.Habitacion;
 import zork.Jugador;
 import zork.NPC;
-import zork.Room;
 
 public class HablarComando implements Comando {
 
@@ -15,7 +15,7 @@ public class HablarComando implements Comando {
     @Override
     public String ejecutar(Jugador jugador, String objetivo) {
 	String retorno = "";
-	Room habitacionActual = jugador.getHabitacionActual();
+	Habitacion habitacionActual = jugador.getHabitacionActual();
 	NPC npc = habitacionActual.getNPC(objetivo);
 	if (npc != null) {
 	    retorno = npc.hablar();

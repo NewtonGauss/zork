@@ -19,11 +19,11 @@ public class IrComando implements Comando {
 	String retorno = "";
 
 	if (jugador.mover(direccion)) {
-	    retorno = jugador.getHabitacionActual().getDescription();
+	    retorno = jugador.getHabitacionActual().getDescripcion();
 	} else {
 	    Salida salida = jugador.getHabitacionActual().getSalida(direccion);
 	    if (salida != null) {
-		retorno = salida.getObstacle().getDescripcion();
+		retorno = salida.getObstaculo().getDescripcion();
 	    } else {
 		retorno = "Hacia "
 			+ ((direccion.equals("arriba") || direccion.equals("abajo")) ? ""
@@ -38,7 +38,7 @@ public class IrComando implements Comando {
     @Override
     public boolean validar(Jugador jugador, String restoDelComando) {
 	Salida salida = jugador.getHabitacionActual().getSalida(restoDelComando);
-	return  salida != null && salida.isEnemyDefeated() ;
+	return  salida != null && salida.isEnemigoDerrotado() ;
     }
 
 }

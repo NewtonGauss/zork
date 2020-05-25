@@ -37,8 +37,8 @@ class InventarioTest {
 	jsonItem = jsonItem.replaceFirst("barreta", "barreta2");
 	Item item2 = new Item(JsonParser.parseString(jsonItem));
 	Inventario i = new Inventario(11d);
-	assertTrue(i.addItem(item));
-	assertFalse(i.addItem(item2));
+	assertTrue(i.ponerItem(item));
+	assertFalse(i.ponerItem(item2));
     }
 
     @Test
@@ -47,9 +47,9 @@ class InventarioTest {
 	jsonItem = jsonItem.replaceFirst("barreta", "barreta2");
 	Item item2 = new Item(JsonParser.parseString(jsonItem));
 	Inventario i = new Inventario(11d);
-	i.addItem(item);
-	i.removeItem(i.getItem("barreta"));
-	assertTrue(i.addItem(item2));
+	i.ponerItem(item);
+	i.sacarItem(i.getItem("barreta"));
+	assertTrue(i.ponerItem(item2));
 	assertEquals("barreta2", i.getItem("barreta2").getNombre());
 	assertEquals(null, i.getItem("barreta"));
     }
@@ -60,8 +60,8 @@ class InventarioTest {
 	jsonItem = jsonItem.replaceFirst("barreta", "barreta2");
 	Item item2 = new Item(JsonParser.parseString(jsonItem));
 	Inventario i = new Inventario(200d);
-	i.addItem(item);
-	i.addItem(item2);
+	i.ponerItem(item);
+	i.ponerItem(item2);
 	assertEquals("barreta", i.getItem("barreta").getNombre());
 	assertEquals("barreta2", i.getItem("barreta2").getNombre());
 	Iterator<Item> iterator = i.getItems().iterator();

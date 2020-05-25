@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
-import zork.Room;
 import zork.Salida;
 import zork.Sitio;
 import zork.comandos.MirarComando;
@@ -116,7 +116,7 @@ class MirarComandoTest {
     @Test
     void testExitosoHabitacion() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
 	muelle.addSitio(suelo);
 	j1.setHabitacionActual(muelle);
@@ -129,7 +129,7 @@ class MirarComandoTest {
     @Test
     void testExitosoNPC() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room r1 = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	MirarComando c1 = new MirarComando();
 
@@ -142,7 +142,7 @@ class MirarComandoTest {
     @Test
     void testObjetivoInvalido() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room r1 = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	MirarComando c1 = new MirarComando();
 
@@ -155,7 +155,7 @@ class MirarComandoTest {
     void testEnumeracionItems() {
 
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
 	Item barreta = new Item(JsonParser.parseString(barretaJson)),
@@ -177,7 +177,7 @@ class MirarComandoTest {
     void testEnumeracionUnSoloItem() {
 
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
 	Item barreta = new Item(JsonParser.parseString(barretaJson)),
@@ -195,7 +195,7 @@ class MirarComandoTest {
     @Test
     void testHabitacionConNPC() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room r1 = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	MirarComando c1 = new MirarComando();
 
@@ -207,7 +207,7 @@ class MirarComandoTest {
     @Test
     void testHabitacionConDosNPC() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room r1 = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	MirarComando c1 = new MirarComando();
 
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
@@ -222,11 +222,11 @@ class MirarComandoTest {
     @Test
     void testUnaSalida() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	j1.setHabitacionActual(muelle);
 	MirarComando c1 = new MirarComando();
 
-	Room barrio = new Room(JsonParser.parseString(jsonBarrio));
+	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
 	Salida salidaBarrio = new Salida(barrio);
 	muelle.addSalida(salidaBarrio, "norte");
 
@@ -236,14 +236,14 @@ class MirarComandoTest {
     @Test
     void testDosSalida() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	j1.setHabitacionActual(muelle);
 	MirarComando c1 = new MirarComando();
 
-	Room barrio = new Room(JsonParser.parseString(jsonBarrio));
+	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
 	Salida salidaBarrio = new Salida(barrio);
 	muelle.addSalida(salidaBarrio, "arriba");
-	Room bahias = new Room(JsonParser.parseString(jsonBahias));
+	Habitacion bahias = new Habitacion(JsonParser.parseString(jsonBahias));
 	Salida salidaBahias = new Salida(bahias);
 	muelle.addSalida(salidaBahias, "abajo");
 
@@ -254,7 +254,7 @@ class MirarComandoTest {
     @Test
     void testCompleto() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
-	Room muelle = new Room(JsonParser.parseString(jsonMuelle));
+	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	j1.setHabitacionActual(muelle);
 	MirarComando c1 = new MirarComando();
 
@@ -277,13 +277,13 @@ class MirarComandoTest {
 	muelle.addNPC(mamuts);
 
 	/* Salidas */
-	Room barrio = new Room(JsonParser.parseString(jsonBarrio));
+	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
 	Salida salidaBarrio = new Salida(barrio);
 	muelle.addSalida(salidaBarrio, "arriba");
-	Room bahias = new Room(JsonParser.parseString(jsonBahias));
+	Habitacion bahias = new Habitacion(JsonParser.parseString(jsonBahias));
 	Salida salidaBahias = new Salida(bahias);
 	muelle.addSalida(salidaBahias, "abajo");
-	Room taberna = new Room(JsonParser.parseString(jsonTaberna));
+	Habitacion taberna = new Habitacion(JsonParser.parseString(jsonTaberna));
 	Salida salidaTaberna = new Salida(taberna);
 	muelle.addSalida(salidaTaberna, "sur");
 

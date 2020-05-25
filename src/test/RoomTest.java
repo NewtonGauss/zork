@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.Habitacion;
 import zork.Item;
 import zork.NPC;
-import zork.Room;
 import zork.Salida;
 import zork.Sitio;
 
@@ -49,14 +49,14 @@ class RoomTest {
 	
 	@Test // Pruebo la creacion de la habitacion
 	void testDescripcion() {
-		Room room = new Room(JsonParser.parseString(jsonRoom));
+		Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 		assertEquals("el muelle", room.toString());
 	}
 	
 	@Test //Pruebo agregando Salida...
 	void testSalidas() {
-		Room room = new Room(JsonParser.parseString(jsonRoom));
-		Room room2 = new Room(JsonParser.parseString(jsonRoom2));
+		Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
+		Habitacion room2 = new Habitacion(JsonParser.parseString(jsonRoom2));
 		Salida salida = new Salida(room2);
 		room.addSalida(salida, "sur");
 		assertEquals(salida.getNombre(), room.getSalida("sur").getNombre());
@@ -64,7 +64,7 @@ class RoomTest {
 	
 	@Test //Pruebo agregando Sitio...
 	void testSitios() {
-		Room room = new Room(JsonParser.parseString(jsonRoom));
+		Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 		Sitio sitio = new Sitio(JsonParser.parseString(jsonSitio));
 		room.addSitio(sitio);
 		assertEquals(sitio.getNombre(), room.getSitio("suelo").getNombre());
@@ -73,7 +73,7 @@ class RoomTest {
 	
 	@Test //Pruebo obtener el item de un determinado sitio
 	void testItemsENSitios() {
-		Room room = new Room(JsonParser.parseString(jsonRoom));
+		Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 		Sitio sitio = new Sitio(JsonParser.parseString(jsonSitio));
 		Item item = new Item(JsonParser.parseString(jsonItem));
 		sitio.addItem(item);
@@ -105,10 +105,10 @@ class RoomTest {
 		 	"        }\n" + 
 		 	"      ]\n" + 
 		 	"    }";
-	    Room room = new Room(JsonParser.parseString(jsonRoom));
+	    Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	    NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 	    room.addNPC(npc);
-	    assertEquals(npc, room.getNPC(npc.getName()));
+	    assertEquals(npc, room.getNPC(npc.getNombre()));
 	    assertEquals(null, room.getNPC("Newton"));
 	}
 	
