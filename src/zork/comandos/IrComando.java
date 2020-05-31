@@ -38,7 +38,7 @@ public class IrComando implements Comando {
     @Override
     public boolean validar(Jugador jugador, String restoDelComando) {
 	Salida salida = jugador.getHabitacionActual().getSalida(restoDelComando);
-	return  salida != null && salida.isEnemigoDerrotado() ;
+	return  salida != null && salida.isEnemigoDerrotado();
     }
 
 }

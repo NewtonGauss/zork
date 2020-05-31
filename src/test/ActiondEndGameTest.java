@@ -37,7 +37,7 @@ class ActiondEndGameTest {
     
     String jsonActionEndGame = "{\n" + 
 	    	"      \"condition\": \"action\",\n" + 
-	    	"      \"action\": \"hablar\",\n" + 
+	    	"      \"action\": \"talk\",\n" + 
 	    	"      \"thing\": \"pirata fantasma\",\n" + 
 	    	"      \"description\": \"Has terminado el juego.\"" + 
 	    	"    }";

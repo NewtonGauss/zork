@@ -80,7 +80,7 @@
   "endgames": [ { Array -> finales del juego }
     {
       "condition": { String -> location, action }
-      "action": { String -> Si se trata de una accion, se debe describir de cual se trata }
+      "action": { String -> Si se trata de una accion, se debe describir de cual se trata: attack, give, talk, look, take, use }
       "thing": { String -> Se indica el objeto sobre el cual se debe realizar la accion o none. O se indica la habitacion final }
       "description": { String -> final del juego }
     }

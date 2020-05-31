@@ -51,7 +51,7 @@ public class Narrador {
 	    restoComando += objetos.get(i);
 	}
 	for (FinalJuego endgame : finales) {
-	    if(endgame.esFinal(accion, comando)) {
+	    if(endgame.esComandoFinal(accion, comando)) {
 		retorno = endgame.ejecutar(jugador, accion, restoComando);
 	    }
 	}
