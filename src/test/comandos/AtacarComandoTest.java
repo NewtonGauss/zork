@@ -2,6 +2,7 @@ package test.comandos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
@@ -10,8 +11,9 @@ import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
+import zork.TipoItem;
 import zork.comandos.AtacarConComando;
-import zork.input.json.ItemInputJson;
+import zork.input.parametro.ItemInputParametro;
 
 class AtacarComandoTest {
 
@@ -26,46 +28,50 @@ class AtacarComandoTest {
 	    + "\"talk\": \"No hay nada que me digas que me haga cambiar de opinion!\", \n" + "\"triggers\": [{"
 	    + " \"type\": \"attack\" ,\n" + " \"thing\": \"espada\" ,\n"
 	    + " \"on_trigger\": \"Uhhh me rompiste la gorra\" ,\n" + " \"after_trigger\": \"kill\" } ] }";
-
-    String jsonItem = "{\n" + "      \"name\": \"espada\",\n" + "      \"gender\": \"female\",\n"
-	    + "      \"number\": \"singular\",\n" + "			\"points\": \"100\",\n"
-	    + "			\"weight\": \"10\",\n" + "			\"type\": \"weapon\",\n"
-	    + "      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n"
-	    + "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n" + "      ]\n" + "    }";
+    private Item espada, espejo, canicas;
+    
+    @BeforeEach
+    void inicializarItems() {
+	ItemInputParametro constructor = new ItemInputParametro("espada");
+	constructor.setTipo(TipoItem.ARMA);
+	espada = new Item(constructor);
+	
+	constructor.setNombre("espejo");
+	constructor.setTipo(TipoItem.VANILLA);
+	espejo = new Item(constructor);
+	
+	constructor.setNombre("canicas");
+	canicas = new Item(constructor);
+    }
 
     @Test
     void testAtacarConComando() {
-
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
-	Item item = new Item(new ItemInputJson(jsonItem));
 	AtacarConComando acc = new AtacarConComando();
 
-	j1.ponerItem(item);
+	j1.ponerItem(espada);
 	room.addNPC(npc);
 	j1.setHabitacionActual(room);
-	assertEquals("Maxi Hiena: Uhhh me rompiste la gorra.", acc.ejecutar(j1, npc.getNombre() + ":" + item.getNombre()));
+	assertEquals("Maxi Hiena: Uhhh me rompiste la gorra.", acc.ejecutar(j1, npc.getNombre() + ":" + espada.getNombre()));
     }
     
     @Test
     void testNpcInvalido() {
-	
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
-	Item item = new Item(new ItemInputJson(jsonItem));
 	AtacarConComando acc = new AtacarConComando();
 	
-	j1.ponerItem(item);
+	j1.ponerItem(espada);
 	room.addNPC(npc);
 	j1.setHabitacionActual(room);
-	assertEquals("pirata no se encuentra en el muelle.", acc.ejecutar(j1,"pirata:" + item.getNombre()));
+	assertEquals("pirata no se encuentra en el muelle.", acc.ejecutar(j1,"pirata:" + espada.getNombre()));
     }
 
     @Test
     void testAtacarSinItems() {
-
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
@@ -78,22 +84,9 @@ class AtacarComandoTest {
 
     @Test
     void testAtacarSinArmasConItems() {
-	String espejoJson = "{\n" + "      \"name\": \"espejo\",\n" + "      \"gender\": \"male\",\n"
-		+ "      \"number\": \"singular\",\n" + "			\"points\": \"100\",\n"
-		+ "			\"weight\": \"10\",\n" + "			\"type\": \"vanilla\",\n"
-		+ "      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n"
-		+ "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n" + "      ]\n" + "    }",
-		canicasJson = "{\n" + "      \"name\": \"canicas\",\n" + "      \"gender\": \"female\",\n"
-			+ "      \"number\": \"plural\",\n" + "			\"points\": \"100\",\n"
-			+ "			\"weight\": \"10\",\n"
-			+ "			\"type\": \"vanilla\",\n" + "      \"actions\": [\n"
-			+ "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n" + "        \"npcs\",\n"
-			+ "        \"self\",\n" + "        \"item\"\n" + "      ]\n" + "    }";
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
-	Item espejo = new Item(new ItemInputJson(espejoJson));
-	Item canicas = new Item(new ItemInputJson(canicasJson));
 	AtacarConComando acc = new AtacarConComando();
 
 	j1.ponerItem(espejo);
@@ -105,23 +98,9 @@ class AtacarComandoTest {
     
     @Test
     void testItemEquivocado() {
-	String espejoJson = "{\n" + "      \"name\": \"espejo\",\n" + "      \"gender\": \"male\",\n"
-		+ "      \"number\": \"singular\",\n" + "			\"points\": \"100\",\n"
-		+ "			\"weight\": \"10\",\n" + "			\"type\": \"vanilla\",\n"
-		+ "      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n"
-		+ "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n" + "      ]\n" + "    }",
-		canicasJson = "{\n" + "      \"name\": \"canicas\",\n" + "      \"gender\": \"female\",\n"
-			+ "      \"number\": \"plural\",\n" + "			\"points\": \"100\",\n"
-			+ "			\"weight\": \"10\",\n"
-			+ "			\"type\": \"vanilla\",\n" + "      \"actions\": [\n"
-			+ "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n" + "        \"npcs\",\n"
-			+ "        \"self\",\n" + "        \"item\"\n" + "      ]\n" + "    }";
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
-	Item espejo = new Item(new ItemInputJson(espejoJson));
-	Item canicas = new Item(new ItemInputJson(canicasJson));
-	Item espada = new Item(new ItemInputJson(jsonItem));
 	AtacarConComando acc = new AtacarConComando();
 
 	j1.ponerItem(espejo);

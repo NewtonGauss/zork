@@ -2,16 +2,21 @@ package test.comandos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.AccionItem;
 import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
 import zork.Sitio;
 import zork.comandos.TomarComando;
-import zork.input.json.ItemInputJson;
+import zork.input.parametro.ItemInputParametro;
 
 class TomarTest {
     String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
@@ -27,44 +32,20 @@ class TomarTest {
     String jsonSitio3 = "{\n" + " \"name\": \"mesa\" ,\n" + " \"gender\": \"female\" ,\n"
 	    + " \"number\": \"singular\" }";
 
-    String barretaJson = "{\n" + "      \"name\": \"barreta\",\n"
-	    + "      \"gender\": \"female\",\n" + "      \"number\": \"singular\",\n"
-	    + "			\"points\": \"100\",\n"
-	    + "			\"weight\": \"95\",\n"
-	    + "			\"type\": \"weapon\",\n" + "      \"actions\": [\n"
-	    + "        \"take\"\n" + "      ],\n" + "      \"effects_over\": [\n"
-	    + "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n"
-	    + "      ]\n" + "    }",
-	    rociadorJson = "{\n" + "      \"name\": \"rociador con cerveza de raiz\",\n"
-		    + "      \"gender\": \"male\",\n"
-		    + "      \"number\": \"singular\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"weight\": \"10\",\n"
-		    + "			\"type\": \"vanilla\",\n"
-		    + "      \"actions\": [\n" + "        \"take\"\n" + "      ],\n"
-		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
-		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
-		    + "    }",
-	    espejoJson = "{\n" + "      \"name\": \"espejo\",\n"
-		    + "      \"gender\": \"male\",\n"
-		    + "      \"number\": \"singular\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"weight\": \"10\",\n"
-		    + "			\"type\": \"vanilla\",\n"
-		    + "      \"actions\": [\n" + "        \"take\"\n" + "      ],\n"
-		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
-		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
-		    + "    }",
-	    canicasJson = "{\n" + "      \"name\": \"canicas\",\n"
-		    + "      \"gender\": \"female\",\n"
-		    + "      \"number\": \"plural\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"weight\": \"10\",\n"
-		    + "			\"type\": \"vanilla\",\n"
-		    + "      \"actions\": [\n" + "        \"take\"\n" + "      ],\n"
-		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
-		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
-		    + "    }";
+    private Item rociador, espejo;
+    
+    @BeforeEach
+    void inicializarItems() {
+	ItemInputParametro constructorItem = new ItemInputParametro("espejo");
+	constructorItem.setGender('m');
+	constructorItem.setNumber('s');
+	constructorItem.setAccionesValidas(new ArrayList<AccionItem>(Arrays.asList(AccionItem.TAKE)));
+	espejo = new Item(constructorItem);
+	
+	constructorItem.setNombre("rociador con cerveza de raiz");
+	constructorItem.setPeso(95d);
+	rociador = new Item(constructorItem);
+    }
 
     @Test
     void testTomarEspejo() {
@@ -73,43 +54,25 @@ class TomarTest {
 	Sitio s1 = new Sitio(JsonParser.parseString(jsonSitio1));
 	Sitio s2 = new Sitio(JsonParser.parseString(jsonSitio2));
 	Sitio s3 = new Sitio(JsonParser.parseString(jsonSitio3));
-	Item barreta = new Item(new ItemInputJson(barretaJson)),
-		rociador = new Item(new ItemInputJson(rociadorJson)),
-		espejo = new Item(new ItemInputJson(espejoJson)),
-		canicas = new Item(new ItemInputJson(canicasJson));
 	r.addSitio(s1);
 	r.addSitio(s2);
 	r.addSitio(s3);
-	s1.addItem(barreta);
 	s1.addItem(rociador);
 	s3.addItem(espejo);
-	s3.addItem(canicas);
 	j.setHabitacionActual(r);
 	TomarComando c = new TomarComando();
 	assertEquals("Tomaste el espejo.", c.ejecutar(j, "espejo"));
+	assertEquals("No hay ningun espejo por aqui.", c.ejecutar(j, "espejo"));
+	assertEquals(rociador, s1.getItem("rociador con cerveza de raiz"));
     }
 
     @Test
     void testNoHayItem() {
 	Jugador j = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion r = new Habitacion(JsonParser.parseString(jsonRoom));
-	Sitio s1 = new Sitio(JsonParser.parseString(jsonSitio1));
-	Sitio s2 = new Sitio(JsonParser.parseString(jsonSitio2));
-	Sitio s3 = new Sitio(JsonParser.parseString(jsonSitio3));
-	Item barreta = new Item(new ItemInputJson(barretaJson)),
-		rociador = new Item(new ItemInputJson(rociadorJson)),
-		espejo = new Item(new ItemInputJson(espejoJson)),
-		canicas = new Item(new ItemInputJson(canicasJson));
-	r.addSitio(s1);
-	r.addSitio(s2);
-	r.addSitio(s3);
-	s1.addItem(barreta);
-	s1.addItem(rociador);
-	s3.addItem(espejo);
-	s3.addItem(canicas);
 	j.setHabitacionActual(r);
 	TomarComando c = new TomarComando();
-	assertEquals("No hay ningun neumatico por aqui", c.ejecutar(j, "neumatico"));
+	assertEquals("No hay ningun neumatico por aqui.", c.ejecutar(j, "neumatico"));
     }
 
     @Test
@@ -117,47 +80,15 @@ class TomarTest {
 	Jugador j = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion r = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio s1 = new Sitio(JsonParser.parseString(jsonSitio1));
-	Sitio s2 = new Sitio(JsonParser.parseString(jsonSitio2));
-	Sitio s3 = new Sitio(JsonParser.parseString(jsonSitio3));
-	Item barreta = new Item(new ItemInputJson(barretaJson)),
-		rociador = new Item(new ItemInputJson(rociadorJson)),
-		espejo = new Item(new ItemInputJson(espejoJson)),
-		canicas = new Item(new ItemInputJson(canicasJson));
 	r.addSitio(s1);
-	r.addSitio(s2);
-	r.addSitio(s3);
-	s1.addItem(barreta);
 	s1.addItem(rociador);
-	s3.addItem(espejo);
-	s3.addItem(canicas);
+	s1.addItem(espejo);
 	j.setHabitacionActual(r);
+	j.ponerItem(espejo);
 	TomarComando c = new TomarComando();
-	j.ponerItem(barreta);
 	assertEquals("No tienes mas espacio en tu inventario!",
 		c.ejecutar(j, "rociador con cerveza de raiz"));
     }
 
-    @Test
-    void testFemalePlural() {
-	Jugador j = new Jugador(JsonParser.parseString(jsonPlayer));
-	Habitacion r = new Habitacion(JsonParser.parseString(jsonRoom));
-	Sitio s1 = new Sitio(JsonParser.parseString(jsonSitio1));
-	Sitio s2 = new Sitio(JsonParser.parseString(jsonSitio2));
-	Sitio s3 = new Sitio(JsonParser.parseString(jsonSitio3));
-	Item barreta = new Item(new ItemInputJson(barretaJson)),
-		rociador = new Item(new ItemInputJson(rociadorJson)),
-		espejo = new Item(new ItemInputJson(espejoJson)),
-		canicas = new Item(new ItemInputJson(canicasJson));
-	r.addSitio(s1);
-	r.addSitio(s2);
-	r.addSitio(s3);
-	s1.addItem(barreta);
-	s1.addItem(rociador);
-	s3.addItem(espejo);
-	s3.addItem(canicas);
-	j.setHabitacionActual(r);
-	TomarComando c = new TomarComando();
-	assertEquals("Tomaste las canicas.", c.ejecutar(j, "canicas"));
-    }
 
 }

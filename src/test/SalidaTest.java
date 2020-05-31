@@ -83,7 +83,6 @@ class SalidaTest {
 	 */
 	@Test
 	void testRemove() {
-	    	Habitacion room1 = new Habitacion(JsonParser.parseString(jsonRoom));
 		Habitacion room2 = new Habitacion(JsonParser.parseString(jsonRoom2));
 		NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 		Salida salida = new Salida(room2);

@@ -108,6 +108,7 @@ public class Narrador {
 	preposicionesArticulos.add("al");
 	preposicionesArticulos.add("la");
 	preposicionesArticulos.add("el");
+	preposicionesArticulos.add("del");
 	preposicionesArticulos.add("los");
 	preposicionesArticulos.add("las");
 	preposicionesArticulos.add("en");

@@ -2,18 +2,24 @@ package test.comandos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.AccionItem;
 import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
 import zork.Narrador;
+import zork.ObjetivoItem;
 import zork.Salida;
 import zork.Sitio;
-import zork.input.json.ItemInputJson;
+import zork.TipoItem;
+import zork.input.parametro.ItemInputParametro;
 
 class NarradorTest {
 
@@ -45,55 +51,7 @@ class NarradorTest {
 		    + "			\"enemy\": \"true\",\n"
 		    + "			\"health\": \"100\",\n"
 		    + "			\"inventory\": [],\n" + "      \"triggers\": []\n"
-		    + "    }",
-	    barretaJson = "{\n" + "      \"name\": \"barreta\",\n"
-		    + "      \"gender\": \"female\",\n"
-		    + "      \"number\": \"singular\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"weight\": \"10\",\n"
-		    + "			\"type\": \"weapon\",\n"
-		    + "      \"actions\": [\n" + "        \"drop\"\n" + "      ],\n"
-		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
-		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
-		    + "    }",
-	    rociadorJson = "{\n" + "      \"name\": \"rociador con cerveza de raiz\",\n"
-		    + "      \"gender\": \"male\",\n"
-		    + "      \"number\": \"singular\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"weight\": \"10\",\n"
-		    + "			\"type\": \"potion\",\n"
-		    + "      \"actions\": [\n" + "        \"use\"\n" + "      ],\n"
-		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
-		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
-		    + "    }",
-	    burbujaJson = "{\n" + "      \"name\": \"burbuja\",\n"
-		    + "      \"gender\": \"male\",\n"
-		    + "      \"number\": \"singular\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"weight\": \"10\",\n"
-		    + "			\"type\": \"vanilla\",\n"
-		    + "      \"actions\": [\n" + "        \"use\"\n" + "      ],\n"
-		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
-		    + "        \"self\",\n" + "        \"item\"\n" + "      ]\n"
-		    + "    }",
-	    calculadoraJson = "{\n" + "      \"name\": \"calculadora\",\n"
-		    + "      \"gender\": \"female\",\n"
-		    + "      \"number\": \"singular\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"weight\": \"10\",\n"
-		    + "			\"type\": \"potion\",\n"
-		    + "      \"actions\": [\n" + "        \"use\"\n" + "       ],\n"
-		    + "      \"effects_over\": [\n" + "        \"npcs\",\n"
-		    + "        \"item\"\n" + "      ]\n" + "    }",
-	    venenoJson = "{\n" + "      \"name\": \"veneno\",\n"
-		    + "      \"gender\": \"male\",\n"
-		    + "      \"number\": \"singular\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"weight\": \"10\",\n"
-		    + "			\"type\": \"poison\",\n"
-		    + "      \"actions\": [\n" + "        \"use\"\n" + "      ],\n"
-		    + "      \"effects_over\": [\n" + "        \"self\",\n"
-		    + "        \"item\"\n" + "      ]\n" + "    }";
+		    + "    }";
 
     String jsonUnlam = "{\n" + " \"name\": \"unlam\" ,\n" + " \"gender\": \"female\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
@@ -113,15 +71,6 @@ class NarradorTest {
 	    + " \"thing\": \"espada\" ,\n" + " \"on_trigger\": \"Uhhh\" ,\n"
 	    + " \"after_trigger\": \"kill\" } ] }";
 
-    String jsonEspada = "{\n" + "      \"name\": \"espada\",\n"
-	    + "      \"gender\": \"female\",\n" + "      \"number\": \"singular\",\n"
-	    + "			\"points\": \"100\",\n"
-	    + "			\"weight\": \"10\",\n"
-	    + "			\"type\": \"weapon\",\n" + "      \"actions\": [\n"
-	    + "        \"usar\",\n" + "\"take\",\n" + "\"drop\"\n" + "      ],\n" + "      \"effects_over\": [\n"
-	    + "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n"
-	    + "      ]\n" + "    }";
-
     String piratajson = "{\n" + "      \"name\": \"pirata fantasma\",\n"
 	    + "      \"gender\": \"male\",\n" + "      \"number\": \"singular\",\n"
 	    + "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
@@ -135,15 +84,47 @@ class NarradorTest {
 	    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
 	    + "          \"after_trigger\": \"remove\"\n" + "        }\n" + "      ]\n"
 	    + "    }";
-    
-  
+
+    private Item veneno, rociador, calculadora, espada;
+
+    @BeforeEach
+    void inicializarItems() {
+	ArrayList<AccionItem> acciones = new ArrayList<AccionItem>();
+	acciones.add(AccionItem.USE);
+	acciones.add(AccionItem.TAKE);
+	acciones.add(AccionItem.DROP);
+
+	ArrayList<ObjetivoItem> objetivos = new ArrayList<ObjetivoItem>();
+	objetivos.add(ObjetivoItem.ITEM);
+	objetivos.add(ObjetivoItem.NPCS);
+	objetivos.add(ObjetivoItem.SELF);
+
+	ItemInputParametro constructorItems = new ItemInputParametro("veneno");
+	constructorItems.setGender('m');
+	constructorItems.setNumber('s');
+	constructorItems.setTipo(TipoItem.VENENO);
+	constructorItems.setAccionesValidas(acciones);
+	constructorItems.setObjetivosValidos(objetivos);
+	constructorItems.setSaludSumar(15);
+	veneno = new Item(constructorItems);
+
+	constructorItems.setNombre("rociador con cerveza de raiz");
+	rociador = new Item(constructorItems);
+
+	constructorItems.setGender('f');
+	constructorItems.setNombre("calculadora");
+	calculadora = new Item(constructorItems);
+
+	constructorItems.setTipo(TipoItem.ARMA);
+	constructorItems.setNombre("espada");
+	espada = new Item(constructorItems);
+    }
 
     @Test
     void testUsar() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
-	Item rociador = new Item(new ItemInputJson(rociadorJson));
 	Narrador narrador = new Narrador(jugador);
 
 	muelle.addNPC(pirata);
@@ -194,16 +175,14 @@ class NarradorTest {
     void testPuntuacion() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Narrador narrador = new Narrador(jugador);
-	Item item = new Item(new ItemInputJson(calculadoraJson));
-	Item item2 = new Item(new ItemInputJson(venenoJson));
 
 	assertEquals("Tu puntuacion es: 0", narrador.ejecutar("puntuacion"));
 
-	jugador.ponerItem(item);
+	jugador.ponerItem(calculadora);
 
 	assertEquals("Tu puntuacion es: 100", narrador.ejecutar("puntuacion"));
 
-	jugador.ponerItem(item2);
+	jugador.ponerItem(veneno);
 
 	assertEquals("Tu puntuacion es: 200", narrador.ejecutar("puntuacion"));
     }
@@ -240,8 +219,6 @@ class NarradorTest {
     void testInventario() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Narrador narrador = new Narrador(jugador);
-	Item calculadora = new Item(new ItemInputJson(calculadoraJson));
-	Item veneno = new Item(new ItemInputJson(venenoJson));
 
 	assertEquals("No tienes objetos en tu inventario.",
 		narrador.ejecutar("inventario"));
@@ -260,7 +237,6 @@ class NarradorTest {
     void testDiagnostico() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Narrador narrador = new Narrador(jugador);
-	Item veneno = new Item(new ItemInputJson(venenoJson));
 
 	assertEquals(
 		"Tu estado de salud es perfecto (100), solo te podria matar una seria herida",
@@ -311,7 +287,6 @@ class NarradorTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion unlam = new Habitacion(JsonParser.parseString(jsonUnlam));
 	NPC yoshi = new NPC(JsonParser.parseString(jsonYoshi));
-	Item espada = new Item(new ItemInputJson(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 	jugador.ponerItem(espada);
 
@@ -329,7 +304,6 @@ class NarradorTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC pirata = new NPC(JsonParser.parseString(piratajson));
-	Item espada = new Item(new ItemInputJson(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 
 	muelle.addNPC(pirata);
@@ -348,7 +322,6 @@ class NarradorTest {
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	Item espada = new Item(new ItemInputJson(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 	Sitio suelo = new Sitio();
 	suelo.addItem(espada);
@@ -368,7 +341,6 @@ class NarradorTest {
     void testPoner() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	Item espada = new Item(new ItemInputJson(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 	Sitio suelo = new Sitio();
 	suelo.addItem(espada);
@@ -389,7 +361,6 @@ class NarradorTest {
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	Item espada = new Item(new ItemInputJson(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 	Sitio suelo = new Sitio();
 	jugador.ponerItem(espada);
@@ -408,11 +379,9 @@ class NarradorTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC pirata = new NPC(JsonParser.parseString(piratajson));
-	Item rociador = new Item(new ItemInputJson(jsonEspada));
 	Narrador narrador = new Narrador(jugador);
 	muelle.addNPC(pirata);
 	jugador.setHabitacionActual(muelle);
-	jugador.ponerItem(rociador);
 
 	assertEquals("¡No hay nada que me digas que me haga cambiar de opinión!",
 		narrador.ejecutar("hablar a pirata fantasma"));
@@ -425,10 +394,8 @@ class NarradorTest {
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	Item rociador = new Item(new ItemInputJson(rociadorJson));
 	Narrador narrador = new Narrador(jugador);
 	jugador.setHabitacionActual(muelle);
-	jugador.ponerItem(rociador);
 
 	assertEquals("pirata fantasma no se encuentra en el muelle.",
 		narrador.ejecutar("hablar a pirata fantasma"));
@@ -440,10 +407,8 @@ class NarradorTest {
     void testComandoNoReconocido() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	Item rociador = new Item(new ItemInputJson(rociadorJson));
 	Narrador narrador = new Narrador(jugador);
 	jugador.setHabitacionActual(muelle);
-	jugador.ponerItem(rociador);
 
 	assertEquals("No puedo reconocer esa orden.",
 		narrador.ejecutar("desensamblar la enciclopedia"));
@@ -452,6 +417,5 @@ class NarradorTest {
 	assertEquals("No puedo reconocer esa orden.",
 		narrador.ejecutar("aniquilar a la abeja fantasma"));
     }
-    
 
 }

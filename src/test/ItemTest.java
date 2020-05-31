@@ -33,7 +33,7 @@ class ItemTest {
     @Test
     void testObjetosValidos() {
 	constructorItem
-		.setAfecta(new ArrayList<ObjetivoItem>(Arrays.asList(ObjetivoItem.NPCS)));
+		.setObjetivosValidos(new ArrayList<ObjetivoItem>(Arrays.asList(ObjetivoItem.NPCS)));
 	Item i = new Item(constructorItem);
 	assertEquals(false, i.esObjetivoValido(ObjetivoItem.ITEM));
 	assertEquals(true, i.esObjetivoValido(ObjetivoItem.NPCS));

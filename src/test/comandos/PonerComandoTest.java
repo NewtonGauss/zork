@@ -2,16 +2,21 @@ package test.comandos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.AccionItem;
 import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
 import zork.Sitio;
 import zork.comandos.PonerComando;
-import zork.input.json.ItemInputJson;
+import zork.input.parametro.ItemInputParametro;
 
 public class PonerComandoTest {
 
@@ -22,14 +27,7 @@ public class PonerComandoTest {
     String jsonSitio = "{\n" + " \"name\": \"suelo\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" }";
 
-    String jsonEspada = "{\n" + "      \"name\": \"espada\",\n"
-	    + "      \"gender\": \"female\",\n" + "      \"number\": \"singular\",\n"
-	    + "			\"points\": \"100\",\n"
-	    + "			\"weight\": \"10\",\n"
-	    + "			\"type\": \"weapon\",\n" + "      \"actions\": [\n"
-	    + "        \"use\",\n" + "\"drop\"\n" + "      ],\n" + "      \"effects_over\": [\n"
-	    + "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n"
-	    + "      ]\n" + "    }";
+
     String jsonVentana = "{\n" + 
 	    	"          \"name\": \"ventana\",\n" + 
 	    	"          \"gender\": \"female\",\n" + 
@@ -40,14 +38,23 @@ public class PonerComandoTest {
 	    	"            \"espejo\"\n" + 
 	    	"          ]\n" + 
 	    	"        }";
+    private Item espada;
+    
+    @BeforeEach
+    void inicializarItem() {
+	ItemInputParametro constructorItem = new ItemInputParametro("espada");
+	constructorItem.setGender('f');
+	constructorItem.setNumber('s');
+	constructorItem.setAccionesValidas(new ArrayList<AccionItem>(Arrays.asList(AccionItem.DROP)));
+	espada = new Item(constructorItem);
+    }
 
     @Test
-    void testExitoso() { // esta el item en el inventario y el sitio existe
+    void testExitoso() {
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
-	Item espada = new Item(new ItemInputJson(jsonEspada));
 
 	PonerComando poner = new PonerComando();
 
@@ -60,13 +67,12 @@ public class PonerComandoTest {
     }
 
     @Test
-    void testSitioInexistente() { // el item esta en el invetario pero el sitio no existe
+    void testSitioInexistente() {
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
 	Sitio ventana = new Sitio(JsonParser.parseString(jsonVentana));
-	Item espada = new Item(new ItemInputJson(jsonEspada));
 	PonerComando poner = new PonerComando();
 
 	jugador.ponerItem(espada);
@@ -79,12 +85,11 @@ public class PonerComandoTest {
     }
 
     @Test
-    void testObjetoInexistente() { // el item no esta en el invetario
+    void testObjetoInexistente() {
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio sitio = new Sitio(JsonParser.parseString(jsonSitio));
-	Item espada = new Item(new ItemInputJson(jsonEspada));
 	PonerComando poner = new PonerComando();
 	jugador.setHabitacionActual(room);
 	jugador.ponerItem(espada);

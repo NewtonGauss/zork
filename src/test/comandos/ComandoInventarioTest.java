@@ -2,6 +2,7 @@ package test.comandos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
@@ -10,28 +11,29 @@ import zork.Item;
 import zork.Jugador;
 import zork.comandos.Comando;
 import zork.comandos.InventarioComando;
-import zork.input.json.ItemInputJson;
+import zork.input.parametro.ItemInputParametro;
 
 class ComandoInventarioTest {
 
     String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
 
-    String jsonBarreta = " {\n" + "      \"name\": \"barreta\",\n" + "      \"gender\": \"female\",\n"
-	    + "      \"number\": \"singular\",\n" + "			\"points\": \"100\",\n"
-	    + "			\"weight\": \"10\",\n" + "			\"type\": \"weapon\",\n"
-	    + "      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n"
-	    + "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n" + "      ]\n" + "    }";
-    String jsonEspejo = "{\n" + "      \"name\": \"espejo\",\n" + "      \"gender\": \"male\",\n"
-	    + "      \"number\": \"singular\",\n" + "			\"points\": \"100\",\n"
-	    + "			\"weight\": \"10\",\n" + "			\"type\": \"vanilla\",\n"
-	    + "      \"actions\": [\n" + "        \"usar\"\n" + "      ],\n" + "      \"effects_over\": [\n"
-	    + "        \"npcs\",\n" + "        \"self\",\n" + "        \"item\"\n" + "      ]\n" + "    }";
-
+    private Item barreta, espejo;
+    
+    @BeforeEach
+    void inicializarItems() {
+	ItemInputParametro constructorItem = new ItemInputParametro("barreta");
+	constructorItem.setGender('f');
+	constructorItem.setNumber('s');
+	barreta = new Item(constructorItem);
+	
+	constructorItem.setNombre("espejo");
+	constructorItem.setGender('m');
+	espejo = new Item(constructorItem);
+    }
+    
     @Test
     void testDosItems() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Item barreta = new Item(new ItemInputJson(jsonBarreta));
-	Item espejo = new Item(new ItemInputJson(jsonEspejo));
 	jugador.ponerItem(espejo);
 	jugador.ponerItem(barreta);
 

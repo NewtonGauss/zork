@@ -1,6 +1,5 @@
 package zork;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import utilitarias.Cadena;
@@ -13,8 +12,8 @@ public class Item {
     private char gender;
     private char number;
     private int puntos;
-    private List<AccionItem> accionesValidas = new ArrayList<AccionItem>();
-    private List<ObjetivoItem> afecta = new ArrayList<ObjetivoItem>();
+    private List<AccionItem> accionesValidas;
+    private List<ObjetivoItem> objetivosValidos;
     private TipoItem tipo;
     private float saludSumar;
 
@@ -26,7 +25,7 @@ public class Item {
 	number = input.getNumber();
 	puntos = input.getPuntos();
 	accionesValidas = input.getAccionesValidas();
-	afecta = input.getObjetivosValidos();
+	objetivosValidos = input.getObjetivosValidos();
 	tipo = input.getTipo();
 	saludSumar = input.getSaludSumar();
     }
@@ -52,7 +51,7 @@ public class Item {
     }
 
     public boolean esObjetivoValido(ObjetivoItem objetivo) {
-	return afecta.contains(objetivo);
+	return objetivosValidos.contains(objetivo);
     }
 
     @Override

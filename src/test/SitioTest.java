@@ -3,13 +3,18 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
+import zork.AccionItem;
 import zork.Item;
 import zork.Sitio;
-import zork.input.json.ItemInputJson;
+import zork.input.parametro.ItemInputParametro;
 
 class SitioTest {
     
@@ -22,56 +27,24 @@ class SitioTest {
     	"            \"rociador con cerveza de raiz\",\n" + 
     	"            \"espejo\"\n" + 
     	"          ]\n" + 
-    	"        }",
-    	barretaJson = "{\n" + 
-    		"      \"name\": \"barreta\",\n" + 
-    		"      \"gender\": \"female\",\n" + 
-    		"      \"number\": \"singular\",\n" + 
-    		"			\"points\": \"100\",\n" + 
-    		"			\"weight\": \"10\",\n" + 
-    		"			\"type\": \"weapon\",\n" + 
-    		"      \"actions\": [\n" + 
-    		"        \"usar\"\n" + 
-    		"      ],\n" + 
-    		"      \"effects_over\": [\n" + 
-    		"        \"npcs\",\n" + 
-    		"        \"self\",\n" + 
-    		"        \"item\"\n" + 
-    		"      ]\n" + 
-    		"    }",
-    	rociadorJson = "{\n" + 
-    		"      \"name\": \"rociador con cerveza de raiz\",\n" + 
-    		"      \"gender\": \"male\",\n" + 
-    		"      \"number\": \"singular\",\n" + 
-    		"			\"points\": \"100\",\n" + 
-    		"			\"weight\": \"10\",\n" + 
-    		"			\"type\": \"vanilla\",\n" +
-    		"      \"actions\": [\n" + 
-    		"        \"usar\"\n" + 
-    		"      ],\n" + 
-    		"      \"effects_over\": [\n" + 
-    		"        \"npcs\",\n" + 
-    		"        \"self\",\n" + 
-    		"        \"item\"\n" + 
-    		"      ]\n" + 
-    		"    }",
-    	espejoJson = "{\n" + 
-    		"      \"name\": \"espejo\",\n" + 
-    		"      \"gender\": \"male\",\n" + 
-    		"      \"number\": \"singular\",\n" + 
-    		"			\"points\": \"100\",\n" + 
-    		"			\"weight\": \"10\",\n" + 
-    		"			\"type\": \"vanilla\",\n" + 
-    		"      \"actions\": [\n" + 
-    		"        \"usar\"\n" + 
-    		"      ],\n" + 
-    		"      \"effects_over\": [\n" + 
-    		"        \"npcs\",\n" + 
-    		"        \"self\",\n" + 
-    		"        \"item\"\n" + 
-    		"      ]\n" + 
-    		"    }";
+    	"        }";
+    private Item espejo, rociador, barreta;
     
+    @BeforeEach
+    void inicializarItem() {
+	ItemInputParametro constructorItem = new ItemInputParametro("espejo");
+	constructorItem.setGender('m');
+	constructorItem.setNumber('s');
+	constructorItem.setAccionesValidas(new ArrayList<AccionItem>(Arrays.asList(AccionItem.DROP)));
+	espejo = new Item(constructorItem);
+	
+	constructorItem.setNombre("rociador con cerveza de raiz");
+	rociador = new Item(constructorItem);
+	
+	constructorItem.setNombre("barreta");
+	constructorItem.setGender('f');
+	barreta = new Item(constructorItem);
+    }
 
     @Test
     void testCreacion() {
@@ -82,9 +55,6 @@ class SitioTest {
     @Test
     void testItems() {
 	Sitio s = new Sitio(JsonParser.parseString(json));
-	Item barreta = new Item(new ItemInputJson(barretaJson)),
-		rociador = new Item(new ItemInputJson(rociadorJson)),
-		espejo = new Item(new ItemInputJson(espejoJson));
 	s.addItem(espejo);
 	s.addItem(barreta);
 	s.addItem(rociador);

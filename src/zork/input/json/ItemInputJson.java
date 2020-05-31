@@ -19,7 +19,7 @@ public class ItemInputJson implements ItemInput {
     private char number;
     private int puntos;
     private List<AccionItem> accionesValidas = new ArrayList<AccionItem>();
-    private List<ObjetivoItem> afecta = new ArrayList<ObjetivoItem>();
+    private List<ObjetivoItem> objetivosValidos = new ArrayList<ObjetivoItem>();
     private TipoItem tipo;
     private float saludSumar;
 
@@ -35,7 +35,7 @@ public class ItemInputJson implements ItemInput {
 	for (JsonElement accion : jobject.getAsJsonArray("actions"))
 	    accionesValidas.add(AccionItem.stringToAccionItem(accion.getAsString()));
 	for (JsonElement effectOn : jobject.getAsJsonArray("effects_over"))
-	    afecta.add(ObjetivoItem.stringTObjetivoItem(effectOn.getAsString()));
+	    objetivosValidos.add(ObjetivoItem.stringTObjetivoItem(effectOn.getAsString()));
 	
 	/* Hardcodeado hasta que lo pongamos en el formato */
 	if (tipo.equals(TipoItem.POCION))
@@ -81,7 +81,7 @@ public class ItemInputJson implements ItemInput {
 
     @Override
     public List<ObjetivoItem> getObjetivosValidos() {
-	return afecta;
+	return objetivosValidos;
     }
 
     @Override

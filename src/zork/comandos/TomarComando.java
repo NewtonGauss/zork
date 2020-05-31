@@ -10,7 +10,7 @@ import zork.Sitio;
 public class TomarComando implements Comando {
     @Override
     public String ejecutar(Jugador jugador, String nombreItem) {
-	String retorno = "No hay ningun " + nombreItem + " por aqui";
+	String retorno = "No hay ningun " + nombreItem + " por aqui.";
 	if(nombreItem.equals(""))
 	    retorno = "Debe elegir un objeto a tomar.";
 	Item itemTomado;

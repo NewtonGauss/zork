@@ -15,12 +15,14 @@ public class ItemInputParametro implements ItemInput {
     private char number;
     private int puntos;
     private List<AccionItem> accionesValidas = new ArrayList<AccionItem>();
-    private List<ObjetivoItem> afecta = new ArrayList<ObjetivoItem>();
+    private List<ObjetivoItem> objetivosValidos = new ArrayList<ObjetivoItem>();
     private TipoItem tipo;
     private float saludSumar;
 
     public ItemInputParametro(String nombre) {
 	this.nombre = nombre;
+	peso = 10d;
+	puntos = 100;
     }
 
     public void setNombre(String nombre) {
@@ -47,8 +49,8 @@ public class ItemInputParametro implements ItemInput {
 	this.accionesValidas = accionesValidas;
     }
 
-    public void setAfecta(List<ObjetivoItem> afecta) {
-	this.afecta = afecta;
+    public void setObjetivosValidos(List<ObjetivoItem> afecta) {
+	this.objetivosValidos = afecta;
     }
 
     public void setTipo(TipoItem tipo) {
@@ -96,7 +98,7 @@ public class ItemInputParametro implements ItemInput {
 
     @Override
     public List<ObjetivoItem> getObjetivosValidos() {
-	return afecta;
+	return objetivosValidos;
     }
 
     @Override
