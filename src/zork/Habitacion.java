@@ -2,18 +2,12 @@ package zork;
 
 import java.util.Collection;
 import java.util.Hashtable;
-import java.util.Iterator;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import utilitarias.Cadena;
+public class Habitacion extends Enumerable {
 
-public class Habitacion {
-
-    private String nombre;
-    private char gender;
-    private char number;
     private String descripcion;
     private Hashtable<String, Sitio> sitios;
     private Hashtable<String, Salida> salidas;
@@ -86,15 +80,6 @@ public class Habitacion {
 
     public Collection<NPC> getNpcs() {
 	return npcs.values();
-    }
-
-    @Override
-    public String toString() {
-	return Cadena.articuloDefinido(nombre, gender, number);
-    }
-
-    public String articuloIndefinido() {
-	return Cadena.articuloIndefinido(nombre, gender, number);
     }
 
 }

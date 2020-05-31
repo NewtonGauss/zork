@@ -11,8 +11,6 @@ public class NPC extends Personaje {
     private String charla;
     private String descripcion;
     private boolean enemigo;
-    private char gender;
-    private char number;
     private Hashtable<String, Trigger> triggers = new Hashtable<String, Trigger>();
 
     public NPC(JsonElement json) {
@@ -71,15 +69,6 @@ public class NPC extends Personaje {
 
     public String getNombre() {
 	return this.nombre;
-    }
-
-    @Override
-    public String toString() {
-	return Cadena.articuloDefinido(nombre, gender, number);
-    }
-    
-    public String articuloIndefinido() {
-	return Cadena.articuloIndefinido(nombre, gender, number);
     }
 
 }

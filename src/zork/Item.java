@@ -2,15 +2,11 @@ package zork;
 
 import java.util.List;
 
-import utilitarias.Cadena;
 import zork.input.ItemInput;
 
-public class Item {
+public class Item extends Enumerable {
 
-    private String nombre;
     private Double peso;
-    private char gender;
-    private char number;
     private int puntos;
     private List<AccionItem> accionesValidas;
     private List<ObjetivoItem> objetivosValidos;
@@ -51,15 +47,6 @@ public class Item {
 
     public boolean esObjetivoValido(ObjetivoItem objetivo) {
 	return objetivosValidos.contains(objetivo);
-    }
-
-    @Override
-    public String toString() {
-	return Cadena.articuloDefinido(nombre, gender, number);
-    }
-    
-    public String articuloIndefinido() {
-	return Cadena.articuloIndefinido(nombre, gender, number);
     }
 
     public float getSaludSumar() {

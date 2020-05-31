@@ -6,13 +6,9 @@ import java.util.Hashtable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import utilitarias.Cadena;
 
-public class Sitio {
+public class Sitio extends Enumerable{
 
-    private String nombre;
-    private char gender;
-    private char number;
     private Hashtable<String, Item> items;
     
     /*
@@ -49,11 +45,6 @@ public class Sitio {
 
     public Collection<Item> getItems() {
 	return items.values();
-    }
-    
-    @Override
-    public String toString() {
-	return Cadena.articuloDefinido(nombre, gender, number);
     }
 
     public String getNombre() {

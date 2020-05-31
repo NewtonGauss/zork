@@ -3,11 +3,10 @@ package zork;
 import java.util.Collection;
 import java.util.Iterator;
 
-public abstract class Personaje {
+public abstract class Personaje extends Enumerable {
 
     protected Inventario inventario;
     protected float salud;
-    protected String nombre;
     protected Habitacion habitacionActual;
 
     public boolean ponerItem(Item nuevoItem) {
