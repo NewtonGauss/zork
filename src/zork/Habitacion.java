@@ -46,15 +46,11 @@ public class Habitacion {
     }
 
     public boolean sacarNPC(String nombre) {
-	boolean rta = false;
-	for (Iterator<Salida> it = salidas.values().iterator(); it.hasNext();) {
-	    Salida salida = it.next();
-	    if (salida.sacarNPC(nombre)) {
-		rta = true;
+	for (Salida salida : salidas.values()) {
+	    if (salida.sacarNPC(nombre))
 		break;
-	    }
 	}
-	return npcs.remove(nombre) != null || rta;
+	return npcs.remove(nombre) != null;
     }
 
     public String getNombre() {
