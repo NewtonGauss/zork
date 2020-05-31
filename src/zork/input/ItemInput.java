@@ -16,5 +16,4 @@ public interface ItemInput {
     public char getNumber();
     public List<AccionItem> getAccionesValidas();
     public List<ObjetivoItem> getObjetivosValidos();
-    
 }

@@ -17,7 +17,6 @@ public class Item {
     private TipoItem tipo;
     private float saludSumar;
 
-
     public Item(ItemInput input) {
 	nombre = input.getNombre();
 	peso = input.getPeso();

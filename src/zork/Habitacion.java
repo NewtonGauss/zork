@@ -49,8 +49,10 @@ public class Habitacion {
 	boolean rta = false;
 	for (Iterator<Salida> it = salidas.values().iterator(); it.hasNext();) {
 	    Salida salida = it.next();
-	    if (salida.sacarNPC(nombre))
+	    if (salida.sacarNPC(nombre)) {
+		rta = true;
 		break;
+	    }
 	}
 	return npcs.remove(nombre) != null || rta;
     }
@@ -80,7 +82,7 @@ public class Habitacion {
     }
 
     public void ponerObstaculo(NPC obstaculo, String direction) {
-	obstaculo.setHabitacionActual(this);
+	addNPC(obstaculo);
 	Salida salida = salidas.get(direction);
 	if (salida != null)
 	    salida.addNPC(obstaculo);
