@@ -12,6 +12,7 @@ import zork.Item;
 import zork.Jugador;
 import zork.Sitio;
 import zork.comandos.SoltarComando;
+import zork.input.json.ItemInputJson;
 
 class SoltarComandoTest {
 
@@ -59,9 +60,9 @@ class SoltarComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
-	Item barreta = new Item(JsonParser.parseString(barretaJson));
-	Item espejo = new Item(JsonParser.parseString(espejoJson));
-	Item rociador = new Item(JsonParser.parseString(rociadorJson));
+	Item barreta = new Item(new ItemInputJson(barretaJson));
+	Item espejo = new Item(new ItemInputJson(espejoJson));
+	Item rociador = new Item(new ItemInputJson(rociadorJson));
 	SoltarComando sc = new SoltarComando();
 
 	jugador.ponerItem(barreta);
@@ -95,9 +96,9 @@ class SoltarComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
-	Item barreta = new Item(JsonParser.parseString(barretaJson));
-	Item espejo = new Item(JsonParser.parseString(espejoJson));
-	Item rociador = new Item(JsonParser.parseString(rociadorJson));
+	Item barreta = new Item(new ItemInputJson(barretaJson));
+	Item espejo = new Item(new ItemInputJson(espejoJson));
+	Item rociador = new Item(new ItemInputJson(rociadorJson));
 	SoltarComando sc = new SoltarComando();
 	
 	jugador.ponerItem(barreta);
@@ -129,9 +130,9 @@ class SoltarComandoTest {
     void testSitioPorDefecto() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
-	Item barreta = new Item(JsonParser.parseString(barretaJson));
-	Item espejo = new Item(JsonParser.parseString(espejoJson));
-	Item rociador = new Item(JsonParser.parseString(rociadorJson));
+	Item barreta = new Item(new ItemInputJson(barretaJson));
+	Item espejo = new Item(new ItemInputJson(espejoJson));
+	Item rociador = new Item(new ItemInputJson(rociadorJson));
 	SoltarComando sc = new SoltarComando();
 
 	jugador.ponerItem(barreta);

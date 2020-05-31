@@ -4,10 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.google.gson.JsonParser;
-
+import zork.AccionItem;
 import zork.Item;
+import zork.ObjetivoItem;
 import zork.TipoItem;
+import zork.input.json.ItemInputJson;
 
 class ItemTest {
     private String json = "{\n" + 
@@ -22,27 +23,26 @@ class ItemTest {
     	"      ],\n" + 
     	"      \"effects_over\": [\n" + 
     	"        \"npcs\",\n" + 
-    	"        \"self\",\n" + 
-    	"        \"item\"\n" + 
+    	"        \"self\"\n" +
     	"      ]\n" + 
     	"    }";
 
     @Test
     void testItems() {
-	Item i = new Item(JsonParser.parseString(json));
+	Item i = new Item(new ItemInputJson(json));
 	assertEquals("la barreta", i.toString());
     }
 
     @Test
     void testObjetosValidos() {
-	Item i = new Item(JsonParser.parseString(json));
-	assertEquals(false, i.esObjetivoValido("room"));
+	Item i = new Item(new ItemInputJson(json));
+	assertEquals(false, i.esObjetivoValido(ObjetivoItem.ITEM));
     }
 
     @Test
     void testUsosValidos() {
-	Item i = new Item(JsonParser.parseString(json));
-	assertEquals(false, i.esUsoValido("atacar"));
+	Item i = new Item(new ItemInputJson(json));
+	assertEquals(false, i.esUsoValido(AccionItem.DROP));
     }
     
     @Test
@@ -63,7 +63,7 @@ class ItemTest {
 	    	"        \"item\"\n" + 
 	    	"      ]\n" + 
 	    	"    }";
-	Item i = new Item(JsonParser.parseString(json));
+	Item i = new Item(new ItemInputJson(json));
 	assertEquals("el palo", i.toString());
     }
     
@@ -85,7 +85,7 @@ class ItemTest {
 	    	"        \"item\"\n" + 
 	    	"      ]\n" + 
 	    	"    }";
-	Item i = new Item(JsonParser.parseString(json));
+	Item i = new Item(new ItemInputJson(json));
 	assertEquals("los palos", i.toString());
     }
     
@@ -107,13 +107,13 @@ class ItemTest {
 	    	"        \"item\"\n" + 
 	    	"      ]\n" + 
 	    	"    }";
-	Item i = new Item(JsonParser.parseString(json));
+	Item i = new Item(new ItemInputJson(json));
 	assertEquals("las barretas", i.toString());
     }
     
     @Test
     void testGetters() {
-	Item i = new Item(JsonParser.parseString(json));
+	Item i = new Item(new ItemInputJson(json));
 	assertEquals("barreta", i.getNombre());
 	assertEquals((Double) 10.0, i.getPeso());
 	assertEquals(TipoItem.ARMA, i.getTipo());

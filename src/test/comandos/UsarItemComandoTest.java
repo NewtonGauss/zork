@@ -11,6 +11,7 @@ import zork.Item;
 import zork.Jugador;
 import zork.NPC;
 import zork.comandos.UsarItemComando;
+import zork.input.json.ItemInputJson;
 
 class UsarItemComandoTest {
     String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
@@ -96,7 +97,7 @@ class UsarItemComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
-	Item rociador = new Item(JsonParser.parseString(rociadorJson));
+	Item rociador = new Item(new ItemInputJson(rociadorJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(pirata);
@@ -117,7 +118,7 @@ class UsarItemComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
-	Item barreta = new Item(JsonParser.parseString(barretaJson));
+	Item barreta = new Item(new ItemInputJson(barretaJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -133,7 +134,7 @@ class UsarItemComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
-	Item rociador = new Item(JsonParser.parseString(rociadorJson));
+	Item rociador = new Item(new ItemInputJson(rociadorJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -151,7 +152,7 @@ class UsarItemComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
-	Item rociador = new Item(JsonParser.parseString(rociadorJson));
+	Item rociador = new Item(new ItemInputJson(rociadorJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -166,7 +167,7 @@ class UsarItemComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
-	Item veneno = new Item(JsonParser.parseString(venenoJson));
+	Item veneno = new Item(new ItemInputJson(venenoJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -185,7 +186,7 @@ class UsarItemComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
-	Item burbuja = new Item(JsonParser.parseString(burbujaJson));
+	Item burbuja = new Item(new ItemInputJson(burbujaJson));
 	UsarItemComando usar = new UsarItemComando();
 	
 	muelle.addNPC(abeja);
@@ -202,7 +203,7 @@ class UsarItemComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
-	Item burbuja = new Item(JsonParser.parseString(burbujaJson));
+	Item burbuja = new Item(new ItemInputJson(burbujaJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -219,7 +220,7 @@ class UsarItemComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
-	Item calculadora = new Item(JsonParser.parseString(calculadoraJson));
+	Item calculadora = new Item(new ItemInputJson(calculadoraJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -233,7 +234,7 @@ class UsarItemComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
-	Item rociador = new Item(JsonParser.parseString(rociadorJson));
+	Item rociador = new Item(new ItemInputJson(rociadorJson));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -248,7 +249,7 @@ class UsarItemComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
-	Item veneno = new Item(JsonParser.parseString(venenoJson));
+	Item veneno = new Item(new ItemInputJson(venenoJson));
 	UsarItemComando usar = new UsarItemComando();
 	
 	muelle.addNPC(abeja);
@@ -265,7 +266,7 @@ class UsarItemComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
-	Item veneno = new Item(JsonParser.parseString(venenoJson));
+	Item veneno = new Item(new ItemInputJson(venenoJson));
 	UsarItemComando usar = new UsarItemComando();
 	
 	muelle.addNPC(abeja);

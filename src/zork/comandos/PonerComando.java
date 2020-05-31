@@ -3,6 +3,7 @@ package zork.comandos;
 import java.util.Iterator;
 
 import utilitarias.Cadena;
+import zork.AccionItem;
 import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
@@ -25,7 +26,7 @@ public class PonerComando implements Comando {
 	Item item;
 	String objeto = cadenaCortada[0], sitioObjetivo = cadenaCortada[1];
 
-	if ((item = jugador.getItem(objeto)) != null && item.esUsoValido("drop")) {
+	if ((item = jugador.getItem(objeto)) != null && item.esUsoValido(AccionItem.DROP)) {
 	    Habitacion habitacionActual = jugador.getHabitacionActual();
 	    Sitio sitio = habitacionActual.getSitio(sitioObjetivo);
 

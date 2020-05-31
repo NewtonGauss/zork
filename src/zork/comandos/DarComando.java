@@ -1,6 +1,7 @@
 package zork.comandos;
 
 import utilitarias.Cadena;
+import zork.AccionItem;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
@@ -22,7 +23,7 @@ public class DarComando implements Comando {
 	Personaje npc = jugador.getHabitacionActual().getNPC(sujeto);
 	Item item = jugador.getItem(objeto);
 	if (npc != null) {
-	    if (item != null && item.esUsoValido("drop")) {
+	    if (item != null && item.esUsoValido(AccionItem.DROP)) {
 		npc.ponerItem(item);
 		jugador.sacarItem(item.getNombre());
 		retorno = "Le diste " + item.toString() + " a " + npc.toString() + '.';

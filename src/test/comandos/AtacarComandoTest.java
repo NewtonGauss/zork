@@ -11,6 +11,7 @@ import zork.Item;
 import zork.Jugador;
 import zork.NPC;
 import zork.comandos.AtacarConComando;
+import zork.input.json.ItemInputJson;
 
 class AtacarComandoTest {
 
@@ -38,7 +39,7 @@ class AtacarComandoTest {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
-	Item item = new Item(JsonParser.parseString(jsonItem));
+	Item item = new Item(new ItemInputJson(jsonItem));
 	AtacarConComando acc = new AtacarConComando();
 
 	j1.ponerItem(item);
@@ -53,7 +54,7 @@ class AtacarComandoTest {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
-	Item item = new Item(JsonParser.parseString(jsonItem));
+	Item item = new Item(new ItemInputJson(jsonItem));
 	AtacarConComando acc = new AtacarConComando();
 	
 	j1.ponerItem(item);
@@ -91,8 +92,8 @@ class AtacarComandoTest {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
-	Item espejo = new Item(JsonParser.parseString(espejoJson));
-	Item canicas = new Item(JsonParser.parseString(canicasJson));
+	Item espejo = new Item(new ItemInputJson(espejoJson));
+	Item canicas = new Item(new ItemInputJson(canicasJson));
 	AtacarConComando acc = new AtacarConComando();
 
 	j1.ponerItem(espejo);
@@ -118,9 +119,9 @@ class AtacarComandoTest {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
-	Item espejo = new Item(JsonParser.parseString(espejoJson));
-	Item canicas = new Item(JsonParser.parseString(canicasJson));
-	Item espada = new Item(JsonParser.parseString(jsonItem));
+	Item espejo = new Item(new ItemInputJson(espejoJson));
+	Item canicas = new Item(new ItemInputJson(canicasJson));
+	Item espada = new Item(new ItemInputJson(jsonItem));
 	AtacarConComando acc = new AtacarConComando();
 
 	j1.ponerItem(espejo);

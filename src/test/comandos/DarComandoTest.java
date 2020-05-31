@@ -11,6 +11,7 @@ import zork.Item;
 import zork.Jugador;
 import zork.NPC;
 import zork.comandos.DarComando;
+import zork.input.json.ItemInputJson;
 
 class DarComandoTest {
     String jsonPlayer = "{\n" + " \"character\": \"Santi\"  }";
@@ -50,7 +51,7 @@ class DarComandoTest {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
-	Item item = new Item(JsonParser.parseString(jsonItem));
+	Item item = new Item(new ItemInputJson(jsonItem));
 	DarComando dcc = new DarComando();
 
 	j1.ponerItem(item);
@@ -64,7 +65,7 @@ class DarComandoTest {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
-	Item item = new Item(JsonParser.parseString(jsonItem));
+	Item item = new Item(new ItemInputJson(jsonItem));
 	DarComando dcc = new DarComando();
 	room.addNPC(npc);
 	j1.setHabitacionActual(room);
@@ -77,7 +78,7 @@ class DarComandoTest {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
-	Item item = new Item(JsonParser.parseString(jsonItem));
+	Item item = new Item(new ItemInputJson(jsonItem));
 	DarComando dcc = new DarComando();
 
 	j1.ponerItem(item);
@@ -90,7 +91,7 @@ class DarComandoTest {
     void testNoExisteNpc() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	Item item = new Item(JsonParser.parseString(jsonItem));
+	Item item = new Item(new ItemInputJson(jsonItem));
 	DarComando dcc = new DarComando();
 	j1.ponerItem(item);
 	j1.setHabitacionActual(room);

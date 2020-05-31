@@ -14,6 +14,7 @@ import zork.Jugador;
 import zork.NPC;
 import zork.Personaje;
 import zork.Salida;
+import zork.input.json.ItemInputJson;
 
 class JugadorTest {
 
@@ -89,7 +90,7 @@ class JugadorTest {
 	@Test // Le agrego un item al jugador y  lo devuelvo.
 	void testAgarrarYSoltarItems() {
 		Personaje player = new Jugador(JsonParser.parseString(jsonPlayer));
-		Item item = new Item(JsonParser.parseString(jsonItem));
+		Item item = new Item(new ItemInputJson(jsonItem));
 		assertEquals(true, player.ponerItem(item));
 		assertEquals(item, player.getItem(item.getNombre()));
 		assertTrue(player.sacarItem(item.getNombre()));

@@ -11,6 +11,7 @@ import zork.Item;
 import zork.Jugador;
 import zork.Sitio;
 import zork.comandos.TomarComando;
+import zork.input.json.ItemInputJson;
 
 class TomarTest {
     String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
@@ -26,7 +27,7 @@ class TomarTest {
     String jsonSitio3 = "{\n" + " \"name\": \"mesa\" ,\n" + " \"gender\": \"female\" ,\n"
 	    + " \"number\": \"singular\" }";
 
-    String masaJson = "{\n" + "      \"name\": \"barreta\",\n"
+    String barretaJson = "{\n" + "      \"name\": \"barreta\",\n"
 	    + "      \"gender\": \"female\",\n" + "      \"number\": \"singular\",\n"
 	    + "			\"points\": \"100\",\n"
 	    + "			\"weight\": \"95\",\n"
@@ -72,10 +73,10 @@ class TomarTest {
 	Sitio s1 = new Sitio(JsonParser.parseString(jsonSitio1));
 	Sitio s2 = new Sitio(JsonParser.parseString(jsonSitio2));
 	Sitio s3 = new Sitio(JsonParser.parseString(jsonSitio3));
-	Item barreta = new Item(JsonParser.parseString(masaJson)),
-		rociador = new Item(JsonParser.parseString(rociadorJson)),
-		espejo = new Item(JsonParser.parseString(espejoJson)),
-		canicas = new Item(JsonParser.parseString(canicasJson));
+	Item barreta = new Item(new ItemInputJson(barretaJson)),
+		rociador = new Item(new ItemInputJson(rociadorJson)),
+		espejo = new Item(new ItemInputJson(espejoJson)),
+		canicas = new Item(new ItemInputJson(canicasJson));
 	r.addSitio(s1);
 	r.addSitio(s2);
 	r.addSitio(s3);
@@ -95,14 +96,14 @@ class TomarTest {
 	Sitio s1 = new Sitio(JsonParser.parseString(jsonSitio1));
 	Sitio s2 = new Sitio(JsonParser.parseString(jsonSitio2));
 	Sitio s3 = new Sitio(JsonParser.parseString(jsonSitio3));
-	Item masa = new Item(JsonParser.parseString(masaJson)),
-		rociador = new Item(JsonParser.parseString(rociadorJson)),
-		espejo = new Item(JsonParser.parseString(espejoJson)),
-		canicas = new Item(JsonParser.parseString(canicasJson));
+	Item barreta = new Item(new ItemInputJson(barretaJson)),
+		rociador = new Item(new ItemInputJson(rociadorJson)),
+		espejo = new Item(new ItemInputJson(espejoJson)),
+		canicas = new Item(new ItemInputJson(canicasJson));
 	r.addSitio(s1);
 	r.addSitio(s2);
 	r.addSitio(s3);
-	s1.addItem(masa);
+	s1.addItem(barreta);
 	s1.addItem(rociador);
 	s3.addItem(espejo);
 	s3.addItem(canicas);
@@ -118,20 +119,20 @@ class TomarTest {
 	Sitio s1 = new Sitio(JsonParser.parseString(jsonSitio1));
 	Sitio s2 = new Sitio(JsonParser.parseString(jsonSitio2));
 	Sitio s3 = new Sitio(JsonParser.parseString(jsonSitio3));
-	Item masa = new Item(JsonParser.parseString(masaJson)),
-		rociador = new Item(JsonParser.parseString(rociadorJson)),
-		espejo = new Item(JsonParser.parseString(espejoJson)),
-		canicas = new Item(JsonParser.parseString(canicasJson));
+	Item barreta = new Item(new ItemInputJson(barretaJson)),
+		rociador = new Item(new ItemInputJson(rociadorJson)),
+		espejo = new Item(new ItemInputJson(espejoJson)),
+		canicas = new Item(new ItemInputJson(canicasJson));
 	r.addSitio(s1);
 	r.addSitio(s2);
 	r.addSitio(s3);
-	s1.addItem(masa);
+	s1.addItem(barreta);
 	s1.addItem(rociador);
 	s3.addItem(espejo);
 	s3.addItem(canicas);
 	j.setHabitacionActual(r);
 	TomarComando c = new TomarComando();
-	j.ponerItem(masa);
+	j.ponerItem(barreta);
 	assertEquals("No tienes mas espacio en tu inventario!",
 		c.ejecutar(j, "rociador con cerveza de raiz"));
     }
@@ -143,14 +144,14 @@ class TomarTest {
 	Sitio s1 = new Sitio(JsonParser.parseString(jsonSitio1));
 	Sitio s2 = new Sitio(JsonParser.parseString(jsonSitio2));
 	Sitio s3 = new Sitio(JsonParser.parseString(jsonSitio3));
-	Item masa = new Item(JsonParser.parseString(masaJson)),
-		rociador = new Item(JsonParser.parseString(rociadorJson)),
-		espejo = new Item(JsonParser.parseString(espejoJson)),
-		canicas = new Item(JsonParser.parseString(canicasJson));
+	Item barreta = new Item(new ItemInputJson(barretaJson)),
+		rociador = new Item(new ItemInputJson(rociadorJson)),
+		espejo = new Item(new ItemInputJson(espejoJson)),
+		canicas = new Item(new ItemInputJson(canicasJson));
 	r.addSitio(s1);
 	r.addSitio(s2);
 	r.addSitio(s3);
-	s1.addItem(masa);
+	s1.addItem(barreta);
 	s1.addItem(rociador);
 	s3.addItem(espejo);
 	s3.addItem(canicas);

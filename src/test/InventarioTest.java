@@ -12,6 +12,7 @@ import com.google.gson.JsonParser;
 
 import zork.Inventario;
 import zork.Item;
+import zork.input.json.ItemInputJson;
 
 class InventarioTest {
     private String jsonItem = "{\n" + 
@@ -33,9 +34,9 @@ class InventarioTest {
 
     @Test
     void testPesoMaximoAlcanzado() {
-	Item item = new Item(JsonParser.parseString(jsonItem));
+	Item item = new Item(new ItemInputJson(jsonItem));
 	jsonItem = jsonItem.replaceFirst("barreta", "barreta2");
-	Item item2 = new Item(JsonParser.parseString(jsonItem));
+	Item item2 = new Item(new ItemInputJson(jsonItem));
 	Inventario i = new Inventario(11d);
 	assertTrue(i.ponerItem(item));
 	assertFalse(i.ponerItem(item2));
@@ -43,9 +44,9 @@ class InventarioTest {
 
     @Test
     void testRemoveItem() {
-	Item item = new Item(JsonParser.parseString(jsonItem));
+	Item item = new Item(new ItemInputJson(jsonItem));
 	jsonItem = jsonItem.replaceFirst("barreta", "barreta2");
-	Item item2 = new Item(JsonParser.parseString(jsonItem));
+	Item item2 = new Item(new ItemInputJson(jsonItem));
 	Inventario i = new Inventario(11d);
 	i.ponerItem(item);
 	i.sacarItem(i.getItem("barreta"));
@@ -56,9 +57,9 @@ class InventarioTest {
     
     @Test
     void testEntradaDeVariosItems() {
-	Item item = new Item(JsonParser.parseString(jsonItem));
+	Item item = new Item(new ItemInputJson(jsonItem));
 	jsonItem = jsonItem.replaceFirst("barreta", "barreta2");
-	Item item2 = new Item(JsonParser.parseString(jsonItem));
+	Item item2 = new Item(new ItemInputJson(jsonItem));
 	Inventario i = new Inventario(200d);
 	i.ponerItem(item);
 	i.ponerItem(item2);

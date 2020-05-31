@@ -10,6 +10,7 @@ import zork.Item;
 import zork.Jugador;
 import zork.comandos.Comando;
 import zork.comandos.InventarioComando;
+import zork.input.json.ItemInputJson;
 
 class ComandoInventarioTest {
 
@@ -29,8 +30,8 @@ class ComandoInventarioTest {
     @Test
     void testDosItems() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
-	Item barreta = new Item(JsonParser.parseString(jsonBarreta));
-	Item espejo = new Item(JsonParser.parseString(jsonEspejo));
+	Item barreta = new Item(new ItemInputJson(jsonBarreta));
+	Item espejo = new Item(new ItemInputJson(jsonEspejo));
 	jugador.ponerItem(espejo);
 	jugador.ponerItem(barreta);
 

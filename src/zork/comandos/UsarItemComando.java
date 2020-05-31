@@ -1,9 +1,11 @@
 package zork.comandos;
 
+import zork.AccionItem;
 import zork.Habitacion;
 import zork.Item;
 import zork.Jugador;
 import zork.NPC;
+import zork.ObjetivoItem;
 import zork.TipoItem;
 import zork.Trigger;
 
@@ -36,12 +38,12 @@ public class UsarItemComando implements Comando {
 	String retorno = "";
 	Item item = jugador.getItem(itemNombre);
 
-	if (item != null && item.esUsoValido("use")) {
+	if (item != null && item.esUsoValido(AccionItem.USE)) {
 
-	    if (parseado.length == 2 && item.esObjetivoValido("npcs"))
+	    if (parseado.length == 2 && item.esObjetivoValido(ObjetivoItem.NPCS))
 		retorno = usarSobreNPC(jugador, parseado[1], item);
 
-	    else if (parseado.length == 1 && item.esObjetivoValido("self")
+	    else if (parseado.length == 1 && item.esObjetivoValido(ObjetivoItem.SELF)
 		    && isItemAplicable(item.getTipo()))
 		retorno = usarSobreJugador(jugador, item);
 	    else

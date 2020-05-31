@@ -10,6 +10,7 @@ import zork.Item;
 import zork.NPC;
 import zork.Salida;
 import zork.Sitio;
+import zork.input.json.ItemInputJson;
 
 class RoomTest {
 
@@ -75,7 +76,7 @@ class RoomTest {
 	void testItemsENSitios() {
 		Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 		Sitio sitio = new Sitio(JsonParser.parseString(jsonSitio));
-		Item item = new Item(JsonParser.parseString(jsonItem));
+		Item item = new Item(new ItemInputJson(jsonItem));
 		sitio.addItem(item);
 		room.addSitio(sitio);
 		assertEquals(item, room.getSitio("suelo").getItem("barreta"));

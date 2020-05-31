@@ -64,7 +64,7 @@
 			"weight": { Float -> peso del item }
 			"type": { String -> weapon, potion, poison, vanilla }
       "actions": [ { Array de acciones validas que el jugador puede efectuar }
-        { String -> use, take, drop, attack }
+        { String -> use, take, drop }
       ],
       "effects_over": [ { Array donde se especifica a que afecta }
         "npcs",

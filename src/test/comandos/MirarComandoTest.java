@@ -13,6 +13,7 @@ import zork.NPC;
 import zork.Salida;
 import zork.Sitio;
 import zork.comandos.MirarComando;
+import zork.input.json.ItemInputJson;
 
 class MirarComandoTest {
 
@@ -158,9 +159,9 @@ class MirarComandoTest {
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
-	Item barreta = new Item(JsonParser.parseString(barretaJson)),
-		rociador = new Item(JsonParser.parseString(rociadorJson)),
-		espejo = new Item(JsonParser.parseString(espejoJson));
+	Item barreta = new Item(new ItemInputJson(barretaJson)),
+		rociador = new Item(new ItemInputJson(rociadorJson)),
+		espejo = new Item(new ItemInputJson(espejoJson));
 	suelo.addItem(espejo);
 	suelo.addItem(barreta);
 	suelo.addItem(rociador);
@@ -180,9 +181,9 @@ class MirarComandoTest {
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
-	Item barreta = new Item(JsonParser.parseString(barretaJson)),
-		rociador = new Item(JsonParser.parseString(rociadorJson)),
-		espejo = new Item(JsonParser.parseString(espejoJson));
+	Item barreta = new Item(new ItemInputJson(barretaJson)),
+		rociador = new Item(new ItemInputJson(rociadorJson)),
+		espejo = new Item(new ItemInputJson(espejoJson));
 	suelo.addItem(espejo);
 	muelle.addSitio(suelo);
 
@@ -260,9 +261,9 @@ class MirarComandoTest {
 
 	/* Items */
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
-	Item barreta = new Item(JsonParser.parseString(barretaJson)),
-		rociador = new Item(JsonParser.parseString(rociadorJson)),
-		espejo = new Item(JsonParser.parseString(espejoJson));
+	Item barreta = new Item(new ItemInputJson(barretaJson)),
+		rociador = new Item(new ItemInputJson(rociadorJson)),
+		espejo = new Item(new ItemInputJson(espejoJson));
 	suelo.addItem(espejo);
 	suelo.addItem(barreta);
 	suelo.addItem(rociador);

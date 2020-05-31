@@ -2,6 +2,7 @@ package zork.comandos;
 
 import java.util.Iterator;
 
+import zork.AccionItem;
 import zork.Item;
 import zork.Jugador;
 import zork.Sitio;
@@ -16,9 +17,9 @@ public class TomarComando implements Comando {
 	Iterator<Sitio> iterator = jugador.getHabitacionActual().getSitios().iterator();
 	while (iterator.hasNext()) {
 	    if ((itemTomado = iterator.next().getItem(nombreItem)) != null) {
-		if (itemTomado.esUsoValido("take") && jugador.ponerItem(itemTomado))
+		if (itemTomado.esUsoValido(AccionItem.TAKE) && jugador.ponerItem(itemTomado))
 		    retorno = "Tomaste " + itemTomado.toString() + '.';
-		else if(!itemTomado.esUsoValido("take"))
+		else if(!itemTomado.esUsoValido(AccionItem.TAKE))
 		    retorno = "No puedes tomar " + itemTomado.toString() + '.';
 		else
 		    retorno = "No tienes mas espacio en tu inventario!";

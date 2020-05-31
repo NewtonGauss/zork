@@ -11,6 +11,7 @@ import zork.Item;
 import zork.Jugador;
 import zork.Sitio;
 import zork.comandos.PonerComando;
+import zork.input.json.ItemInputJson;
 
 public class PonerComandoTest {
 
@@ -46,7 +47,7 @@ public class PonerComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
-	Item espada = new Item(JsonParser.parseString(jsonEspada));
+	Item espada = new Item(new ItemInputJson(jsonEspada));
 
 	PonerComando poner = new PonerComando();
 
@@ -65,7 +66,7 @@ public class PonerComandoTest {
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
 	Sitio ventana = new Sitio(JsonParser.parseString(jsonVentana));
-	Item espada = new Item(JsonParser.parseString(jsonEspada));
+	Item espada = new Item(new ItemInputJson(jsonEspada));
 	PonerComando poner = new PonerComando();
 
 	jugador.ponerItem(espada);
@@ -83,7 +84,7 @@ public class PonerComandoTest {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio sitio = new Sitio(JsonParser.parseString(jsonSitio));
-	Item espada = new Item(JsonParser.parseString(jsonEspada));
+	Item espada = new Item(new ItemInputJson(jsonEspada));
 	PonerComando poner = new PonerComando();
 	jugador.setHabitacionActual(room);
 	jugador.ponerItem(espada);

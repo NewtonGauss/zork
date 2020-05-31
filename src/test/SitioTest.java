@@ -9,6 +9,7 @@ import com.google.gson.JsonParser;
 
 import zork.Item;
 import zork.Sitio;
+import zork.input.json.ItemInputJson;
 
 class SitioTest {
     
@@ -81,9 +82,9 @@ class SitioTest {
     @Test
     void testItems() {
 	Sitio s = new Sitio(JsonParser.parseString(json));
-	Item barreta = new Item(JsonParser.parseString(barretaJson)),
-		rociador = new Item(JsonParser.parseString(rociadorJson)),
-		espejo = new Item(JsonParser.parseString(espejoJson));
+	Item barreta = new Item(new ItemInputJson(barretaJson)),
+		rociador = new Item(new ItemInputJson(rociadorJson)),
+		espejo = new Item(new ItemInputJson(espejoJson));
 	s.addItem(espejo);
 	s.addItem(barreta);
 	s.addItem(rociador);
