@@ -11,7 +11,7 @@ import com.google.gson.JsonParser;
 import zork.Habitacion;
 import zork.NPC;
 import zork.Salida;
-import zork.Trigger;
+import zork.TipoTrigger;
 
 class SalidaTest {
 	
@@ -105,9 +105,9 @@ class SalidaTest {
 		room1.addSalida(salida, "north");
 		room1.ponerObstaculo(npc, "north");
 		assertEquals(false, room1.getSalida("north").isEnemigoDerrotado());
-		npc.ejecutarTrigger(Trigger.ITEM, "barreta");
+		npc.ejecutarTrigger(TipoTrigger.ITEM, "barreta");
 		assertFalse(room1.getSalida("north").isEnemigoDerrotado());
-		npc.ejecutarTrigger(Trigger.ITEM, "rociador con cerveza de raiz");
+		npc.ejecutarTrigger(TipoTrigger.ITEM, "rociador con cerveza de raiz");
 		assertTrue(room1.getSalida("north").isEnemigoDerrotado());
 		assertEquals(room2, room1.getSalida("north").getHabitacion());
 	}
@@ -143,7 +143,7 @@ class SalidaTest {
 		room1.addSalida(salida, "north");
 		room1.ponerObstaculo(npc, "north");
 		assertEquals(false, room1.getSalida("north").isEnemigoDerrotado());
-		npc.ejecutarTrigger(Trigger.TALK, "");
+		npc.ejecutarTrigger(TipoTrigger.CHARLA, "");
 		assertTrue(room1.getSalida("north").isEnemigoDerrotado());
 		assertEquals(room2, room1.getSalida("north").getHabitacion());
 	}

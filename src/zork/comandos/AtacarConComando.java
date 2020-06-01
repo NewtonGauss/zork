@@ -7,6 +7,7 @@ import zork.Item;
 import zork.Jugador;
 import zork.NPC;
 import zork.TipoItem;
+import zork.TipoTrigger;
 
 public class AtacarConComando implements Comando {
 
@@ -28,7 +29,8 @@ public class AtacarConComando implements Comando {
 	NPC npc = habitacionActual.getNPC(objetivo);
 	Item item = jugador.getItem(objeto);
 	if (item != null && npc != null && item.getTipo().equals(TipoItem.ARMA))
-	    retorno = objetivo + ": " + npc.ejecutarTrigger("attack", objeto) + '.';
+	    retorno = objetivo + ": " + npc.ejecutarTrigger(TipoTrigger.ATAQUE, objeto)
+		    + '.';
 	else if (npc != null) {
 	    retorno = "Utilice uno de los siguientes items para atacar: \n";
 	    for (Iterator<Item> i = jugador.getItems().iterator(); i.hasNext();) {
@@ -39,8 +41,8 @@ public class AtacarConComando implements Comando {
 	    if (retorno.equals("Utilice uno de los siguientes items para atacar: \n"))
 		retorno = "No tiene armas para atacar. ¡Busque una!";
 	} else
-	    retorno = objetivo + " no se encuentra en "
-		    + habitacionActual.toString() + '.';
+	    retorno = objetivo + " no se encuentra en " + habitacionActual.toString()
+		    + '.';
 	return retorno;
     }
 

@@ -5,45 +5,45 @@ import java.util.Hashtable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import utilitarias.Cadena;
+import zork.input.TriggerInput;
+import zork.input.json.TriggerInputJson;
 
 public class NPC extends Personaje {
     private String charla;
     private String descripcion;
     private boolean enemigo;
-    private Hashtable<String, Trigger> triggers = new Hashtable<String, Trigger>();
+    private Hashtable<TipoTrigger, Trigger> triggers = new Hashtable<TipoTrigger, Trigger>();
 
     public NPC(JsonElement json) {
 	JsonObject jobject = json.getAsJsonObject();
 	nombre = jobject.get("name").getAsString();
 	descripcion = jobject.get("description").getAsString();
-	charla = jobject.get(Trigger.TALK).getAsString();
+	charla = jobject.get("talk").getAsString();
 	gender = jobject.get("gender").getAsString().equals("male") ? 'm' : 'f';
 	number = jobject.get("number").getAsString().equals("singular") ? 's' : 'p';
 	inventario = new Inventario();
 	salud = jobject.get("health").getAsFloat();
 	enemigo = jobject.get("enemy").getAsBoolean();
 	for (JsonElement trigger : jobject.getAsJsonArray("triggers")) {
-	    addTrigger(trigger);
+	    addTrigger(new TriggerInputJson(trigger.toString()));
 	}
     }
 
-    private void addTrigger(JsonElement trigger) {
-	JsonObject triggerObj = trigger.getAsJsonObject();
-	switch (triggerObj.get("type").getAsString()) {
-	case Trigger.ITEM:
-	    triggers.put(Trigger.ITEM,new UsarItemTrigger(trigger));
+    private void addTrigger(TriggerInput input) {
+	switch (input.getTipo()) {
+	case ITEM:
+	    triggers.put(TipoTrigger.ITEM,new UsarItemTrigger(input));
 	    break;
-	case Trigger.ATTACK:
-	    triggers.put(Trigger.ATTACK,new UsarItemTrigger(trigger));
+	case ATAQUE:
+	    triggers.put(TipoTrigger.ATAQUE,new UsarItemTrigger(input));
 	    break;
-	case Trigger.TALK:
-	    triggers.put(Trigger.TALK,new Trigger(trigger));
+	case CHARLA:
+	    triggers.put(TipoTrigger.CHARLA,new Trigger(input));
 	    break;
 	}
     }
     
-    public String ejecutarTrigger(String tipoTrigger, String objetoActivador) {
+    public String ejecutarTrigger(TipoTrigger tipoTrigger, String objetoActivador) {
 	Trigger trigger = triggers.get(tipoTrigger);
 	if (trigger != null)
 	    return trigger.ejecutar(this, objetoActivador);

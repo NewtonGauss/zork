@@ -10,7 +10,7 @@ import zork.Habitacion;
 import zork.Jugador;
 import zork.NPC;
 import zork.Salida;
-import zork.Trigger;
+import zork.TipoTrigger;
 import zork.comandos.Comando;
 import zork.comandos.IrComando;
 
@@ -73,7 +73,7 @@ class IrComandoTest {
 	assertEquals("- '¡No puedes pasar!' El pirata fantasma no te dejará pasar",
 		ir.ejecutar(jugador, "norte"));
 
-	pirata.ejecutarTrigger(Trigger.ITEM, "rociador con cerveza de raiz");
+	pirata.ejecutarTrigger(TipoTrigger.ITEM, "rociador con cerveza de raiz");
 	assertEquals("Estas en un barrio", ir.ejecutar(jugador, "norte"));
     }
 

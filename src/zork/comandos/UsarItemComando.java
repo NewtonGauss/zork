@@ -7,7 +7,7 @@ import zork.Jugador;
 import zork.NPC;
 import zork.ObjetivoItem;
 import zork.TipoItem;
-import zork.Trigger;
+import zork.TipoTrigger;
 
 public class UsarItemComando implements Comando {
 
@@ -72,7 +72,7 @@ public class UsarItemComando implements Comando {
 	String retorno;
 	retorno = "Se utilizo " + item.toString() + " sobre " + npc.toString() + ".\n";
 
-	String trigger = npc.ejecutarTrigger(Trigger.ITEM, item.getNombre());
+	String trigger = npc.ejecutarTrigger(TipoTrigger.ITEM, item.getNombre());
 	if (trigger != null)
 	    retorno += trigger;
 	else if (isItemAplicable(item.getTipo())) {

@@ -1,11 +1,11 @@
 package zork;
 
-import com.google.gson.JsonElement;
+import zork.input.TriggerInput;
 
 public class UsarItemTrigger extends Trigger {
 
-    public UsarItemTrigger(JsonElement json) {
-	super(json);
+    public UsarItemTrigger(TriggerInput input) {
+	super(input);
     }
 
     @Override
