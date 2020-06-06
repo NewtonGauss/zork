@@ -31,3 +31,12 @@
 /SoltarComando.class
 /HablarComando.class
 /UsarItemComando.class
+/DarComando.class
+/AyudaComando.class
+/DefaultComando.class
+/DiagnosticoComando.class
+/InventarioComando.class
+/LocationEndGame.class
+/MovimientosComando.class
+/Narrador.class
+/TomarComando.class
