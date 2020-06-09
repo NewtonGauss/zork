@@ -2,6 +2,9 @@ package test.comandos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
@@ -13,6 +16,9 @@ import zork.Salida;
 import zork.TipoTrigger;
 import zork.comandos.Comando;
 import zork.comandos.IrComando;
+import zork.input.TriggerInput;
+import zork.input.parametro.NPCInputParametro;
+import zork.input.parametro.TriggerInputParametro;
 
 class IrComandoTest {
 
@@ -62,7 +68,7 @@ class IrComandoTest {
 	Salida salidaBarrio = new Salida(barrio);
 	muelle.addSalida(salidaBarrio, "norte");
 
-	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
+	NPC pirata = initNPC();
 	muelle.ponerObstaculo(pirata, "norte");
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
@@ -75,6 +81,23 @@ class IrComandoTest {
 
 	pirata.ejecutarTrigger(TipoTrigger.ITEM, "rociador con cerveza de raiz");
 	assertEquals("Estas en un barrio", ir.ejecutar(jugador, "norte"));
+    }
+    
+    private NPC initNPC() {
+	NPCInputParametro input = new NPCInputParametro("pirata fantasma");
+	input.setGender('m');
+	input.setNumber('s');
+	input.setDescripcion(
+		"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar");
+	input.setCharla("¡No hay nada que me digas que me haga cambiar de opinión!");
+	input.setEnemigo(true);
+	TriggerInputParametro trigger = new TriggerInputParametro(TipoTrigger.ITEM);
+	trigger.setAfterTrigger("remove");
+	trigger.setMensaje(
+		"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.");
+	trigger.setObjetoActivador("rociador con cerveza de raiz");
+	input.setListaTriggers(new ArrayList<TriggerInput>(Arrays.asList(trigger)));
+	return new NPC(input);
     }
 
     @Test

@@ -2,6 +2,9 @@ package test.comandos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +16,12 @@ import zork.Jugador;
 import zork.NPC;
 import zork.Salida;
 import zork.Sitio;
+import zork.TipoTrigger;
 import zork.comandos.MirarComando;
+import zork.input.TriggerInput;
 import zork.input.parametro.ItemInputParametro;
+import zork.input.parametro.NPCInputParametro;
+import zork.input.parametro.TriggerInputParametro;
 
 class MirarComandoTest {
 
@@ -85,6 +92,32 @@ class MirarComandoTest {
 		    + "            \"rociador con cerveza de raiz\",\n"
 		    + "            \"espejo\"\n" + "          ]\n" + "        }";
     private Item espejo, rociador, barreta;
+    private NPC pirata, abeja, mamuts;
+    
+    @BeforeEach
+    void initNPC() {
+	NPCInputParametro input = new NPCInputParametro("pirata fantasma");
+	input.setGender('m');
+	input.setNumber('s');
+	input.setDescripcion(
+		"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar");
+	input.setCharla("¡No hay nada que me digas que me haga cambiar de opinión!");
+	input.setEnemigo(true);
+	TriggerInputParametro trigger = new TriggerInputParametro(TipoTrigger.ITEM);
+	trigger.setAfterTrigger("remove");
+	trigger.setMensaje(
+		"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.");
+	trigger.setObjetoActivador("rociador con cerveza de raiz");
+	input.setListaTriggers(new ArrayList<TriggerInput>(Arrays.asList(trigger)));
+	pirata = new NPC(input);
+	input.setNombre("mamuts");
+	input.setNumber('p');
+	mamuts = new NPC(input);
+	input.setNombre("abeja fantasma");
+	input.setGender('f');
+	input.setNumber('s');
+	abeja = new NPC(input);
+    }
     
     @BeforeEach
     void inicializarItems() {
@@ -118,7 +151,6 @@ class MirarComandoTest {
     void testExitosoNPC() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	MirarComando c1 = new MirarComando();
 
 	r1.addNPC(pirata);
@@ -131,7 +163,6 @@ class MirarComandoTest {
     void testObjetivoInvalido() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	MirarComando c1 = new MirarComando();
 
 	r1.addNPC(pirata);
@@ -178,7 +209,6 @@ class MirarComandoTest {
     void testHabitacionConNPC() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	MirarComando c1 = new MirarComando();
 
 	r1.addNPC(pirata);
@@ -192,8 +222,6 @@ class MirarComandoTest {
 	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	MirarComando c1 = new MirarComando();
 
-	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
-	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	r1.addNPC(pirata);
 	r1.addNPC(abeja);
 	j1.setHabitacionActual(r1);
@@ -248,9 +276,6 @@ class MirarComandoTest {
 	muelle.addSitio(suelo);
 
 	/* NPCs */
-	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
-	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
-	NPC mamuts = new NPC(JsonParser.parseString(jsonMamuts));
 	muelle.addNPC(pirata);
 	muelle.addNPC(abeja);
 	muelle.addNPC(mamuts);

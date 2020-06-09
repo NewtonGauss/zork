@@ -1,21 +1,20 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.Habitacion;
-import zork.Item;
-import zork.Jugador;
-import zork.NPC;
-import zork.Personaje;
-import zork.Salida;
+import zork.*;
+import zork.input.TriggerInput;
 import zork.input.parametro.ItemInputParametro;
+import zork.input.parametro.NPCInputParametro;
+import zork.input.parametro.TriggerInputParametro;
 
 class JugadorTest {
 
@@ -27,20 +26,6 @@ class JugadorTest {
     String jsonRoom2 = "{\n" + " \"name\": \"barrio\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un barrio\" }";
-
-    String jsonNPC = "{\n" + "      \"name\": \"pirata fantasma\",\n"
-	    + "      \"gender\": \"male\",\n" + "      \"number\": \"singular\",\n"
-	    + "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
-	    + "      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n"
-	    + "			\"points\": \"100\",\n"
-	    + "			\"enemy\": \"true\",\n"
-	    + "			\"health\": \"100\",\n"
-	    + "			\"inventory\": [],\n" + "      \"triggers\": [\n"
-	    + "        {\n" + "          \"type\": \"item\",\n"
-	    + "          \"thing\": \"rociador con cerveza de raiz\",\n"
-	    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
-	    + "          \"after_trigger\": \"remove\"\n" + "        }\n" + "      ]\n"
-	    + "    }";
 
     private Item barreta;
     
@@ -91,7 +76,7 @@ class JugadorTest {
     void testMover() {
 	Habitacion room1 = new Habitacion(JsonParser.parseString(jsonRoom));
 	Habitacion room2 = new Habitacion(JsonParser.parseString(jsonRoom2));
-	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
+	NPC npc = initNPC();
 	Salida salida = new Salida(room2);
 	npc.setEnemigo(true);
 	salida.addNPC(npc);
@@ -104,6 +89,24 @@ class JugadorTest {
 	assertTrue(jugador.mover("norte"));
 	assertEquals(room2, jugador.getHabitacionActual());
     }
+    
+    private NPC initNPC() {
+	NPCInputParametro input = new NPCInputParametro("pirata fantasma");
+	input.setGender('m');
+	input.setNumber('s');
+	input.setDescripcion(
+		"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar");
+	input.setCharla("¡No hay nada que me digas que me haga cambiar de opinión!");
+	input.setEnemigo(true);
+	TriggerInputParametro trigger = new TriggerInputParametro(TipoTrigger.ITEM);
+	trigger.setAfterTrigger("remove");
+	trigger.setMensaje(
+		"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.");
+	trigger.setObjetoActivador("rociador con cerveza de raiz");
+	input.setListaTriggers(new ArrayList<TriggerInput>(Arrays.asList(trigger)));
+	return new NPC(input);
+    }
+
 
     @Test
     void testSalud() {

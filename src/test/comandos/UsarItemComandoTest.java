@@ -10,15 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.AccionItem;
-import zork.Habitacion;
-import zork.Item;
-import zork.Jugador;
-import zork.NPC;
-import zork.ObjetivoItem;
-import zork.TipoItem;
+import zork.*;
 import zork.comandos.UsarItemComando;
+import zork.input.TriggerInput;
 import zork.input.parametro.ItemInputParametro;
+import zork.input.parametro.NPCInputParametro;
+import zork.input.parametro.TriggerInputParametro;
 
 class UsarItemComandoTest {
     String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
@@ -27,31 +24,31 @@ class UsarItemComandoTest {
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un muelle\" }";
 
-    String jsonPirata = "{\n" + "      \"name\": \"pirata fantasma\",\n"
-	    + "      \"gender\": \"male\",\n" + "      \"number\": \"singular\",\n"
-	    + "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
-	    + "      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n"
-	    + "			\"points\": \"100\",\n"
-	    + "			\"enemy\": \"true\",\n"
-	    + "			\"health\": \"100\",\n"
-	    + "			\"inventory\": [],\n" + "      \"triggers\": [\n"
-	    + "        {\n" + "          \"type\": \"item\",\n"
-	    + "          \"thing\": \"rociador con cerveza de raiz\",\n"
-	    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
-	    + "          \"after_trigger\": \"remove\"\n" + "        }\n" + "      ]\n"
-	    + "    }",
-	    jsonAbeja = "{\n" + "      \"name\": \"abeja fantasma\",\n"
-		    + "      \"gender\": \"female\",\n"
-		    + "      \"number\": \"singular\",\n"
-		    + "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
-		    + "      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"enemy\": \"true\",\n"
-		    + "			\"health\": \"100\",\n"
-		    + "			\"inventory\": [],\n" + "      \"triggers\": []\n"
-		    + "    }";
-
     private Item barreta, rociador, burbuja, calculadora, veneno;
+    private NPC pirata, abeja;
+
+    @BeforeEach
+    void initNPC() {
+	NPCInputParametro input = new NPCInputParametro("pirata fantasma");
+	input.setGender('m');
+	input.setNumber('s');
+	input.setDescripcion(
+		"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar");
+	input.setCharla("¡No hay nada que me digas que me haga cambiar de opinión!");
+	input.setEnemigo(true);
+	TriggerInputParametro trigger = new TriggerInputParametro(TipoTrigger.ITEM);
+	trigger.setAfterTrigger("remove");
+	trigger.setMensaje(
+		"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.");
+	trigger.setObjetoActivador("rociador con cerveza de raiz");
+	input.setListaTriggers(new ArrayList<TriggerInput>(Arrays.asList(trigger)));
+	pirata = new NPC(input);
+	input.setListaTriggers(new ArrayList<TriggerInput>());
+	input.setNombre("abeja fantasma");
+	input.setGender('f');
+	input.setNumber('s');
+	abeja = new NPC(input);
+    }
 
     @BeforeEach
     void inicializarItems() {
@@ -95,7 +92,6 @@ class UsarItemComandoTest {
     void testNpcConTrigger() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(pirata);
@@ -115,7 +111,6 @@ class UsarItemComandoTest {
     void testObjetoInvalido() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -130,7 +125,6 @@ class UsarItemComandoTest {
     void testNpcSinTrigger() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -146,7 +140,6 @@ class UsarItemComandoTest {
     void testNpcNoSeEncuentra() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -160,7 +153,6 @@ class UsarItemComandoTest {
     void testObjetoNoAplicableEnNpc() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -178,7 +170,6 @@ class UsarItemComandoTest {
     void testVanillaSinTrigger() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -195,7 +186,6 @@ class UsarItemComandoTest {
     void testObjetoNoAplicableSobreJugador() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -211,7 +201,6 @@ class UsarItemComandoTest {
     void testObjetoNoAplicableSobreJugador2() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -224,7 +213,6 @@ class UsarItemComandoTest {
     void testPocionSobreJugador() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -238,7 +226,6 @@ class UsarItemComandoTest {
     void testVenenoSobreJugador() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -252,7 +239,6 @@ class UsarItemComandoTest {
     void testObjetoNoInventario() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC abeja = new NPC(JsonParser.parseString(jsonAbeja));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);

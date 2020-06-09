@@ -1,6 +1,5 @@
 package zork.input.json;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -8,38 +7,30 @@ import zork.TipoTrigger;
 import zork.input.TriggerInput;
 
 public class TriggerInputJson implements TriggerInput {
-    private TipoTrigger tipo;
-    private String objetoActivador;
-    private String mensaje;
-    private String afterTrigger;
+    private JsonObject jobject;
     
     public TriggerInputJson(String jsonString) {
-	JsonElement json = JsonParser.parseString(jsonString);
-	JsonObject jobject = json.getAsJsonObject();
-	tipo = TipoTrigger.stringToTipoTrigger(jobject.get("type").getAsString());
-	objetoActivador = jobject.get("thing").getAsString();
-	mensaje = jobject.get("on_trigger").getAsString();
-	afterTrigger = jobject.get("after_trigger").getAsString();
+	jobject = JsonParser.parseString(jsonString).getAsJsonObject();
     }
 
     @Override
     public TipoTrigger getTipo() {
-	return tipo;
+	return TipoTrigger.stringToTipoTrigger(jobject.get("type").getAsString());
     }
 
     @Override
     public String getObjetoActivador() {
-	return objetoActivador;
+	return jobject.get("thing").getAsString();
     }
 
     @Override
     public String getMensaje() {
-	return mensaje;
+	return jobject.get("on_trigger").getAsString();
     }
 
     @Override
     public String getAfterTrigger() {
-	return afterTrigger;
+	return jobject.get("after_trigger").getAsString();
     }
 
 }

@@ -3,23 +3,18 @@ package test.comandos;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.AccionItem;
-import zork.Habitacion;
-import zork.Item;
-import zork.Jugador;
-import zork.NPC;
-import zork.Narrador;
-import zork.ObjetivoItem;
-import zork.Salida;
-import zork.Sitio;
-import zork.TipoItem;
+import zork.*;
+import zork.input.TriggerInput;
 import zork.input.parametro.ItemInputParametro;
+import zork.input.parametro.NPCInputParametro;
+import zork.input.parametro.TriggerInputParametro;
 
 class NarradorTest {
 
@@ -29,30 +24,6 @@ class NarradorTest {
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un muelle\" }";
 
-    String jsonPirata = "{\n" + "      \"name\": \"pirata fantasma\",\n"
-	    + "      \"gender\": \"male\",\n" + "      \"number\": \"singular\",\n"
-	    + "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
-	    + "      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n"
-	    + "			\"points\": \"100\",\n"
-	    + "			\"enemy\": \"true\",\n"
-	    + "			\"health\": \"100\",\n"
-	    + "			\"inventory\": [],\n" + "      \"triggers\": [\n"
-	    + "        {\n" + "          \"type\": \"item\",\n"
-	    + "          \"thing\": \"rociador con cerveza de raiz\",\n"
-	    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
-	    + "          \"after_trigger\": \"remove\"\n" + "        }\n" + "      ]\n"
-	    + "    }",
-	    jsonAbeja = "{\n" + "      \"name\": \"abeja fantasma\",\n"
-		    + "      \"gender\": \"female\",\n"
-		    + "      \"number\": \"singular\",\n"
-		    + "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
-		    + "      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"enemy\": \"true\",\n"
-		    + "			\"health\": \"100\",\n"
-		    + "			\"inventory\": [],\n" + "      \"triggers\": []\n"
-		    + "    }";
-
     String jsonUnlam = "{\n" + " \"name\": \"unlam\" ,\n" + " \"gender\": \"female\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en una universidad\" }";
@@ -61,31 +32,27 @@ class NarradorTest {
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un barrio\" }";
 
-    String jsonYoshi = "{\n" + "\"name\": \"Yoshi\" , \n" + "\"gender\": \"male\" , \n"
-	    + "\"number\": \"singular\" , \n"
-	    + "\"description\": \"Aqui no puedes pasar! Yoshi no te dejara pasar\" , \n"
-	    + "\"points\": \"100\" , \n" + "\"enemy\": \"true\" , \n"
-	    + "\"health\": \"100\" , \n"
-	    + "\"talk\": \"No hay nada que me digas que me haga cambiar de opinion!\", \n"
-	    + "\"triggers\": [{" + " \"type\": \"attack\" ,\n"
-	    + " \"thing\": \"espada\" ,\n" + " \"on_trigger\": \"Uhhh\" ,\n"
-	    + " \"after_trigger\": \"kill\" } ] }";
-
-    String piratajson = "{\n" + "      \"name\": \"pirata fantasma\",\n"
-	    + "      \"gender\": \"male\",\n" + "      \"number\": \"singular\",\n"
-	    + "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
-	    + "      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n"
-	    + "			\"points\": \"100\",\n"
-	    + "			\"enemy\": \"true\",\n"
-	    + "			\"health\": \"100\",\n"
-	    + "			\"inventory\": [],\n" + "      \"triggers\": [\n"
-	    + "        {\n" + "          \"type\": \"item\",\n"
-	    + "          \"thing\": \"rociador con cerveza de raiz\",\n"
-	    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
-	    + "          \"after_trigger\": \"remove\"\n" + "        }\n" + "      ]\n"
-	    + "    }";
 
     private Item veneno, rociador, calculadora, espada;
+    private NPC pirata;
+
+    @BeforeEach
+    void initNPC() {
+	NPCInputParametro input = new NPCInputParametro("pirata fantasma");
+	input.setGender('m');
+	input.setNumber('s');
+	input.setDescripcion(
+		"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar");
+	input.setCharla("¡No hay nada que me digas que me haga cambiar de opinión!");
+	input.setEnemigo(true);
+	TriggerInputParametro trigger = new TriggerInputParametro(TipoTrigger.ITEM);
+	trigger.setAfterTrigger("remove");
+	trigger.setMensaje(
+		"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.");
+	trigger.setObjetoActivador("rociador con cerveza de raiz");
+	input.setListaTriggers(new ArrayList<TriggerInput>(Arrays.asList(trigger)));
+	pirata = new NPC(input);
+    }
 
     @BeforeEach
     void inicializarItems() {
@@ -124,7 +91,6 @@ class NarradorTest {
     void testUsar() {
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	Narrador narrador = new Narrador(jugador);
 
 	muelle.addNPC(pirata);
@@ -256,7 +222,6 @@ class NarradorTest {
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Habitacion unlam = new Habitacion(JsonParser.parseString(jsonUnlam));
 	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
-	NPC pirata = new NPC(JsonParser.parseString(jsonPirata));
 	Salida salidaUnlam = new Salida(unlam);
 	Salida salidaBarrio = new Salida(barrio);
 	Narrador narrador = new Narrador(jugador);
@@ -283,10 +248,9 @@ class NarradorTest {
 
     @Test
     void testAtacarCon() {
-
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion unlam = new Habitacion(JsonParser.parseString(jsonUnlam));
-	NPC yoshi = new NPC(JsonParser.parseString(jsonYoshi));
+	NPC yoshi = initYoshi();
 	Narrador narrador = new Narrador(jugador);
 	jugador.ponerItem(espada);
 
@@ -298,12 +262,25 @@ class NarradorTest {
 	assertEquals("Yoshi: Uhhh.", narrador.ejecutar("atacar a Yoshi con la espada"));
     }
 
+    private NPC initYoshi() {
+	NPCInputParametro input = new NPCInputParametro("Yoshi");
+	input.setGender('m');
+	input.setNumber('s');
+	input.setDescripcion("Aqui no puedes pasar! Yoshi no te dejara pasar");
+	input.setCharla("No hay nada que me digas que me haga cambiar de opinion!");
+	input.setEnemigo(true);
+	TriggerInputParametro trigger = new TriggerInputParametro(TipoTrigger.ATAQUE);
+	trigger.setAfterTrigger("kill");
+	trigger.setMensaje("Uhhh");
+	trigger.setObjetoActivador("espada");
+	input.setListaTriggers(new ArrayList<TriggerInput>(Arrays.asList(trigger)));
+	return new NPC(input);
+    }
+
     @Test
     void testDar() {
-
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC pirata = new NPC(JsonParser.parseString(piratajson));
 	Narrador narrador = new Narrador(jugador);
 
 	muelle.addNPC(pirata);
@@ -378,7 +355,6 @@ class NarradorTest {
 
 	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	NPC pirata = new NPC(JsonParser.parseString(piratajson));
 	Narrador narrador = new Narrador(jugador);
 	muelle.addNPC(pirata);
 	jugador.setHabitacionActual(muelle);

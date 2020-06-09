@@ -2,33 +2,26 @@ package test.comandos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.Habitacion;
-import zork.Item;
-import zork.Jugador;
-import zork.NPC;
-import zork.TipoItem;
+import zork.*;
 import zork.comandos.AtacarConComando;
-import zork.input.parametro.ItemInputParametro;
+import zork.input.TriggerInput;
+import zork.input.parametro.*;
 
 class AtacarComandoTest {
 
     String jsonPlayer = "{\n" + " \"character\": \"Santi\"  }";
     String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n" + " \"description\": \"Estas en un muelle\" }";
-
-    String jsonNPC = "{\n" + "\"name\": \"Maxi Hiena\" , \n" + "\"gender\": \"male\" , \n"
-	    + "\"number\": \"singular\" , \n"
-	    + "\"description\": \"Aqui no puedes pasar! El pirata fantasma no te dejara pasar\" , \n"
-	    + "\"points\": \"100\" , \n" + "\"enemy\": \"true\" , \n" + "\"health\": \"100\" , \n"
-	    + "\"talk\": \"No hay nada que me digas que me haga cambiar de opinion!\", \n" + "\"triggers\": [{"
-	    + " \"type\": \"attack\" ,\n" + " \"thing\": \"espada\" ,\n"
-	    + " \"on_trigger\": \"Uhhh me rompiste la gorra\" ,\n" + " \"after_trigger\": \"kill\" } ] }";
     private Item espada, espejo, canicas;
+    private NPC npc;
     
     @BeforeEach
     void inicializarItems() {
@@ -42,26 +35,42 @@ class AtacarComandoTest {
 	
 	constructor.setNombre("canicas");
 	canicas = new Item(constructor);
+    }    
+
+    @BeforeEach
+    void initNPC() {
+	NPCInputParametro input = new NPCInputParametro("pirata fantasma");
+	input.setGender('m');
+	input.setNumber('s');
+	input.setDescripcion(
+		"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar");
+	input.setCharla("¡No hay nada que me digas que me haga cambiar de opinión!");
+	input.setEnemigo(true);
+	TriggerInputParametro trigger = new TriggerInputParametro(TipoTrigger.ATAQUE);
+	trigger.setAfterTrigger("nothing");
+	trigger.setMensaje(
+		"eso no te sirve de nada");
+	trigger.setObjetoActivador("espada");	
+	input.setListaTriggers(new ArrayList<TriggerInput>(Arrays.asList(trigger)));
+	npc = new NPC(input);
     }
 
     @Test
     void testAtacarConComando() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 	AtacarConComando acc = new AtacarConComando();
 
 	j1.ponerItem(espada);
 	room.addNPC(npc);
 	j1.setHabitacionActual(room);
-	assertEquals("Maxi Hiena: Uhhh me rompiste la gorra.", acc.ejecutar(j1, npc.getNombre() + ":" + espada.getNombre()));
+	assertEquals("pirata fantasma: eso no te sirve de nada.", acc.ejecutar(j1, "pirata fantasma:espada"));
     }
     
     @Test
     void testNpcInvalido() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 	AtacarConComando acc = new AtacarConComando();
 	
 	j1.ponerItem(espada);
@@ -74,7 +83,6 @@ class AtacarComandoTest {
     void testAtacarSinItems() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 	AtacarConComando acc = new AtacarConComando();
 
 	room.addNPC(npc);
@@ -86,7 +94,6 @@ class AtacarComandoTest {
     void testAtacarSinArmasConItems() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 	AtacarConComando acc = new AtacarConComando();
 
 	j1.ponerItem(espejo);
@@ -100,7 +107,6 @@ class AtacarComandoTest {
     void testItemEquivocado() {
 	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 	AtacarConComando acc = new AtacarConComando();
 
 	j1.ponerItem(espejo);

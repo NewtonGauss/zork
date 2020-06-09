@@ -2,17 +2,18 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeEach;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.Habitacion;
-import zork.Item;
-import zork.NPC;
-import zork.Salida;
-import zork.Sitio;
+import zork.*;
+import zork.input.TriggerInput;
 import zork.input.parametro.ItemInputParametro;
+import zork.input.parametro.NPCInputParametro;
+import zork.input.parametro.TriggerInputParametro;
 
 class HabitacionTest {
 
@@ -26,15 +27,6 @@ class HabitacionTest {
 
     String jsonSitio = "{\n" + " \"name\": \"suelo\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" }";
-
-    
-    private Item barreta;
-
-    @BeforeEach
-    void inicializarItems() {
-	ItemInputParametro constructorItem = new ItemInputParametro("barreta");
-	barreta = new Item(constructorItem);
-    }
 
     @Test // Pruebo la creacion de la habitacion
     void testDescripcion() {
@@ -63,9 +55,15 @@ class HabitacionTest {
     void testItemsENSitios() {
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio sitio = new Sitio(JsonParser.parseString(jsonSitio));
+	Item barreta = inicializarItems();
 	sitio.addItem(barreta);
 	room.addSitio(sitio);
 	assertEquals(barreta, room.getSitio("suelo").getItem("barreta"));
+    }
+
+    private Item inicializarItems() {
+	ItemInputParametro constructorItem = new ItemInputParametro("barreta");
+	return new Item(constructorItem);
     }
 
     /*
@@ -73,24 +71,28 @@ class HabitacionTest {
      */
     @Test
     void testNPCs() {
-	String jsonNPC = "{\n" + "      \"name\": \"pirata fantasma\",\n"
-		+ "      \"gender\": \"male\",\n" + "      \"number\": \"singular\",\n"
-		+ "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
-		+ "      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n"
-		+ "			\"points\": \"100\",\n"
-		+ "			\"enemy\": \"true\",\n"
-		+ "			\"health\": \"100\",\n"
-		+ "			\"inventory\": [],\n" + "      \"triggers\": [\n"
-		+ "        {\n" + "          \"type\": \"item\",\n"
-		+ "          \"thing\": \"rociador con cerveza de raiz\",\n"
-		+ "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
-		+ "          \"after_trigger\": \"remove\"\n" + "        }\n"
-		+ "      ]\n" + "    }";
+	NPC npc = initNPC();
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	NPC npc = new NPC(JsonParser.parseString(jsonNPC));
 	room.addNPC(npc);
 	assertEquals(npc, room.getNPC(npc.getNombre()));
 	assertEquals(null, room.getNPC("Newton"));
+    }
+
+    private NPC initNPC() {
+	NPCInputParametro input = new NPCInputParametro("pirata fantasma");
+	input.setGender('m');
+	input.setNumber('s');
+	input.setDescripcion(
+		"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar");
+	input.setCharla("¡No hay nada que me digas que me haga cambiar de opinión!");
+	input.setEnemigo(true);
+	TriggerInputParametro trigger = new TriggerInputParametro(TipoTrigger.ITEM);
+	trigger.setAfterTrigger("remove");
+	trigger.setMensaje(
+		"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.");
+	trigger.setObjetoActivador("rociador con cerveza de raiz");
+	input.setListaTriggers(new ArrayList<TriggerInput>(Arrays.asList(trigger)));
+	return new NPC(input);
     }
 
 }

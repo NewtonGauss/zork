@@ -2,11 +2,8 @@ package zork;
 
 import java.util.Hashtable;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
+import zork.input.NPCInput;
 import zork.input.TriggerInput;
-import zork.input.json.TriggerInputJson;
 
 public class NPC extends Personaje {
     private String charla;
@@ -14,19 +11,17 @@ public class NPC extends Personaje {
     private boolean enemigo;
     private Hashtable<TipoTrigger, Trigger> triggers = new Hashtable<TipoTrigger, Trigger>();
 
-    public NPC(JsonElement json) {
-	JsonObject jobject = json.getAsJsonObject();
-	nombre = jobject.get("name").getAsString();
-	descripcion = jobject.get("description").getAsString();
-	charla = jobject.get("talk").getAsString();
-	gender = jobject.get("gender").getAsString().equals("male") ? 'm' : 'f';
-	number = jobject.get("number").getAsString().equals("singular") ? 's' : 'p';
+    public NPC(NPCInput input) {
+	nombre = input.getNombre();
+	charla = input.getCharla();
+	descripcion = input.getDescripcion();
+	gender = input.getGender();
+	number = input.getNumber();
+	salud = input.getSalud();
+	enemigo = input.isEnemigo();
 	inventario = new Inventario();
-	salud = jobject.get("health").getAsFloat();
-	enemigo = jobject.get("enemy").getAsBoolean();
-	for (JsonElement trigger : jobject.getAsJsonArray("triggers")) {
-	    addTrigger(new TriggerInputJson(trigger.toString()));
-	}
+	for (TriggerInput trigger: input.getListaTrigger())
+	    addTrigger(trigger);
     }
 
     private void addTrigger(TriggerInput input) {
