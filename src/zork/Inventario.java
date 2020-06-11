@@ -1,7 +1,6 @@
 package zork;
 
-import java.util.Collection;
-import java.util.Hashtable;
+import java.util.*;
 
 public class Inventario {
 

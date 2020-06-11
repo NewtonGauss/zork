@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
-import com.google.gson.JsonParser;
-
 import zork.Jugador;
 import zork.comandos.AyudaComando;
 

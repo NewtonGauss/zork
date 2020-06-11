@@ -2,8 +2,7 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,9 +10,7 @@ import com.google.gson.JsonParser;
 
 import zork.*;
 import zork.input.TriggerInput;
-import zork.input.parametro.ItemInputParametro;
-import zork.input.parametro.NPCInputParametro;
-import zork.input.parametro.TriggerInputParametro;
+import zork.input.parametro.*;
 
 class HabitacionTest {
 
@@ -24,9 +21,6 @@ class HabitacionTest {
     String jsonRoom2 = "{\n" + " \"name\": \"barrio\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un barrio\" }";
-
-    String jsonSitio = "{\n" + " \"name\": \"suelo\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" }";
 
     @Test // Pruebo la creacion de la habitacion
     void testDescripcion() {
@@ -46,15 +40,15 @@ class HabitacionTest {
     @Test // Pruebo agregando Sitio...
     void testSitios() {
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	Sitio sitio = new Sitio(JsonParser.parseString(jsonSitio));
+	Sitio sitio = new Sitio(new SitioInputParametro("ventana", 'f', 's'));
 	room.addSitio(sitio);
-	assertEquals(sitio.getNombre(), room.getSitio("suelo").getNombre());
+	assertEquals("ventana", room.getSitio("ventana").getNombre());
     }
 
     @Test // Pruebo obtener el item de un determinado sitio
     void testItemsENSitios() {
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	Sitio sitio = new Sitio(JsonParser.parseString(jsonSitio));
+	Sitio sitio = new Sitio();
 	Item barreta = inicializarItems();
 	sitio.addItem(barreta);
 	room.addSitio(sitio);

@@ -1,10 +1,8 @@
 package zork;
 
-import java.util.Collection;
-import java.util.Hashtable;
+import java.util.*;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import zork.input.SitioInput;
 
 
 public class Sitio extends Enumerable{
@@ -21,11 +19,10 @@ public class Sitio extends Enumerable{
 	items = new Hashtable<String, Item>();
     }
 
-    public Sitio(JsonElement json) {
-	JsonObject jobj = json.getAsJsonObject();
-	nombre = jobj.get("name").getAsString();
-	gender = jobj.get("gender").getAsString().equals("male") ? 'm' : 'f';
-	number = jobj.get("number").getAsString().equals("singular") ? 's' : 'p';
+    public Sitio(SitioInput input) {
+	nombre = input.getNombre();
+	gender = input.getGender();
+	number = input.getNumber();
 	items = new Hashtable<String, Item>();
     }
 

@@ -4,8 +4,7 @@ import java.util.List;
 
 import com.google.gson.*;
 
-import zork.input.NPCInput;
-import zork.input.TriggerInput;
+import zork.input.*;
 
 public class NPCInputJson implements NPCInput {
     private JsonObject jobject;

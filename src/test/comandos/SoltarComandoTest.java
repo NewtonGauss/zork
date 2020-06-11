@@ -1,30 +1,20 @@
 package test.comandos;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import com.google.gson.JsonParser;
 
-import zork.AccionItem;
-import zork.Habitacion;
-import zork.Item;
-import zork.Jugador;
-import zork.Sitio;
+import zork.*;
 import zork.comandos.SoltarComando;
 import zork.input.parametro.ItemInputParametro;
 
 class SoltarComandoTest {
 
-    private String jsonSitio = "{\n" + "          \"name\": \"suelo\",\n"
-	    + "          \"gender\": \"male\",\n" + "          \"number\": \"singular\"\n"
-	    + "        }",
-	    jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
+    private String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 		    + " \"number\": \"singular\" ,\n"
 		    + " \"description\": \"Estas en un muelle\" }";
     
@@ -50,7 +40,7 @@ class SoltarComandoTest {
     void testExito() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
-	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
+	Sitio suelo = new Sitio();
 	SoltarComando sc = new SoltarComando();
 
 	jugador.ponerItem(barreta);
@@ -83,7 +73,7 @@ class SoltarComandoTest {
     void testSinObjeto() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
-	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
+	Sitio suelo = new Sitio();
 	SoltarComando sc = new SoltarComando();
 	
 	jugador.ponerItem(barreta);

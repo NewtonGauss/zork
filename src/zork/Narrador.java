@@ -1,27 +1,9 @@
 package zork;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Hashtable;
-import java.util.LinkedList;
+import java.util.*;
 
 import utilitarias.Cadena;
-import zork.comandos.AtacarConComando;
-import zork.comandos.Comando;
-import zork.comandos.DarComando;
-import zork.comandos.DefaultComando;
-import zork.comandos.DiagnosticoComando;
-import zork.comandos.HablarComando;
-import zork.comandos.InfoComando;
-import zork.comandos.InventarioComando;
-import zork.comandos.IrComando;
-import zork.comandos.MirarComando;
-import zork.comandos.MovimientosComando;
-import zork.comandos.PonerComando;
-import zork.comandos.Puntuacion;
-import zork.comandos.SoltarComando;
-import zork.comandos.TomarComando;
-import zork.comandos.UsarItemComando;
+import zork.comandos.*;
 import zork.endgame.FinalJuego;
 
 public class Narrador {

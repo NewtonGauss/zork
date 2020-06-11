@@ -4,11 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.google.gson.JsonParser;
-
 import zork.Jugador;
-import zork.comandos.Comando;
-import zork.comandos.DiagnosticoComando;
+import zork.comandos.*;
 
 class DiagnosticoTest {
     @Test

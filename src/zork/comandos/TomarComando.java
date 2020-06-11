@@ -2,10 +2,7 @@ package zork.comandos;
 
 import java.util.Iterator;
 
-import zork.AccionItem;
-import zork.Item;
-import zork.Jugador;
-import zork.Sitio;
+import zork.*;
 
 public class TomarComando implements Comando {
     @Override

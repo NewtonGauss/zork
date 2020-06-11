@@ -2,23 +2,16 @@ package test.comandos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.JsonParser;
 
-import zork.Habitacion;
-import zork.Jugador;
-import zork.NPC;
-import zork.Salida;
-import zork.TipoTrigger;
-import zork.comandos.Comando;
-import zork.comandos.IrComando;
+import zork.*;
+import zork.comandos.*;
 import zork.input.TriggerInput;
-import zork.input.parametro.NPCInputParametro;
-import zork.input.parametro.TriggerInputParametro;
+import zork.input.parametro.*;
 
 class IrComandoTest {
 

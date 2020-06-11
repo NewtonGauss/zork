@@ -2,21 +2,15 @@ package test.comandos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import com.google.gson.JsonParser;
 
-import zork.AccionItem;
-import zork.Habitacion;
-import zork.Item;
-import zork.Jugador;
-import zork.Sitio;
+import zork.*;
 import zork.comandos.TomarComando;
-import zork.input.parametro.ItemInputParametro;
+import zork.input.parametro.*;
 
 class TomarTest {
     String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
@@ -49,9 +43,9 @@ class TomarTest {
     void testTomarEspejo() {
 	Jugador j = new Jugador("Guybrush Threepwood");
 	Habitacion r = new Habitacion(JsonParser.parseString(jsonRoom));
-	Sitio s1 = new Sitio(JsonParser.parseString(jsonSitio1));
-	Sitio s2 = new Sitio(JsonParser.parseString(jsonSitio2));
-	Sitio s3 = new Sitio(JsonParser.parseString(jsonSitio3));
+	Sitio s1 = new Sitio();
+	Sitio s2 = new Sitio(new SitioInputParametro("pasarela"));
+	Sitio s3 = new Sitio(new SitioInputParametro("mesa"));
 	r.addSitio(s1);
 	r.addSitio(s2);
 	r.addSitio(s3);
@@ -77,7 +71,7 @@ class TomarTest {
     void testNoHayEspacio() {
 	Jugador j = new Jugador("Guybrush Threepwood");
 	Habitacion r = new Habitacion(JsonParser.parseString(jsonRoom));
-	Sitio s1 = new Sitio(JsonParser.parseString(jsonSitio1));
+	Sitio s1 = new Sitio();
 	r.addSitio(s1);
 	s1.addItem(rociador);
 	s1.addItem(espejo);

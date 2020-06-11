@@ -2,26 +2,16 @@ package test.comandos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import com.google.gson.JsonParser;
 
-import zork.Habitacion;
-import zork.Item;
-import zork.Jugador;
-import zork.NPC;
-import zork.Salida;
-import zork.Sitio;
-import zork.TipoTrigger;
+import zork.*;
 import zork.comandos.MirarComando;
 import zork.input.TriggerInput;
-import zork.input.parametro.ItemInputParametro;
-import zork.input.parametro.NPCInputParametro;
-import zork.input.parametro.TriggerInputParametro;
+import zork.input.parametro.*;
 
 class MirarComandoTest {
     String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
@@ -41,53 +31,6 @@ class MirarComandoTest {
 		    + "          \"direction\": \"north\",\n"
 		    + "          \"location\": \"muelle\"\n" + "        }\n" + "      ]\n"
 		    + "    }";
-
-    String jsonPirata = "{\n" + "      \"name\": \"pirata fantasma\",\n"
-	    + "      \"gender\": \"male\",\n" + "      \"number\": \"singular\",\n"
-	    + "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
-	    + "      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n"
-	    + "			\"points\": \"100\",\n"
-	    + "			\"enemy\": \"true\",\n"
-	    + "			\"health\": \"100\",\n"
-	    + "			\"inventory\": [],\n" + "      \"triggers\": [\n"
-	    + "        {\n" + "          \"type\": \"item\",\n"
-	    + "          \"thing\": \"rociador con cerveza de raiz\",\n"
-	    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
-	    + "          \"after_trigger\": \"remove\"\n" + "        }\n" + "      ]\n"
-	    + "    }",
-	    jsonAbeja = "{\n" + "      \"name\": \"abeja fantasma\",\n"
-		    + "      \"gender\": \"female\",\n"
-		    + "      \"number\": \"singular\",\n"
-		    + "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
-		    + "      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"enemy\": \"true\",\n"
-		    + "			\"health\": \"100\",\n"
-		    + "			\"inventory\": [],\n" + "      \"triggers\": [\n"
-		    + "        {\n" + "          \"type\": \"item\",\n"
-		    + "          \"thing\": \"rociador con cerveza de raiz\",\n"
-		    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
-		    + "          \"after_trigger\": \"remove\"\n" + "        }\n"
-		    + "      ]\n" + "    }",
-	    jsonMamuts = "{\n" + "      \"name\": \"mamuts\",\n"
-		    + "      \"gender\": \"male\",\n" + "      \"number\": \"plural\",\n"
-		    + "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
-		    + "      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"enemy\": \"true\",\n"
-		    + "			\"health\": \"100\",\n"
-		    + "			\"inventory\": [],\n" + "      \"triggers\": [\n"
-		    + "        {\n" + "          \"type\": \"item\",\n"
-		    + "          \"thing\": \"rociador con cerveza de raiz\",\n"
-		    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
-		    + "          \"after_trigger\": \"remove\"\n" + "        }\n"
-		    + "      ]\n" + "    }",
-	    jsonSuelo = "{\n" + "          \"name\": \"suelo\",\n"
-		    + "          \"gender\": \"male\",\n"
-		    + "          \"number\": \"singular\",\n" + "          \"items\": [\n"
-		    + "            \"barreta\",\n"
-		    + "            \"rociador con cerveza de raiz\",\n"
-		    + "            \"espejo\"\n" + "          ]\n" + "        }";
     private Item espejo, rociador, barreta;
     private NPC pirata, abeja, mamuts;
     
@@ -135,7 +78,7 @@ class MirarComandoTest {
     void testExitosoHabitacion() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
+	Sitio suelo = new Sitio();
 	muelle.addSitio(suelo);
 	j1.setHabitacionActual(muelle);
 	MirarComando c1 = new MirarComando();
@@ -173,7 +116,7 @@ class MirarComandoTest {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 
-	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
+	Sitio suelo = new Sitio();
 	suelo.addItem(espejo);
 	suelo.addItem(barreta);
 	suelo.addItem(rociador);
@@ -192,7 +135,7 @@ class MirarComandoTest {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 
-	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
+	Sitio suelo = new Sitio();
 	suelo.addItem(espejo);
 	muelle.addSitio(suelo);
 
@@ -266,7 +209,7 @@ class MirarComandoTest {
 	MirarComando c1 = new MirarComando();
 
 	/* Items */
-	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
+	Sitio suelo = new Sitio();
 	suelo.addItem(espejo);
 	suelo.addItem(barreta);
 	suelo.addItem(rociador);

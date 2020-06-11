@@ -1,13 +1,6 @@
 package zork.comandos;
 
-import zork.AccionItem;
-import zork.Habitacion;
-import zork.Item;
-import zork.Jugador;
-import zork.NPC;
-import zork.ObjetivoItem;
-import zork.TipoItem;
-import zork.TipoTrigger;
+import zork.*;
 
 public class UsarItemComando implements Comando {
 

@@ -1,11 +1,8 @@
 package zork.input.parametro;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import zork.AccionItem;
-import zork.ObjetivoItem;
-import zork.TipoItem;
+import zork.*;
 import zork.input.ItemInput;
 
 public class ItemInputParametro implements ItemInput {

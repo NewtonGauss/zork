@@ -1,33 +1,15 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import com.google.gson.JsonParser;
-
-import zork.AccionItem;
-import zork.Item;
-import zork.Sitio;
-import zork.input.parametro.ItemInputParametro;
+import zork.*;
+import zork.input.parametro.*;
 
 class SitioTest {
-    
-    private String json = "{\n" + 
-    	"          \"name\": \"suelo\",\n" + 
-    	"          \"gender\": \"male\",\n" + 
-    	"          \"number\": \"singular\",\n" + 
-    	"          \"items\": [\n" + 
-    	"            \"barreta\",\n" + 
-    	"            \"rociador con cerveza de raiz\",\n" + 
-    	"            \"espejo\"\n" + 
-    	"          ]\n" + 
-    	"        }";
     private Item espejo, rociador, barreta;
     
     @BeforeEach
@@ -48,13 +30,13 @@ class SitioTest {
 
     @Test
     void testCreacion() {
-	Sitio s = new Sitio(JsonParser.parseString(json));
+	Sitio s = new Sitio();
 	assertEquals("el suelo", s.toString());
     }
     
     @Test
     void testItems() {
-	Sitio s = new Sitio(JsonParser.parseString(json));
+	Sitio s = new Sitio();
 	s.addItem(espejo);
 	s.addItem(barreta);
 	s.addItem(rociador);
@@ -75,49 +57,19 @@ class SitioTest {
     
     @Test
     void testMalePluralSitio() {
-	String males = "{\n" + 
-	    	"          \"name\": \"suelos\",\n" + 
-	    	"          \"gender\": \"male\",\n" + 
-	    	"          \"number\": \"plural\",\n" + 
-	    	"          \"items\": [\n" + 
-	    	"            \"barreta\",\n" + 
-	    	"            \"rociador con cerveza de raiz\",\n" + 
-	    	"            \"espejo\"\n" + 
-	    	"          ]\n" + 
-	    	"        }";
-	Sitio s = new Sitio(JsonParser.parseString(males));
+	Sitio s = new Sitio(new SitioInputParametro("suelos", 'm', 'p'));
 	assertEquals("los suelos", s.toString());
     }
     
     @Test
     void testFemalePluralSitio() {
-	String females = "{\n" + 
-	    	"          \"name\": \"ventanas\",\n" + 
-	    	"          \"gender\": \"female\",\n" + 
-	    	"          \"number\": \"plural\",\n" + 
-	    	"          \"items\": [\n" + 
-	    	"            \"barreta\",\n" + 
-	    	"            \"rociador con cerveza de raiz\",\n" + 
-	    	"            \"espejo\"\n" + 
-	    	"          ]\n" + 
-	    	"        }";
-	Sitio s = new Sitio(JsonParser.parseString(females));
+	Sitio s = new Sitio(new SitioInputParametro("ventanas", 'f','p'));
 	assertEquals("las ventanas", s.toString());
     }
     
     @Test
     void testFemaleSitio() {
-	String female = "{\n" + 
-	    	"          \"name\": \"ventana\",\n" + 
-	    	"          \"gender\": \"female\",\n" + 
-	    	"          \"number\": \"singular\",\n" + 
-	    	"          \"items\": [\n" + 
-	    	"            \"barreta\",\n" + 
-	    	"            \"rociador con cerveza de raiz\",\n" + 
-	    	"            \"espejo\"\n" + 
-	    	"          ]\n" + 
-	    	"        }";
-	Sitio s = new Sitio(JsonParser.parseString(female));
+	Sitio s = new Sitio(new SitioInputParametro("ventana", 'f', 's'));
 	assertEquals("la ventana", s.toString());
     }
     

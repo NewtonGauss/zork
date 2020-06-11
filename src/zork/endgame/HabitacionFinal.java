@@ -1,12 +1,9 @@
 package zork.endgame;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 
-import zork.Jugador;
-import zork.Salida;
-import zork.comandos.Comando;
-import zork.comandos.IrComando;
+import zork.*;
+import zork.comandos.*;
 
 public class HabitacionFinal extends FinalJuego {
 

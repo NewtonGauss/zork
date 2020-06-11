@@ -1,7 +1,6 @@
 package zork;
 
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
 public abstract class Personaje extends Enumerable {
 

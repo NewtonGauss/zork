@@ -1,7 +1,6 @@
 package zork.comandos;
 
-import zork.Jugador;
-import zork.Salida;
+import zork.*;
 
 public class IrComando implements Comando {
 

@@ -2,16 +2,11 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import zork.AccionItem;
-import zork.Item;
-import zork.ObjetivoItem;
-import zork.TipoItem;
+import zork.*;
 import zork.input.parametro.ItemInputParametro;
 
 class ItemTest {

@@ -1,10 +1,8 @@
 package zork;
 
-import java.util.Collection;
-import java.util.Hashtable;
+import java.util.*;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 
 public class Habitacion extends Enumerable {
 

@@ -1,11 +1,7 @@
 package zork.comandos;
 
 import utilitarias.Cadena;
-import zork.AccionItem;
-import zork.Item;
-import zork.Jugador;
-import zork.NPC;
-import zork.Personaje;
+import zork.*;
 
 public class DarComando implements Comando {
 

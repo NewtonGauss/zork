@@ -1,9 +1,7 @@
 
 package zork.comandos;
 
-import zork.AccionItem;
-import zork.Item;
-import zork.Jugador;
+import zork.*;
 
 public class SoltarComando implements Comando {
 

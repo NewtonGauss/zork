@@ -2,8 +2,7 @@ package zork.input.parametro;
 
 import java.util.List;
 
-import zork.input.NPCInput;
-import zork.input.TriggerInput;
+import zork.input.*;
 
 public class NPCInputParametro implements NPCInput {
     private String nombre, descripcion, charla;

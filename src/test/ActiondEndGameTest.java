@@ -2,21 +2,16 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import com.google.gson.JsonParser;
 
 import zork.*;
-
-import zork.endgame.AccionFinal;
-import zork.endgame.FinalJuego;
+import zork.endgame.*;
 import zork.input.TriggerInput;
-import zork.input.parametro.NPCInputParametro;
-import zork.input.parametro.TriggerInputParametro;
+import zork.input.parametro.*;
 
 class ActiondEndGameTest {
     String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"

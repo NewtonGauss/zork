@@ -1,7 +1,6 @@
 package zork.input.json;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 
 import zork.TipoTrigger;
 import zork.input.TriggerInput;

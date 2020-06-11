@@ -2,8 +2,7 @@ package zork;
 
 import java.util.Hashtable;
 
-import zork.input.NPCInput;
-import zork.input.TriggerInput;
+import zork.input.*;
 
 public class NPC extends Personaje {
     private String charla;

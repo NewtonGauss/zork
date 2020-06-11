@@ -2,9 +2,7 @@ package zork.input;
 
 import java.util.List;
 
-import zork.AccionItem;
-import zork.ObjetivoItem;
-import zork.TipoItem;
+import zork.*;
 
 public interface ItemInput {
     public String getNombre();

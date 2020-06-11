@@ -1,15 +1,10 @@
 package zork.input.json;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 
-import zork.AccionItem;
-import zork.ObjetivoItem;
-import zork.TipoItem;
+import zork.*;
 import zork.input.ItemInput;
 
 public class ItemInputJson implements ItemInput {

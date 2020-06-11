@@ -2,28 +2,20 @@ package test.comandos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import com.google.gson.JsonParser;
 
-import zork.AccionItem;
-import zork.Habitacion;
-import zork.Item;
-import zork.Jugador;
-import zork.Sitio;
+import zork.*;
 import zork.comandos.PonerComando;
-import zork.input.parametro.ItemInputParametro;
+import zork.input.parametro.*;
 
 public class PonerComandoTest {
     String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un muelle\" }";
-    String jsonSitio = "{\n" + " \"name\": \"suelo\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" }";
 
 
     String jsonVentana = "{\n" + 
@@ -52,13 +44,11 @@ public class PonerComandoTest {
 
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
 
 	PonerComando poner = new PonerComando();
 
 	jugador.ponerItem(espada);
 	jugador.setHabitacionActual(room);
-	room.addSitio(suelo);
 
 	assertEquals("la espada ahora se encuentra en el suelo",
 		poner.ejecutar(jugador, "espada:suelo"));
@@ -69,13 +59,11 @@ public class PonerComandoTest {
 
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
-	Sitio ventana = new Sitio(JsonParser.parseString(jsonVentana));
+	Sitio ventana = new Sitio(new SitioInputParametro("ventana", 'f', 's'));
 	PonerComando poner = new PonerComando();
 
 	jugador.ponerItem(espada);
 	jugador.setHabitacionActual(room);
-	room.addSitio(suelo);
 	room.addSitio(ventana);
 
 	assertEquals("No hay un cofre en el muelle. Puede dejar la espada en la ventana o en el suelo.",
@@ -87,11 +75,9 @@ public class PonerComandoTest {
 
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	Sitio sitio = new Sitio(JsonParser.parseString(jsonSitio));
 	PonerComando poner = new PonerComando();
 	jugador.setHabitacionActual(room);
 	jugador.ponerItem(espada);
-	room.addSitio(sitio);
 
 	assertEquals("No se encuentra barreta en el inventario",
 		poner.ejecutar(jugador, "barreta:suelo"));

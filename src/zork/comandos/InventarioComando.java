@@ -3,8 +3,7 @@ package zork.comandos;
 import java.util.Iterator;
 
 import utilitarias.Cadena;
-import zork.Item;
-import zork.Jugador;
+import zork.*;
 
 public class InventarioComando implements Comando {
 
