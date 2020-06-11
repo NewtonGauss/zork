@@ -10,12 +10,9 @@ import zork.Jugador;
 import zork.comandos.AyudaComando;
 
 class AyudaTest {
-
-    String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
-    
     @Test
     void testDeAyuda() {
-	Jugador j = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j = new Jugador("Guybrush Threepwood");
 	AyudaComando a=new AyudaComando();
 	assertFalse(a.ejecutar(j,"").equals("No se encontro el archivo de Ayuda"));
     }

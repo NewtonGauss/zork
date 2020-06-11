@@ -16,8 +16,6 @@ import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class AtacarComandoTest {
-
-    String jsonPlayer = "{\n" + " \"character\": \"Santi\"  }";
     String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n" + " \"description\": \"Estas en un muelle\" }";
     private Item espada, espejo, canicas;
@@ -57,7 +55,7 @@ class AtacarComandoTest {
 
     @Test
     void testAtacarConComando() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	AtacarConComando acc = new AtacarConComando();
 
@@ -69,7 +67,7 @@ class AtacarComandoTest {
     
     @Test
     void testNpcInvalido() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	AtacarConComando acc = new AtacarConComando();
 	
@@ -81,7 +79,7 @@ class AtacarComandoTest {
 
     @Test
     void testAtacarSinItems() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	AtacarConComando acc = new AtacarConComando();
 
@@ -92,7 +90,7 @@ class AtacarComandoTest {
 
     @Test
     void testAtacarSinArmasConItems() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	AtacarConComando acc = new AtacarConComando();
 
@@ -105,7 +103,7 @@ class AtacarComandoTest {
     
     @Test
     void testItemEquivocado() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	AtacarConComando acc = new AtacarConComando();
 

@@ -18,8 +18,6 @@ import zork.input.parametro.NPCInputParametro;
 import zork.input.parametro.TriggerInputParametro;
 
 class UsarItemComandoTest {
-    String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
-
     String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un muelle\" }";
@@ -90,7 +88,7 @@ class UsarItemComandoTest {
 
     @Test
     void testNpcConTrigger() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
@@ -109,7 +107,7 @@ class UsarItemComandoTest {
 
     @Test
     void testObjetoInvalido() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
@@ -123,7 +121,7 @@ class UsarItemComandoTest {
 
     @Test
     void testNpcSinTrigger() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
@@ -138,7 +136,7 @@ class UsarItemComandoTest {
 
     @Test
     void testNpcNoSeEncuentra() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
@@ -151,7 +149,7 @@ class UsarItemComandoTest {
 
     @Test
     void testObjetoNoAplicableEnNpc() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
@@ -168,7 +166,7 @@ class UsarItemComandoTest {
      */
     @Test
     void testVanillaSinTrigger() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
@@ -184,7 +182,7 @@ class UsarItemComandoTest {
      */
     @Test
     void testObjetoNoAplicableSobreJugador() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
@@ -199,7 +197,7 @@ class UsarItemComandoTest {
      */
     @Test
     void testObjetoNoAplicableSobreJugador2() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
@@ -211,7 +209,7 @@ class UsarItemComandoTest {
 
     @Test
     void testPocionSobreJugador() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
@@ -224,7 +222,7 @@ class UsarItemComandoTest {
 
     @Test
     void testVenenoSobreJugador() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
@@ -237,7 +235,7 @@ class UsarItemComandoTest {
 
     @Test
     void testObjetoNoInventario() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 

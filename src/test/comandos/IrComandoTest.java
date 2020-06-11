@@ -41,8 +41,7 @@ class IrComandoTest {
 		    + "          \"thing\": \"rociador con cerveza de raiz\",\n"
 		    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
 		    + "          \"after_trigger\": \"remove\"\n" + "        }\n"
-		    + "      ]\n" + "    }",
-	    jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
+		    + "      ]\n" + "    }";
 
     @Test
     void testSinObstaculo() {
@@ -52,7 +51,7 @@ class IrComandoTest {
 	Salida salidaBarrio = new Salida(barrio);
 	muelle.addSalida(salidaBarrio, "norte");
 
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	jugador.setHabitacionActual(muelle);
 
 	Comando ir = new IrComando();
@@ -71,7 +70,7 @@ class IrComandoTest {
 	NPC pirata = initNPC();
 	muelle.ponerObstaculo(pirata, "norte");
 
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	jugador.setHabitacionActual(muelle);
 
 	Comando ir = new IrComando();
@@ -103,7 +102,7 @@ class IrComandoTest {
     @Test
     void testSinSalida() {
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	jugador.setHabitacionActual(muelle);
 
 	Comando ir = new IrComando();

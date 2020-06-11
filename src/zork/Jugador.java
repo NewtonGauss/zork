@@ -1,16 +1,12 @@
 package zork;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
 public class Jugador extends Personaje {
 
     private int movimientos;
     private int puntuacion;
 
-    public Jugador(JsonElement json) {
-	JsonObject jobj = json.getAsJsonObject();
-	this.nombre = jobj.get("character").getAsString();
+    public Jugador(String nombre) {
+	this.nombre = nombre;
 	inventario = new Inventario();
 	movimientos = 0;
 	puntuacion = 0;

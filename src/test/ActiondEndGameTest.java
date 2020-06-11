@@ -19,9 +19,6 @@ import zork.input.parametro.NPCInputParametro;
 import zork.input.parametro.TriggerInputParametro;
 
 class ActiondEndGameTest {
-
-    String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
-
     String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un muelle\" }";
@@ -49,7 +46,7 @@ class ActiondEndGameTest {
 
     @Test
     void testActionEndGame() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Narrador narrador = new Narrador(jugador);
 	FinalJuego end = new AccionFinal(JsonParser.parseString(jsonActionEndGame));

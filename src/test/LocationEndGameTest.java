@@ -22,9 +22,6 @@ import zork.input.parametro.NPCInputParametro;
 import zork.input.parametro.TriggerInputParametro;
 
 class LocationEndGameTest {
-    
-    String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
-
     String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un muelle\" }";
@@ -43,7 +40,7 @@ class LocationEndGameTest {
     
     @Test
     void testLocationEndGame() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	NPC npc = initNPC();
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));

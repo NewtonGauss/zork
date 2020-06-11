@@ -20,9 +20,6 @@ import zork.input.parametro.NPCInputParametro;
 import zork.input.parametro.TriggerInputParametro;
 
 class HablarComandoTest {
-
-    String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
-
     String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un muelle\" }";    
@@ -48,7 +45,7 @@ class HablarComandoTest {
 
     @Test
     void testNpcPresente() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	HablarComando hc = new HablarComando();
 	
@@ -60,7 +57,7 @@ class HablarComandoTest {
     
     @Test
     void testNpcAusente() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	HablarComando hc = new HablarComando();
 	

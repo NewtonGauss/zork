@@ -14,9 +14,6 @@ import zork.comandos.InventarioComando;
 import zork.input.parametro.ItemInputParametro;
 
 class ComandoInventarioTest {
-
-    String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
-
     private Item barreta, espejo;
     
     @BeforeEach
@@ -33,7 +30,7 @@ class ComandoInventarioTest {
     
     @Test
     void testDosItems() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	jugador.ponerItem(espejo);
 	jugador.ponerItem(barreta);
 
@@ -43,7 +40,7 @@ class ComandoInventarioTest {
 
     @Test
     void testInventarioVacio() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 
 	Comando com = new InventarioComando();
 	assertEquals("No tienes objetos en tu inventario.", com.ejecutar(jugador, ""));

@@ -17,9 +17,6 @@ import zork.input.parametro.NPCInputParametro;
 import zork.input.parametro.TriggerInputParametro;
 
 class NarradorTest {
-
-    String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
-
     String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un muelle\" }";
@@ -89,7 +86,7 @@ class NarradorTest {
 
     @Test
     void testUsar() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Narrador narrador = new Narrador(jugador);
 
@@ -112,7 +109,7 @@ class NarradorTest {
 
     @Test
     void testIr() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Habitacion unlam = new Habitacion(JsonParser.parseString(jsonUnlam));
 	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
@@ -139,7 +136,7 @@ class NarradorTest {
 
     @Test
     void testPuntuacion() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Narrador narrador = new Narrador(jugador);
 
 	assertEquals("Tu puntuacion es: 0", narrador.ejecutar("puntuacion"));
@@ -155,7 +152,7 @@ class NarradorTest {
 
     @Test
     void testMovimientos() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Habitacion unlam = new Habitacion(JsonParser.parseString(jsonUnlam));
 	Salida surUnlam = new Salida(unlam);
@@ -183,7 +180,7 @@ class NarradorTest {
 
     @Test
     void testInventario() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Narrador narrador = new Narrador(jugador);
 
 	assertEquals("No tienes objetos en tu inventario.",
@@ -201,7 +198,7 @@ class NarradorTest {
 
     @Test
     void testDiagnostico() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Narrador narrador = new Narrador(jugador);
 
 	assertEquals(
@@ -218,7 +215,7 @@ class NarradorTest {
 
     @Test
     void testMirar() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Habitacion unlam = new Habitacion(JsonParser.parseString(jsonUnlam));
 	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
@@ -248,7 +245,7 @@ class NarradorTest {
 
     @Test
     void testAtacarCon() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion unlam = new Habitacion(JsonParser.parseString(jsonUnlam));
 	NPC yoshi = initYoshi();
 	Narrador narrador = new Narrador(jugador);
@@ -279,7 +276,7 @@ class NarradorTest {
 
     @Test
     void testDar() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Narrador narrador = new Narrador(jugador);
 
@@ -297,7 +294,7 @@ class NarradorTest {
     @Test
     void testAgarrar() {
 
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Narrador narrador = new Narrador(jugador);
 	Sitio suelo = new Sitio();
@@ -316,7 +313,7 @@ class NarradorTest {
 
     @Test
     void testPoner() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Narrador narrador = new Narrador(jugador);
 	Sitio suelo = new Sitio();
@@ -336,7 +333,7 @@ class NarradorTest {
     @Test
     void testSoltar() {
 
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Narrador narrador = new Narrador(jugador);
 	Sitio suelo = new Sitio();
@@ -353,7 +350,7 @@ class NarradorTest {
     @Test
     void testHablarConNPC() {
 
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Narrador narrador = new Narrador(jugador);
 	muelle.addNPC(pirata);
@@ -368,7 +365,7 @@ class NarradorTest {
     @Test
     void testHablarSinNPC() {
 
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Narrador narrador = new Narrador(jugador);
 	jugador.setHabitacionActual(muelle);
@@ -381,7 +378,7 @@ class NarradorTest {
 
     @Test
     void testComandoNoReconocido() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Narrador narrador = new Narrador(jugador);
 	jugador.setHabitacionActual(muelle);

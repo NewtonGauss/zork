@@ -19,8 +19,6 @@ import zork.comandos.PonerComando;
 import zork.input.parametro.ItemInputParametro;
 
 public class PonerComandoTest {
-
-    String jsonPlayer = "{\n" + " \"character\": \"Santi\"  }";
     String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un muelle\" }";
@@ -52,7 +50,7 @@ public class PonerComandoTest {
     @Test
     void testExitoso() {
 
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
 
@@ -69,7 +67,7 @@ public class PonerComandoTest {
     @Test
     void testSitioInexistente() {
 
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
 	Sitio ventana = new Sitio(JsonParser.parseString(jsonVentana));
@@ -87,7 +85,7 @@ public class PonerComandoTest {
     @Test
     void testObjetoInexistente() {
 
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio sitio = new Sitio(JsonParser.parseString(jsonSitio));
 	PonerComando poner = new PonerComando();

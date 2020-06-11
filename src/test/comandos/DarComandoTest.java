@@ -16,7 +16,6 @@ import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class DarComandoTest {
-    String jsonPlayer = "{\n" + " \"character\": \"Santi\"  }";
     String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un muelle\" }";
@@ -52,7 +51,7 @@ class DarComandoTest {
     @Test
     void testExitoDarItem() {
 
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC pirata = initNPC();
 	DarComando dcc = new DarComando();
@@ -66,7 +65,7 @@ class DarComandoTest {
 
     @Test
     void testNoTenesItem() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = initNPC();
 	DarComando dcc = new DarComando();
@@ -78,7 +77,7 @@ class DarComandoTest {
 
     @Test
     void testNoEstaNpcEnRoom() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	DarComando dcc = new DarComando();
 
@@ -90,7 +89,7 @@ class DarComandoTest {
 
     @Test
     void testNoExisteNpc() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	DarComando dcc = new DarComando();
 	j1.ponerItem(itemDropeable);

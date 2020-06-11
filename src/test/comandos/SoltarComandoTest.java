@@ -26,8 +26,7 @@ class SoltarComandoTest {
 	    + "        }",
 	    jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 		    + " \"number\": \"singular\" ,\n"
-		    + " \"description\": \"Estas en un muelle\" }",
-	    jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
+		    + " \"description\": \"Estas en un muelle\" }";
     
     private Item espejo, barreta, rociador;
     
@@ -49,7 +48,7 @@ class SoltarComandoTest {
     
     @Test
     void testExito() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
 	SoltarComando sc = new SoltarComando();
@@ -82,7 +81,7 @@ class SoltarComandoTest {
     
     @Test
     void testSinObjeto() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSitio));
 	SoltarComando sc = new SoltarComando();
@@ -114,7 +113,7 @@ class SoltarComandoTest {
 
     @Test
     void testSitioPorDefecto() {
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
 	SoltarComando sc = new SoltarComando();
 

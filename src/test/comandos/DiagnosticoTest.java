@@ -11,11 +11,9 @@ import zork.comandos.Comando;
 import zork.comandos.DiagnosticoComando;
 
 class DiagnosticoTest {
-    String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
-
     @Test
     void testDiagosticoEnPelea() {
-	Jugador player = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador player = new Jugador("Guybrush Threepwood");
 	Comando com = new DiagnosticoComando();
 	assertEquals("Tu estado de salud es perfecto (100), "
 		+ "solo te podria matar una seria herida", com.ejecutar(player, ""));

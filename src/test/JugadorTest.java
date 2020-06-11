@@ -18,7 +18,6 @@ import zork.input.parametro.TriggerInputParametro;
 
 class JugadorTest {
 
-    String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
 
     String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
@@ -37,13 +36,13 @@ class JugadorTest {
 
     @Test
     void testNombreNPC() {
-	Jugador player = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador player = new Jugador("Guybrush Threepwood");
 	assertEquals("Guybrush Threepwood", player.getNombre());
     }
 
     @Test
     void testMovimientosPlayer() {
-	Jugador player = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador player = new Jugador("Guybrush Threepwood");
 	assertEquals(0, player.getCantMovimientos());
 	player.sumarMovimiento();
 	assertEquals(1, player.getCantMovimientos());
@@ -51,13 +50,13 @@ class JugadorTest {
 
     @Test
     void testGetScore() {
-	Jugador player = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador player = new Jugador("Guybrush Threepwood");
 	assertEquals(0, player.getPuntuacion());
     }
 
     @Test
     void testAgarrarYSoltarItems() {
-	Personaje player = new Jugador(JsonParser.parseString(jsonPlayer));
+	Personaje player = new Jugador("Guybrush Threepwood");
 	assertEquals(true, player.ponerItem(barreta));
 	assertEquals(barreta, player.getItem(barreta.getNombre()));
 	assertTrue(player.sacarItem(barreta.getNombre()));
@@ -67,7 +66,7 @@ class JugadorTest {
     @Test
     void testSet() {
 	Habitacion r = new Habitacion(JsonParser.parseString(jsonRoom));
-	Personaje jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Personaje jugador = new Jugador("Guybrush Threepwood");
 	jugador.setHabitacionActual(r);
 	assertEquals(r, jugador.getHabitacionActual());
     }
@@ -84,7 +83,7 @@ class JugadorTest {
 	assertEquals(false, salida.isEnemigoDerrotado());
 	npc.matar();
 	assertEquals(true, salida.isEnemigoDerrotado());
-	Jugador jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador jugador = new Jugador("Guybrush Threepwood");
 	jugador.setHabitacionActual(room1);
 	assertTrue(jugador.mover("norte"));
 	assertEquals(room2, jugador.getHabitacionActual());
@@ -110,7 +109,7 @@ class JugadorTest {
 
     @Test
     void testSalud() {
-	Personaje jugador = new Jugador(JsonParser.parseString(jsonPlayer));
+	Personaje jugador = new Jugador("Guybrush Threepwood");
 	assertEquals(100, jugador.getSalud());
 	jugador.restarSalud(10);
 	assertEquals(90, jugador.getSalud());

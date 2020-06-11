@@ -24,9 +24,6 @@ import zork.input.parametro.NPCInputParametro;
 import zork.input.parametro.TriggerInputParametro;
 
 class MirarComandoTest {
-
-    String jsonPlayer = "{\n" + " \"character\": \"Guybrush Threepwood\"  }";
-
     String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
 	    + " \"number\": \"singular\" ,\n"
 	    + " \"description\": \"Estas en un muelle\" }",
@@ -136,7 +133,7 @@ class MirarComandoTest {
 
     @Test
     void testExitosoHabitacion() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
 	muelle.addSitio(suelo);
@@ -149,7 +146,7 @@ class MirarComandoTest {
 
     @Test
     void testExitosoNPC() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	MirarComando c1 = new MirarComando();
 
@@ -161,7 +158,7 @@ class MirarComandoTest {
 
     @Test
     void testObjetivoInvalido() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	MirarComando c1 = new MirarComando();
 
@@ -173,7 +170,7 @@ class MirarComandoTest {
     @Test
     void testEnumeracionItems() {
 
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
@@ -192,7 +189,7 @@ class MirarComandoTest {
     @Test
     void testEnumeracionUnSoloItem() {
 
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 
 	Sitio suelo = new Sitio(JsonParser.parseString(jsonSuelo));
@@ -207,7 +204,7 @@ class MirarComandoTest {
 
     @Test
     void testHabitacionConNPC() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	MirarComando c1 = new MirarComando();
 
@@ -218,7 +215,7 @@ class MirarComandoTest {
 
     @Test
     void testHabitacionConDosNPC() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	MirarComando c1 = new MirarComando();
 
@@ -231,7 +228,7 @@ class MirarComandoTest {
 
     @Test
     void testUnaSalida() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	j1.setHabitacionActual(muelle);
 	MirarComando c1 = new MirarComando();
@@ -245,7 +242,7 @@ class MirarComandoTest {
 
     @Test
     void testDosSalida() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	j1.setHabitacionActual(muelle);
 	MirarComando c1 = new MirarComando();
@@ -263,7 +260,7 @@ class MirarComandoTest {
 
     @Test
     void testCompleto() {
-	Jugador j1 = new Jugador(JsonParser.parseString(jsonPlayer));
+	Jugador j1 = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	j1.setHabitacionActual(muelle);
 	MirarComando c1 = new MirarComando();
