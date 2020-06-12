@@ -2,7 +2,7 @@ package zork;
 
 import java.util.*;
 
-import com.google.gson.*;
+import zork.input.HabitacionInput;
 
 public class Habitacion extends Enumerable {
 
@@ -11,12 +11,11 @@ public class Habitacion extends Enumerable {
     private Hashtable<String, Salida> salidas;
     private Hashtable<String, NPC> npcs;
 
-    public Habitacion(JsonElement json) {
-	JsonObject jobj = json.getAsJsonObject();
-	nombre = jobj.get("name").getAsString();
-	gender = jobj.get("gender").getAsString().equals("male") ? 'm' : 'f';
-	number = jobj.get("number").getAsString().equals("singular") ? 's' : 'p';
-	descripcion = jobj.get("description").getAsString();
+    public Habitacion(HabitacionInput input) {
+	nombre = input.getNombre();
+	gender = input.getGender();
+	number = input.getNumber();
+	descripcion = input.getDescripcion();
 	sitios = new Hashtable<String, Sitio>();
 	salidas = new Hashtable<String, Salida>();
 	npcs = new Hashtable<String, NPC>();

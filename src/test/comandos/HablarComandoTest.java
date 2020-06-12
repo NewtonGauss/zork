@@ -6,18 +6,14 @@ import java.util.*;
 
 import org.junit.jupiter.api.*;
 
-import com.google.gson.JsonParser;
-
 import zork.*;
 import zork.comandos.HablarComando;
 import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class HablarComandoTest {
-    String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un muelle\" }";    
     private NPC pirata;
+    private Habitacion muelle;
 
     @BeforeEach
     void initNPC() {
@@ -36,11 +32,16 @@ class HablarComandoTest {
 	input.setListaTriggers(new ArrayList<TriggerInput>(Arrays.asList(trigger)));
 	pirata = new NPC(input);
     }
+    
+    @BeforeEach
+    void initHabitacion() {
+	muelle = new Habitacion(new HabitacionInputParametro("muelle",
+		"Estas en un muelle"));
+    }
 
     @Test
     void testNpcPresente() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	HablarComando hc = new HablarComando();
 	
 	muelle.addNPC(pirata);
@@ -52,7 +53,6 @@ class HablarComandoTest {
     @Test
     void testNpcAusente() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	HablarComando hc = new HablarComando();
 	
 	muelle.addNPC(pirata);

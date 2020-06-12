@@ -5,11 +5,8 @@ import java.util.*;
 import zork.*;
 import zork.input.ItemInput;
 
-public class ItemInputParametro implements ItemInput {
-    private String nombre;
+public class ItemInputParametro extends EnumerableInput implements ItemInput {
     private Double peso;
-    private char gender;
-    private char number;
     private int puntos;
     private List<AccionItem> accionesValidas = new ArrayList<AccionItem>();
     private List<ObjetivoItem> objetivosValidos = new ArrayList<ObjetivoItem>();
@@ -17,25 +14,13 @@ public class ItemInputParametro implements ItemInput {
     private float saludSumar;
 
     public ItemInputParametro(String nombre) {
-	this.nombre = nombre;
+	super(nombre);
 	peso = 10d;
 	puntos = 100;
     }
 
-    public void setNombre(String nombre) {
-	this.nombre = nombre;
-    }
-
     public void setPeso(Double peso) {
 	this.peso = peso;
-    }
-
-    public void setGender(char gender) {
-	this.gender = gender;
-    }
-
-    public void setNumber(char number) {
-	this.number = number;
     }
 
     public void setPuntos(int puntos) {

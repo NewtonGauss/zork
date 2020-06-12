@@ -6,33 +6,21 @@ import java.util.*;
 
 import org.junit.jupiter.api.*;
 
-import com.google.gson.JsonParser;
-
 import zork.*;
 import zork.comandos.MirarComando;
 import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class MirarComandoTest {
-    String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un muelle\" }",
-	    jsonBarrio = "{\n" + " \"name\": \"barrio\" ,\n" + " \"gender\": \"male\" ,\n"
-		    + " \"number\": \"singular\" ,\n"
-		    + " \"description\": \"Estas en un barrio\" }",
-	    jsonBahias = "{\n" + " \"name\": \"bahias\" ,\n"
-		    + " \"gender\": \"female\" ,\n" + " \"number\": \"plural\" ,\n"
-		    + " \"description\": \"Estas en un barrio\" }",
-	    jsonTaberna = "{\n" + "      \"name\": \"taberna\",\n"
-		    + "      \"gender\": \"female\",\n"
-		    + "      \"number\": \"singular\",\n"
-		    + "      \"description\": \"Estás en una sucia taberna\",\n"
-		    + "      \"connections\": [\n" + "        {\n"
-		    + "          \"direction\": \"north\",\n"
-		    + "          \"location\": \"muelle\"\n" + "        }\n" + "      ]\n"
-		    + "    }";
     private Item espejo, rociador, barreta;
     private NPC pirata, abeja, mamuts;
+    private Habitacion muelle;
+    
+    @BeforeEach
+    void initHabitacion() {
+	muelle = new Habitacion(new HabitacionInputParametro("muelle",
+		"Estas en un muelle"));
+    }
     
     @BeforeEach
     void initNPC() {
@@ -77,7 +65,6 @@ class MirarComandoTest {
     @Test
     void testExitosoHabitacion() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Sitio suelo = new Sitio();
 	muelle.addSitio(suelo);
 	j1.setHabitacionActual(muelle);
@@ -90,11 +77,10 @@ class MirarComandoTest {
     @Test
     void testExitosoNPC() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	MirarComando c1 = new MirarComando();
 
-	r1.addNPC(pirata);
-	j1.setHabitacionActual(r1);
+	muelle.addNPC(pirata);
+	j1.setHabitacionActual(muelle);
 	assertEquals("- '¡No puedes pasar!' El pirata fantasma no te dejará pasar",
 		c1.ejecutar(j1, "pirata fantasma"));
     }
@@ -102,19 +88,16 @@ class MirarComandoTest {
     @Test
     void testObjetivoInvalido() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	MirarComando c1 = new MirarComando();
 
-	r1.addNPC(pirata);
-	j1.setHabitacionActual(r1);
+	muelle.addNPC(pirata);
+	j1.setHabitacionActual(muelle);
 	assertEquals("espejo no existe", c1.ejecutar(j1, "espejo"));
     }
 
     @Test
     void testEnumeracionItems() {
-
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 
 	Sitio suelo = new Sitio();
 	suelo.addItem(espejo);
@@ -131,9 +114,7 @@ class MirarComandoTest {
 
     @Test
     void testEnumeracionUnSoloItem() {
-
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 
 	Sitio suelo = new Sitio();
 	suelo.addItem(espejo);
@@ -148,23 +129,21 @@ class MirarComandoTest {
     @Test
     void testHabitacionConNPC() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	MirarComando c1 = new MirarComando();
 
-	r1.addNPC(pirata);
-	j1.setHabitacionActual(r1);
+	muelle.addNPC(pirata);
+	j1.setHabitacionActual(muelle);
 	assertEquals("Estas en un muelle. Hay un pirata fantasma.", c1.ejecutar(j1, ""));
     }
 
     @Test
     void testHabitacionConDosNPC() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion r1 = new Habitacion(JsonParser.parseString(jsonMuelle));
 	MirarComando c1 = new MirarComando();
 
-	r1.addNPC(pirata);
-	r1.addNPC(abeja);
-	j1.setHabitacionActual(r1);
+	muelle.addNPC(pirata);
+	muelle.addNPC(abeja);
+	j1.setHabitacionActual(muelle);
 	assertEquals("Estas en un muelle. Hay una abeja fantasma y un pirata fantasma.",
 		c1.ejecutar(j1, ""));
     }
@@ -172,11 +151,10 @@ class MirarComandoTest {
     @Test
     void testUnaSalida() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	j1.setHabitacionActual(muelle);
 	MirarComando c1 = new MirarComando();
 
-	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
+	Habitacion barrio = new Habitacion(new HabitacionInputParametro("barrio"));
 	Salida salidaBarrio = new Salida(barrio);
 	muelle.addSalida(salidaBarrio, "norte");
 
@@ -186,14 +164,13 @@ class MirarComandoTest {
     @Test
     void testDosSalida() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	j1.setHabitacionActual(muelle);
 	MirarComando c1 = new MirarComando();
 
-	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
+	Habitacion barrio = new Habitacion(new HabitacionInputParametro("barrio"));
 	Salida salidaBarrio = new Salida(barrio);
 	muelle.addSalida(salidaBarrio, "arriba");
-	Habitacion bahias = new Habitacion(JsonParser.parseString(jsonBahias));
+	Habitacion bahias = new Habitacion(new HabitacionInputParametro("bahias"));
 	Salida salidaBahias = new Salida(bahias);
 	muelle.addSalida(salidaBahias, "abajo");
 
@@ -204,7 +181,6 @@ class MirarComandoTest {
     @Test
     void testCompleto() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	j1.setHabitacionActual(muelle);
 	MirarComando c1 = new MirarComando();
 
@@ -221,13 +197,13 @@ class MirarComandoTest {
 	muelle.addNPC(mamuts);
 
 	/* Salidas */
-	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
+	Habitacion barrio = new Habitacion(new HabitacionInputParametro("barrio"));
 	Salida salidaBarrio = new Salida(barrio);
 	muelle.addSalida(salidaBarrio, "arriba");
-	Habitacion bahias = new Habitacion(JsonParser.parseString(jsonBahias));
+	Habitacion bahias = new Habitacion(new HabitacionInputParametro("bahias"));
 	Salida salidaBahias = new Salida(bahias);
 	muelle.addSalida(salidaBahias, "abajo");
-	Habitacion taberna = new Habitacion(JsonParser.parseString(jsonTaberna));
+	Habitacion taberna = new Habitacion(new HabitacionInputParametro("taberna"));
 	Salida salidaTaberna = new Salida(taberna);
 	muelle.addSalida(salidaTaberna, "sur");
 

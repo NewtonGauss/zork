@@ -4,15 +4,14 @@ import java.util.List;
 
 import zork.input.*;
 
-public class NPCInputParametro implements NPCInput {
-    private String nombre, descripcion, charla;
-    private char gender, number;
+public class NPCInputParametro extends EnumerableInput implements NPCInput {
+    private String descripcion, charla;
     private float salud;
     private boolean enemigo;
     private List<TriggerInput> listaTriggers;
     
     public NPCInputParametro(String nombre) {
-	this.nombre = nombre;
+	super(nombre);
 	salud = 100;
     }
     

@@ -4,55 +4,51 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.*;
 
-import org.junit.jupiter.api.Test;
-
-import com.google.gson.JsonParser;
+import org.junit.jupiter.api.*;
 
 import zork.*;
 import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class HabitacionTest {
+    private Habitacion muelle, barrio;
 
-    String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un muelle\" }";
-
-    String jsonRoom2 = "{\n" + " \"name\": \"barrio\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un barrio\" }";
+    @BeforeEach
+    void initHabitaciones() {
+	HabitacionInputParametro hab = new HabitacionInputParametro("muelle",
+		"Estas en un muelle");
+	muelle = new Habitacion(hab);
+	hab.setNombre("barrio");
+	hab.setDescripcion("Estas en un barrio");
+	barrio = new Habitacion(hab);
+    }
 
     @Test // Pruebo la creacion de la habitacion
     void testDescripcion() {
-	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	assertEquals("el muelle", room.toString());
+	assertEquals("el muelle", muelle.toString());
     }
 
     @Test // Pruebo agregando Salida...
     void testSalidas() {
-	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	Habitacion room2 = new Habitacion(JsonParser.parseString(jsonRoom2));
-	Salida salida = new Salida(room2);
-	room.addSalida(salida, "sur");
-	assertEquals(salida.getNombre(), room.getSalida("sur").getNombre());
+	Salida salida = new Salida(barrio);
+	muelle.addSalida(salida, "sur");
+	assertEquals(salida.getNombre(), muelle.getSalida("sur").getNombre());
     }
 
     @Test // Pruebo agregando Sitio...
     void testSitios() {
-	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio sitio = new Sitio(new SitioInputParametro("ventana", 'f', 's'));
-	room.addSitio(sitio);
-	assertEquals("ventana", room.getSitio("ventana").getNombre());
+	muelle.addSitio(sitio);
+	assertEquals("ventana", muelle.getSitio("ventana").getNombre());
     }
 
     @Test // Pruebo obtener el item de un determinado sitio
     void testItemsENSitios() {
-	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio sitio = new Sitio();
 	Item barreta = inicializarItems();
 	sitio.addItem(barreta);
-	room.addSitio(sitio);
-	assertEquals(barreta, room.getSitio("suelo").getItem("barreta"));
+	muelle.addSitio(sitio);
+	assertEquals(barreta, muelle.getSitio("suelo").getItem("barreta"));
     }
 
     private Item inicializarItems() {
@@ -66,10 +62,9 @@ class HabitacionTest {
     @Test
     void testNPCs() {
 	NPC npc = initNPC();
-	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
-	room.addNPC(npc);
-	assertEquals(npc, room.getNPC(npc.getNombre()));
-	assertEquals(null, room.getNPC("Newton"));
+	muelle.addNPC(npc);
+	assertEquals(npc, muelle.getNPC(npc.getNombre()));
+	assertEquals(null, muelle.getNPC("Newton"));
     }
 
     private NPC initNPC() {

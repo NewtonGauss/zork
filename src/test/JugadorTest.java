@@ -6,28 +6,28 @@ import java.util.*;
 
 import org.junit.jupiter.api.*;
 
-import com.google.gson.JsonParser;
-
 import zork.*;
 import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class JugadorTest {
-
-
-    String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un muelle\" }";
-    String jsonRoom2 = "{\n" + " \"name\": \"barrio\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un barrio\" }";
-
     private Item barreta;
+    private Habitacion muelle, barrio;
     
     @BeforeEach
     void inicializarItems() {
 	ItemInputParametro constructorItem = new ItemInputParametro("barreta");
 	barreta = new Item(constructorItem);
+    }
+    
+    @BeforeEach
+    void initHabitaciones() {
+	HabitacionInputParametro hab = new HabitacionInputParametro("muelle",
+		"Estas en un muelle");
+	muelle = new Habitacion(hab);
+	hab.setNombre("barrio");
+	hab.setDescripcion("Estas en un barrio");
+	barrio = new Habitacion(hab);
     }
 
     @Test
@@ -61,28 +61,25 @@ class JugadorTest {
 
     @Test
     void testSet() {
-	Habitacion r = new Habitacion(JsonParser.parseString(jsonRoom));
 	Personaje jugador = new Jugador("Guybrush Threepwood");
-	jugador.setHabitacionActual(r);
-	assertEquals(r, jugador.getHabitacionActual());
+	jugador.setHabitacionActual(muelle);
+	assertEquals(muelle, jugador.getHabitacionActual());
     }
 
     @Test
     void testMover() {
-	Habitacion room1 = new Habitacion(JsonParser.parseString(jsonRoom));
-	Habitacion room2 = new Habitacion(JsonParser.parseString(jsonRoom2));
 	NPC npc = initNPC();
-	Salida salida = new Salida(room2);
+	Salida salida = new Salida(barrio);
 	npc.setEnemigo(true);
 	salida.addNPC(npc);
-	room1.addSalida(salida, "norte");
+	muelle.addSalida(salida, "norte");
 	assertEquals(false, salida.isEnemigoDerrotado());
 	npc.matar();
 	assertEquals(true, salida.isEnemigoDerrotado());
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	jugador.setHabitacionActual(room1);
+	jugador.setHabitacionActual(muelle);
 	assertTrue(jugador.mover("norte"));
-	assertEquals(room2, jugador.getHabitacionActual());
+	assertEquals(barrio, jugador.getHabitacionActual());
     }
     
     private NPC initNPC() {

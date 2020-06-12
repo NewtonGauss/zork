@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import com.google.gson.JsonParser;
 
@@ -14,28 +14,28 @@ import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class LocationEndGameTest {
-    String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un muelle\" }";
-
-    String jsonBarrio = "{\n" + " \"name\": \"barrio\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un barrio\" }";
-    
     String jsonLocationEndGame = "{\n" + 
 	    	"      \"condition\": \"location\",\n" + 
 	    	"      \"action\": \"hablar\",\n" + 
 	    	"      \"thing\": \"barrio\",\n" + 
 	    	"      \"description\": \"Has terminado el juego.\"" + 
 	    	"    }";
+    private Habitacion muelle, barrio;
 
+    @BeforeEach
+    void initHabitaciones() {
+	HabitacionInputParametro hab = new HabitacionInputParametro("muelle",
+		"Estas en un muelle");
+	muelle = new Habitacion(hab);
+	hab.setNombre("barrio");
+	hab.setDescripcion("Estas en un barrio");
+	barrio = new Habitacion(hab);
+    }
     
     @Test
     void testLocationEndGame() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	NPC npc = initNPC();
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
 	Salida salida = new Salida(barrio);
 	Narrador narrador = new Narrador(jugador);
 	FinalJuego end = new HabitacionFinal(JsonParser.parseString(jsonLocationEndGame));

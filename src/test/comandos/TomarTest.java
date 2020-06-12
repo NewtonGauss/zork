@@ -6,25 +6,13 @@ import java.util.*;
 
 import org.junit.jupiter.api.*;
 
-import com.google.gson.JsonParser;
-
 import zork.*;
 import zork.comandos.TomarComando;
 import zork.input.parametro.*;
 
 class TomarTest {
-    String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un muelle\" }";
-
-    String jsonSitio1 = "{\n" + " \"name\": \"suelo\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" }";
-    String jsonSitio2 = "{\n" + " \"name\": \"pasarela\" ,\n"
-	    + " \"gender\": \"female\" ,\n" + " \"number\": \"singular\" }";
-    String jsonSitio3 = "{\n" + " \"name\": \"mesa\" ,\n" + " \"gender\": \"female\" ,\n"
-	    + " \"number\": \"singular\" }";
-
     private Item rociador, espejo;
+    private Habitacion muelle;
     
     @BeforeEach
     void inicializarItems() {
@@ -38,20 +26,25 @@ class TomarTest {
 	constructorItem.setPeso(95d);
 	rociador = new Item(constructorItem);
     }
+    
+    @BeforeEach
+    void initHabitacion() {
+	muelle = new Habitacion(new HabitacionInputParametro("muelle",
+		"Estas en un muelle"));
+    }
 
     @Test
     void testTomarEspejo() {
 	Jugador j = new Jugador("Guybrush Threepwood");
-	Habitacion r = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio s1 = new Sitio();
 	Sitio s2 = new Sitio(new SitioInputParametro("pasarela"));
 	Sitio s3 = new Sitio(new SitioInputParametro("mesa"));
-	r.addSitio(s1);
-	r.addSitio(s2);
-	r.addSitio(s3);
+	muelle.addSitio(s1);
+	muelle.addSitio(s2);
+	muelle.addSitio(s3);
 	s1.addItem(rociador);
 	s3.addItem(espejo);
-	j.setHabitacionActual(r);
+	j.setHabitacionActual(muelle);
 	TomarComando c = new TomarComando();
 	assertEquals("Tomaste el espejo.", c.ejecutar(j, "espejo"));
 	assertEquals("No hay ningun espejo por aqui.", c.ejecutar(j, "espejo"));
@@ -61,8 +54,7 @@ class TomarTest {
     @Test
     void testNoHayItem() {
 	Jugador j = new Jugador("Guybrush Threepwood");
-	Habitacion r = new Habitacion(JsonParser.parseString(jsonRoom));
-	j.setHabitacionActual(r);
+	j.setHabitacionActual(muelle);
 	TomarComando c = new TomarComando();
 	assertEquals("No hay ningun neumatico por aqui.", c.ejecutar(j, "neumatico"));
     }
@@ -70,12 +62,11 @@ class TomarTest {
     @Test
     void testNoHayEspacio() {
 	Jugador j = new Jugador("Guybrush Threepwood");
-	Habitacion r = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio s1 = new Sitio();
-	r.addSitio(s1);
+	muelle.addSitio(s1);
 	s1.addItem(rociador);
 	s1.addItem(espejo);
-	j.setHabitacionActual(r);
+	j.setHabitacionActual(muelle);
 	j.ponerItem(espejo);
 	TomarComando c = new TomarComando();
 	assertEquals("No tienes mas espacio en tu inventario!",

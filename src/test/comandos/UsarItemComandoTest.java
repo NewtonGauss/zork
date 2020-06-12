@@ -6,20 +6,15 @@ import java.util.*;
 
 import org.junit.jupiter.api.*;
 
-import com.google.gson.JsonParser;
-
 import zork.*;
 import zork.comandos.UsarItemComando;
 import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class UsarItemComandoTest {
-    String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un muelle\" }";
-
     private Item barreta, rociador, burbuja, calculadora, veneno;
     private NPC pirata, abeja;
+    private Habitacion muelle;
 
     @BeforeEach
     void initNPC() {
@@ -42,6 +37,12 @@ class UsarItemComandoTest {
 	input.setGender('f');
 	input.setNumber('s');
 	abeja = new NPC(input);
+    }
+
+    @BeforeEach
+    void initHabitacion() {
+	muelle = new Habitacion(
+		new HabitacionInputParametro("muelle", "Estas en un muelle"));
     }
 
     @BeforeEach
@@ -85,7 +86,6 @@ class UsarItemComandoTest {
     @Test
     void testNpcConTrigger() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(pirata);
@@ -104,7 +104,6 @@ class UsarItemComandoTest {
     @Test
     void testObjetoInvalido() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -118,7 +117,6 @@ class UsarItemComandoTest {
     @Test
     void testNpcSinTrigger() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -133,7 +131,6 @@ class UsarItemComandoTest {
     @Test
     void testNpcNoSeEncuentra() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -146,7 +143,6 @@ class UsarItemComandoTest {
     @Test
     void testObjetoNoAplicableEnNpc() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -163,7 +159,6 @@ class UsarItemComandoTest {
     @Test
     void testVanillaSinTrigger() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -179,7 +174,6 @@ class UsarItemComandoTest {
     @Test
     void testObjetoNoAplicableSobreJugador() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -194,7 +188,6 @@ class UsarItemComandoTest {
     @Test
     void testObjetoNoAplicableSobreJugador2() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -206,7 +199,6 @@ class UsarItemComandoTest {
     @Test
     void testPocionSobreJugador() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -219,7 +211,6 @@ class UsarItemComandoTest {
     @Test
     void testVenenoSobreJugador() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);
@@ -232,7 +223,6 @@ class UsarItemComandoTest {
     @Test
     void testObjetoNoInventario() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	UsarItemComando usar = new UsarItemComando();
 
 	muelle.addNPC(abeja);

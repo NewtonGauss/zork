@@ -6,18 +6,14 @@ import java.util.*;
 
 import org.junit.jupiter.api.*;
 
-import com.google.gson.JsonParser;
-
 import zork.*;
 import zork.comandos.DarComando;
 import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class DarComandoTest {
-    String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un muelle\" }";
     private Item itemDropeable;
+    private Habitacion muelle;
 
     @BeforeEach
     void inicializarItem() {
@@ -27,6 +23,12 @@ class DarComandoTest {
 	constructorItem.setAccionesValidas(
 		new ArrayList<AccionItem>(Arrays.asList(AccionItem.DROP)));
 	itemDropeable = new Item(constructorItem);
+    }
+    
+    @BeforeEach
+    void initHabitacion() {
+	muelle = new Habitacion(new HabitacionInputParametro("muelle",
+		"Estas en un muelle"));
     }
     
     private NPC initNPC() {
@@ -50,13 +52,12 @@ class DarComandoTest {
     void testExitoDarItem() {
 
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC pirata = initNPC();
 	DarComando dcc = new DarComando();
 
 	j1.ponerItem(itemDropeable);
-	room.addNPC(pirata);
-	j1.setHabitacionActual(room);
+	muelle.addNPC(pirata);
+	j1.setHabitacionActual(muelle);
 	assertEquals("Le diste la espada al pirata fantasma.",
 		dcc.ejecutar(j1, itemDropeable.getNombre() + ":" + pirata.getNombre()));
     }
@@ -64,11 +65,10 @@ class DarComandoTest {
     @Test
     void testNoTenesItem() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	NPC npc = initNPC();
 	DarComando dcc = new DarComando();
-	room.addNPC(npc);
-	j1.setHabitacionActual(room);
+	muelle.addNPC(npc);
+	j1.setHabitacionActual(muelle);
 	assertEquals("No tienes espada en tu inventario.",
 		dcc.ejecutar(j1, "espada:pirata fantasma"));
     }
@@ -76,11 +76,10 @@ class DarComandoTest {
     @Test
     void testNoEstaNpcEnRoom() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	DarComando dcc = new DarComando();
 
 	j1.ponerItem(itemDropeable);
-	j1.setHabitacionActual(room);
+	j1.setHabitacionActual(muelle);
 	assertEquals("Maxi Hiena no se encuentra en el muelle.",
 		dcc.ejecutar(j1, "espada:Maxi Hiena"));
     }
@@ -88,10 +87,9 @@ class DarComandoTest {
     @Test
     void testNoExisteNpc() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
-	Habitacion room = new Habitacion(JsonParser.parseString(jsonRoom));
 	DarComando dcc = new DarComando();
 	j1.ponerItem(itemDropeable);
-	j1.setHabitacionActual(room);
+	j1.setHabitacionActual(muelle);
 	assertEquals("Topo Malvado no se encuentra en el muelle.",
 		dcc.ejecutar(j1, "espada:Topo Malvado"));
     }

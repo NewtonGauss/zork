@@ -2,10 +2,7 @@ package zork.input.parametro;
 
 import zork.input.SitioInput;
 
-public class SitioInputParametro implements SitioInput {
-    private String nombre;
-    private char gender, number;
-
+public class SitioInputParametro extends EnumerableInput implements SitioInput {
     public SitioInputParametro() {
 	nombre = "suelo";
 	gender = 'm';
@@ -13,9 +10,7 @@ public class SitioInputParametro implements SitioInput {
     }
     
     public SitioInputParametro(String nombre) {
-	this.nombre = nombre;
-	this.gender = nombre.endsWith("a") || nombre.endsWith("as") ? 'f' : 'm';
-	this.number = nombre.endsWith("s") ? 'p' : 's';
+	super(nombre);
     }
 
     public SitioInputParametro(String nombre, char gender, char number) {

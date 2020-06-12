@@ -6,19 +6,13 @@ import java.util.*;
 
 import org.junit.jupiter.api.*;
 
-import com.google.gson.JsonParser;
-
 import zork.*;
 import zork.comandos.SoltarComando;
-import zork.input.parametro.ItemInputParametro;
+import zork.input.parametro.*;
 
 class SoltarComandoTest {
-
-    private String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
-		    + " \"number\": \"singular\" ,\n"
-		    + " \"description\": \"Estas en un muelle\" }";
-    
     private Item espejo, barreta, rociador;
+    private Habitacion muelle;
     
     @BeforeEach
     void inicializarItem() {
@@ -36,10 +30,15 @@ class SoltarComandoTest {
 	barreta = new Item(constructorItem);
     }
     
+    @BeforeEach
+    void initHabitacion() {
+	muelle = new Habitacion(new HabitacionInputParametro("muelle",
+		"Estas en un muelle"));
+    }
+    
     @Test
     void testExito() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio();
 	SoltarComando sc = new SoltarComando();
 
@@ -72,7 +71,6 @@ class SoltarComandoTest {
     @Test
     void testSinObjeto() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
 	Sitio suelo = new Sitio();
 	SoltarComando sc = new SoltarComando();
 	
@@ -104,7 +102,6 @@ class SoltarComandoTest {
     @Test
     void testSitioPorDefecto() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonRoom));
 	SoltarComando sc = new SoltarComando();
 
 	jugador.ponerItem(barreta);

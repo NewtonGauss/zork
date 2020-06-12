@@ -6,22 +6,13 @@ import java.util.*;
 
 import org.junit.jupiter.api.*;
 
-import com.google.gson.JsonParser;
-
 import zork.*;
 import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class SalidaTest {
-
-    String jsonRoom = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un muelle\" }";
-
-    String jsonRoom2 = "{\n" + " \"name\": \"barrio\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un barrio\" }";
     private NPC npc, npcDefeat;
+    private Habitacion muelle, barrio;
 
     @BeforeEach
     void initNPC() {
@@ -43,16 +34,24 @@ class SalidaTest {
 	input.setListaTriggers(new ArrayList<TriggerInput>(Arrays.asList(trigger)));
 	npcDefeat = new NPC(input);
     }
+    
+    @BeforeEach
+    void initHabitaciones() {
+	HabitacionInputParametro hab = new HabitacionInputParametro("muelle",
+		"Estas en un muelle");
+	muelle = new Habitacion(hab);
+	hab.setNombre("barrio");
+	hab.setDescripcion("Estas en un barrio");
+	barrio = new Habitacion(hab);
+    }
 
     @Test // PRUEBO GENERAR UN ROOM, LE AGREGO UN NPC Y ME FIJO SI FUNCIONA EL METODO
 	  // ISENEMYDEFEAT.
     void test1() {
-	Habitacion room1 = new Habitacion(JsonParser.parseString(jsonRoom));
-	Habitacion room2 = new Habitacion(JsonParser.parseString(jsonRoom2));
-	Salida salida = new Salida(room2);
+	Salida salida = new Salida(barrio);
 	npc.setEnemigo(true);
 	salida.addNPC(npc);
-	room1.addSalida(salida, "sur");
+	muelle.addSalida(salida, "sur");
 	assertEquals(false, salida.isEnemigoDerrotado());
 	npc.matar();
 	assertEquals(true, salida.isEnemigoDerrotado());
@@ -61,16 +60,14 @@ class SalidaTest {
     @Test // PRUEBO GENERAR UN ROOM, LE AGREGO UNA SALIDA CON UN NPC Y ME FIJO SI
 	  // DERROTAMOS AL NPC.
     void test2() {
-	Habitacion room1 = new Habitacion(JsonParser.parseString(jsonRoom));
-	Habitacion room2 = new Habitacion(JsonParser.parseString(jsonRoom2));
-	Salida salida = new Salida(room2);
+	Salida salida = new Salida(barrio);
 	npc.setEnemigo(true);
 	salida.addNPC(npc);
-	room1.addSalida(salida, "sur");
-	assertEquals(room2.getNombre(), room1.getSalida("sur").getNombre());
-	assertEquals(false, room1.getSalida("sur").isEnemigoDerrotado());
+	muelle.addSalida(salida, "sur");
+	assertEquals(barrio.getNombre(), muelle.getSalida("sur").getNombre());
+	assertEquals(false, muelle.getSalida("sur").isEnemigoDerrotado());
 	npc.matar();
-	assertEquals(true, room1.getSalida("sur").isEnemigoDerrotado());
+	assertEquals(true, muelle.getSalida("sur").isEnemigoDerrotado());
     }
 
     /*
@@ -79,8 +76,7 @@ class SalidaTest {
      */
     @Test
     void testRemove() {
-	Habitacion room2 = new Habitacion(JsonParser.parseString(jsonRoom2));
-	Salida salida = new Salida(room2);
+	Salida salida = new Salida(barrio);
 	npc.setEnemigo(true);
 	salida.addNPC(npc);
 	assertEquals(false, salida.isEnemigoDerrotado());
@@ -93,17 +89,15 @@ class SalidaTest {
      */
     @Test
     void testComun() {
-	Habitacion room1 = new Habitacion(JsonParser.parseString(jsonRoom));
-	Habitacion room2 = new Habitacion(JsonParser.parseString(jsonRoom2));
-	Salida salida = new Salida(room2);
-	room1.addSalida(salida, "north");
-	room1.ponerObstaculo(npc, "north");
-	assertEquals(false, room1.getSalida("north").isEnemigoDerrotado());
+	Salida salida = new Salida(barrio);
+	muelle.addSalida(salida, "north");
+	muelle.ponerObstaculo(npc, "north");
+	assertEquals(false, muelle.getSalida("north").isEnemigoDerrotado());
 	npc.ejecutarTrigger(TipoTrigger.ITEM, "barreta");
-	assertFalse(room1.getSalida("north").isEnemigoDerrotado());
+	assertFalse(muelle.getSalida("north").isEnemigoDerrotado());
 	npc.ejecutarTrigger(TipoTrigger.ITEM, "rociador con cerveza de raiz");
-	assertTrue(room1.getSalida("north").isEnemigoDerrotado());
-	assertEquals(room2, room1.getSalida("north").getHabitacion());
+	assertTrue(muelle.getSalida("north").isEnemigoDerrotado());
+	assertEquals(barrio, muelle.getSalida("north").getHabitacion());
     }
 
     /*
@@ -111,15 +105,13 @@ class SalidaTest {
      */
     @Test
     void testComunDefeat() {
-	Habitacion room1 = new Habitacion(JsonParser.parseString(jsonRoom));
-	Habitacion room2 = new Habitacion(JsonParser.parseString(jsonRoom2));
-	Salida salida = new Salida(room2);
-	room1.addSalida(salida, "north");
-	room1.ponerObstaculo(npcDefeat, "north");
-	assertEquals(false, room1.getSalida("north").isEnemigoDerrotado());
+	Salida salida = new Salida(barrio);
+	muelle.addSalida(salida, "north");
+	muelle.ponerObstaculo(npcDefeat, "north");
+	assertEquals(false, muelle.getSalida("north").isEnemigoDerrotado());
 	npcDefeat.ejecutarTrigger(TipoTrigger.ITEM, "rociador con cerveza de raiz");
-	assertTrue(room1.getSalida("north").isEnemigoDerrotado());
-	assertEquals(room2, room1.getSalida("north").getHabitacion());
+	assertTrue(muelle.getSalida("north").isEnemigoDerrotado());
+	assertEquals(barrio, muelle.getSalida("north").getHabitacion());
     }
 
 }

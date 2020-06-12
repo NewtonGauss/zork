@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.*;
 
-import org.junit.jupiter.api.Test;
-
-import com.google.gson.JsonParser;
+import org.junit.jupiter.api.*;
 
 import zork.*;
 import zork.comandos.*;
@@ -14,33 +12,20 @@ import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class IrComandoTest {
+    private Habitacion muelle, barrio;
 
-    String jsonMuelle = "{\n" + " \"name\": \"muelle\" ,\n" + " \"gender\": \"male\" ,\n"
-	    + " \"number\": \"singular\" ,\n"
-	    + " \"description\": \"Estas en un muelle\" }",
-	    jsonBarrio = "{\n" + " \"name\": \"barrio\" ,\n" + " \"gender\": \"male\" ,\n"
-		    + " \"number\": \"singular\" ,\n"
-		    + " \"description\": \"Estas en un barrio\" }",
-	    jsonPirata = "{\n" + "      \"name\": \"pirata fantasma\",\n"
-		    + "      \"gender\": \"male\",\n"
-		    + "      \"number\": \"singular\",\n"
-		    + "      \"description\": \"- '¡No puedes pasar!' El pirata fantasma no te dejará pasar\",\n"
-		    + "      \"talk\": \"¡No hay nada que me digas que me haga cambiar de opinión!\",\n"
-		    + "			\"points\": \"100\",\n"
-		    + "			\"enemy\": \"true\",\n"
-		    + "			\"health\": \"100\",\n"
-		    + "			\"inventory\": [],\n" + "      \"triggers\": [\n"
-		    + "        {\n" + "          \"type\": \"item\",\n"
-		    + "          \"thing\": \"rociador con cerveza de raiz\",\n"
-		    + "          \"on_trigger\": \"- '¡Me encanta la cerveza de raiz!' El pirata fantasma se veía entusiasmado por tu ofrecimiento... sin embargo, cuando lo rociaste comenzó a desintegrarse. La mitad de arriba de su cuerpo se desvaneció, y las piernas inmediatamente echaron a correr.\",\n"
-		    + "          \"after_trigger\": \"remove\"\n" + "        }\n"
-		    + "      ]\n" + "    }";
+    @BeforeEach
+    void initHabitaciones() {
+	HabitacionInputParametro hab = new HabitacionInputParametro("muelle",
+		"Estas en un muelle");
+	muelle = new Habitacion(hab);
+	hab.setNombre("barrio");
+	hab.setDescripcion("Estas en un barrio");
+	barrio = new Habitacion(hab);
+    }
 
     @Test
     void testSinObstaculo() {
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-
-	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
 	Salida salidaBarrio = new Salida(barrio);
 	muelle.addSalida(salidaBarrio, "norte");
 
@@ -54,9 +39,6 @@ class IrComandoTest {
 
     @Test
     void testConObstaculo() {
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
-
-	Habitacion barrio = new Habitacion(JsonParser.parseString(jsonBarrio));
 	Salida salidaBarrio = new Salida(barrio);
 	muelle.addSalida(salidaBarrio, "norte");
 
@@ -94,7 +76,6 @@ class IrComandoTest {
 
     @Test
     void testSinSalida() {
-	Habitacion muelle = new Habitacion(JsonParser.parseString(jsonMuelle));
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	jugador.setHabitacionActual(muelle);
 
