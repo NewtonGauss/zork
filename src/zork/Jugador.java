@@ -26,7 +26,7 @@ public class Jugador extends Personaje {
     }
 
 
-    public boolean mover(String direccion) {
+    public boolean mover(Direccion direccion) {
 	Salida salida = habitacionActual.getSalida(direccion);
 	boolean seMovio = false;
 	if (salida != null && salida.isEnemigoDerrotado()) {

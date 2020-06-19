@@ -51,7 +51,7 @@ class SalidaTest {
 	Salida salida = new Salida(barrio);
 	npc.setEnemigo(true);
 	salida.addNPC(npc);
-	muelle.addSalida(salida, "sur");
+	muelle.addSalida(salida, Direccion.SUR);
 	assertEquals(false, salida.isEnemigoDerrotado());
 	npc.matar();
 	assertEquals(true, salida.isEnemigoDerrotado());
@@ -63,11 +63,11 @@ class SalidaTest {
 	Salida salida = new Salida(barrio);
 	npc.setEnemigo(true);
 	salida.addNPC(npc);
-	muelle.addSalida(salida, "sur");
-	assertEquals(barrio.getNombre(), muelle.getSalida("sur").getNombre());
-	assertEquals(false, muelle.getSalida("sur").isEnemigoDerrotado());
+	muelle.addSalida(salida, Direccion.SUR);
+	assertEquals(barrio.getNombre(), muelle.getSalida(Direccion.SUR).getNombre());
+	assertEquals(false, muelle.getSalida(Direccion.SUR).isEnemigoDerrotado());
 	npc.matar();
-	assertEquals(true, muelle.getSalida("sur").isEnemigoDerrotado());
+	assertEquals(true, muelle.getSalida(Direccion.SUR).isEnemigoDerrotado());
     }
 
     /*
@@ -90,14 +90,14 @@ class SalidaTest {
     @Test
     void testComun() {
 	Salida salida = new Salida(barrio);
-	muelle.addSalida(salida, "north");
-	muelle.ponerObstaculo(npc, "north");
-	assertEquals(false, muelle.getSalida("north").isEnemigoDerrotado());
+	muelle.addSalida(salida, Direccion.NORTE);
+	muelle.ponerObstaculo(npc, Direccion.NORTE);
+	assertEquals(false, muelle.getSalida(Direccion.NORTE).isEnemigoDerrotado());
 	npc.ejecutarTrigger(TipoTrigger.ITEM, "barreta");
-	assertFalse(muelle.getSalida("north").isEnemigoDerrotado());
+	assertFalse(muelle.getSalida(Direccion.NORTE).isEnemigoDerrotado());
 	npc.ejecutarTrigger(TipoTrigger.ITEM, "rociador con cerveza de raiz");
-	assertTrue(muelle.getSalida("north").isEnemigoDerrotado());
-	assertEquals(barrio, muelle.getSalida("north").getHabitacion());
+	assertTrue(muelle.getSalida(Direccion.NORTE).isEnemigoDerrotado());
+	assertEquals(barrio, muelle.getSalida(Direccion.NORTE).getHabitacion());
     }
 
     /*
@@ -106,12 +106,12 @@ class SalidaTest {
     @Test
     void testComunDefeat() {
 	Salida salida = new Salida(barrio);
-	muelle.addSalida(salida, "north");
-	muelle.ponerObstaculo(npcDefeat, "north");
-	assertEquals(false, muelle.getSalida("north").isEnemigoDerrotado());
+	muelle.addSalida(salida, Direccion.NORTE);
+	muelle.ponerObstaculo(npcDefeat, Direccion.NORTE);
+	assertEquals(false, muelle.getSalida(Direccion.NORTE).isEnemigoDerrotado());
 	npcDefeat.ejecutarTrigger(TipoTrigger.ITEM, "rociador con cerveza de raiz");
-	assertTrue(muelle.getSalida("north").isEnemigoDerrotado());
-	assertEquals(barrio, muelle.getSalida("north").getHabitacion());
+	assertTrue(muelle.getSalida(Direccion.NORTE).isEnemigoDerrotado());
+	assertEquals(barrio, muelle.getSalida(Direccion.NORTE).getHabitacion());
     }
 
 }

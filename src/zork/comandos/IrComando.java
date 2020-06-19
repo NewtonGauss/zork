@@ -5,17 +5,17 @@ import zork.*;
 public class IrComando implements Comando {
 
     /**
-     * Mueve al jugador (o no).
-     * Devuelve el mensaje que debera aparecer en pantalla
+     * Mueve al jugador (o no). Devuelve el mensaje que debera aparecer en pantalla
      * 
      * @param direccion puede ser norte, sur, este, oeste, arriba, abajo.
-     * @return mensaje de salida por pantalla. Puede ser la descripcion de
-     * la habitacion nueva, el mensaje de un obstaculo o un mensaje que 
-     * indica que no se puede mover.
+     * @return mensaje de salida por pantalla. Puede ser la descripcion de la
+     *         habitacion nueva, el mensaje de un obstaculo o un mensaje que indica
+     *         que no se puede mover.
      */
     @Override
-    public String ejecutar(Jugador jugador, String direccion) {
+    public String ejecutar(Jugador jugador, String dir) {
 	String retorno = "";
+	Direccion direccion = Direccion.stringToDireccion(dir);
 
 	if (jugador.mover(direccion)) {
 	    retorno = jugador.getHabitacionActual().getDescripcion();
@@ -25,9 +25,9 @@ public class IrComando implements Comando {
 		retorno = salida.getObstaculo().getDescripcion();
 	    } else {
 		retorno = "Hacia "
-			+ ((direccion.equals("arriba") || direccion.equals("abajo")) ? ""
-				: "el ")
-			+ direccion + " no hay salida.";
+			+ ((direccion.equals(Direccion.ARRIBA)
+				|| direccion.equals(Direccion.ABAJO)) ? "" : "el ")
+			+ direccion.toString().toLowerCase() + " no hay salida.";
 	    }
 
 	}
@@ -36,8 +36,9 @@ public class IrComando implements Comando {
 
     @Override
     public boolean validar(Jugador jugador, String restoDelComando) {
-	Salida salida = jugador.getHabitacionActual().getSalida(restoDelComando);
-	return  salida != null && salida.isEnemigoDerrotado();
+	Direccion direccion = Direccion.stringToDireccion(restoDelComando);
+	Salida salida = jugador.getHabitacionActual().getSalida(direccion);
+	return salida != null && salida.isEnemigoDerrotado();
     }
 
 }

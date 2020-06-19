@@ -31,8 +31,8 @@ class HabitacionTest {
     @Test // Pruebo agregando Salida...
     void testSalidas() {
 	Salida salida = new Salida(barrio);
-	muelle.addSalida(salida, "sur");
-	assertEquals(salida.getNombre(), muelle.getSalida("sur").getNombre());
+	muelle.addSalida(salida, Direccion.SUR);
+	assertEquals(salida.getNombre(), muelle.getSalida(Direccion.SUR).getNombre());
     }
 
     @Test // Pruebo agregando Sitio...

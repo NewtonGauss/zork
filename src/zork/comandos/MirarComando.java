@@ -8,12 +8,13 @@ import zork.*;
 public class MirarComando implements Comando {
 
     /**
-     * Ejecuta el comando de mirar.
-     * Devuelve el mensaje que debera aparecer en pantalla
+     * Ejecuta el comando de mirar. Devuelve el mensaje que debera aparecer en
+     * pantalla
      * 
-     * @param objetivo si es una cadena vacia, dice el nombre de la habitacion
-     * o dice 'alrededor' se muestra una detallada descripcion del lugar. Si el
-     * objetivo es el nombre de un npc, se mostrara su descripcion.
+     * @param objetivo si es una cadena vacia, dice el nombre de la habitacion o
+     *                 dice 'alrededor' se muestra una detallada descripcion del
+     *                 lugar. Si el objetivo es el nombre de un npc, se mostrara su
+     *                 descripcion.
      * @return mensaje de salida por pantalla.
      */
     @Override
@@ -36,17 +37,20 @@ public class MirarComando implements Comando {
 
     private String enumerarSalidas(Habitacion habitacionActual) {
 	String mensajeSalida = "";
-	String[] direcciones = new String[] { "norte", "sur", "este", "oeste" };
+	Direccion[] direcciones = new Direccion[] { Direccion.NORTE, Direccion.SUR,
+		Direccion.ESTE, Direccion.OESTE };
 	Salida salida;
-	for (String direccion : direcciones) {
+	for (Direccion direccion : direcciones) {
 	    if ((salida = habitacionActual.getSalida(direccion)) != null)
-		mensajeSalida += " Al " + direccion + " hay "
+		mensajeSalida += " Al " + direccion.toString().toLowerCase() + " hay "
 			+ salida.getHabitacion().articuloIndefinido() + ".";
 	}
-	if ((salida = habitacionActual.getSalida("arriba")) != null)
-	    mensajeSalida += " Arriba hay " + salida.getHabitacion().articuloIndefinido() + ".";
-	if ((salida = habitacionActual.getSalida("abajo")) != null)
-	    mensajeSalida += " Abajo hay " + salida.getHabitacion().articuloIndefinido() + ".";
+	if ((salida = habitacionActual.getSalida(Direccion.ARRIBA)) != null)
+	    mensajeSalida += " Arriba hay " + salida.getHabitacion().articuloIndefinido()
+		    + ".";
+	if ((salida = habitacionActual.getSalida(Direccion.ABAJO)) != null)
+	    mensajeSalida += " Abajo hay " + salida.getHabitacion().articuloIndefinido()
+		    + ".";
 	return mensajeSalida;
     }
 
@@ -95,7 +99,5 @@ public class MirarComando implements Comando {
 	// TODO Auto-generated method stub
 	return false;
     }
-
-    
 
 }

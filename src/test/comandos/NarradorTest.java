@@ -108,12 +108,12 @@ class NarradorTest {
 	Salida salidaMuelle = new Salida(muelle);
 	Narrador narrador = new Narrador(jugador);
 
-	muelle.addSalida(salidaUnlam, "norte");
+	muelle.addSalida(salidaUnlam, Direccion.NORTE);
 
-	unlam.addSalida(salidaBarrio, "norte");
-	unlam.addSalida(salidaMuelle, "sur");
+	unlam.addSalida(salidaBarrio, Direccion.NORTE);
+	unlam.addSalida(salidaMuelle, Direccion.SUR);
 
-	barrio.addSalida(salidaUnlam, "sur");
+	barrio.addSalida(salidaUnlam, Direccion.SUR);
 
 	jugador.setHabitacionActual(muelle);
 
@@ -145,7 +145,7 @@ class NarradorTest {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Salida surUnlam = new Salida(unlam);
 	Narrador narrador = new Narrador(jugador);
-	muelle.addSalida(surUnlam, "sur");
+	muelle.addSalida(surUnlam, Direccion.SUR);
 
 	jugador.setHabitacionActual(muelle);
 
@@ -208,8 +208,8 @@ class NarradorTest {
 	Salida salidaBarrio = new Salida(barrio);
 	Narrador narrador = new Narrador(jugador);
 	muelle.addNPC(pirata);
-	muelle.addSalida(salidaUnlam, "sur");
-	unlam.addSalida(salidaBarrio, "sur");
+	muelle.addSalida(salidaUnlam, Direccion.SUR);
+	unlam.addSalida(salidaBarrio, Direccion.SUR);
 
 	jugador.setHabitacionActual(muelle);
 

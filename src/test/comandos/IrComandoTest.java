@@ -27,7 +27,7 @@ class IrComandoTest {
     @Test
     void testSinObstaculo() {
 	Salida salidaBarrio = new Salida(barrio);
-	muelle.addSalida(salidaBarrio, "norte");
+	muelle.addSalida(salidaBarrio, Direccion.NORTE);
 
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	jugador.setHabitacionActual(muelle);
@@ -40,10 +40,10 @@ class IrComandoTest {
     @Test
     void testConObstaculo() {
 	Salida salidaBarrio = new Salida(barrio);
-	muelle.addSalida(salidaBarrio, "norte");
+	muelle.addSalida(salidaBarrio, Direccion.NORTE);
 
 	NPC pirata = initNPC();
-	muelle.ponerObstaculo(pirata, "norte");
+	muelle.ponerObstaculo(pirata, Direccion.NORTE);
 
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	jugador.setHabitacionActual(muelle);

@@ -72,13 +72,13 @@ class JugadorTest {
 	Salida salida = new Salida(barrio);
 	npc.setEnemigo(true);
 	salida.addNPC(npc);
-	muelle.addSalida(salida, "norte");
+	muelle.addSalida(salida, Direccion.NORTE);
 	assertEquals(false, salida.isEnemigoDerrotado());
 	npc.matar();
 	assertEquals(true, salida.isEnemigoDerrotado());
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	jugador.setHabitacionActual(muelle);
-	assertTrue(jugador.mover("norte"));
+	assertTrue(jugador.mover(Direccion.NORTE));
 	assertEquals(barrio, jugador.getHabitacionActual());
     }
     

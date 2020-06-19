@@ -156,7 +156,7 @@ class MirarComandoTest {
 
 	Habitacion barrio = new Habitacion(new HabitacionInputParametro("barrio"));
 	Salida salidaBarrio = new Salida(barrio);
-	muelle.addSalida(salidaBarrio, "norte");
+	muelle.addSalida(salidaBarrio, Direccion.NORTE);
 
 	assertEquals("Estas en un muelle. Al norte hay un barrio.", c1.ejecutar(j1, ""));
     }
@@ -169,10 +169,10 @@ class MirarComandoTest {
 
 	Habitacion barrio = new Habitacion(new HabitacionInputParametro("barrio"));
 	Salida salidaBarrio = new Salida(barrio);
-	muelle.addSalida(salidaBarrio, "arriba");
+	muelle.addSalida(salidaBarrio, Direccion.ARRIBA);
 	Habitacion bahias = new Habitacion(new HabitacionInputParametro("bahias"));
 	Salida salidaBahias = new Salida(bahias);
-	muelle.addSalida(salidaBahias, "abajo");
+	muelle.addSalida(salidaBahias, Direccion.ABAJO);
 
 	assertEquals("Estas en un muelle. Arriba hay un barrio. Abajo hay unas bahias.",
 		c1.ejecutar(j1, ""));
@@ -199,13 +199,13 @@ class MirarComandoTest {
 	/* Salidas */
 	Habitacion barrio = new Habitacion(new HabitacionInputParametro("barrio"));
 	Salida salidaBarrio = new Salida(barrio);
-	muelle.addSalida(salidaBarrio, "arriba");
+	muelle.addSalida(salidaBarrio, Direccion.ARRIBA);
 	Habitacion bahias = new Habitacion(new HabitacionInputParametro("bahias"));
 	Salida salidaBahias = new Salida(bahias);
-	muelle.addSalida(salidaBahias, "abajo");
+	muelle.addSalida(salidaBahias, Direccion.ABAJO);
 	Habitacion taberna = new Habitacion(new HabitacionInputParametro("taberna"));
 	Salida salidaTaberna = new Salida(taberna);
-	muelle.addSalida(salidaTaberna, "sur");
+	muelle.addSalida(salidaTaberna, Direccion.SUR);
 
 	assertEquals("Estas en un muelle. En el suelo hay una barreta,"
 		+ " un rociador con cerveza de raiz y un espejo."
