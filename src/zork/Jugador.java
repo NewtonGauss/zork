@@ -6,7 +6,7 @@ public class Jugador extends Personaje {
     private int puntuacion;
 
     public Jugador(String nombre) {
-	this.nombre = nombre;
+	super(nombre);
 	inventario = new Inventario();
 	movimientos = 0;
 	puntuacion = 0;
@@ -15,10 +15,6 @@ public class Jugador extends Personaje {
 
     public void sumarMovimiento() {
 	this.movimientos++;
-    }
-
-    public String getNombre() {
-	return this.nombre;
     }
 
     public int getCantMovimientos() {

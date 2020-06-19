@@ -14,10 +14,8 @@ public class Item extends Enumerable {
     private float saludSumar;
 
     public Item(ItemInput input) {
-	nombre = input.getNombre();
+	super(input.getNombre(), input.getGender(), input.getNumber());
 	peso = input.getPeso();
-	gender = input.getGender();
-	number = input.getNumber();
 	puntos = input.getPuntos();
 	accionesValidas = input.getAccionesValidas();
 	objetivosValidos = input.getObjetivosValidos();
@@ -27,10 +25,6 @@ public class Item extends Enumerable {
 
     public Double getPeso() {
 	return this.peso;
-    }
-
-    public String getNombre() {
-	return this.nombre;
     }
 
     public TipoItem getTipo() {

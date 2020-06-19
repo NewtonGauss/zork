@@ -1,10 +1,25 @@
 package zork;
 
 public abstract class Enumerable {
-    protected String nombre;
-    protected char gender;
-    protected char number;
+    private String nombre;
+    private char gender;
+    private char number;
     
+    public Enumerable(String nombre) {
+	this.nombre = nombre;
+    }
+    
+    public Enumerable(String nombre, char gender, char number) {
+	super();
+	this.nombre = nombre;
+	this.gender = gender;
+	this.number = number;
+    }
+    
+    public String getNombre() {
+	return nombre;
+    }
+
     @Override
     public String toString() {
 	String retorno;

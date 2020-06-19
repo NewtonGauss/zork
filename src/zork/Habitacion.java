@@ -12,9 +12,7 @@ public class Habitacion extends Enumerable {
     private Hashtable<String, NPC> npcs;
 
     public Habitacion(HabitacionInput input) {
-	nombre = input.getNombre();
-	gender = input.getGender();
-	number = input.getNumber();
+	super(input.getNombre(), input.getGender(), input.getNumber());
 	descripcion = input.getDescripcion();
 	sitios = new Hashtable<String, Sitio>();
 	salidas = new Hashtable<String, Salida>();
@@ -42,10 +40,6 @@ public class Habitacion extends Enumerable {
 		break;
 	}
 	return npcs.remove(nombre) != null;
-    }
-
-    public String getNombre() {
-	return this.nombre;
     }
 
     public String getDescripcion() {

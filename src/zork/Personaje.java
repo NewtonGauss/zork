@@ -7,6 +7,14 @@ public abstract class Personaje extends Enumerable {
     protected Inventario inventario;
     protected float salud;
     protected Habitacion habitacionActual;
+    
+    public Personaje(String nombre) {
+	super(nombre);
+    }
+
+    public Personaje(String nombre, char gender, char number) {
+	super(nombre, gender, number);
+    }
 
     public boolean ponerItem(Item nuevoItem) {
 	return inventario.ponerItem(nuevoItem);

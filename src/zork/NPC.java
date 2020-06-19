@@ -11,11 +11,9 @@ public class NPC extends Personaje {
     private Hashtable<TipoTrigger, Trigger> triggers = new Hashtable<TipoTrigger, Trigger>();
 
     public NPC(NPCInput input) {
-	nombre = input.getNombre();
+	super(input.getNombre(), input.getGender(), input.getNumber());
 	charla = input.getCharla();
 	descripcion = input.getDescripcion();
-	gender = input.getGender();
-	number = input.getNumber();
 	salud = input.getSalud();
 	enemigo = input.isEnemigo();
 	inventario = new Inventario();
@@ -59,10 +57,6 @@ public class NPC extends Personaje {
 
     public void setEnemigo(boolean enemy) {
 	this.enemigo = enemy;
-    }
-
-    public String getNombre() {
-	return this.nombre;
     }
 
 }

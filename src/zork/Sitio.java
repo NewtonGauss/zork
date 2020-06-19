@@ -13,16 +13,12 @@ public class Sitio extends Enumerable{
      * Sitio por defecto de cada habitacion: suelo
      */
     public Sitio() {
-	nombre = "suelo";
-	gender = 'm';
-	number = 's';
+	super("suelo", 'm', 's');
 	items = new Hashtable<String, Item>();
     }
 
     public Sitio(SitioInput input) {
-	nombre = input.getNombre();
-	gender = input.getGender();
-	number = input.getNumber();
+	super(input.getNombre(), input.getGender(), input.getNumber());
 	items = new Hashtable<String, Item>();
     }
 
@@ -43,9 +39,4 @@ public class Sitio extends Enumerable{
     public Collection<Item> getItems() {
 	return items.values();
     }
-
-    public String getNombre() {
-	return nombre;
-    }
-
 }
