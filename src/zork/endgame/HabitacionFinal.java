@@ -1,16 +1,14 @@
 package zork.endgame;
 
-import com.google.gson.*;
-
 import zork.*;
 import zork.comandos.*;
+import zork.input.FinalJuegoInput;
 
 public class HabitacionFinal extends FinalJuego {
 
-    public HabitacionFinal(JsonElement json) {
-	JsonObject jobj = json.getAsJsonObject();
-	descripcion = jobj.get("description").getAsString();
-	objetivo = jobj.get("thing").getAsString();
+    public HabitacionFinal(FinalJuegoInput input) {
+	descripcion = input.getDescripcion();
+	objetivo = input.getObjetivo();
     }
 
     @Override

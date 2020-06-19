@@ -1,19 +1,16 @@
 package zork.endgame;
 
-import com.google.gson.*;
-
 import zork.Jugador;
 import zork.comandos.Comando;
+import zork.input.FinalJuegoInput;
 
 public class AccionFinal extends FinalJuego {
     private ComandoCondicion accion;
 
-    public AccionFinal(JsonElement json) {
-	JsonObject jobj = json.getAsJsonObject();
-	descripcion = jobj.get("description").getAsString();
-	objetivo = jobj.get("thing").getAsString();
-	accion = ComandoCondicion
-		.stringToComandoCondicion(jobj.get("action").getAsString());
+    public AccionFinal(FinalJuegoInput input) {
+	descripcion = input.getDescripcion();
+	objetivo = input.getObjetivo();
+	accion = input.getAccion();
     }
 
     @Override
@@ -25,5 +22,4 @@ public class AccionFinal extends FinalJuego {
     public String ejecutar(Jugador jugador, Comando comando, String restoComando) {
 	return comando.validar(jugador, restoComando) ? this.descripcion : null;
     }
-
 }

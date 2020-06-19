@@ -6,18 +6,12 @@ import java.util.*;
 
 import org.junit.jupiter.api.*;
 
-import com.google.gson.JsonParser;
-
 import zork.*;
 import zork.endgame.*;
 import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class ActiondEndGameTest {
-    String jsonActionEndGame = "{\n" + "      \"condition\": \"action\",\n"
-	    + "      \"action\": \"talk\",\n" + "      \"thing\": \"pirata fantasma\",\n"
-	    + "      \"description\": \"Has terminado el juego.\"" + "    }";
-
     private static NPC pirata;
 
     @BeforeEach
@@ -43,7 +37,8 @@ class ActiondEndGameTest {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	Habitacion muelle = initHabitacion();
 	Narrador narrador = new Narrador(jugador);
-	FinalJuego end = new AccionFinal(JsonParser.parseString(jsonActionEndGame));
+	FinalJuego end = new AccionFinal(new FinalJuegoInputParametro(
+		"Has terminado el juego.", "pirata fantasma", ComandoCondicion.HABLAR));
 	muelle.addNPC(pirata);
 	jugador.setHabitacionActual(muelle);
 	narrador.addEndgame(end);

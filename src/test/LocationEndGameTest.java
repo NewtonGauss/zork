@@ -6,20 +6,12 @@ import java.util.*;
 
 import org.junit.jupiter.api.*;
 
-import com.google.gson.JsonParser;
-
 import zork.*;
 import zork.endgame.*;
 import zork.input.TriggerInput;
 import zork.input.parametro.*;
 
 class LocationEndGameTest {
-    String jsonLocationEndGame = "{\n" + 
-	    	"      \"condition\": \"location\",\n" + 
-	    	"      \"action\": \"hablar\",\n" + 
-	    	"      \"thing\": \"barrio\",\n" + 
-	    	"      \"description\": \"Has terminado el juego.\"" + 
-	    	"    }";
     private Habitacion muelle, barrio;
 
     @BeforeEach
@@ -31,14 +23,15 @@ class LocationEndGameTest {
 	hab.setDescripcion("Estas en un barrio");
 	barrio = new Habitacion(hab);
     }
-    
+
     @Test
     void testLocationEndGame() {
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	NPC npc = initNPC();
 	Salida salida = new Salida(barrio);
 	Narrador narrador = new Narrador(jugador);
-	FinalJuego end = new HabitacionFinal(JsonParser.parseString(jsonLocationEndGame));
+	FinalJuego end = new HabitacionFinal(
+		new FinalJuegoInputParametro("Has terminado el juego.", "barrio", null));
 	muelle.addSalida(salida, "sur");
 	muelle.ponerObstaculo(npc, "sur");
 	jugador.setHabitacionActual(muelle);
@@ -46,7 +39,7 @@ class LocationEndGameTest {
 	npc.matar();
 	assertEquals("Has terminado el juego.", narrador.ejecutar("ir al sur"));
     }
-    
+
     private NPC initNPC() {
 	NPCInputParametro input = new NPCInputParametro("pirata fantasma");
 	input.setGender('m');
