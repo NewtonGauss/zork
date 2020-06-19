@@ -2,6 +2,7 @@ package zork.comandos;
 
 import java.util.Iterator;
 
+import utilitarias.Cadena;
 import zork.*;
 
 public class AtacarConComando implements Comando {
@@ -23,10 +24,15 @@ public class AtacarConComando implements Comando {
 	Habitacion habitacionActual = jugador.getHabitacionActual();
 	NPC npc = habitacionActual.getNPC(objetivo);
 	Item item = jugador.getItem(objeto);
-	if (item != null && npc != null && item.getTipo().equals(TipoItem.ARMA))
+	if (item != null && npc != null && item.getTipo().equals(TipoItem.ARMA)) {
 	    retorno = objetivo + ": " + npc.ejecutarTrigger(TipoTrigger.ATAQUE, objeto)
 		    + '.';
-	else if (npc != null) {
+	    if (retorno.equals(objetivo + ": null.")) {
+		npc.aplicarItem(item);
+		retorno = Cadena.replaceAEl("Atacaste a " + npc.toString() + " con " + item.toString()
+			+ ".\n");
+	    }
+	} else if (npc != null) {
 	    retorno = "Utilice uno de los siguientes items para atacar: \n";
 	    for (Iterator<Item> i = jugador.getItems().iterator(); i.hasNext();) {
 		item = i.next();

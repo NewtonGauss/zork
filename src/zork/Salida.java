@@ -13,13 +13,13 @@ public class Salida {
 	
 	public void addNPC(NPC nuevoObstaculo) {
 		this.obstaculo = nuevoObstaculo;
-		getObstaculo().setEnemigo(true);
+		obstaculo.setEnemigo(true);
 		this.derrotado = false;
 	}
 	
 	public boolean sacarNPC(String nombre) {
 	    boolean rta = false;
-	    if (getObstaculo().getNombre().equals(nombre)) {
+	    if (obstaculo.getNombre().equals(nombre)) {
 		derrotado = rta = true;
 		obstaculo = null;
 	    }
@@ -27,7 +27,7 @@ public class Salida {
 	}
 	
 	public boolean isEnemigoDerrotado() {
-		if(!derrotado && (getObstaculo().estaMuerto() || !getObstaculo().isEnemigo()))
+		if(!derrotado && (obstaculo.estaMuerto() || !obstaculo.isEnemigo()))
 			derrotado = true;
 		return derrotado;
 	}
