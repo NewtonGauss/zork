@@ -103,5 +103,9 @@ public class Narrador {
     public void addEndgame(FinalJuego endgame) {
 	this.finales.add(endgame);
     }
+    
+    public void addEndgames(List<FinalJuego> endgames) {
+	finales.addAll(endgames);
+    }
 
 }

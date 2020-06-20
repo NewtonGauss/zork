@@ -12,5 +12,9 @@ public abstract class FinalJuego {
 	    String restoComando);
 
     public abstract boolean esComandoFinal(Comando comando, String restoComando);
+    
+    public String getDescripcion() {
+	return descripcion;
+    }
 
 }

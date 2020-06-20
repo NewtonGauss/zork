@@ -123,12 +123,6 @@
       "action": "move",
       "thing": "taberna",
       "description": "¡Enhorabuena! Llegaste a la taberna, donde te espera una noche de borrachera con Grog y otros colegas piratas."
-    },
-    {
-      "condition": "action",
-      "action": "look",
-      "thing": "espejo",
-      "description": "¡Oh, no! Acabas de descubrir que tú también eres un pirata fantasma... ¡el horror!"
     }
   ]
 }

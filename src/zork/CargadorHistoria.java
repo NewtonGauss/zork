@@ -5,22 +5,25 @@ import java.util.*;
 
 import com.google.gson.*;
 
+import zork.endgame.*;
 import zork.input.json.*;
 
 public class CargadorHistoria {
     private JsonObject settings;
-    private JsonArray habitaciones, npcs, items;
-    private Map<String, Item> itemMap;
-    private Map<String, NPC> npcsMap;
-    private Map<String, Habitacion> habitacionesMap;
+    private JsonArray habitacionesJsonArray, npcsJsonArray, itemsJsonArray,
+	    finalesJsonArray;
+    private Map<String, Item> items;
+    private Map<String, NPC> npcs;
+    private Map<String, Habitacion> habitaciones;
 
     public CargadorHistoria(String path) throws IOException {
 	byte[] texto = leerArchivo(path);
 	JsonObject jobj = JsonParser.parseString(new String(texto)).getAsJsonObject();
 	settings = jobj.get("settings").getAsJsonObject();
-	habitaciones = jobj.get("locations").getAsJsonArray();
-	npcs = jobj.get("npcs").getAsJsonArray();
-	items = jobj.get("items").getAsJsonArray();
+	habitacionesJsonArray = jobj.get("locations").getAsJsonArray();
+	npcsJsonArray = jobj.get("npcs").getAsJsonArray();
+	itemsJsonArray = jobj.get("items").getAsJsonArray();
+	finalesJsonArray = jobj.get("endgames").getAsJsonArray();
     }
 
     private byte[] leerArchivo(String path) throws FileNotFoundException, IOException {
@@ -41,30 +44,30 @@ public class CargadorHistoria {
     private void cargarHabitaciones(Jugador jugador) {
 	cargarItems();
 	cargarNPCs();
-	habitacionesMap = new HashMap<String, Habitacion>();
+	habitaciones = new HashMap<String, Habitacion>();
 
-	JsonObject primerHabitacion = habitaciones.get(0).getAsJsonObject();
+	JsonObject primerHabitacion = habitacionesJsonArray.get(0).getAsJsonObject();
 	String nombreHabitacionInicial = primerHabitacion.get("name").getAsString();
-	for (JsonElement habitacionJson : habitaciones)
+	for (JsonElement habitacionJson : habitacionesJsonArray)
 	    cargarHabitacion(habitacionJson);
 
-	jugador.setHabitacionActual(habitacionesMap.get(nombreHabitacionInicial));
+	jugador.setHabitacionActual(habitaciones.get(nombreHabitacionInicial));
 	conectarHabitaciones();
     }
 
     private void cargarItems() {
-	itemMap = new HashMap<String, Item>();
-	for (JsonElement itemJson : items) {
+	items = new HashMap<String, Item>();
+	for (JsonElement itemJson : itemsJsonArray) {
 	    Item item = new Item(new ItemInputJson(itemJson.toString()));
-	    itemMap.put(item.getNombre(), item);
+	    items.put(item.getNombre(), item);
 	}
     }
 
     private void cargarNPCs() {
-	npcsMap = new HashMap<String, NPC>();
-	for (JsonElement npcJson : npcs) {
+	npcs = new HashMap<String, NPC>();
+	for (JsonElement npcJson : npcsJsonArray) {
 	    NPC npc = new NPC(new NPCInputJson(npcJson.toString()));
-	    npcsMap.put(npc.getNombre(), npc);
+	    npcs.put(npc.getNombre(), npc);
 	}
     }
 
@@ -73,7 +76,7 @@ public class CargadorHistoria {
 		new HabitacionInputJson(habitacionJson.toString()));
 	ponerSitioEnHabitacion(habitacion, habitacionJson.getAsJsonObject());
 	ponerNPCsEnHabitacion(habitacion, habitacionJson.getAsJsonObject());
-	habitacionesMap.put(habitacion.getNombre(), habitacion);
+	habitaciones.put(habitacion.getNombre(), habitacion);
     }
 
     private void ponerSitioEnHabitacion(Habitacion habitacion,
@@ -94,7 +97,7 @@ public class CargadorHistoria {
 	if (itemsElement != null) {
 	    JsonArray itemsArray = itemsElement.getAsJsonArray();
 	    for (JsonElement itemJson : itemsArray) {
-		sitio.addItem(itemMap.get(itemJson.getAsString()));
+		sitio.addItem(items.get(itemJson.getAsString()));
 	    }
 	}
     }
@@ -104,17 +107,17 @@ public class CargadorHistoria {
 	if (npcsElement != null) {
 	    JsonArray npcsArray = npcsElement.getAsJsonArray();
 	    for (JsonElement npcJson : npcsArray) {
-		habitacion.addNPC(npcsMap.get(npcJson.getAsString()));
+		habitacion.addNPC(npcs.get(npcJson.getAsString()));
 	    }
 	}
     }
 
     private void conectarHabitaciones() {
-	for (JsonElement habitacionElement : habitaciones) {
+	for (JsonElement habitacionElement : habitacionesJsonArray) {
 	    JsonObject habitacionObject = habitacionElement.getAsJsonObject();
 	    JsonArray conexiones = habitacionObject.get("connections").getAsJsonArray();
 	    String nombreHab = habitacionObject.get("name").getAsString();
-	    Habitacion habitacionOrigen = habitacionesMap.get(nombreHab);
+	    Habitacion habitacionOrigen = habitaciones.get(nombreHab);
 	    addConexiones(conexiones, habitacionOrigen);
 	}
     }
@@ -122,7 +125,7 @@ public class CargadorHistoria {
     private void addConexiones(JsonArray conexiones, Habitacion habitacionOrigen) {
 	for (JsonElement conexion : conexiones) {
 	    JsonObject conexionJson = conexion.getAsJsonObject();
-	    Habitacion habitacionSalida = habitacionesMap
+	    Habitacion habitacionSalida = habitaciones
 		    .get(conexionJson.get("location").getAsString());
 	    Salida salida = new Salida(habitacionSalida);
 	    Direccion direccion = Direccion
@@ -131,10 +134,26 @@ public class CargadorHistoria {
 
 	    JsonElement obstaculoJson = conexionJson.get("obstacles");
 	    if (obstaculoJson != null) {
-		NPC obstaculo = npcsMap.get(obstaculoJson.getAsString());
+		NPC obstaculo = npcs.get(obstaculoJson.getAsString());
 		habitacionOrigen.addObstaculo(obstaculo, direccion);
 	    }
 	}
+    }
+
+    public List<FinalJuego> cargarFinales() {
+	List<FinalJuego> finales = new LinkedList<FinalJuego>();
+	for (JsonElement finalJsonElement : finalesJsonArray) {
+	    JsonObject finalJson = finalJsonElement.getAsJsonObject();
+	    FinalJuego finalJuego;
+	    if (finalJson.get("condition").getAsString().equals("location"))
+		finalJuego = new HabitacionFinal(
+			new FinalJuegoInputJson(finalJsonElement.toString()));
+	    else
+		finalJuego = new AccionFinal(
+			new FinalJuegoInputJson(finalJsonElement.toString()));
+	    finales.add(finalJuego);
+	}
+	return finales;
     }
 
 }
