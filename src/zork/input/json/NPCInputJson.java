@@ -1,6 +1,6 @@
 package zork.input.json;
 
-import java.util.List;
+import java.util.*;
 
 import com.google.gson.*;
 
@@ -8,11 +8,12 @@ import zork.input.*;
 
 public class NPCInputJson implements NPCInput {
     private JsonObject jobject;
-    private List<TriggerInput> listaTriggers;
+    private List<TriggerInput> listaTriggers = new ArrayList<TriggerInput>();
 
     public NPCInputJson(String jsonString) {
 	jobject = JsonParser.parseString(jsonString).getAsJsonObject();
-	for (JsonElement trigger : jobject.getAsJsonArray("triggers")) {
+	JsonArray triggers = jobject.getAsJsonArray("triggers");
+	for (JsonElement trigger : triggers) {
 	    listaTriggers.add(new TriggerInputJson(trigger.toString()));
 	}
     }

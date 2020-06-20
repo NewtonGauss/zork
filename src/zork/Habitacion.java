@@ -62,7 +62,7 @@ public class Habitacion extends Enumerable {
 	return npcs.get(nombre);
     }
 
-    public void ponerObstaculo(NPC obstaculo, Direccion direction) {
+    public void addObstaculo(NPC obstaculo, Direccion direction) {
 	addNPC(obstaculo);
 	Salida salida = salidas.get(direction);
 	if (salida != null)

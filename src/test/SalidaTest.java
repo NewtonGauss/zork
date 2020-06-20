@@ -91,7 +91,7 @@ class SalidaTest {
     void testComun() {
 	Salida salida = new Salida(barrio);
 	muelle.addSalida(salida, Direccion.NORTE);
-	muelle.ponerObstaculo(npc, Direccion.NORTE);
+	muelle.addObstaculo(npc, Direccion.NORTE);
 	assertEquals(false, muelle.getSalida(Direccion.NORTE).isEnemigoDerrotado());
 	npc.ejecutarTrigger(TipoTrigger.ITEM, "barreta");
 	assertFalse(muelle.getSalida(Direccion.NORTE).isEnemigoDerrotado());
@@ -107,7 +107,7 @@ class SalidaTest {
     void testComunDefeat() {
 	Salida salida = new Salida(barrio);
 	muelle.addSalida(salida, Direccion.NORTE);
-	muelle.ponerObstaculo(npcDefeat, Direccion.NORTE);
+	muelle.addObstaculo(npcDefeat, Direccion.NORTE);
 	assertEquals(false, muelle.getSalida(Direccion.NORTE).isEnemigoDerrotado());
 	npcDefeat.ejecutarTrigger(TipoTrigger.ITEM, "rociador con cerveza de raiz");
 	assertTrue(muelle.getSalida(Direccion.NORTE).isEnemigoDerrotado());

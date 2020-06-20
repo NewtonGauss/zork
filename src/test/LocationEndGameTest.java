@@ -33,7 +33,7 @@ class LocationEndGameTest {
 	FinalJuego end = new HabitacionFinal(
 		new FinalJuegoInputParametro("Has terminado el juego.", "barrio", null));
 	muelle.addSalida(salida, Direccion.SUR);
-	muelle.ponerObstaculo(npc, Direccion.SUR);
+	muelle.addObstaculo(npc, Direccion.SUR);
 	jugador.setHabitacionActual(muelle);
 	narrador.addEndgame(end);
 	npc.matar();

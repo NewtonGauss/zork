@@ -1,7 +1,6 @@
 package zork;
 
 public class Salida {
-	
 	private Habitacion salida;
 	private NPC obstaculo;
 	private boolean derrotado;

@@ -43,7 +43,7 @@ class IrComandoTest {
 	muelle.addSalida(salidaBarrio, Direccion.NORTE);
 
 	NPC pirata = initNPC();
-	muelle.ponerObstaculo(pirata, Direccion.NORTE);
+	muelle.addObstaculo(pirata, Direccion.NORTE);
 
 	Jugador jugador = new Jugador("Guybrush Threepwood");
 	jugador.setHabitacionActual(muelle);
