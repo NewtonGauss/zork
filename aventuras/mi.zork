@@ -75,7 +75,7 @@
 			"weight": "10",
 			"type": "weapon",
       "actions": [
-        "usar"
+        "take", "drop", "use"
       ],
       "effects_over": [
         "npcs",
@@ -91,7 +91,7 @@
 			"weight": "10",
 			"type": "vanilla",
       "actions": [
-        "usar"
+        "take", "drop", "use"
       ],
       "effects_over": [
         "npcs",
@@ -107,7 +107,7 @@
 			"weight": "10",
 			"type": "vanilla",
       "actions": [
-        "usar"
+        "take", "drop", "use"
       ],
       "effects_over": [
         "npcs",

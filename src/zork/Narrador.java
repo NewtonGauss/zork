@@ -82,6 +82,7 @@ public class Narrador {
 	comandos.put("inventario", new InventarioComando());
 	comandos.put("atacar", new AtacarConComando());
 	comandos.put("dar", new DarComando());
+	comandos.put("ayuda", new AyudaComando());
 	comandos.put("default", new DefaultComando());
     }
 
