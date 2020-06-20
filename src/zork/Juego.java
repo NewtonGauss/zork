@@ -16,7 +16,8 @@ public class Juego {
 	}
 	Narrador narrador = new Narrador(jugador);
 	String comando;
-	while ( !(comando = io.leerComando()).equals("exit") ) {
+	while (!(comando = io.leerComando()).equals("exit")) {
+	    /* Falta cargar los finales del juego y fijarse para salir del while */
 	    String salida = narrador.ejecutar(comando);
 	    io.imprimir(salida);
 	}
