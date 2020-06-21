@@ -18,8 +18,10 @@ public class HabitacionFinal extends FinalJuego {
 
     @Override
     public String ejecutar(Jugador jugador, Comando comando, String restoComando) {
-	Salida salida = jugador.getHabitacionActual()
-		.getSalida(Direccion.stringToDireccion(restoComando));
+	Direccion direccion = Direccion.stringToDireccion(restoComando);
+	Salida salida = null;
+	if (direccion != null)
+	    salida = jugador.getHabitacionActual().getSalida(direccion);
 	String retorno = null;
 	if (salida != null && esHabitacionFinal(salida)
 		&& comando.validar(jugador, restoComando)) {

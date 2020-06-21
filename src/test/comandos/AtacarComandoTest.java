@@ -125,7 +125,7 @@ class AtacarComandoTest {
 	j1.ponerItem(espada);
 	muelle.addNPC(pirata);
 	j1.setHabitacionActual(muelle);
-	assertEquals("Utilice uno de los siguientes items para atacar: \nespada\n",
+	assertEquals("Utilice uno de los siguientes items para atacar:\nla espada",
 		acc.ejecutar(j1, pirata.getNombre() + ":" + espejo.getNombre()));
     }
 

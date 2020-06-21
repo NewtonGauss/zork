@@ -21,6 +21,7 @@ public class Juego {
 	    for (FinalJuego finalJuego : finales) {
 		mensajesFinales.add(finalJuego.getDescripcion());
 	    }
+	    io.imprimir(ch.getBienvenida());
 	} catch (IOException e) {
 	    e.printStackTrace();
 	    System.exit(1);

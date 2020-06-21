@@ -156,4 +156,7 @@ public class CargadorHistoria {
 	return finales;
     }
 
+    public String getBienvenida() {
+	return settings.get("welcome").getAsString();
+    }
 }

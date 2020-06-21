@@ -17,9 +17,9 @@ public class IrComando implements Comando {
 	String retorno = "";
 	Direccion direccion = Direccion.stringToDireccion(dir);
 
-	if (jugador.mover(direccion)) {
+	if (direccion != null && jugador.mover(direccion)) {
 	    retorno = jugador.getHabitacionActual().getDescripcion();
-	} else {
+	} else if (direccion != null) {
 	    Salida salida = jugador.getHabitacionActual().getSalida(direccion);
 	    if (salida != null) {
 		retorno = salida.getObstaculo().getDescripcion();
@@ -30,7 +30,8 @@ public class IrComando implements Comando {
 			+ direccion.toString().toLowerCase() + " no hay salida.";
 	    }
 
-	}
+	} else
+	    retorno = "No se reconoce la direccion " + dir + "\n";
 	return retorno;
     }
 
