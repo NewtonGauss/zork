@@ -18,7 +18,7 @@ public class Salida {
 	
 	public boolean sacarNPC(String nombre) {
 	    boolean rta = false;
-	    if (obstaculo.getNombre().equals(nombre)) {
+	    if (obstaculo != null && obstaculo.getNombre().equals(nombre)) {
 		derrotado = rta = true;
 		obstaculo = null;
 	    }
