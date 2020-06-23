@@ -27,7 +27,7 @@
         {
           "direction": { String -> south, north, east, west, up, down }
           "location": { String -> location existente }
-          "obstacles": { String -> "none" o el nombre de un npc }
+          "obstacles": { String -> el nombre de un npc o en el caso de que no haya no se pone }
         }
       ]
     }

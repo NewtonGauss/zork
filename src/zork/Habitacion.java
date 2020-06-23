@@ -72,5 +72,17 @@ public class Habitacion extends Enumerable {
     public Collection<NPC> getNpcs() {
 	return npcs.values();
     }
+    
+    public Item getItem(String nombreItem) {
+	Item item = null;
+	Iterator<Sitio> iterator = sitios.values().iterator();
+	while (iterator.hasNext()) {
+	    Sitio sitio = iterator.next();
+	    item = sitio.getItem(nombreItem);
+	    if (item != null)
+		break;
+	}
+	return item;
+    }
 
 }

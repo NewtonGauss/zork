@@ -1,7 +1,7 @@
 {
   "settings": {
     "welcome": "Te encuentras en el patio de una casa. Está tu hermano mayor aburrido y ves varios objetos esparcidos por el suelo y la mesa. Es de día",
-    "character": { String -> nombre del jugador // a punto de ser borrado }
+    "character": "Petiso",
 		"info": "Tu madre te pidio que ordenaras la mesa del patio guardando cada cosa en su lugar y tu padre que lo ayudes con el asado"
   },
   "locations": [ 
@@ -169,9 +169,9 @@
 			"weight": "75",
 			"type": "weapon",
       "actions": [ 
-	"dar",
-	"soltar",
-	"atacar"
+	"drop",
+	"take",
+	"use"
       ],
       "effects_over": [ 
         "npcs"
@@ -185,7 +185,7 @@
 			"weight": "200",
 			"type": "vanilla",
       "actions": [ 
-	"poner"
+	"drop", "take"
       ],
       "effects_over": [ 
       ]
@@ -193,10 +193,10 @@
   ],
   "inventory": [ 
 	],
-  "endgames": [ { Array -> finales del juego }
+  "endgames": [
     {
-      "condition": "heladera",
-      "action": "poner",
+      "condition": "action",
+      "action": "give",
       "thing": "botella de agua",
       "description": "Hiciste lo que tu mamá te pidió, sos un chico aplicado. Ahora tu mamá tiene un mejor ánimo!!"
     },

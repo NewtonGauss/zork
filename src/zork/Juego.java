@@ -11,9 +11,9 @@ public class Juego {
 	Jugador jugador = null;
 	Narrador narrador = null;
 	Set<String> mensajesFinales = new HashSet<String>();
-	InputOutput io = new InputOutput("Jugadorazo");
+	EstandarInputOutput io = new EstandarInputOutput("Jugadorazo");
 	try {
-	    CargadorHistoria ch = new CargadorHistoria("aventuras/mi.zork");
+	    CargadorHistoria ch = new CargadorHistoria("aventuras/historia_biblioteca.zork");
 	    jugador = ch.cargarHistoria();
 	    narrador = new Narrador(jugador);
 	    List<FinalJuego> finales = ch.cargarFinales();

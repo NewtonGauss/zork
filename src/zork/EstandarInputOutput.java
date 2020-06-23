@@ -2,12 +2,12 @@ package zork;
 
 import java.util.Scanner;
 
-public class InputOutput {
+public class EstandarInputOutput {
 
     private String nombreJugador;
     private Scanner teclado;
     
-    public InputOutput(String nombreJugador) {
+    public EstandarInputOutput(String nombreJugador) {
 	super();
 	this.nombreJugador = nombreJugador;
     }

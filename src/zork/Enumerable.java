@@ -22,11 +22,13 @@ public abstract class Enumerable {
 
     @Override
     public String toString() {
-	String retorno;
-	if (number == 's')
-	    retorno = gender == 'm' ? "el ": "la ";
-	else
-	    retorno = gender == 'm' ? "los ": "las ";
+	String retorno = "";
+	if (!Character.isUpperCase(nombre.charAt(0))) {
+	    if (number == 's')
+		retorno = gender == 'm' ? "el ": "la ";
+	    else
+		retorno = gender == 'm' ? "los ": "las ";
+	}
 	return retorno + nombre;
     }
 
