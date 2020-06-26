@@ -41,6 +41,7 @@ public class PonerComandoTest {
 
 	assertEquals("la espada ahora se encuentra en el suelo",
 		poner.ejecutar(jugador, "espada:suelo"));
+	assertEquals("espada", muelle.getItem("espada").getNombre());
     }
 
     @Test
@@ -56,6 +57,8 @@ public class PonerComandoTest {
 
 	assertEquals("No hay un cofre en el muelle. Puede dejar la espada en la ventana o en el suelo.",
 		poner.ejecutar(jugador, "espada:cofre"));
+	assertEquals(null, muelle.getItem("espada"));
+	assertEquals("espada", jugador.getItem("espada").getNombre());
     }
 
     @Test

@@ -44,26 +44,21 @@ class SalidaTest {
 	hab.setDescripcion("Estas en un barrio");
 	barrio = new Habitacion(hab);
     }
-
-    @Test // PRUEBO GENERAR UN ROOM, LE AGREGO UN NPC Y ME FIJO SI FUNCIONA EL METODO
-	  // ISENEMYDEFEAT.
-    void test1() {
+    
+    @Test
+    void testCrearSalidaConNPC() {
 	Salida salida = new Salida(barrio);
-	npc.setEnemigo(true);
-	salida.addNPC(npc);
 	muelle.addSalida(salida, Direccion.SUR);
-	assertEquals(false, salida.isEnemigoDerrotado());
-	npc.matar();
-	assertEquals(true, salida.isEnemigoDerrotado());
+	muelle.addObstaculo(npc, Direccion.SUR);
+	assertEquals(muelle.getNombre(), npc.getHabitacionActual().getNombre());
     }
 
-    @Test // PRUEBO GENERAR UN ROOM, LE AGREGO UNA SALIDA CON UN NPC Y ME FIJO SI
-	  // DERROTAMOS AL NPC.
-    void test2() {
+    @Test
+    void testNPCDefeat() {
 	Salida salida = new Salida(barrio);
 	npc.setEnemigo(true);
-	salida.addNPC(npc);
 	muelle.addSalida(salida, Direccion.SUR);
+	muelle.addObstaculo(npc, Direccion.SUR);
 	assertEquals(barrio.getNombre(), muelle.getSalida(Direccion.SUR).getNombre());
 	assertEquals(false, muelle.getSalida(Direccion.SUR).isEnemigoDerrotado());
 	npc.matar();

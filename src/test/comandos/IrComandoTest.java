@@ -35,6 +35,7 @@ class IrComandoTest {
 	Comando ir = new IrComando();
 
 	assertEquals("Estas en un barrio", ir.ejecutar(jugador, "norte"));
+	assertEquals("barrio", jugador.getHabitacionActual().getNombre());
     }
 
     @Test
@@ -52,9 +53,11 @@ class IrComandoTest {
 
 	assertEquals("- '¡No puedes pasar!' El pirata fantasma no te dejará pasar",
 		ir.ejecutar(jugador, "norte"));
+	assertEquals("muelle", jugador.getHabitacionActual().getNombre());
 
 	pirata.ejecutarTrigger(TipoTrigger.ITEM, "rociador con cerveza de raiz");
 	assertEquals("Estas en un barrio", ir.ejecutar(jugador, "norte"));
+	assertEquals("barrio", jugador.getHabitacionActual().getNombre());
     }
     
     private NPC initNPC() {

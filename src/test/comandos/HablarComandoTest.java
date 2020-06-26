@@ -47,7 +47,7 @@ class HablarComandoTest {
 	muelle.addNPC(pirata);
 	jugador.setHabitacionActual(muelle);
 	
-	assertEquals(pirata.hablar(), hc.ejecutar(jugador, "pirata fantasma"));
+	assertEquals("¡No hay nada que me digas que me haga cambiar de opinión!", hc.ejecutar(jugador, "pirata fantasma"));
     }
     
     @Test

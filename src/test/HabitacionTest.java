@@ -23,32 +23,32 @@ class HabitacionTest {
 	barrio = new Habitacion(hab);
     }
 
-    @Test // Pruebo la creacion de la habitacion
+    @Test
     void testDescripcion() {
 	assertEquals("el muelle", muelle.toString());
     }
 
-    @Test // Pruebo agregando Salida...
+    @Test
     void testSalidas() {
 	Salida salida = new Salida(barrio);
 	muelle.addSalida(salida, Direccion.SUR);
 	assertEquals(salida.getNombre(), muelle.getSalida(Direccion.SUR).getNombre());
     }
 
-    @Test // Pruebo agregando Sitio...
+    @Test
     void testSitios() {
 	Sitio sitio = new Sitio(new SitioInputParametro("ventana", 'f', 's'));
 	muelle.addSitio(sitio);
 	assertEquals("ventana", muelle.getSitio("ventana").getNombre());
     }
 
-    @Test // Pruebo obtener el item de un determinado sitio
+    @Test
     void testItemsENSitios() {
 	Sitio sitio = new Sitio();
 	Item barreta = inicializarItems();
 	sitio.addItem(barreta);
 	muelle.addSitio(sitio);
-	assertEquals(barreta, muelle.getSitio("suelo").getItem("barreta"));
+	assertEquals(barreta, muelle.getItem("barreta"));
     }
 
     private Item inicializarItems() {

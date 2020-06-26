@@ -56,7 +56,7 @@ class AtacarComandoTest {
     }
 
     @Test
-    void testAtacarConComando() {
+    void testAtacarConTriggerAttackInefectivo() {
 	Jugador j1 = new Jugador("Guybrush Threepwood");
 	AtacarConComando acc = new AtacarConComando();
 

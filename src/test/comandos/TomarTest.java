@@ -46,7 +46,9 @@ class TomarTest {
 	s3.addItem(espejo);
 	j.setHabitacionActual(muelle);
 	TomarComando c = new TomarComando();
+	assertEquals(null, j.getItem("espejo"));
 	assertEquals("Tomaste el espejo.", c.ejecutar(j, "espejo"));
+	assertEquals("espejo", j.getItem("espejo").getNombre());
 	assertEquals("No hay ningun espejo por aqui.", c.ejecutar(j, "espejo"));
 	assertEquals(rociador, s1.getItem("rociador con cerveza de raiz"));
     }
