@@ -236,7 +236,7 @@
 			"inventory": [ ],
       "triggers": [
         {
-          "type": "atack",
+          "type": "attack",
           "thing": "lampara",
           "on_trigger": "'uhhh, me acabas de hacer feliz'. El estudiante de derecho ha sido iluminado y va a pasarse a ingenieria",
           "after_trigger": "remove"
