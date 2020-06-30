@@ -7,13 +7,27 @@ import zork.endgame.FinalJuego;
 
 public class Juego {
 
-    public static void main(String[] args) {
-	Jugador jugador = null;
-	Narrador narrador = null;
-	Set<String> mensajesFinales = new HashSet<String>();
-	EstandarInputOutput io = new EstandarInputOutput("Jugadorazo");
-	try {
-	    CargadorHistoria ch = new CargadorHistoria("aventuras/historia_biblioteca.zork");
+    private Jugador jugador;
+    private Narrador narrador;
+    private Set<String> mensajesFinales;
+    private InputOutput io;
+    private boolean andando = false;
+    private static Juego instanciaSingleton = new Juego();
+
+    private Juego() {
+	mensajesFinales = new HashSet<String>();
+    }
+    
+    public static Juego getInstancia() {
+	return instanciaSingleton;
+    }
+    
+    public void setIo(InputOutput io) {
+	this.io = io;
+    }
+
+    public void cargarHistoria(String pathHistoria) throws IOException {
+	    CargadorHistoria ch = new CargadorHistoria(pathHistoria);
 	    jugador = ch.cargarHistoria();
 	    narrador = new Narrador(jugador);
 	    List<FinalJuego> finales = ch.cargarFinales();
@@ -21,18 +35,16 @@ public class Juego {
 	    for (FinalJuego finalJuego : finales) {
 		mensajesFinales.add(finalJuego.getDescripcion());
 	    }
-	    io.imprimir(ch.getBienvenida());
-	} catch (IOException e) {
-	    e.printStackTrace();
-	    System.exit(1);
-	}
-	String comando;
-	while (!(comando = io.leerComando()).equals("exit")) {
+	    andando = true;
+	    io.setNombreJugador(jugador.getNombre());
+	    io.imprimir(ch.getBienvenida(), !andando);
+    }
+
+    public void ejecutarInstruccion(String comando) {
 	    String salida = narrador.ejecutar(comando);
-	    io.imprimir(salida);
 	    if (mensajesFinales.contains(salida))
-		break;
-	}
+		andando = false;
+	    io.imprimir(salida, !andando);
     }
 
 }

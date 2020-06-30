@@ -12,7 +12,7 @@ public class CargadorHistoria {
     private JsonObject settings;
     private JsonArray habitacionesJsonArray, npcsJsonArray, itemsJsonArray,
 	    finalesJsonArray;
-    private Map<String, Item> items;
+    private Map<String, Item> items; 
     private Map<String, NPC> npcs;
     private Map<String, Habitacion> habitaciones;
 
