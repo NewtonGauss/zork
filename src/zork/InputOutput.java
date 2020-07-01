@@ -15,6 +15,10 @@ public class InputOutput {
 	this.nombreJugador = nombreJugador;
     }
     
+    public String getNombreJugador() {
+	return nombreJugador;
+    }
+    
     public void cargarHistoria(String pathHistoria) {
 	try {
 	    Juego.getInstancia().cargarHistoria(pathHistoria);

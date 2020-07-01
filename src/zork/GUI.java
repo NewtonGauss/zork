@@ -98,7 +98,9 @@ public class GUI extends JFrame {
 	    cuadroInstrucciones.addActionListener(new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent evt) {
-	            io.leerComando(cuadroInstrucciones.getText());
+	            String instruccion = cuadroInstrucciones.getText();
+	            imprimir(io.getNombreJugador() + " > " + instruccion);
+	            io.leerComando(instruccion);
 	            cuadroInstrucciones.setText("");
 	        }
 	    });
