@@ -1,6 +1,7 @@
 package zork.comandos;
 
 import zork.*;
+import zork.endgame.ComandoCondicion;
 
 public class HablarComando implements Comando {
 
@@ -27,6 +28,11 @@ public class HablarComando implements Comando {
     @Override
     public boolean validar(Jugador jugador, String restoDelComando) {
 	return jugador.getHabitacionActual().getNPC(restoDelComando) != null;
+    }
+
+    @Override
+    public ComandoCondicion getTipo() {
+	return ComandoCondicion.HABLAR;
     }
 
 }

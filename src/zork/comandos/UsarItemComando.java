@@ -1,6 +1,7 @@
 package zork.comandos;
 
 import zork.*;
+import zork.endgame.ComandoCondicion;
 
 public class UsarItemComando implements Comando {
 
@@ -92,6 +93,11 @@ public class UsarItemComando implements Comando {
     public boolean validar(Jugador jugador, String restoDelComando) {
 	// TODO Auto-generated method stub
 	return false;
+    }
+
+    @Override
+    public ComandoCondicion getTipo() {
+	return ComandoCondicion.USAR;
     }
 
 }

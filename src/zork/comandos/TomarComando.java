@@ -1,6 +1,7 @@
 package zork.comandos;
 
 import zork.*;
+import zork.endgame.ComandoCondicion;
 
 public class TomarComando implements Comando {
     @Override
@@ -25,5 +26,10 @@ public class TomarComando implements Comando {
 	Habitacion habitacionActual = jugador.getHabitacionActual();
 	Item item = habitacionActual.getItem(restoDelComando);
 	return item != null;
+    }
+
+    @Override
+    public ComandoCondicion getTipo() {
+	return ComandoCondicion.TOMAR;
     }
 }

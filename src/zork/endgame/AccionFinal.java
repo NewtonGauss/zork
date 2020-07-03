@@ -15,7 +15,7 @@ public class AccionFinal extends FinalJuego {
 
     @Override
     public boolean esComandoFinal(Comando comando, String restoComando) {
-	return accion.equals(comando) && restoComando.contains(objetivo);
+	return accion.equals(comando.getTipo()) && restoComando.contains(objetivo);
     }
 
     @Override

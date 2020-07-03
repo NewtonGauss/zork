@@ -13,20 +13,22 @@ public class HabitacionFinal extends FinalJuego {
 
     @Override
     public boolean esComandoFinal(Comando comando, String restoComando) {
-	return comando.getClass().equals(IrComando.class);
+	return comando.getTipo().equals(ComandoCondicion.IR);
     }
 
     @Override
-    public String ejecutar(Jugador jugador, Comando comando, String restoComando) {
-	Direccion direccion = Direccion.stringToDireccion(restoComando);
+    public String ejecutar(Jugador jugador, Comando comando, String dir) {
+	Habitacion habitacionActual = jugador.getHabitacionActual();
+	Direccion direccion = Direccion.stringToDireccion(dir);
+	direccion = direccion != null ? direccion
+		: habitacionActual.getSalida(dir);
 	Salida salida = null;
 	if (direccion != null)
 	    salida = jugador.getHabitacionActual().getSalida(direccion);
 	String retorno = null;
 	if (salida != null && esHabitacionFinal(salida)
-		&& comando.validar(jugador, restoComando)) {
+		&& comando.validar(jugador, dir))
 	    retorno = this.descripcion;
-	}
 	return retorno;
     }
 

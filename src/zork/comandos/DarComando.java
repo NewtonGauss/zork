@@ -2,6 +2,7 @@ package zork.comandos;
 
 import utilitarias.Cadena;
 import zork.*;
+import zork.endgame.ComandoCondicion;
 
 public class DarComando implements Comando {
 
@@ -51,6 +52,11 @@ public class DarComando implements Comando {
 	npc = jugador.getHabitacionActual().getNPC(sujeto);
 	item = jugador.getItem(objeto);
 	return npc != null && item != null;
+    }
+
+    @Override
+    public ComandoCondicion getTipo() {
+	return ComandoCondicion.DAR;
     }
 
 }

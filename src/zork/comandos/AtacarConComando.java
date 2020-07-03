@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import utilitarias.Cadena;
 import zork.*;
+import zork.endgame.ComandoCondicion;
 
 public class AtacarConComando implements Comando {
 
@@ -53,6 +54,11 @@ public class AtacarConComando implements Comando {
     public boolean validar(Jugador jugador, String restoDelComando) {
 	// TODO Auto-generated method stub
 	return false;
+    }
+
+    @Override
+    public ComandoCondicion getTipo() {
+	return ComandoCondicion.ATACAR;
     }
 
 }

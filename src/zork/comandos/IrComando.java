@@ -1,6 +1,7 @@
 package zork.comandos;
 
 import zork.*;
+import zork.endgame.ComandoCondicion;
 
 public class IrComando implements Comando {
     /**
@@ -46,5 +47,10 @@ public class IrComando implements Comando {
 		: habitacionActual.getSalida(dir);
 	Salida salida = habitacionActual.getSalida(direccion);
 	return salida != null && salida.isEnemigoDerrotado();
+    }
+
+    @Override
+    public ComandoCondicion getTipo() {
+	return ComandoCondicion.IR;
     }
 }

@@ -2,6 +2,7 @@
 package zork.comandos;
 
 import zork.*;
+import zork.endgame.ComandoCondicion;
 
 public class SoltarComando implements Comando {
 
@@ -28,6 +29,11 @@ public class SoltarComando implements Comando {
     public boolean validar(Jugador jugador, String restoDelComando) {
 	// TODO Auto-generated method stub
 	return false;
+    }
+
+    @Override
+    public ComandoCondicion getTipo() {
+	return ComandoCondicion.DEFAULT;
     }
 
 }

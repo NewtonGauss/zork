@@ -1,6 +1,7 @@
 package zork.comandos;
 
 import zork.Jugador;
+import zork.endgame.ComandoCondicion;
 
 public class DiagnosticoComando implements Comando{
 	@Override
@@ -25,5 +26,10 @@ public class DiagnosticoComando implements Comando{
 	public boolean validar(Jugador jugador, String restoDelComando) {
 	    // TODO Auto-generated method stub
 	    return false;
+	}
+
+	@Override
+	public ComandoCondicion getTipo() {
+	    return ComandoCondicion.DEFAULT;
 	}
 }

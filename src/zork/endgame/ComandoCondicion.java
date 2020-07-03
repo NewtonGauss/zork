@@ -1,9 +1,7 @@
 package zork.endgame;
 
-import zork.comandos.Comando;
-
 public enum ComandoCondicion {
-    ATACAR, DAR, HABLAR, MIRAR, TOMAR, USAR;
+    ATACAR, DAR, HABLAR, MIRAR, TOMAR, USAR, IR, AYUDA, DEFAULT;
     
     public static ComandoCondicion stringToComandoCondicion(String comando) {
 	ComandoCondicion comandoCondicion;
@@ -29,9 +27,5 @@ public enum ComandoCondicion {
 	    break;
 	}
 	return comandoCondicion;
-    }
-    
-    public boolean equals(Comando comando) {
-	return comando.getClass().toString().toUpperCase().contains(toString());
     }
 }

@@ -3,6 +3,7 @@ package zork.comandos;
 import java.io.*;
 
 import zork.Jugador;
+import zork.endgame.ComandoCondicion;
 
 
 
@@ -32,6 +33,11 @@ public class AyudaComando implements Comando {
     public boolean validar(Jugador jugador, String restoDelComando) {
 	// TODO Auto-generated method stub
 	return false;
+    }
+
+    @Override
+    public ComandoCondicion getTipo() {
+	return null;
     }
     
 }
