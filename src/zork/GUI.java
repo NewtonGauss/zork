@@ -92,9 +92,11 @@ public class GUI extends JFrame {
 	    juego.setLayout(new BorderLayout());
 	    cuadroJuego = new JTextPane();
 	    cuadroJuego.setEditable(false);
+	    cuadroJuego.setFont(new Font("Monospaced", Font.PLAIN , 16));
 	    JScrollPane scroll = new JScrollPane(cuadroJuego);
 	    juego.add(scroll, BorderLayout.CENTER);
 	    cuadroInstrucciones = new JTextField();
+	    cuadroInstrucciones.setFont(new Font("Monospaced", Font.PLAIN , 12));
 	    cuadroInstrucciones.addActionListener(new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent evt) {
@@ -124,7 +126,7 @@ public class GUI extends JFrame {
     }
 
     public void imprimir(String mensaje) {
-	String textoMostrar = panelJuego.cuadroJuego.getText() + mensaje + '\n';
+	String textoMostrar = panelJuego.cuadroJuego.getText() + mensaje + "\n\n";
 	panelJuego.cuadroJuego.setText(textoMostrar);
     }
 
