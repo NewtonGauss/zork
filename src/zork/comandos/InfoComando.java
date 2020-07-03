@@ -15,7 +15,7 @@ public class InfoComando implements Comando {
      */
     @Override
     public String ejecutar(Jugador jugador, String info) {
-	return info;
+	return jugador.getInfo();
     }
 
     @Override

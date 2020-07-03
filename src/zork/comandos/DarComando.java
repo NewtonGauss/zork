@@ -5,6 +5,9 @@ import zork.*;
 
 public class DarComando implements Comando {
 
+    private NPC npc;
+    private Item item;
+
     /**
      * Ejecuta un comando de dar un {@link Item} a un {@link NPC}.
      * 
@@ -15,9 +18,10 @@ public class DarComando implements Comando {
     public String ejecutar(Jugador jugador, String restoDelComando) {
 	String retorno = "";
 	String[] cadenaPartida = restoDelComando.split(":");
-	String objeto = cadenaPartida[0], sujeto = cadenaPartida[1];
-	NPC npc = jugador.getHabitacionActual().getNPC(sujeto);
-	Item item = jugador.getItem(objeto);
+	String objeto = cadenaPartida[0],
+		sujeto = cadenaPartida.length > 1 ? cadenaPartida[1] : "";
+	npc = jugador.getHabitacionActual().getNPC(sujeto);
+	item = jugador.getItem(objeto);
 	if (npc != null) {
 	    if (item != null && item.esUsoValido(AccionItem.DROP)) {
 		retorno = npc.ejecutarTrigger(TipoTrigger.ITEM, item.getNombre());
@@ -41,8 +45,12 @@ public class DarComando implements Comando {
 
     @Override
     public boolean validar(Jugador jugador, String restoDelComando) {
-	// TODO Auto-generated method stub
-	return false;
+	String[] cadenaPartida = restoDelComando.split(":");
+	String objeto = cadenaPartida[0],
+		sujeto = cadenaPartida.length > 1 ? cadenaPartida[1] : "";
+	npc = jugador.getHabitacionActual().getNPC(sujeto);
+	item = jugador.getItem(objeto);
+	return npc != null && item != null;
     }
 
 }
