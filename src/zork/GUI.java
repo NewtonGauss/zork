@@ -2,6 +2,8 @@ package zork;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -13,11 +15,11 @@ public class GUI extends JFrame {
     private InputOutput io;
 
     public GUI(InputOutput io) {
-	this.io = io; 
+	this.io = io;
 	cards.setLayout(new CardLayout());
 	cards.add(panelPrincipal);
 	cards.add(panelJuego);
-	
+
 	add(cards);
 
 	pack();
@@ -29,20 +31,19 @@ public class GUI extends JFrame {
     private class PanelPrincipal extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JScrollPane panelAventuras;
-	
+
 	public PanelPrincipal() {
 	    setBackground(Color.decode("#7b7e85"));
 	    GridBagLayout gb = new GridBagLayout();
 	    setLayout(gb);
 	    GridBagConstraints c = new GridBagConstraints();
 	    JLabel zorkTitulo = new JLabel("Zork");
-	    zorkTitulo.setFont(new Font("Monospaced", Font.BOLD ,50));
+	    zorkTitulo.setFont(new Font("Monospaced", Font.BOLD, 50));
 	    c.gridx = 1;
 	    c.gridy = 0;
 	    gb.setConstraints(zorkTitulo, c);
 	    add(zorkTitulo);
-	    
-	    
+
 	    panelAventuras = new JScrollPane();
 	    JPanel panel = new JPanel();
 	    panel.setLayout(new GridLayout(20, 1));
@@ -50,8 +51,10 @@ public class GUI extends JFrame {
 	    addBoton(panel, "historia1");
 	    addBoton(panel, "mi");
 	    panelAventuras = new JScrollPane(panel);
-	    panelAventuras.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	    panelAventuras.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+	    panelAventuras
+		    .setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	    panelAventuras
+		    .setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 	    panelAventuras.setPreferredSize(new Dimension(400, 400));
 	    c.gridx = 1;
 	    c.gridy = 1;
@@ -62,12 +65,12 @@ public class GUI extends JFrame {
 	private void addBoton(JPanel panel, String nombre) {
 	    JButton boton = new JButton(nombre);
 	    boton.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent evt) {
-	            io.cargarHistoria("aventuras/" + nombre + ".zork");
-	            CardLayout cl = (CardLayout) cards.getLayout();
-	            cl.next(cards);
-	        }
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+		    io.cargarHistoria("aventuras/" + nombre + ".zork");
+		    CardLayout cl = (CardLayout) cards.getLayout();
+		    cl.next(cards);
+		}
 	    });
 	    panel.add(boton);
 	}
@@ -79,7 +82,9 @@ public class GUI extends JFrame {
 	private JPanel imagen;
 	private JTextPane cuadroJuego;
 	private JTextField cuadroInstrucciones;
-	
+	private List<String> historialInstrucciones = new ArrayList<>();
+	private int indexActualInstruccion = -1;
+
 	public PanelJuego() {
 	    setLayout(new BorderLayout());
 	    setBackground(Color.decode("#7b7e85"));
@@ -87,28 +92,52 @@ public class GUI extends JFrame {
 	    imagen.setBackground(Color.BLACK);
 	    imagen.setPreferredSize(new Dimension(200, 0));
 	    add(imagen, BorderLayout.WEST);
-	    
+
 	    JPanel juego = new JPanel();
 	    juego.setLayout(new BorderLayout());
 	    cuadroJuego = new JTextPane();
 	    cuadroJuego.setEditable(false);
-	    cuadroJuego.setFont(new Font("Monospaced", Font.PLAIN , 16));
+	    cuadroJuego.setFont(new Font("Monospaced", Font.PLAIN, 16));
 	    JScrollPane scroll = new JScrollPane(cuadroJuego);
 	    juego.add(scroll, BorderLayout.CENTER);
 	    cuadroInstrucciones = new JTextField();
-	    cuadroInstrucciones.setFont(new Font("Monospaced", Font.PLAIN , 12));
+	    cuadroInstrucciones.setFont(new Font("Monospaced", Font.PLAIN, 12));
 	    cuadroInstrucciones.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent evt) {
-	            String instruccion = cuadroInstrucciones.getText();
-	            imprimir(io.getNombreJugador() + " > " + instruccion);
-	            io.leerComando(instruccion);
-	            cuadroInstrucciones.setText("");
-	        }
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+		    String instruccion = cuadroInstrucciones.getText();
+		    imprimir(io.getNombreJugador() + " > " + instruccion);
+		    io.leerComando(instruccion);
+		    historialInstrucciones.add(instruccion);
+		    indexActualInstruccion = historialInstrucciones.size();
+		    cuadroInstrucciones.setText("");
+		}
+	    });
+	    cuadroInstrucciones.addKeyListener(new KeyAdapter() {
+		@Override
+		public void keyPressed(KeyEvent e) {
+		    switch (e.getExtendedKeyCode()) {
+		    case KeyEvent.VK_UP:
+			if (indexActualInstruccion > 0)
+			    cuadroInstrucciones.setText(
+				    historialInstrucciones.get(--indexActualInstruccion));
+			break;
+		    case KeyEvent.VK_DOWN:
+			if (indexActualInstruccion < historialInstrucciones.size() - 1)
+			    cuadroInstrucciones.setText(
+				    historialInstrucciones.get(++indexActualInstruccion));
+			else {
+			    if (!cuadroInstrucciones.getText().equals(""))
+				indexActualInstruccion++;
+			    cuadroInstrucciones.setText("");
+			}
+			break;
+		    }
+		}
 	    });
 	    juego.add(cuadroInstrucciones, BorderLayout.SOUTH);
 	    add(juego);
-	    
+
 	}
 
     }
@@ -117,7 +146,7 @@ public class GUI extends JFrame {
     public Dimension getPreferredSize() {
 	return new Dimension(800, 600);
     }
-    
+
     public static void main(String[] args) {
 	InputOutput io = new InputOutput();
 	GUI gui = new GUI(io);
