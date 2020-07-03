@@ -1,6 +1,6 @@
 Comandos utiles:
 
-El comando 'INFO' otorga informacion acerca de la aventura y sus objetivos. //no implementado aun
+El comando 'INFO' otorga informacion acerca de la aventura y sus objetivos.
 El comando 'SALIR' muestra tu puntuacion y te pregunta si queres salir. //no implementado aun
 El comando 'GUARDAR' guarda el estado actual del juego y para que continues luego. //no implementado aun
 El comando 'CARGAR' carga una partida guardada.  //no implementado aun

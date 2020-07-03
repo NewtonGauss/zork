@@ -3,11 +3,11 @@ package zork.comandos;
 import zork.*;
 
 public class IrComando implements Comando {
-
     /**
      * Mueve al jugador (o no). Devuelve el mensaje que debera aparecer en pantalla
      * 
-     * @param direccion puede ser norte, sur, este, oeste, arriba, abajo.
+     * @param direccion puede ser norte, sur, este, oeste, arriba, abajo. Tambien
+     *                  recibe el nombre exacto de la habitacion.
      * @return mensaje de salida por pantalla. Puede ser la descripcion de la
      *         habitacion nueva, el mensaje de un obstaculo o un mensaje que indica
      *         que no se puede mover.
@@ -15,12 +15,15 @@ public class IrComando implements Comando {
     @Override
     public String ejecutar(Jugador jugador, String dir) {
 	String retorno = "";
+	Habitacion habitacionActual = jugador.getHabitacionActual();
 	Direccion direccion = Direccion.stringToDireccion(dir);
+	direccion = direccion != null ? direccion
+		: habitacionActual.getSalida(dir);
 
 	if (direccion != null && jugador.mover(direccion)) {
 	    retorno = jugador.getHabitacionActual().getDescripcion();
 	} else if (direccion != null) {
-	    Salida salida = jugador.getHabitacionActual().getSalida(direccion);
+	    Salida salida = habitacionActual.getSalida(direccion);
 	    if (salida != null) {
 		retorno = salida.getObstaculo().getDescripcion();
 	    } else {
@@ -36,10 +39,12 @@ public class IrComando implements Comando {
     }
 
     @Override
-    public boolean validar(Jugador jugador, String restoDelComando) {
-	Direccion direccion = Direccion.stringToDireccion(restoDelComando);
-	Salida salida = jugador.getHabitacionActual().getSalida(direccion);
+    public boolean validar(Jugador jugador, String dir) {
+	Habitacion habitacionActual = jugador.getHabitacionActual();
+	Direccion direccion = Direccion.stringToDireccion(dir);
+	direccion = direccion != null ? direccion
+		: habitacionActual.getSalida(dir);
+	Salida salida = habitacionActual.getSalida(direccion);
 	return salida != null && salida.isEnemigoDerrotado();
     }
-
 }

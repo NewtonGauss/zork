@@ -4,6 +4,7 @@ public class Jugador extends Personaje {
 
     private int movimientos;
     private int puntuacion;
+    private String info;
 
     public Jugador(String nombre) {
 	super(nombre);
@@ -19,6 +20,14 @@ public class Jugador extends Personaje {
 
     public int getCantMovimientos() {
 	return this.movimientos;
+    }
+    
+    public void setInfo(String info) {
+	this.info = info;
+    }
+    
+    public String getInfo() {
+	return info;
     }
 
     public int getPuntuacion() {

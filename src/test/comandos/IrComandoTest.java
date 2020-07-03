@@ -37,6 +37,20 @@ class IrComandoTest {
 	assertEquals("Estas en un barrio", ir.ejecutar(jugador, "norte"));
 	assertEquals("barrio", jugador.getHabitacionActual().getNombre());
     }
+    
+    @Test
+    void testSinObstaculoUsandoNombre() {
+	Salida salidaBarrio = new Salida(barrio);
+	muelle.addSalida(salidaBarrio, Direccion.NORTE);
+	
+	Jugador jugador = new Jugador("Guybrush Threepwood");
+	jugador.setHabitacionActual(muelle);
+	
+	Comando ir = new IrComando();
+	
+	assertEquals("Estas en un barrio", ir.ejecutar(jugador, "barrio"));
+	assertEquals("barrio", jugador.getHabitacionActual().getNombre());
+    }
 
     @Test
     void testConObstaculo() {

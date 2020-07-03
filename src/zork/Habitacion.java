@@ -49,6 +49,19 @@ public class Habitacion extends Enumerable {
     public Salida getSalida(Direccion direccion) {
 	return salidas.get(direccion);
     }
+    
+    public Direccion getSalida(String nombreSalida) {
+	Direccion[] direcciones = Direccion.values();
+	Direccion dirSalida = null;
+	for (Direccion dir: direcciones) {
+	    Salida salida = salidas.get(dir);
+	    if (salida != null && salida.getNombre().equals(nombreSalida)) {
+		dirSalida = dir;
+		break;
+	    }
+	}
+	return dirSalida;
+    }
 
     public Sitio getSitio(String nombreSitio) {
 	return sitios.get(nombreSitio);

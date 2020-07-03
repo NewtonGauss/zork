@@ -6,7 +6,6 @@ import java.util.*;
 import zork.endgame.FinalJuego;
 
 public class Juego {
-
     private Jugador jugador;
     private Narrador narrador;
     private Set<String> mensajesFinales;
@@ -46,5 +45,4 @@ public class Juego {
 		andando = false;
 	    io.imprimir(salida, !andando);
     }
-
 }

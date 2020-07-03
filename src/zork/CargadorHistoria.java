@@ -37,6 +37,7 @@ public class CargadorHistoria {
 
     public Jugador cargarHistoria() {
 	Jugador jugador = new Jugador(settings.get("character").getAsString());
+	jugador.setInfo(settings.get("info").getAsString());
 	cargarHabitaciones(jugador);
 	return jugador;
     }
