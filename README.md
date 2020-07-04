@@ -47,8 +47,8 @@ Tenemos las siguientes clases a implementar. En orden de implementación:
     16. ~Hablar~
     17. ~Usar item~
 9. ~Narrador.~
-10. CargadorDeHistoria.
-11. Juego.
+10. ~CargadorDeHistoria.~
+11. ~Juego.~
 
 ## Ideas
 

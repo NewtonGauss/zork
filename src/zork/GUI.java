@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.util.List;
+import java.io.File;
 
 import javax.swing.*;
 
@@ -29,6 +30,8 @@ public class GUI extends JFrame {
     }
 
     private class PanelPrincipal extends JPanel {
+	private static final String EXTENSION_HISTORIA = ".zork";
+	private static final String DIRECTORIO_HISTORIAS = "aventuras/";
 	private static final long serialVersionUID = 1L;
 	JScrollPane panelAventuras;
 
@@ -46,10 +49,8 @@ public class GUI extends JFrame {
 
 	    panelAventuras = new JScrollPane();
 	    JPanel panel = new JPanel();
-	    panel.setLayout(new GridLayout(20, 1));
-	    addBoton(panel, "historia_biblioteca");
-	    addBoton(panel, "historia1");
-	    addBoton(panel, "mi");
+	    panel.setLayout(new GridLayout(0, 1));
+	    cargarHistorias(panel);
 	    panelAventuras = new JScrollPane(panel);
 	    panelAventuras
 		    .setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -62,12 +63,23 @@ public class GUI extends JFrame {
 	    add(panelAventuras);
 	}
 
+	private void cargarHistorias(JPanel panel) {
+	    File dirAventuras = new File(DIRECTORIO_HISTORIAS);
+	    assert (dirAventuras.isDirectory());
+	    File[] archivos = dirAventuras.listFiles();
+	    for (File archivo : archivos) {
+		String nombre = archivo.getName();
+		if (archivo.isFile() && nombre.contains(EXTENSION_HISTORIA))
+		    addBoton(panel, nombre.replaceAll(EXTENSION_HISTORIA, ""));
+	    }
+	}
+
 	private void addBoton(JPanel panel, String nombre) {
 	    JButton boton = new JButton(nombre);
 	    boton.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent evt) {
-		    io.cargarHistoria("aventuras/" + nombre + ".zork");
+		    io.cargarHistoria(DIRECTORIO_HISTORIAS + nombre + EXTENSION_HISTORIA);
 		    CardLayout cl = (CardLayout) cards.getLayout();
 		    cl.next(cards);
 		}
