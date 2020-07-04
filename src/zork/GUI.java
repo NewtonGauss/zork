@@ -2,7 +2,6 @@ package zork;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import java.util.List;
 import java.io.File;
 
@@ -69,7 +68,7 @@ public class GUI extends JFrame {
 	    File[] archivos = dirAventuras.listFiles();
 	    for (File archivo : archivos) {
 		String nombre = archivo.getName();
-		if (archivo.isFile() && nombre.contains(EXTENSION_HISTORIA))
+		if (archivo.isFile() && nombre.endsWith(EXTENSION_HISTORIA))
 		    addBoton(panel, nombre.replaceAll(EXTENSION_HISTORIA, ""));
 	    }
 	}
@@ -94,10 +93,11 @@ public class GUI extends JFrame {
 	private JPanel imagen;
 	private JTextPane cuadroJuego;
 	private JTextField cuadroInstrucciones;
-	private List<String> historialInstrucciones = new ArrayList<>();
+	private List<String> historialInstrucciones;
 	private int indexActualInstruccion = -1;
 
 	public PanelJuego() {
+	    historialInstrucciones = Juego.getInstancia().getHistorialInstrucciones();
 	    setLayout(new BorderLayout());
 	    setBackground(Color.decode("#7b7e85"));
 	    imagen = new JPanel();
@@ -120,7 +120,6 @@ public class GUI extends JFrame {
 		    String instruccion = cuadroInstrucciones.getText();
 		    imprimir(io.getNombreJugador() + " > " + instruccion);
 		    io.leerComando(instruccion);
-		    historialInstrucciones.add(instruccion);
 		    indexActualInstruccion = historialInstrucciones.size();
 		    cuadroInstrucciones.setText("");
 		}
@@ -138,9 +137,8 @@ public class GUI extends JFrame {
 			if (indexActualInstruccion < historialInstrucciones.size() - 1)
 			    cuadroInstrucciones.setText(
 				    historialInstrucciones.get(++indexActualInstruccion));
-			else {
-			    if (!cuadroInstrucciones.getText().equals(""))
-				indexActualInstruccion++;
+			else if (indexActualInstruccion == historialInstrucciones.size() - 1) {
+			    indexActualInstruccion++;
 			    cuadroInstrucciones.setText("");
 			}
 			break;

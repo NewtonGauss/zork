@@ -15,9 +15,6 @@ public abstract class Cadena {
 
     /**
      * Cambia "a el" por "al".
-     * 
-     * @param mensaje
-     * @return mensaje sin a el.
      */
     public static String replaceAEl(String mensaje) {
 	return mensaje.replaceFirst("a el", "al");
