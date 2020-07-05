@@ -2,11 +2,13 @@ package zork;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 public class InputOutput {
 
     private String nombreJugador;
     private GUI gui;
-    
+
     public void setGui(GUI gui) {
 	this.gui = gui;
     }
@@ -14,17 +16,17 @@ public class InputOutput {
     public void setNombreJugador(String nombreJugador) {
 	this.nombreJugador = nombreJugador;
     }
-    
+
     public String getNombreJugador() {
 	return nombreJugador;
     }
-    
+
     public void cargarHistoria(String pathHistoria) {
 	try {
 	    Juego.getInstancia().cargarHistoria(pathHistoria);
 	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    JOptionPane.showMessageDialog(null, "No se ha podido cargar la aventura",
+		    "Error", JOptionPane.ERROR_MESSAGE, null);
 	}
     }
 
@@ -33,9 +35,20 @@ public class InputOutput {
     }
 
     public void imprimir(String mensaje, boolean esMsjFinal) {
-	gui.imprimir(mensaje);
+	mensaje = normalizarMensaje(mensaje);
 	if (esMsjFinal)
-	    gui.finalizar();
+	    gui.finalizar(mensaje);
+	else
+	    gui.imprimir(mensaje);
+    }
+
+    private String normalizarMensaje(String mensaje) {
+	mensaje = mensaje.replaceAll(" \\s*", " ");
+	if (!mensaje.endsWith("."))
+	    mensaje = mensaje + '.';
+	if (Character.isLowerCase(mensaje.charAt(0)))
+	    mensaje = Character.toUpperCase(mensaje.charAt(0)) + mensaje.substring(1);
+	return mensaje;
     }
 
 }

@@ -137,7 +137,8 @@ public class GUI extends JFrame {
 			if (indexActualInstruccion < historialInstrucciones.size() - 1)
 			    cuadroInstrucciones.setText(
 				    historialInstrucciones.get(++indexActualInstruccion));
-			else if (indexActualInstruccion == historialInstrucciones.size() - 1) {
+			else if (indexActualInstruccion == historialInstrucciones.size()
+				- 1) {
 			    indexActualInstruccion++;
 			    cuadroInstrucciones.setText("");
 			}
@@ -169,7 +170,9 @@ public class GUI extends JFrame {
 	panelJuego.cuadroJuego.setText(textoMostrar);
     }
 
-    public void finalizar() {
+    public void finalizar(String mensaje) {
+	JOptionPane.showMessageDialog(this, mensaje, "Has finalizado el juego",
+		JOptionPane.OK_OPTION, null);
 	System.exit(0);
     }
 }

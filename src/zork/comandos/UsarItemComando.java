@@ -4,9 +4,6 @@ import zork.*;
 import zork.endgame.ComandoCondicion;
 
 public class UsarItemComando implements Comando {
-
-    private static final String NO_HA_SERVIDO = "Eso no ha servido de nada.";
-
     /**
      * Ejecuta un comando de usar item. Todo objeto que no tenga la opcion de "usar"
      * no hara nada con este comando.
@@ -27,72 +24,77 @@ public class UsarItemComando implements Comando {
      */
     @Override
     public String ejecutar(Jugador jugador, String restoDelComando) {
+	String retorno = "";
+	Habitacion habitacionActual = jugador.getHabitacionActual();
 	String[] parseado = restoDelComando.split(":");
 	String itemNombre = parseado[0];
-	String retorno = "";
+	String npcNombre = parseado.length > 1 ? parseado[1] : null;
 	Item item = jugador.getItem(itemNombre);
+	NPC objetivo = npcNombre != null ? habitacionActual.getNPC(npcNombre) : null;
 
-	if (item != null && item.esUsoValido(AccionItem.USE)) {
-
-	    if (parseado.length == 2 && item.esObjetivoValido(ObjetivoItem.NPCS))
-		retorno = usarSobreNPC(jugador, parseado[1], item);
-
-	    else if (parseado.length == 1 && item.esObjetivoValido(ObjetivoItem.SELF)
-		    && isItemAplicable(item.getTipo()))
-		retorno = usarSobreJugador(jugador, item);
-	    else
-		retorno = NO_HA_SERVIDO;
-	} else if (item != null)
-	    retorno = NO_HA_SERVIDO;
-	else
+	if (item == null)
 	    retorno = "No cuenta con " + itemNombre + " en el inventario.";
-
-	return retorno;
-    }
-
-    private String usarSobreNPC(Jugador jugador, String npcNombre, Item item) {
-	String retorno;
-	Habitacion habitacionActual = jugador.getHabitacionActual();
-	NPC npc = habitacionActual.getNPC(npcNombre);
-	if (npc != null)
-	    retorno = aplicarSobreNpc(jugador, item, npc);
+	else if (!item.esUsoValido(AccionItem.USE)
+		|| (npcNombre == null && !esAplicableSobre(item, ObjetivoItem.SELF))
+		|| (objetivo != null && !esAplicableSobre(item, ObjetivoItem.NPCS)))
+	    retorno = "Eso no ha servido de nada.";
+	else if (objetivo == null && parseado.length > 1)
+	    retorno = npcNombre + " no se encuentra en " + habitacionActual.toString()
+		    + '.';
+	else if (objetivo == null)
+	    retorno = usarSobreJugador(jugador, item);
 	else
-	    retorno = npcNombre + " no se encuentra en "
-		    + habitacionActual.toString() + ".";
+	    retorno = usarSobreNpc(jugador, item, objetivo);
+
 	return retorno;
     }
 
-    private String aplicarSobreNpc(Jugador jugador, Item item, NPC npc) {
+    private String usarSobreNpc(Jugador jugador, Item item, NPC npc) {
 	String retorno;
 	retorno = "Se utilizo " + item.toString() + " sobre " + npc.toString() + ".\n";
 
 	String trigger = npc.ejecutarTrigger(TipoTrigger.ITEM, item.getNombre());
-	if (trigger != null)
-	    retorno += trigger;
-	else if (isItemAplicable(item.getTipo())) {
+	if (trigger == null) {
 	    npc.aplicarItem(item);
 	    jugador.sacarItem(item.getNombre());
 	} else
-	    retorno = NO_HA_SERVIDO;
+	    retorno += trigger;
+
 	return retorno;
     }
 
     private String usarSobreJugador(Jugador jugador, Item item) {
-	String retorno;
 	jugador.aplicarItem(item);
 	jugador.sacarItem(item.getNombre());
-	retorno = "Se utilizo " + item.toString() + " sobre ti.";
-	return retorno;
+	return "Se utilizo " + item.toString() + " sobre ti.";
     }
 
-    private boolean isItemAplicable(TipoItem tipo) {
-	return tipo.equals(TipoItem.VENENO) || tipo.equals(TipoItem.POCION);
+    private boolean esAplicableSobre(Item item, ObjetivoItem objetivo) {
+	TipoItem tipo = item.getTipo();
+	return item.esObjetivoValido(objetivo)
+		&& (tipo.equals(TipoItem.VENENO) || tipo.equals(TipoItem.POCION));
     }
 
     @Override
     public boolean validar(Jugador jugador, String restoDelComando) {
-	// TODO Auto-generated method stub
-	return false;
+	boolean rta = true;
+	Habitacion habitacionActual = jugador.getHabitacionActual();
+	String[] parseado = restoDelComando.split(":");
+	String itemNombre = parseado[0];
+	String npcNombre = parseado.length > 1 ? parseado[1] : null;
+	Item item = jugador.getItem(itemNombre);
+	NPC objetivo = npcNombre != null ? habitacionActual.getNPC(npcNombre) : null;
+	
+	if (item == null)
+	    rta = false;
+	if (objetivo == null && npcNombre != null)
+	    rta = false;
+	if (objetivo == null && npcNombre == null && !esAplicableSobre(item, ObjetivoItem.SELF))
+	    rta = false;
+	if (objetivo != null && !esAplicableSobre(item, ObjetivoItem.NPCS))
+	    rta = false;
+	
+	return rta;
     }
 
     @Override
