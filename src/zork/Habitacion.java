@@ -10,6 +10,7 @@ public class Habitacion extends Enumerable {
     private Hashtable<String, Sitio> sitios;
     private Hashtable<Direccion, Salida> salidas;
     private Hashtable<String, NPC> npcs;
+    private String spritePath;
 
     public Habitacion(HabitacionInput input) {
 	super(input.getNombre(), input.getGender(), input.getNumber());
@@ -18,6 +19,7 @@ public class Habitacion extends Enumerable {
 	salidas = new Hashtable<Direccion, Salida>();
 	npcs = new Hashtable<String, NPC>();
 	sitios.put("suelo", new Sitio());
+	spritePath = input.getSpritePath();
     }
 
     public void addSitio(Sitio nuevoSitio) {
@@ -44,6 +46,10 @@ public class Habitacion extends Enumerable {
 
     public String getDescripcion() {
 	return this.descripcion;
+    }
+    
+    public String getSpritePath() {
+	return spritePath;
     }
 
     public Salida getSalida(Direccion direccion) {

@@ -39,4 +39,10 @@ public class HabitacionInputParametro extends EnumerableInput implements Habitac
 	return number;
     }
 
+    @Override
+    public String getSpritePath() {
+	
+	return null;
+    }
+
 }

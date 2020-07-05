@@ -87,4 +87,10 @@ public class NPCInputParametro extends EnumerableInput implements NPCInput {
 	return listaTriggers;
     }
 
+    @Override
+    public String getSpritePath() {
+	
+	return null;
+    }
+
 }

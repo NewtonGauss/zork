@@ -12,6 +12,7 @@ public interface ItemInput {
     public TipoItem getTipo();
     public char getGender();
     public char getNumber();
+    public String getSpritePath();
     public List<AccionItem> getAccionesValidas();
     public List<ObjetivoItem> getObjetivosValidos();
 }

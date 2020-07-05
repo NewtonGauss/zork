@@ -10,5 +10,6 @@ public interface NPCInput {
     public char getNumber();
     public float getSalud();
     public boolean isEnemigo();
+    public String getSpritePath();
     public List<TriggerInput> getListaTrigger();
 }

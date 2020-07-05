@@ -5,4 +5,5 @@ public interface HabitacionInput {
     public String getDescripcion();
     public char getGender();
     public char getNumber();
+    public String getSpritePath();
 }

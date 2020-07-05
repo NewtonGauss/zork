@@ -58,4 +58,13 @@ public class NPCInputJson implements NPCInput {
 	return listaTriggers;
     }
 
+    @Override
+    public String getSpritePath() {
+	JsonElement path = jobject.get("sprite");
+	if ( path != null)
+	    return path.getAsString();
+	else
+	    return null;
+    }
+
 }

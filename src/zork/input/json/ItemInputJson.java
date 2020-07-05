@@ -8,65 +8,47 @@ import zork.*;
 import zork.input.ItemInput;
 
 public class ItemInputJson implements ItemInput {
-    private String nombre;
-    private Double peso;
-    private char gender;
-    private char number;
-    private int puntos;
     private List<AccionItem> accionesValidas = new ArrayList<AccionItem>();
     private List<ObjetivoItem> objetivosValidos = new ArrayList<ObjetivoItem>();
-    private TipoItem tipo;
-    private float saludSumar;
+    private JsonObject jobj;
 
     public ItemInputJson(String jsonString) {
 	JsonElement json = JsonParser.parseString(jsonString);
-	JsonObject jobject = json.getAsJsonObject();
-	nombre = jobject.get("name").getAsString();
-	peso = jobject.get("weight").getAsDouble();
-	puntos = jobject.get("points").getAsInt();
-	tipo = TipoItem.stringToTipo(jobject.get("type").getAsString());
-	gender = jobject.get("gender").getAsString().equals("male") ? 'm' : 'f';
-	number = jobject.get("number").getAsString().equals("singular") ? 's' : 'p';
-	for (JsonElement accion : jobject.getAsJsonArray("actions"))
+	jobj = json.getAsJsonObject();
+	for (JsonElement accion : jobj.getAsJsonArray("actions"))
 	    accionesValidas.add(AccionItem.stringToAccionItem(accion.getAsString()));
-	for (JsonElement effectOn : jobject.getAsJsonArray("effects_over"))
+	for (JsonElement effectOn : jobj.getAsJsonArray("effects_over"))
 	    objetivosValidos.add(ObjetivoItem.stringTObjetivoItem(effectOn.getAsString()));
-	
-	/* Hardcodeado hasta que lo pongamos en el formato */
-	if (tipo.equals(TipoItem.POCION))
-	    saludSumar = 20f;
-	else
-	    saludSumar = 15f;
     }
 
     @Override
     public String getNombre() {
-	return nombre;
+	return jobj.get("name").getAsString();
     }
 
     @Override
     public Double getPeso() {
-	return peso;
+	return jobj.get("weight").getAsDouble();
     }
 
     @Override
     public int getPuntos() {
-	return puntos;
+	return jobj.get("points").getAsInt();
     }
 
     @Override
     public TipoItem getTipo() {
-	return tipo;
+	return TipoItem.stringToTipo(jobj.get("type").getAsString());
     }
 
     @Override
     public char getGender() {
-	return gender;
+	return jobj.get("gender").getAsString().equals("male") ? 'm' : 'f';
     }
 
     @Override
     public char getNumber() {
-	return number;
+	return jobj.get("number").getAsString().equals("singular") ? 's' : 'p';
     }
 
     @Override
@@ -81,7 +63,19 @@ public class ItemInputJson implements ItemInput {
 
     @Override
     public float getSaludSumar() {
-	return saludSumar;
+	JsonElement j = jobj.get("health");
+	if (j != null)
+	    return j.getAsInt();
+	return 0;
+    }
+
+    @Override
+    public String getSpritePath() {
+	JsonElement path = jobj.get("sprite");
+	if (path != null)
+	    return path.getAsString();
+	else
+	    return null;
     }
 
 }

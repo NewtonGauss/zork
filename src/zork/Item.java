@@ -12,6 +12,7 @@ public class Item extends Enumerable {
     private List<ObjetivoItem> objetivosValidos;
     private TipoItem tipo;
     private float saludSumar;
+    private String spritePath;
 
     public Item(ItemInput input) {
 	super(input.getNombre(), input.getGender(), input.getNumber());
@@ -21,6 +22,7 @@ public class Item extends Enumerable {
 	objetivosValidos = input.getObjetivosValidos();
 	tipo = input.getTipo();
 	saludSumar = input.getSaludSumar();
+	spritePath = input.getSpritePath();
     }
 
     public Double getPeso() {
@@ -33,6 +35,10 @@ public class Item extends Enumerable {
 
     public int getPoints() {
 	return puntos;
+    }
+    
+    public String getSpritePath() {
+	return spritePath;
     }
 
     public boolean esUsoValido(AccionItem uso) {

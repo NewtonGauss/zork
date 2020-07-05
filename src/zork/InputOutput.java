@@ -34,12 +34,12 @@ public class InputOutput {
 	Juego.getInstancia().ejecutarInstruccion(comando);
     }
 
-    public void imprimir(String mensaje, boolean esMsjFinal) {
+    public void imprimir(String mensaje, Habitacion habitacionActual , boolean esMsjFinal) {
 	mensaje = normalizarMensaje(mensaje);
 	if (esMsjFinal)
 	    gui.finalizar(mensaje);
 	else
-	    gui.imprimir(mensaje);
+	    gui.imprimir(mensaje, habitacionActual);
     }
 
     private String normalizarMensaje(String mensaje) {

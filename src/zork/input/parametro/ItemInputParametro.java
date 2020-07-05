@@ -88,4 +88,10 @@ public class ItemInputParametro extends EnumerableInput implements ItemInput {
 	return saludSumar;
     }
 
+    @Override
+    public String getSpritePath() {
+	
+	return null;
+    }
+
 }

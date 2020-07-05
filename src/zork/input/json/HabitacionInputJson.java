@@ -31,4 +31,13 @@ public class HabitacionInputJson implements HabitacionInput {
 	return jobj.get("number").getAsString().equals("singular") ? 's' : 'p';
     }
 
+    @Override
+    public String getSpritePath() {
+	JsonElement path = jobj.get("sprite");
+	if ( path != null)
+	    return path.getAsString();
+	else
+	    return null;
+    }
+
 }

@@ -1,7 +1,7 @@
 {
   "settings": {
     "welcome": { String -> mensaje que aparece al inicio del juego }
-    "character": { String -> nombre del jugador // a punto de ser borrado }
+    "character": { String -> nombre del jugador }
 		"info": { String -> mensaje que se le dara al jugador cuando pida info de la aventura }
   },
   "locations": [ { Array -> todas las habitaciones del juego }
@@ -10,6 +10,7 @@
       "gender": { String -> male o female // para nada inclusive }
       "number": { String -> plural o singular }
       "description": { String -> mensaje que aparece cada vez que el jugador entre a la habitacion o haga look }
+      "sprite": { String -> direccion donde se encuentra el archivo con el sprite }
       "places": [ { Array -> todos los sitios de la habitacion }
         {
           "name": { String -> nombre del sitio }
@@ -38,6 +39,7 @@
       "gender": 
       "number":
       "description": { String -> lo que se dira cuando se use look sobre el npc }
+      "sprite": { String -> direccion donde se encuentra el archivo con el sprite }
       "talk": { String }
 			"points": { Entero -> puntaje por hablar o matar al npc }
 			"enemy": { Boolean -> indica si se trata de un enemigo o no }
@@ -60,7 +62,9 @@
       "name": { String }
       "gender": 
       "number":
+      "health": { Entero -> vida que resta o suma }
 			"points": { Entero -> puntaje por agarrarlo }
+      "sprite": { String -> direccion donde se encuentra el archivo con el sprite }
 			"weight": { Float -> peso del item }
 			"type": { String -> weapon, potion, poison, vanilla }
       "actions": [ { Array de acciones validas que el jugador puede efectuar }

@@ -9,6 +9,7 @@ public class NPC extends Personaje {
     private String descripcion;
     private boolean enemigo;
     private Hashtable<TipoTrigger, Trigger> triggers = new Hashtable<TipoTrigger, Trigger>();
+    private String spritePath;
 
     public NPC(NPCInput input) {
 	super(input.getNombre(), input.getGender(), input.getNumber());
@@ -17,6 +18,7 @@ public class NPC extends Personaje {
 	salud = input.getSalud();
 	enemigo = input.isEnemigo();
 	inventario = new Inventario();
+	spritePath = input.getSpritePath();
 	for (TriggerInput trigger: input.getListaTrigger())
 	    addTrigger(trigger);
     }
@@ -49,6 +51,10 @@ public class NPC extends Personaje {
 
     public String getDescripcion() {
 	return descripcion;
+    }
+    
+    public String getSpritePath() {
+	return spritePath;
     }
 
     public boolean isEnemigo() {

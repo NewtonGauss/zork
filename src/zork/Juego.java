@@ -42,7 +42,7 @@ public class Juego {
 	    }
 	    andando = true;
 	    io.setNombreJugador(jugador.getNombre());
-	    io.imprimir(ch.getBienvenida(), !andando);
+	    io.imprimir(ch.getBienvenida(), jugador.getHabitacionActual() , !andando);
     }
 
     public void ejecutarInstruccion(String comando) {
@@ -51,7 +51,7 @@ public class Juego {
 		historialInstrucciones.add(comando);
 	    if (mensajesFinales.contains(salida))
 		andando = false;
-	    io.imprimir(salida, !andando);
+	    io.imprimir(salida, jugador.getHabitacionActual() , !andando);
     }
     
     private boolean esGuardado(String comando) {

@@ -10,6 +10,7 @@
       "gender": "male",
       "number": "singular",
       "description": "estas en el salon principal de la biblioteca",
+      "sprite": "indi.png",
       "places": [
         {
           "name": "suelo",

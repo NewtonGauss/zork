@@ -2,13 +2,17 @@ package zork;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.List;
-import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class GUI extends JFrame {
     private static final long serialVersionUID = 1L;
+    private static final String EXTENSION_HISTORIA = ".zork";
+    private static final String DIRECTORIO_HISTORIAS = "aventuras/";
     private PanelPrincipal panelPrincipal = new PanelPrincipal();
     private PanelJuego panelJuego = new PanelJuego();
     private JPanel cards = new JPanel();
@@ -29,8 +33,7 @@ public class GUI extends JFrame {
     }
 
     private class PanelPrincipal extends JPanel {
-	private static final String EXTENSION_HISTORIA = ".zork";
-	private static final String DIRECTORIO_HISTORIAS = "aventuras/";
+
 	private static final long serialVersionUID = 1L;
 	JScrollPane panelAventuras;
 
@@ -90,7 +93,7 @@ public class GUI extends JFrame {
 
     private class PanelJuego extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private JPanel imagen;
+	private PanelImagen imagen;
 	private JTextPane cuadroJuego;
 	private JTextField cuadroInstrucciones;
 	private List<String> historialInstrucciones;
@@ -100,9 +103,9 @@ public class GUI extends JFrame {
 	    historialInstrucciones = Juego.getInstancia().getHistorialInstrucciones();
 	    setLayout(new BorderLayout());
 	    setBackground(Color.decode("#7b7e85"));
-	    imagen = new JPanel();
+	    imagen = new PanelImagen();
 	    imagen.setBackground(Color.BLACK);
-	    imagen.setPreferredSize(new Dimension(200, 0));
+	    imagen.setPreferredSize(new Dimension(500, 0));
 	    add(imagen, BorderLayout.WEST);
 
 	    JPanel juego = new JPanel();
@@ -118,7 +121,7 @@ public class GUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent evt) {
 		    String instruccion = cuadroInstrucciones.getText();
-		    imprimir(io.getNombreJugador() + " > " + instruccion);
+		    imprimirPrompt(io.getNombreJugador() + " > " + instruccion);
 		    io.leerComando(instruccion);
 		    indexActualInstruccion = historialInstrucciones.size();
 		    cuadroInstrucciones.setText("");
@@ -153,9 +156,34 @@ public class GUI extends JFrame {
 
     }
 
+    private class PanelImagen extends JPanel {
+	Habitacion habitacionActual;
+
+	@Override
+	protected void paintComponent(Graphics g) {
+	    super.paintComponent(g);
+	    Graphics2D graphics = (Graphics2D) g;
+	    BufferedImage fondo;
+	    try {
+		if (habitacionActual != null) {
+		    fondo = ImageIO
+			    .read(new File(DIRECTORIO_HISTORIAS + habitacionActual.getSpritePath()));
+		    graphics.drawImage(fondo, null, 0, 0);
+		} else
+		    setBackground(Color.black);
+	    } catch (IOException e) {
+		setBackground(Color.black);
+	    }
+	}
+
+	public void setHabitacionActual(Habitacion habitacionActual) {
+	    this.habitacionActual = habitacionActual;
+	}
+    }
+
     @Override
     public Dimension getPreferredSize() {
-	return new Dimension(800, 600);
+	return new Dimension(1000, 650);
     }
 
     public static void main(String[] args) {
@@ -165,7 +193,14 @@ public class GUI extends JFrame {
 	Juego.getInstancia().setIo(io);
     }
 
-    public void imprimir(String mensaje) {
+    public void imprimir(String mensaje, Habitacion habitacionActual) {
+	String textoMostrar = panelJuego.cuadroJuego.getText() + mensaje + "\n\n";
+	panelJuego.cuadroJuego.setText(textoMostrar);
+	panelJuego.imagen.setHabitacionActual(habitacionActual);
+	panelJuego.imagen.paintImmediately(panelJuego.imagen.getBounds());
+    }
+
+    private void imprimirPrompt(String mensaje) {
 	String textoMostrar = panelJuego.cuadroJuego.getText() + mensaje + "\n\n";
 	panelJuego.cuadroJuego.setText(textoMostrar);
     }
