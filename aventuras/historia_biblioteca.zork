@@ -136,7 +136,7 @@
       "gender": "female",
       "number": "singular",
       "description": "estas en la cocina, en el aire hay un aroma hermoso",
-      "sprite": "cocina.jpg",
+      "sprite": "cocina.png",
       "places": [
         {
           "name": "heladera",
@@ -175,7 +175,6 @@
       "gender": "male",
       "number": "singular",
       "description": " ",
-      "sprite": "scriptorium.png",     
       "places": [ ],
       "npcs": [ ],
       "connections": [
@@ -190,7 +189,7 @@
       "gender": "female",
       "number": "singular",
       "description": "estas en la sala de matematica, hay contenido para cualquiera",
-      "sprite": "matematica.png",     
+      "sprite": "matematica.png",  
       "places": [
         {
           "name": "suelo",
