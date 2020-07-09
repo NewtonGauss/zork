@@ -175,6 +175,7 @@
       "gender": "male",
       "number": "singular",
       "description": " ",
+      "sprite": "scriptorium.png",     
       "places": [ ],
       "npcs": [ ],
       "connections": [
@@ -189,6 +190,7 @@
       "gender": "female",
       "number": "singular",
       "description": "estas en la sala de matematica, hay contenido para cualquiera",
+      "sprite": "matematica.png",     
       "places": [
         {
           "name": "suelo",
