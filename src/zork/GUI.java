@@ -30,7 +30,7 @@ public class GUI extends JFrame {
 	setVisible(true);
 	setTitle("Zork");
 	setDefaultCloseOperation(EXIT_ON_CLOSE);
-	
+
 	setResizable(false);
     }
 
@@ -61,8 +61,8 @@ public class GUI extends JFrame {
 	    panelAventuras
 		    .setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 	    panelAventuras.setPreferredSize(new Dimension(400, 400));
-	    c.gridx = 1;
-	    c.gridy = 1;
+	    c.gridx = 2;
+	    c.gridy = 2;
 	    gb.setConstraints(panelAventuras, c);
 	    add(panelAventuras);
 	}
@@ -109,7 +109,7 @@ public class GUI extends JFrame {
 	    imagen.setBackground(Color.BLACK);
 	    imagen.setPreferredSize(new Dimension(500, 0));
 	    add(imagen, BorderLayout.WEST);
-	    
+
 	    JPanel juego = new JPanel();
 	    juego.setLayout(new BorderLayout());
 	    cuadroJuego = new JTextPane();
@@ -159,6 +159,7 @@ public class GUI extends JFrame {
     }
 
     private class PanelImagen extends JPanel {
+	private static final long serialVersionUID = 1L;
 	Habitacion habitacionActual;
 
 	@Override
@@ -168,15 +169,15 @@ public class GUI extends JFrame {
 	    BufferedImage fondo;
 	    try {
 		if (habitacionActual != null) {
-		    fondo = ImageIO
-			    .read(new File(DIRECTORIO_HISTORIAS + habitacionActual.getSpritePath()));
+		    fondo = ImageIO.read(new File(
+			    DIRECTORIO_HISTORIAS + habitacionActual.getSpritePath()));
 		    graphics.drawImage(fondo, null, 0, 0);
 		    int x = 0;
-		    for (Sitio sitio :  habitacionActual.getSitios()) {
-			
+		    for (Sitio sitio : habitacionActual.getSitios()) {
+
 			for (Item item : sitio.getItems()) {
-			    BufferedImage itemImagen = ImageIO.
-				    			read(new File(DIRECTORIO_HISTORIAS + item.getSpritePath()));
+			    BufferedImage itemImagen = ImageIO.read(new File(
+				    DIRECTORIO_HISTORIAS + item.getSpritePath()));
 			    x += 2;
 			    graphics.drawImage(itemImagen, null, x, 0);
 			}

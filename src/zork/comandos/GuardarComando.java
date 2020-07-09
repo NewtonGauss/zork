@@ -20,10 +20,14 @@ public class GuardarComando implements Comando {
 	    guardado.createNewFile();
 	    BufferedWriter bf = new BufferedWriter(new FileWriter(guardado, false));
 	    List<String> historial = Juego.getInstancia().getHistorialInstrucciones();
+	    
+	    bf.write(jugador.getPathHistoria());
+	    bf.newLine();
 	    for (String instruccion : historial) {
 		bf.write(instruccion);
 		bf.newLine();
 	    }
+	    
 	    retorno = "Guardado exitoso!";
 	    bf.close();
 	} catch (IOException e) {

@@ -5,6 +5,7 @@ public class Jugador extends Personaje {
     private int movimientos;
     private int puntuacion;
     private String info;
+    private String pathHistoria;
 
     public Jugador(String nombre) {
 	super(nombre);
@@ -22,6 +23,14 @@ public class Jugador extends Personaje {
 	return this.movimientos;
     }
     
+    public String getPathHistoria() {
+	return pathHistoria;
+    }
+
+    public void setPathHistoria(String pathHistoria) {
+	this.pathHistoria = pathHistoria;
+    }
+
     public void setInfo(String info) {
 	this.info = info;
     }

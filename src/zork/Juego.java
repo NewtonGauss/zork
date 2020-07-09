@@ -34,6 +34,7 @@ public class Juego {
     public void cargarHistoria(String pathHistoria) throws IOException {
 	    CargadorHistoria ch = new CargadorHistoria(pathHistoria);
 	    jugador = ch.cargarHistoria();
+	    jugador.setPathHistoria(pathHistoria);
 	    narrador = new Narrador(jugador);
 	    List<FinalJuego> finales = ch.cargarFinales();
 	    narrador.addEndgames(finales);

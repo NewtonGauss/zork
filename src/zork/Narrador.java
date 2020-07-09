@@ -86,6 +86,7 @@ public class Narrador {
 	comandos.put("default", new DefaultComando());
 	comandos.put("guardar", new GuardarComando());
 	comandos.put("salir", new SalirComando());
+	comandos.put("cargar", new CargarComando());
     }
 
     private void cargarPreposiciones() {
