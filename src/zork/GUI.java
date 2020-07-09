@@ -30,6 +30,8 @@ public class GUI extends JFrame {
 	setVisible(true);
 	setTitle("Zork");
 	setDefaultCloseOperation(EXIT_ON_CLOSE);
+	
+	setResizable(false);
     }
 
     private class PanelPrincipal extends JPanel {
@@ -107,7 +109,7 @@ public class GUI extends JFrame {
 	    imagen.setBackground(Color.BLACK);
 	    imagen.setPreferredSize(new Dimension(500, 0));
 	    add(imagen, BorderLayout.WEST);
-
+	    
 	    JPanel juego = new JPanel();
 	    juego.setLayout(new BorderLayout());
 	    cuadroJuego = new JTextPane();
