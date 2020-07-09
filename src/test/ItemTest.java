@@ -77,7 +77,7 @@ class ItemTest {
 	constructorItem.setTipo(TipoItem.ARMA);
 	Item i = new Item(constructorItem);
 	assertEquals("barreta", i.getNombre());
-	assertEquals(10d, i.getPeso());
+	assertEquals(10d,(double) i.getPeso());
 	assertEquals(TipoItem.ARMA, i.getTipo());
 	assertEquals(100, i.getPoints());
     }

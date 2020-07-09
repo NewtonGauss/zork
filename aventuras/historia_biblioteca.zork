@@ -48,6 +48,7 @@
       "gender": "female",
       "number": "singular",
       "description": "estas en una sala de historia que esta llena de libros",
+      "sprite": "salahistoria.png",
       "places": [
         {
           "name": "biblioteca",
@@ -77,6 +78,7 @@
       "gender": "female",
       "number": "singular",
       "description": "estas en una sala donde la gente miente",
+	  "sprite": "derecho.png",
       "places": [
         {
           "name": "biblioteca",
@@ -102,6 +104,7 @@
       "gender": "female",
       "number": "singular",
       "description": "estas en la sala mas interesante de la biblioteca",
+      "sprite": "programacion.png",
       "places": [
         {
           "name": "computadora",
@@ -133,6 +136,7 @@
       "gender": "female",
       "number": "singular",
       "description": "estas en la cocina, en el aire hay un aroma hermoso",
+      "sprite": "cocina.jpg",
       "places": [
         {
           "name": "heladera",
