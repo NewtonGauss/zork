@@ -410,6 +410,7 @@
     {
       "name": "pepinos",
       "gender": "male",
+      "sprite": "pepinillos.png",  
       "number": "plural",
 			"points": "100",
 			"weight": "5",

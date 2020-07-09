@@ -171,6 +171,16 @@ public class GUI extends JFrame {
 		    fondo = ImageIO
 			    .read(new File(DIRECTORIO_HISTORIAS + habitacionActual.getSpritePath()));
 		    graphics.drawImage(fondo, null, 0, 0);
+		    int x = 0;
+		    for (Sitio sitio :  habitacionActual.getSitios()) {
+			
+			for (Item item : sitio.getItems()) {
+			    BufferedImage itemImagen = ImageIO.
+				    			read(new File(DIRECTORIO_HISTORIAS + item.getSpritePath()));
+			    x += 2;
+			    graphics.drawImage(itemImagen, null, x, 0);
+			}
+		    }
 		} else
 		    setBackground(Color.black);
 	    } catch (IOException e) {
