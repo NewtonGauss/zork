@@ -221,6 +221,7 @@
     {
       "name": "curioso",
       "gender": "male",
+      "sprite":"imagenes_npcs/curioso.png",
       "number": "singular",
       "description": "un tipo muy extraño te mira fijamente",
       "talk": "me dijeron que en el scriptorium los libros vuelan...",
@@ -233,6 +234,7 @@
     {
       "name": "estudiante de derecho",
       "gender": "male",
+      "sprite":"imagenes_npcs/estudiante_de_derecho.png",
       "number": "singular",
       "description": "es uno de esos estudiantes que no razonan",
       "talk": "ese libro de derecho posee los secretos de la biblioteca",
@@ -252,6 +254,7 @@
     {
       "name": "bibliotecaria",
       "gender": "female",
+      "sprite":"imagenes_npcs/bibliotecaria.png",
       "number": "singular",
       "description": "la bibliotecaria esta ordenando libros",
       "talk": "no me molestes",
@@ -271,6 +274,7 @@
     {
       "name": "estudiante",
       "gender": "female",
+      "sprite":"imagenes_npcs/estudiante.png",
       "number": "singular",
       "description": "la estudiante esta estudiando (que redundante)",
       "talk": "¿queres saber sobre la radioactividad de las moleculas de oxigeno? ... ¿por que te alejas?",
@@ -290,6 +294,7 @@
     {
       "name": "profesor",
       "gender": "male",
+      "sprite":"imagenes_npcs/profesor.png",
       "number": "singular",
       "description": "parece que esta enojado",
       "talk": "no te puedo dejar pasar. Jure con mi vida defender el conocimiento que hay detras mio",
