@@ -27,6 +27,10 @@ public class Juego {
 	return historialInstrucciones;
     }
     
+    public Set<String> getInstrucciones() {
+	return narrador.getInstrucciones();
+    }
+    
     public void setIo(InputOutput io) {
 	this.io = io;
     }

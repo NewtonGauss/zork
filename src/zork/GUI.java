@@ -4,10 +4,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.*;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 
 public class GUI extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -17,6 +19,7 @@ public class GUI extends JFrame {
     private PanelJuego panelJuego = new PanelJuego();
     private JPanel cards = new JPanel();
     private InputOutput io;
+    private Habitacion habitacionActual;
 
     public GUI(InputOutput io) {
 	this.io = io;
@@ -46,7 +49,7 @@ public class GUI extends JFrame {
 	    GridBagConstraints c = new GridBagConstraints();
 	    JLabel zorkTitulo = new JLabel("Zork");
 	    zorkTitulo.setFont(new Font("Monospaced", Font.BOLD, 50));
-	    c.gridx = 1;
+	    c.gridx = 2;
 	    c.gridy = 0;
 	    gb.setConstraints(zorkTitulo, c);
 	    add(zorkTitulo);
@@ -129,38 +132,77 @@ public class GUI extends JFrame {
 		    cuadroInstrucciones.setText("");
 		}
 	    });
-	    cuadroInstrucciones.addKeyListener(new KeyAdapter() {
-		@Override
-		public void keyPressed(KeyEvent e) {
-		    switch (e.getExtendedKeyCode()) {
-		    case KeyEvent.VK_UP:
-			if (indexActualInstruccion > 0)
-			    cuadroInstrucciones.setText(
-				    historialInstrucciones.get(--indexActualInstruccion));
-			break;
-		    case KeyEvent.VK_DOWN:
-			if (indexActualInstruccion < historialInstrucciones.size() - 1)
-			    cuadroInstrucciones.setText(
-				    historialInstrucciones.get(++indexActualInstruccion));
-			else if (indexActualInstruccion == historialInstrucciones.size()
-				- 1) {
-			    indexActualInstruccion++;
-			    cuadroInstrucciones.setText("");
-			}
-			break;
-		    }
-		}
-	    });
+	    cuadroInstrucciones.addKeyListener(new EscrituraKeyAdapter());
+	    cuadroInstrucciones.setFocusTraversalKeysEnabled(false);
 	    juego.add(cuadroInstrucciones, BorderLayout.SOUTH);
 	    add(juego);
+	}
 
+	private final class EscrituraKeyAdapter extends KeyAdapter {
+	    @Override
+	    public void keyPressed(KeyEvent e) {
+		switch (e.getExtendedKeyCode()) {
+		case KeyEvent.VK_UP:
+		    if (indexActualInstruccion > 0)
+			cuadroInstrucciones.setText(
+				historialInstrucciones.get(--indexActualInstruccion));
+		    break;
+		case KeyEvent.VK_DOWN:
+		    if (indexActualInstruccion < historialInstrucciones.size() - 1)
+			cuadroInstrucciones.setText(
+				historialInstrucciones.get(++indexActualInstruccion));
+		    else if (indexActualInstruccion == historialInstrucciones.size()
+			    - 1) {
+			indexActualInstruccion++;
+			cuadroInstrucciones.setText("");
+		    }
+		    break;
+		case KeyEvent.VK_TAB:
+		    autocompletar();
+		    break;
+		}
+	    }
+
+	    private void autocompletar() {
+		String texto = cuadroInstrucciones.getText();
+		if (!texto.isEmpty() && !texto.isBlank()) {
+		    Set<String> objetivos;
+		    if (!texto.contains(" "))
+			objetivos = Juego.getInstancia().getInstrucciones();
+		    else {
+			objetivos = new TreeSet<String>();
+			for (NPC npc : habitacionActual.getNpcs())
+			    objetivos.add(npc.getNombre());
+			for (Item item : habitacionActual.getItems())
+			    objetivos.add(item.getNombre());
+			for (Salida salida : habitacionActual.getSalidas())
+			    objetivos.add(salida.getNombre());
+		    }
+
+		    int k = texto.lastIndexOf(" ");
+		    String palabraACompletar;
+		    if (k >= 0) {
+			palabraACompletar = texto.substring(k + 1);
+			texto = texto.substring(0, k) + " ";
+		    } else {
+			palabraACompletar = texto;
+			texto = "";
+		    }
+
+		    for (String objetivo : objetivos) {
+			if (objetivo.startsWith(palabraACompletar)) {
+			    cuadroInstrucciones.setText(texto + objetivo);
+			    break;
+			}
+		    }
+		}
+	    }
 	}
 
     }
 
     private class PanelImagen extends JPanel {
 	private static final long serialVersionUID = 1L;
-	Habitacion habitacionActual;
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -198,10 +240,6 @@ public class GUI extends JFrame {
 		setBackground(Color.black);
 	    }
 	}
-
-	public void setHabitacionActual(Habitacion habitacionActual) {
-	    this.habitacionActual = habitacionActual;
-	}
     }
 
     @Override
@@ -219,7 +257,7 @@ public class GUI extends JFrame {
     public void imprimir(String mensaje, Habitacion habitacionActual) {
 	String textoMostrar = panelJuego.cuadroJuego.getText() + mensaje + "\n\n";
 	panelJuego.cuadroJuego.setText(textoMostrar);
-	panelJuego.imagen.setHabitacionActual(habitacionActual);
+	this.habitacionActual = habitacionActual;
 	panelJuego.imagen.paintImmediately(panelJuego.imagen.getBounds());
     }
 

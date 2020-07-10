@@ -110,5 +110,9 @@ public class Narrador {
     public void addEndgames(List<FinalJuego> endgames) {
 	finales.addAll(endgames);
     }
+    
+    public Set<String> getInstrucciones() {
+	return comandos.keySet();
+    }
 
 }

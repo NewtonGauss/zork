@@ -103,5 +103,19 @@ public class Habitacion extends Enumerable {
 	}
 	return item;
     }
+    
+    public Collection<Item> getItems() {
+	List<Item> items = new ArrayList<Item>();
+	Iterator<Sitio> iterator = sitios.values().iterator();
+	while (iterator.hasNext()) {
+	    Sitio sitio = iterator.next();
+	    items.addAll(sitio.getItems());
+	}
+	return items;
+    }
+    
+    public Collection<Salida> getSalidas() {
+	return salidas.values();
+    }
 
 }
