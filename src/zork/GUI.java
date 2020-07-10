@@ -178,8 +178,9 @@ public class GUI extends JFrame {
 			for (Item item : sitio.getItems()) {
 			    BufferedImage itemImagen = ImageIO.read(new File(
 				    DIRECTORIO_HISTORIAS + item.getSpritePath()));
-			    x += 100;
 			    graphics.drawImage(itemImagen, null, x, 20);
+			    x += 100;
+
 			}
 		    }
 		} else
