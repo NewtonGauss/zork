@@ -172,23 +172,25 @@ public class GUI extends JFrame {
 		    fondo = ImageIO.read(new File(
 			    DIRECTORIO_HISTORIAS + habitacionActual.getSpritePath()));
 		    graphics.drawImage(fondo, null, 0, 0);
-		    int x = 10;
+		    // int x = 20;
 		    BufferedImage itemImagen;
 		    for (Sitio sitio : habitacionActual.getSitios()) {
 
 			for (Item item : sitio.getItems()) {
 			    itemImagen = ImageIO.read(new File(
 				    DIRECTORIO_HISTORIAS + item.getSpritePath()));
-			    graphics.drawImage(itemImagen, null, x, 20);
-			    x += 100;
+			    graphics.drawImage(itemImagen, null, 0, 20);
+			    // graphics.drawImage(itemImagen, null, x, 20);
+			    // x += 300;
 			}
 		    }
-		    x = 10;
-		    for(NPC npc : habitacionActual.getNpcs()) {
-			 itemImagen = ImageIO.read(new File(
-				    DIRECTORIO_HISTORIAS + npc.getSpritePath()));
-			    graphics.drawImage(itemImagen, null, x, 300);
-			 x += 300;
+		    // x = 10;
+		    for (NPC npc : habitacionActual.getNpcs()) {
+			itemImagen = ImageIO.read(
+				new File(DIRECTORIO_HISTORIAS + npc.getSpritePath()));
+			graphics.drawImage(itemImagen, null, 0, 0);
+			// graphics.drawImage(itemImagen, null, x, 300);
+			// x += 300;
 		    }
 		} else
 		    setBackground(Color.black);
