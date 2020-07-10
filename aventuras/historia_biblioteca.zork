@@ -317,6 +317,7 @@
     {
       "name": "carta",
       "gender": "female",
+      "sprite":"imagenes_items/carta.png",
       "number": "singular",
 			"points": "100",
 			"weight": "0",
@@ -333,6 +334,7 @@
     {
       "name": "lampara",
       "gender": "female",
+      "sprite":"imagenes_items/lampara.png",
       "number": "singular",
 			"points": "100",
 			"weight": "10",
@@ -347,6 +349,7 @@
     {
       "name": "libro de historia",
       "gender": "male",
+      "sprite":"imagenes_items/libro_de_historia.png",
       "number": "singular",
 			"points": "100",
 			"weight": "5",
@@ -359,6 +362,7 @@
     {
       "name": "libro de geofrafia",
       "gender": "male",
+      "sprite":"imagenes_items/libro_de_geografia.png",
       "number": "singular",
 			"points": "100",
 			"weight": "5",
@@ -371,6 +375,7 @@
     {
       "name": "libro de derecho",
       "gender": "male",
+      "sprite":"imagenes_items/libro_de_derecho.png",
       "number": "singular",
 			"points": "100",
 			"weight": "5",
@@ -383,6 +388,7 @@
     {
       "name": "pendrive",
       "gender": "male",
+      "sprite":"imagenes_items/pendrive.png",
       "number": "singular",
 			"points": "100",
 			"weight": "1",
@@ -395,6 +401,7 @@
     {
       "name": "hamburguesa",
       "gender": "female",
+      "sprite":"imagenes_items/hamburguesa.png",
       "number": "singular",
 			"points": "100",
 			"weight": "5",
@@ -410,7 +417,7 @@
     {
       "name": "pepinos",
       "gender": "male",
-      "sprite": "pepinillos.png",  
+      "sprite":"imagenes_items/pepinos.png",
       "number": "plural",
 			"points": "100",
 			"weight": "5",
@@ -426,6 +433,7 @@
     {
       "name": "disket de simcity",
       "gender": "male",
+      "sprite":"imagenes_items/disket_de_simcity.png",
       "number": "singular",
 			"points": "100",
 			"weight": "1",
@@ -438,6 +446,7 @@
     {
       "name": "libro de polya",
       "gender": "male",
+      "sprite":"imagenes_items/libro_de_polya.png",
       "number": "singular",
 			"points": "100",
 			"weight": "5",
