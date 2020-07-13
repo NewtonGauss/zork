@@ -326,7 +326,7 @@
       "sprite":"imagenes_items/carta.png",
       "number": "singular",
 			"points": "100",
-			"weight": "0",
+			"weight": "10",
 			"type": "vanilla",
       "actions": [
         "take", "drop"
@@ -343,7 +343,7 @@
       "sprite":"imagenes_items/lampara.png",
       "number": "singular",
 			"points": "100",
-			"weight": "10",
+			"weight": "100",
 			"type": "weapon",
       "actions": [
         "use", "take", "drop"

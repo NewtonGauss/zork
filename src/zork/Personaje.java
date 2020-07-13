@@ -19,7 +19,7 @@ public abstract class Personaje extends Enumerable {
     public boolean ponerItem(Item nuevoItem) {
 	return inventario.ponerItem(nuevoItem);
     }
-
+    
     public boolean sacarItem(String nombreItem) {
 	boolean bool = false;
 	Item i = inventario.getItem(nombreItem);

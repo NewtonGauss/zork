@@ -15,6 +15,9 @@ public class Jugador extends Personaje {
 	salud = 100;
     }
 
+    public Double getPesoInventario() {
+	return this.inventario.getPesoActual();
+    }
     public void sumarMovimiento() {
 	this.movimientos++;
     }

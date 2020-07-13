@@ -56,6 +56,10 @@ public class Habitacion extends Enumerable {
 	return salidas.get(direccion);
     }
     
+//    public void addItem(Item item) {
+//	this.sitios.get(0).addItem(item);
+//    }
+    
     public Direccion getSalida(String nombreSalida) {
 	Direccion[] direcciones = Direccion.values();
 	Direccion dirSalida = null;

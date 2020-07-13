@@ -15,7 +15,7 @@ public class Inventario {
 	public Inventario(Double pesoMax) {
 		this.pesoMax = pesoMax;
 	}
-
+	
 	public boolean ponerItem(Item nuevoItem) {
 		boolean bool = false;
 		if (nuevoItem.getPeso() + this.pesoActual <= this.pesoMax) {

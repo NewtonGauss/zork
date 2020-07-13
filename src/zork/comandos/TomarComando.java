@@ -9,12 +9,23 @@ public class TomarComando implements Comando {
 	String retorno = "No hay ningun " + nombreItem + " por aqui.";
 	if (nombreItem.equals(""))
 	    retorno = "Debe elegir un objeto a tomar.";
-	Item itemTomado = jugador.getHabitacionActual().getItem(nombreItem);
-	if (itemTomado != null) {
-	    if (itemTomado.esUsoValido(AccionItem.TAKE) && jugador.ponerItem(itemTomado))
-		retorno = "Tomaste " + itemTomado.toString() + '.';
-	    else if (!itemTomado.esUsoValido(AccionItem.TAKE))
-		retorno = "No puedes tomar " + itemTomado.toString() + '.';
+	Item item = null;
+	for(Item iterador : jugador.getHabitacionActual().getItems()) {
+	    if(iterador.getNombre().equals(nombreItem)) {
+		item = iterador;
+		break;
+	    }
+	}
+	
+	if (item != null) {
+	    if (item.esUsoValido(AccionItem.TAKE) && jugador.ponerItem(item)) {
+		//Para eliminar el item de
+		jugador.getHabitacionActual().getItem(nombreItem);
+
+		retorno = "Tomaste " + item.toString() + '.';
+	    }
+	    else if (!item.esUsoValido(AccionItem.TAKE))
+		retorno = "No puedes tomar " + item.toString() + '.';
 	    else
 		retorno = "No tienes mas espacio en tu inventario!";
 	}

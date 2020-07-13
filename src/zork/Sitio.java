@@ -32,10 +32,12 @@ public class Sitio extends Enumerable{
      * entera. Solo se va a querer tomar un solo item del sitio 
      * para sacarlo.
      */
+    
+    
     public Item getItem(String nombreItem) {
 	return items.remove(nombreItem);
     }
-
+    
     public Collection<Item> getItems() {
 	return items.values();
     }
