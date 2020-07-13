@@ -3,6 +3,7 @@
     "welcome": { String -> mensaje que aparece al inicio del juego }
     "character": { String -> nombre del jugador }
 		"info": { String -> mensaje que se le dara al jugador cuando pida info de la aventura }
+	"music": { String -> ruta donde se encuentra la cancion .wav }
   },
   "locations": [ { Array -> todas las habitaciones del juego }
     {
