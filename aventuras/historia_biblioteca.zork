@@ -2,8 +2,8 @@
   "settings": {
     "welcome": "Te encuentras en el salon principal de una biblioteca enorme (y extraña) donde suceden fenomenos",
     "character": "Guillermo de Okham",
-		"info": "El curioso de la entrada puede darte una pequeña guia"
-	"music": ""
+		"info": "El curioso de la entrada puede darte una pequeña guia",
+	"music": "aventuras/cancion.wav"
   },
   "locations": [
     {

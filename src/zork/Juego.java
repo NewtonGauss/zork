@@ -48,6 +48,8 @@ public class Juego {
 	    andando = true;
 	    io.setNombreJugador(jugador.getNombre());
 	    io.imprimir(ch.getBienvenida(), jugador.getHabitacionActual() , !andando);
+	    io.getGUI().setMusica(ch.cargarCancion());	    
+	    io.getGUI().getMusica().Reproducir();
     }
 
     public void ejecutarInstruccion(String comando) {

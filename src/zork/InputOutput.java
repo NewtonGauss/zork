@@ -12,7 +12,11 @@ public class InputOutput {
     public void setGui(GUI gui) {
 	this.gui = gui;
     }
-
+    
+    public GUI getGUI() {
+	return this.gui;
+    }
+    
     public void setNombreJugador(String nombreJugador) {
 	this.nombreJugador = nombreJugador;
     }
@@ -29,7 +33,7 @@ public class InputOutput {
 		    "Error", JOptionPane.ERROR_MESSAGE, null);
 	}
     }
-
+    
     public void leerComando(String comando) {
 	Juego.getInstancia().ejecutarInstruccion(comando);
     }

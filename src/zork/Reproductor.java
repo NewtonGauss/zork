@@ -7,16 +7,29 @@ import sun.audio.*;
 
 public class Reproductor {
 
+    private AudioStream audios;
     public Reproductor(String path) {
 	InputStream music;
 	try {
 	    music = new FileInputStream(new File(path));
-	    AudioStream audios = new AudioStream(music);
-	    AudioPlayer.player.start(audios);
+	    audios = new AudioStream(music);
 	}
 	catch(Exception e){
-	    JOptionPane.showMessageDialog(null, "error");
+	    JOptionPane.showMessageDialog(null, "Error al reproducir musica");
 	}
     }
     
+    
+    public Reproductor(AudioStream audio) {
+	this.audios = audio;
+    }
+    
+    public AudioStream getAudio() {
+	return this.audios;
+    }
+    
+    public void Reproducir() {
+	AudioPlayer.player.start(audios);
+    }
+       
 }

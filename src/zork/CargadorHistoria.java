@@ -36,8 +36,9 @@ public class CargadorHistoria {
 	return texto;
     }
 
-    public void cargarCancion() {
+    public Reproductor cargarCancion() {
 	musica = new Reproductor(settings.get("music").getAsString());
+	return musica;
     }
     
     

@@ -21,13 +21,14 @@ public class GUI extends JFrame {
     private JPanel cards = new JPanel();
     private InputOutput io;
     private Habitacion habitacionActual;
+    private Reproductor musica;
 
     public GUI(InputOutput io) {
 	this.io = io;
 	cards.setLayout(new CardLayout());
 	cards.add(panelPrincipal);
 	cards.add(panelJuego);
-
+	
 	add(cards);
 
 	pack();
@@ -38,6 +39,14 @@ public class GUI extends JFrame {
 	setResizable(false);
     }
 
+    public void setMusica(Reproductor musica) {
+	this.musica = new Reproductor(musica.getAudio());
+    }
+    
+    public Reproductor getMusica() {
+	return this.musica;
+    }
+    
     private class PanelPrincipal extends JPanel {
 
 	private static final long serialVersionUID = 1L;
