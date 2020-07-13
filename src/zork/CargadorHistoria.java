@@ -15,6 +15,7 @@ public class CargadorHistoria {
     private Map<String, Item> items; 
     private Map<String, NPC> npcs;
     private Map<String, Habitacion> habitaciones;
+    private Reproductor musica;
 
     public CargadorHistoria(String path) throws IOException {
 	byte[] texto = leerArchivo(path);
@@ -35,6 +36,11 @@ public class CargadorHistoria {
 	return texto;
     }
 
+    public void cargarCancion() {
+	musica = new Reproductor(settings.get("music").getAsString());
+    }
+    
+    
     public Jugador cargarHistoria() {
 	Jugador jugador = new Jugador(settings.get("character").getAsString());
 	jugador.setInfo(settings.get("info").getAsString());

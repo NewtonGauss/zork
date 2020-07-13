@@ -15,6 +15,7 @@ public class GUI extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final String EXTENSION_HISTORIA = ".zork";
     private static final String DIRECTORIO_HISTORIAS = "aventuras/";
+
     private PanelPrincipal panelPrincipal = new PanelPrincipal();
     private PanelJuego panelJuego = new PanelJuego();
     private JPanel cards = new JPanel();
@@ -165,7 +166,7 @@ public class GUI extends JFrame {
 
 	    private void autocompletar() {
 		String texto = cuadroInstrucciones.getText();
-		if (!texto.isEmpty() && !texto.isBlank()) {
+		if (!texto.isEmpty()) {
 		    Set<String> objetivos;
 		    if (!texto.contains(" "))
 			objetivos = Juego.getInstancia().getInstrucciones();
