@@ -1,0 +1,210 @@
+{
+  "settings": {
+    "welcome": "Te encuentras en el patio de una casa. Está tu hermano mayor aburrido y ves varios objetos esparcidos por el suelo y la mesa. Es de día",
+    "character": "Petiso",
+		"info": "Tu madre te pidio que ordenaras la mesa del patio guardando cada cosa en su lugar y tu padre que lo ayudes con el asado"
+  },
+  "locations": [ 
+    {
+      "name": "patio",
+      "gender": "male",
+      "number": "singular",
+      "description": "Estas en el patio. Podés ver cosas esparcidas por el suelo y por la mesa.",
+      "places": [ 
+        {
+	  "name": "suelo",
+	  "gender": "male",
+          "number": "singular",
+          "items": [
+            "pelota de rugby",
+          ]
+        },
+	{
+	  "name": "mesa",
+	  "gender": "female",
+          "number": "singular",
+          "items": [
+            "botella con agua"
+          ]
+      ],
+      "npcs": ["hermano mayor"],
+      "connections": [ 
+        {
+          "direction": "north",
+          "location": "quincho",
+          "obstacles": "hermano mayor"
+        },
+	{
+          "direction": "south",
+          "location": "cocina",
+          "obstacles": ""
+        }
+      ]
+    },
+    {
+      "name": "cocina",
+      "gender": "male",
+      "number": "singular",
+      "description": "Estás enla cocina. Parte del piso esta mojado porque tu mamá esta limpiando, solo esta habilitada la zona de la heladera.",
+      "places": [
+        {
+	  "name": "heladera",
+	  "gender": "female",
+          "number": "singular",
+          "items": [
+          ]
+        }
+      ],
+      "npcs": ["mamá"],
+      "connections": [ 
+        {
+          "direction": "north",
+          "location": "patio",
+          "obstacles": ""
+        }
+      ]
+    },
+    {
+      "name": "quincho",
+      "gender": "male",
+      "number": "singular",
+      "description": "Estás en el quincho, hay una mesa de pool y ves a tu papá preparando un asado.",
+      "places": [
+        {
+	  "name": "mesa de pool",
+	  "gender": "female",
+          "number": "singular",
+          "items": [
+	    "palo",
+	    "bola negra"
+          ]
+        },
+	{
+	  "name": "parrilla",
+	  "gender": "female",
+          "number": "singular",
+          "items": [
+	    "carbon"
+          ]
+        }
+      ],
+      "npcs": ["papá"],
+      "connections": [ 
+        {
+          "direction": "south",
+          "location": "patio",
+          "obstacles": ""
+        }
+      ]
+    }
+  ],
+  "npcs": [ 
+    {
+      "name": "Hermano mayor",
+      "gender": "male",
+      "number": "singular",
+      "description": "Tu hermano no te quiere dejar pasar.",
+      "talk": "Te dejo pasar al quincho y no te pego si me das la pelota de rugby.",
+			"points": "75",
+			"enemy": "true"
+			"health": "100",
+			"inventory": [
+			],
+      "triggers": [ 
+        {
+          "type": "item",
+          "thing": "pelota de rugby",
+          "on_trigger": "Te salvaste petiso",
+          "after_trigger": "kill"
+        }
+      ]
+    },
+    {
+      "name": "Mamá",
+      "gender": "female",
+      "number": "singular",
+      "description": "Tu madre esta en una, mejor no molestarla.",
+      "talk": "Ya sabés qué tenes que hacer",
+			"points": "0",
+			"enemy": "false"
+			"health": "100",
+			"inventory": [
+			],
+      "triggers": [ 
+        {
+          "type": "",
+          "thing": "",
+          "on_trigger": "",
+          "after_trigger": ""
+        }
+      ]
+    },
+    {
+      "name": "Papá",
+      "gender": "male",
+      "number": "singular",
+      "description": "Tu padre esta cansado y necesita ayuda.",
+      "talk": "Me das una mano con el asado?",
+			"points": "200",
+			"enemy": "false"
+			"health": "100",
+			"inventory": [
+			],
+      "triggers": [ 
+        {
+          "type": "talk",
+          "thing": "",
+          "on_trigger": "- '¡¡Ese es mi pollo!!' Tu padre, cansado, se va del quincho.",
+          "after_trigger": "remove"
+        }
+      ]
+    }
+  ],
+  "items": [ 
+    {
+      "name": "pelota de rugby",
+      "gender": "female",
+      "number": "singular",
+			"points": "100",
+			"weight": "75",
+			"type": "weapon",
+      "actions": [ 
+	"drop",
+	"take",
+	"use"
+      ],
+      "effects_over": [ 
+        "npcs"
+      ]
+    },
+    {
+      "name": "botella de agua",
+      "gender": "female",
+      "number": "singular",
+			"points": "200",
+			"weight": "200",
+			"type": "vanilla",
+      "actions": [ 
+	"drop", "take"
+      ],
+      "effects_over": [ 
+      ]
+    }
+  ],
+  "inventory": [ 
+	],
+  "endgames": [
+    {
+      "condition": "action",
+      "action": "give",
+      "thing": "botella de agua",
+      "description": "Hiciste lo que tu mamá te pidió, sos un chico aplicado. Ahora tu mamá tiene un mejor ánimo!!"
+    },
+    {
+      "condition": "papá",
+      "action": "talk",
+      "thing": "",
+      "description": "Ayudaste a tu papa, bien hecho."
+    }
+  ]
+}

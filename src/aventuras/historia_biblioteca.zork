@@ -1,0 +1,483 @@
+{
+  "settings": {
+    "welcome": "Te encuentras en el salon principal de una biblioteca enorme (y extraña) donde suceden fenomenos",
+    "character": "Guillermo de Okham",
+		"info": "El curioso de la entrada puede darte una pequeña guia",
+	"music": "aventuras/cancion.wav"
+  },
+  "locations": [
+    {
+      "name": "salon",
+      "gender": "male",
+      "number": "singular",
+      "description": "estas en el salon principal de la biblioteca",
+      "sprite": "indi.png",
+      "places": [
+        {
+          "name": "suelo",
+					"gender": "male",
+          "number": "singular",
+          "items": [
+            "lampara"
+          ]
+        },
+        {
+          "name": "mesa",
+					"gender": "female",
+          "number": "singular",
+          "items": [
+            "carta"
+          ]
+        }
+      ],
+      "npcs": [
+				"curioso"
+			],
+      "connections": [
+        {
+          "direction": "east",
+          "location": "sala de historia"
+        },
+        {
+          "direction": "south",
+          "location": "sala de programacion"
+        }
+      ]
+    },
+    {
+      "name": "sala de historia",
+      "gender": "female",
+      "number": "singular",
+      "description": "estas en una sala de historia que esta llena de libros",
+      "sprite": "salahistoria.png",
+      "places": [
+        {
+          "name": "biblioteca",
+					"gender": "female",
+          "number": "singular",
+          "items": [
+            "libro de historia", "libro de geofrafia"
+          ]
+        }
+      ],
+      "npcs": [
+				"bibliotecaria", "estudiante"
+			],
+      "connections": [
+        {
+          "direction": "west",
+          "location": "salon"
+        },
+        {
+          "direction": "south",
+          "location": "cocina"
+        }
+      ]
+    },
+    {
+      "name": "sala de derecho",
+      "gender": "female",
+      "number": "singular",
+      "description": "estas en una sala donde la gente miente",
+	  "sprite": "derecho.png",
+      "places": [
+        {
+          "name": "biblioteca",
+					"gender": "female",
+          "number": "singular",
+          "items": [
+            "libro de derecho"
+          ]
+        }
+      ],
+      "npcs": [
+				"estudiante de derecho"
+			],
+      "connections": [
+        {
+          "direction": "east",
+          "location": "sala de programacion"
+        }
+      ]
+    },
+    {
+      "name": "sala de programacion",
+      "gender": "female",
+      "number": "singular",
+      "description": "estas en la sala mas interesante de la biblioteca",
+      "sprite": "programacion.png",
+      "places": [
+        {
+          "name": "computadora",
+					"gender": "female",
+          "number": "singular",
+          "items": [
+            "pendrive"
+          ]
+        }
+      ],
+      "npcs": [ ],
+      "connections": [ 
+        {
+          "direction": "west",
+          "location": "sala de derecho"
+        },
+        {
+          "direction": "north",
+          "location": "salon"
+        },
+        {
+          "direction": "east",
+          "location": "cocina"
+        }
+      ]
+    },
+    {
+      "name": "cocina",
+      "gender": "female",
+      "number": "singular",
+      "description": "estas en la cocina, en el aire hay un aroma hermoso",
+      "sprite": "cocina.png",
+      "places": [
+        {
+          "name": "heladera",
+					"gender": "female",
+          "number": "singular",
+          "items": [
+            "hamburguesa", "pepinos"
+          ]
+        }
+      ],
+      "npcs": [ 
+				"profesor"
+			],
+      "connections": [
+        {
+          "direction": "east",
+          "location": "scriptorium",
+          "obstacles": "profesor"
+        },
+        {
+          "direction": "west",
+          "location": "sala de programacion"
+        },
+        {
+          "direction": "north",
+          "location": "sala de historia"
+        },
+        {
+          "direction": "south",
+          "location": "sala de matematica"
+        }
+      ]
+    },
+    {
+      "name": "scriptorium",
+      "gender": "male",
+      "number": "singular",
+      "description": " ",
+      "places": [ ],
+      "npcs": [ ],
+      "connections": [
+        {
+          "direction": "west",
+          "location": "cocina"
+        }
+      ]
+    },
+    {
+      "name": "sala de matematica",
+      "gender": "female",
+      "number": "singular",
+      "description": "estas en la sala de matematica, hay contenido para cualquiera",
+      "sprite": "matematica.png",  
+      "places": [
+        {
+          "name": "suelo",
+					"gender": "female",
+          "number": "singular",
+          "items": [ 
+            "disket de simcity"
+          ]
+        },
+        {
+          "name": "biblioteca",
+					"gender": "female",
+          "number": "singular",
+          "items": [ 
+            "libro de polya"
+          ]
+        }
+      ],
+      "npcs": [ ],
+      "connections": [
+        {
+          "direction": "north",
+          "location": "cocina"
+        }
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "name": "curioso",
+      "gender": "male",
+      "sprite":"imagenes_npcs/curioso.png",
+      "number": "singular",
+      "description": "un tipo muy extraño te mira fijamente",
+      "talk": "me dijeron que en el scriptorium los libros vuelan...",
+			"points": "100",
+			"enemy": "false",
+			"health": "10",
+			"inventory": [],
+      "triggers": []
+    },
+    {
+      "name": "estudiante de derecho",
+      "gender": "male",
+      "sprite":"imagenes_npcs/estudiante_de_derecho.png",
+      "number": "singular",
+      "description": "es uno de esos estudiantes que no razonan",
+      "talk": "ese libro de derecho posee los secretos de la biblioteca",
+			"points": "100",
+			"enemy": "true",
+			"health": "1000",
+			"inventory": [ ],
+      "triggers": [
+        {
+          "type": "attack",
+          "thing": "lampara",
+          "on_trigger": "'uhhh, me acabas de hacer feliz'. El estudiante de derecho ha sido iluminado y va a pasarse a ingenieria",
+          "after_trigger": "remove"
+        }
+      ]
+    },
+    {
+      "name": "bibliotecaria",
+      "gender": "female",
+      "sprite":"imagenes_npcs/bibliotecaria.png",
+      "number": "singular",
+      "description": "la bibliotecaria esta ordenando libros",
+      "talk": "no me molestes",
+			"points": "100",
+			"enemy": "false",
+			"health": "100",
+			"inventory": [ ],
+      "triggers": [ 
+        {
+          "type": "attack",
+          "thing": "all",
+          "on_trigger": "te dije que no me molestes, hace lo que quieras, pero no te voy a dar nada",
+          "after_trigger": "nothing"
+        }
+      ]
+    },
+    {
+      "name": "estudiante",
+      "gender": "female",
+      "sprite":"imagenes_npcs/estudiante.png",
+      "number": "singular",
+      "description": "la estudiante esta estudiando (que redundante)",
+      "talk": "¿queres saber sobre la radioactividad de las moleculas de oxigeno? ... ¿por que te alejas?",
+			"points": "100",
+			"enemy": "false",
+			"health": "10",
+			"inventory": [ ],
+      "triggers": [
+        {
+          "type": "attack",
+          "thing": "all",
+          "on_trigger": "todo bien que no te guste quimica, pero no me tenes que pegar...",
+          "after_trigger": "nothing"
+        }
+      ]
+    },
+    {
+      "name": "profesor",
+      "gender": "male",
+      "sprite":"imagenes_npcs/profesor.png",
+      "number": "singular",
+      "description": "parece que esta enojado",
+      "talk": "no te puedo dejar pasar. Jure con mi vida defender el conocimiento que hay detras mio",
+			"points": "100",
+			"enemy": "true",
+			"health": "1000",
+			"inventory": [ ],
+      "triggers": [
+        {
+          "type": "attack",
+          "thing": "all",
+          "on_trigger": "hagas lo que hagas no te voy a dejar pasar, soy invencible",
+          "after_trigger": "nothing"
+        },
+        {
+          "type": "item",
+          "thing": "disket de simcity",
+          "on_trigger": "no te lo puedo creer, lo estoy buscando hace 20 años",
+          "after_trigger": "remove"
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "name": "carta",
+      "gender": "female",
+      "sprite":"imagenes_items/carta.png",
+      "number": "singular",
+			"points": "100",
+			"weight": "10",
+			"type": "vanilla",
+      "actions": [
+        "take", "drop"
+      ],
+      "effects_over": [
+        "npcs",
+        "self",
+        "item"
+      ]
+    },
+    {
+      "name": "lampara",
+      "gender": "female",
+      "sprite":"imagenes_items/lampara.png",
+      "number": "singular",
+			"points": "100",
+			"weight": "100",
+			"type": "weapon",
+      "actions": [
+        "use", "take", "drop"
+      ],
+      "effects_over": [
+        "npcs"
+      ]
+    },
+    {
+      "name": "libro de historia",
+      "gender": "male",
+      "sprite":"imagenes_items/libro_de_historia.png",
+      "number": "singular",
+			"points": "100",
+			"weight": "5",
+			"type": "vanilla",
+      "actions": [
+        "take", "drop"
+      ],
+      "effects_over": [ ]
+    },
+    {
+      "name": "libro de geofrafia",
+      "gender": "male",
+      "sprite":"imagenes_items/libro_de_geografia.png",
+      "number": "singular",
+			"points": "100",
+			"weight": "5",
+			"type": "vanilla",
+      "actions": [
+        "take", "drop"
+      ],
+      "effects_over": [ ]
+    },
+    {
+      "name": "libro de derecho",
+      "gender": "male",
+      "sprite":"imagenes_items/libro_de_derecho.png",
+      "number": "singular",
+			"points": "100",
+			"weight": "5",
+			"type": "vanilla",
+      "actions": [
+        "take", "drop"
+      ],
+      "effects_over": [ ]
+    },
+    {
+      "name": "pendrive",
+      "gender": "male",
+      "sprite":"imagenes_items/pendrive.png",
+      "number": "singular",
+			"points": "100",
+			"weight": "1",
+			"type": "vanilla",
+      "actions": [
+        "take", "drop"
+      ],
+      "effects_over": [ ]
+    },
+    {
+      "name": "hamburguesa",
+      "gender": "female",
+      "sprite":"imagenes_items/hamburguesa.png",
+      "number": "singular",
+			"points": "100",
+			"weight": "5",
+			"type": "potion",
+      "actions": [
+        "take", "use"
+      ],
+      "effects_over": [
+        "self",
+        "npcs"
+      ]
+    },
+    {
+      "name": "pepinos",
+      "gender": "male",
+      "sprite":"imagenes_items/pepinos.png",
+      "number": "plural",
+			"points": "100",
+			"weight": "5",
+			"type": "poison",
+      "actions": [
+        "use", "take"
+      ],
+      "effects_over": [
+        "npcs",
+        "self"
+      ]
+    },
+    {
+      "name": "disket de simcity",
+      "gender": "male",
+      "sprite":"imagenes_items/disket_de_simcity.png",
+      "number": "singular",
+			"points": "100",
+			"weight": "1",
+			"type": "vanilla",
+      "actions": [
+				"take", "drop"
+      ],
+      "effects_over": [ ]
+    },
+    {
+      "name": "libro de polya",
+      "gender": "male",
+      "sprite":"imagenes_items/libro_de_polya.png",
+      "number": "singular",
+			"points": "100",
+			"weight": "5",
+			"type": "weapon",
+      "actions": [
+      	"use", "take", "drop"
+      ],
+      "effects_over": [
+        "npcs"
+      ]
+    }
+  ],
+  "inventory": [ ],
+  "endgames": [
+    {
+      "condition": "location",
+      "action": "move",
+      "thing": "scriptorium",
+      "description": "al final no hay libros voladores, todo fue una mentira. Tan solo hay un escritorio con libros para poder estudiar para las evaluaciones de aprendizaje"
+    },
+    {
+      "condition": "action",
+      "action": "take",
+      "thing": "libro de derecho",
+      "description": "como vas a agarrar un libro de derecho?!?!?! Ahora te convertiste en uno de ellos"
+    }
+  ]
+}
