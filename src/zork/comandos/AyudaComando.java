@@ -37,7 +37,7 @@ public class AyudaComando implements Comando {
 
     @Override
     public ComandoCondicion getTipo() {
-	return null;
+	return ComandoCondicion.DEFAULT;
     }
     
 }

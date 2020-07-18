@@ -56,7 +56,7 @@
 					"gender": "female",
           "number": "singular",
           "items": [
-            "libro de historia", "libro de geofrafia"
+            "libro de historia", "libro de geografia"
           ]
         }
       ],
@@ -297,7 +297,7 @@
       "gender": "male",
       "sprite":"imagenes_npcs/profesor.png",
       "number": "singular",
-      "description": "parece que esta enojado",
+      "description": "parece que el profesor esta enojado",
       "talk": "no te puedo dejar pasar. Jure con mi vida defender el conocimiento que hay detras mio",
 			"points": "100",
 			"enemy": "true",
@@ -343,7 +343,7 @@
       "sprite":"imagenes_items/lampara.png",
       "number": "singular",
 			"points": "100",
-			"weight": "100",
+			"weight": "80",
 			"type": "weapon",
       "actions": [
         "use", "take", "drop"
@@ -366,7 +366,7 @@
       "effects_over": [ ]
     },
     {
-      "name": "libro de geofrafia",
+      "name": "libro de geografia",
       "gender": "male",
       "sprite":"imagenes_items/libro_de_geografia.png",
       "number": "singular",
@@ -411,6 +411,7 @@
       "number": "singular",
 			"points": "100",
 			"weight": "5",
+			"health": "25",
 			"type": "potion",
       "actions": [
         "take", "use"
@@ -427,6 +428,7 @@
       "number": "plural",
 			"points": "100",
 			"weight": "5",
+			"health": "25",
 			"type": "poison",
       "actions": [
         "use", "take"

@@ -2,7 +2,8 @@
   "settings": {
     "welcome": "Te encuentras en un muelle. Es de noche pero la luna ilumina todo el lugar. En el suelo hay algunos objetos, y sientes muchas ganas de ir hacia una taberna.",
     "character": "Guybrush Threepwood",
-		"info": "aca van los objetivos del juego y demas info adicional que el creador quiera dar"
+		"info": "aca van los objetivos del juego y demas info adicional que el creador quiera dar",
+		"music": ""
   },
   "locations": [
     {
